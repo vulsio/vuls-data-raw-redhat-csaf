@@ -1,0 +1,920 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel-rt packages that fix three security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise MRG\n2.5.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* An integer overflow flaw was found in the way the Linux kernel's\nnetfilter connection tracking implementation loaded extensions. An attacker\non a local network could potentially send a sequence of specially crafted\npackets that would initiate the loading of a large number of extensions,\ncausing the targeted system in that network to crash. (CVE-2014-9715,\nModerate)\n\n* It was found that the Linux kernel's ping socket implementation did not\nproperly handle socket unhashing during spurious disconnects, which could\nlead to a use-after-free flaw. On x86-64 architecture systems, a local user\nable to create ping sockets could use this flaw to crash the system.\nOn non-x86-64 architecture systems, a local user able to create ping\nsockets could use this flaw to escalate their privileges on the system.\n(CVE-2015-3636, Moderate)\n\n* It was found that the Linux kernel's TCP/IP protocol suite implementation\nfor IPv6 allowed the Hop Limit value to be set to a smaller value than the\ndefault one. An attacker on a local network could use this flaw to prevent\nsystems on that network from sending or receiving network packets.\n(CVE-2015-2922, Low)\n\nRed Hat would like to thank Nathan Hoad for reporting the CVE-2014-9715\nissue.\n\nThis update provides a build of the kernel-rt package for Red Hat\nEnterprise MRG 2.5 that is layered on Red Hat Enterprise Linux 6, and fixes\nthe following issues:\n\n* drbg: Add stdrng alias and increase priority\n* seqiv / eseqiv / chainiv: Move IV seeding into init function\n* ipv4: kABI fix for 0bbf87d backport\n* ipv4: Convert ipv4.ip_local_port_range to be per netns\n* libceph: tcp_nodelay support\n* ipr: Increase default adapter init stage change timeout\n* fix use-after-free bug in usb_hcd_unlink_urb()\n* libceph: fix double __remove_osd() problem\n* ext4: fix data corruption caused by unwritten and delayed extents\n* sunrpc: Add missing support for RPC_CLNT_CREATE_NO_RETRANS_TIMEOUT\n* nfs: Fixing lease renewal (Benjamin Coddington)\n* control hard lockup detection default\n* Fix print-once on enable\n* watchdog: update watchdog_thresh properly and watchdog attributes\n  atomically\n* module: Call module notifier on failure after complete_formation()\n\n(BZ#1230403)\n\nThis update also fixes the following bugs:\n\n* Non-standard usage of the functions write_seqcount_{begin,end}() were\nused in NFSv4, which caused the realtime code to try to sleep while locks\nwere held and produced the \"scheduling while atomic\" messages. The code was\nmodified to use the functions __write_seqcount_{begin,end}() that do not\nhold any locks removing the message and allowing correct execution.\n(BZ#1225642)\n\n* Dracut in Red Hat Enterprise Linux 6 has a dependency on a module called\nscsi_wait_scan that no longer exists on 3.x kernels. This caused the system\nto display misleading messages at start-up when the obsoleted\nscsi_wait_scan module was not found. To address this issue, MRG Realtime\nprovides a dummy scsi_wait_scan module so that the requirements for the\ninitramfs created by dracut are met and the boot messages are no longer\ndisplayed. (BZ#1230403)\n\nAll kernel-rt users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements. The system must be\nrebooted for this update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2015:1564",
+				"url": "https://access.redhat.com/errata/RHSA-2015:1564"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhsa-2015_1564.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2015-08-05T18:49:08+00:00",
+			"generator": {
+				"date": "2023-10-17T16:04:14+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2015:1564",
+			"initial_release_date": "2015-08-05T18:49:07+00:00",
+			"revision_history": [
+				{
+					"date": "2015-08-05T18:49:08+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+								"product": {
+									"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+									"product_id": "6Server-MRG-Realtime-2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise MRG for RHEL-6"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-debuginfo@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-devel@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-devel@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-debuginfo@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-devel@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo-common-x86_64@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-devel@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_id": "kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-debuginfo@3.10.0-229.rt56.158.el6rt?arch=x86_64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+								"product": {
+									"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+									"product_id": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@3.10.0-229.rt56.158.el6rt?arch=src&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+								"product": {
+									"name": "kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+									"product_id": "kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-firmware@3.10.0-229.rt56.158.el6rt?arch=noarch&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+								"product": {
+									"name": "kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+									"product_id": "kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-doc@3.10.0-229.rt56.158.el6rt?arch=noarch&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.src as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src"
+				},
+				"product_reference": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch"
+				},
+				"product_reference": "kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch"
+				},
+				"product_reference": "kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Nathan Hoad"
+					]
+				}
+			],
+			"cve": "CVE-2014-9715",
+			"cwe": {
+				"id": "CWE-841",
+				"name": "Improper Enforcement of Behavioral Workflow"
+			},
+			"discovery_date": "2014-05-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1208684"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An integer overflow flaw was found in the way the Linux kernel's netfilter connection tracking implementation loaded extensions. An attacker on a local network could potentially send a sequence of specially crafted packets that would initiate the loading of a large number of extensions, causing the targeted system in that network to crash.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "netfilter connection tracking extensions denial of service",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affect the versions of the Linux kernel as shipped with Red Hat Enterprise Linux 5 and 6. This issue affects the versions of the Linux kernel as shipped with Red Hat Enterprise Linux 7 and Red Hat Enterprise MRG 2.\n\nFor additional information, refer to the Red Hat Enterprise Linux Life Cycle: https://access.redhat.com/support/policy/updates/errata/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+					"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-9715"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1208684",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1208684"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-9715",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-9715"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-9715",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-9715"
+				}
+			],
+			"release_date": "2015-04-08T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1564"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 5.7,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:M/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "netfilter connection tracking extensions denial of service"
+		},
+		{
+			"cve": "CVE-2015-2922",
+			"cwe": {
+				"id": "CWE-454",
+				"name": "External Initialization of Trusted Variables or Data Stores"
+			},
+			"discovery_date": "2015-03-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1203712"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the Linux kernel's TCP/IP protocol suite implementation for IPv6 allowed the Hop Limit value to be set to a smaller value than the default one. An attacker on a local network could use this flaw to prevent systems on that network from sending or receiving network packets.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-2922 kernel: denial of service (DoS) attack against IPv6 network stacks due to improper handling of Router Advertisements.",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of the Linux kernel as shipped with\nRed Hat Enterprise Linux 5, 6, 7 and Red Hat Enterprise MRG 2. Future kernel\nupdates for Red Hat Enterprise Linux 5, 6, 7 and Red Hat Enterprise MRG 2 may\naddress this issue.\n\nRed Hat Enterprise Linux 5 is now in Production 3 phase of the support and maintenance life cycle. This issue is not currently planned to be addressed in future updates. For additional information, refer to the Red Hat Enterprise Linux Life Cycle: https://access.redhat.com/support/policy/updates/errata/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+					"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-2922"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1203712",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1203712"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-2922",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-2922"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-2922",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-2922"
+				}
+			],
+			"release_date": "2015-03-24T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1564"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 3.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2015-2922 kernel: denial of service (DoS) attack against IPv6 network stacks due to improper handling of Router Advertisements."
+		},
+		{
+			"cve": "CVE-2015-3636",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
+			"discovery_date": "2015-05-02T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1218074"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the Linux kernel's ping socket implementation did not properly handle socket unhashing during spurious disconnects, which could lead to a use-after-free flaw. On x86-64 architecture systems, a local user able to create ping sockets could use this flaw to crash the system. On non-x86-64 architecture systems, a local user able to create ping sockets could use this flaw to escalate their privileges on the system.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-3636 kernel: ping sockets: use-after-free leading to local privilege escalation",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affect the Linux kernel as shipped with Red Hat Enterprise Linux 5. This issue does affect the Linux kernel as shipped with Red Hat Enterprise Linux 6, 7 and Red Hat Enterprise MRG 2. Future kernel updates for the respective releases will address this issue.\n\nPlease note that on x86-64 architecture systems the impact is limited to local Denial of Service and that the ping sockets functionality is disabled by default (net.ipv4.ping_group_range sysctl is \"1\t0\").",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+					"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-3636"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1218074",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1218074"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-3636",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-3636"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-3636",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3636"
+				}
+			],
+			"release_date": "2015-05-02T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1564"
+				},
+				{
+					"category": "workaround",
+					"details": "You can check whether ping socket functionality is enabled by examining the net.ipv4.ping_group_range sysctl value:\n\n~]# sysctl net.ipv4.ping_group_range\nnet.ipv4.ping_group_range = 1\t0\n\n\"1 0\" is the default value and disables the ping socket functionality even for root user. Any other value means that the ping socket functionality might be enabled for certain users on the system.\n\nTo mitigate this vulnerability make sure that you either allow the functionality to trusted local users (groups) only or set the net.ipv4.ping_group_range sysctl to the default and disabled state:\n\n~]# sysctl net.ipv4.ping_group_range=\"1 0\"\n\nPlease note that this might prevent some programs relying on this functionality from functioning properly.",
+					"product_ids": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:S/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-1:3.10.0-229.rt56.158.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-1:3.10.0-229.rt56.158.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-1:3.10.0-229.rt56.158.el6rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2015-3636 kernel: ping sockets: use-after-free leading to local privilege escalation"
+		}
+	]
+}

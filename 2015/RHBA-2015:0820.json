@@ -1,0 +1,1536 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated packages that resolve various issues are now available for Red Hat\nEnterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat Enterprise Linux OpenStack Platform provides the facilities for\nbuilding a private or public infrastructure-as-a-service (IaaS) cloud\nrunning on commonly available physical hardware.\n\nChanges to the ceph component:\n\n* In the previous version, launching of nova instances resulted in nova-compute to crash with a segmentation fault in certain cases when using Ceph RBD back end. This was due to the incorrect clean up in librbd1 packages. This has been fixed in this release, and nova-compute now operates correctly with Ceph RBD back end. (BZ#1182608)\n\nChanges to the python-novaclient component:\n\n* With this enhancement, a new command 'service-delete' has been added to the nova client to allow disabling services through the nova CLI as opposed to manually editing the nova-services table. (BZ#1206644)\n\nChanges to the python-requests component:\n\n* In the previous version, python-requests had issues including incorrect HTTP headers’ generation, causing errors with python-swiftclient. This was due to python-requests having an incorrect implementation of a case insensitive mapping. With this release, case insensitive dictionary (CaseInsensitiveDict) has been updated which has fixed all issues with python-swiftclient. (BZ#1176181)\n\nChanges to the python-sqlalchemy component:\n\n* Previously, an improvement to the connection pool such that new connections could be made concurrently, made it so that the 'init on first connect' routine of a SQLAlchemy dialect would not have been completed if concurrent routines proceeded at the same time. As a result, when a SQLAlchemy engine was first used, operations which relied on the state acquired during initial startup could fail, as this information would not have been completed.\n\nTo resolve this issue, with this update, 'mutexing' was added to the event system which handles the initial dialect startup phase, so that connection attempts are again serialized, but only when the engine first starts up. (BZ#1198773)\n\n* Previously, the MySQL-Python DBAPI was observed under some circumstances using the ProgrammingError exception class to report on the 'command out of sync' errors, which is considered to be the case where a connection need to be thrown away; the SQLAlchemy dialect only expected this error to be emitted within the OperationalError class. As a result, in some cases a MySQL-Python connection that became corrupt would not signal to the SQLAlchemy engine that the pool of connections should be disposed, leading the engine not being able to proceed with new operations.\n\nWith this update, the error handling scheme of the MySQL-Python dialect is modified to expect either the OperationalError or ProgrammingError exception class when testing for this particular class of error. As a result, the SQLAlchemy engine/connection pool now correctly disposes off its connections when a MySQL-Python ProgrammingError delivers the 'command out of sync' error code. (BZ#1198774)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHBA-2015:0820",
+				"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/5/html/Release_Notes/index.html",
+				"url": "https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/5/html/Release_Notes/index.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhba-2015_0820.json"
+			}
+		],
+		"title": "Red Hat Bug Fix Advisory: Red Hat Enterprise Linux OpenStack Platform Bug Fix and Enhancement Advisory",
+		"tracking": {
+			"current_release_date": "2015-09-30T08:27:21+00:00",
+			"generator": {
+				"date": "2023-10-17T16:10:22+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHBA-2015:0820",
+			"initial_release_date": "2015-04-16T14:28:41+00:00",
+			"revision_history": [
+				{
+					"date": "2015-09-30T08:27:21+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+								"product": {
+									"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+									"product_id": "6Server-RH6-RHOS-5.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openstack:5::el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenStack Platform"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-requests-0:2.3.0-1.el6.src",
+								"product": {
+									"name": "python-requests-0:2.3.0-1.el6.src",
+									"product_id": "python-requests-0:2.3.0-1.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-requests@2.3.0-1.el6?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-novaclient-1:2.17.0-4.el6ost.src",
+								"product": {
+									"name": "python-novaclient-1:2.17.0-4.el6ost.src",
+									"product_id": "python-novaclient-1:2.17.0-4.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-novaclient@2.17.0-4.el6ost?arch=src&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-sqlalchemy-0:0.8.4-2.el6ost.src",
+								"product": {
+									"name": "python-sqlalchemy-0:0.8.4-2.el6ost.src",
+									"product_id": "python-sqlalchemy-0:0.8.4-2.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-sqlalchemy@0.8.4-2.el6ost?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-utils-0:2014.2-1.el6ost.src",
+								"product": {
+									"name": "openstack-utils-0:2014.2-1.el6ost.src",
+									"product_id": "openstack-utils-0:2014.2-1.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-utils@2014.2-1.el6ost?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-0:0.80.5-4.el6ost.src",
+								"product": {
+									"name": "ceph-0:0.80.5-4.el6ost.src",
+									"product_id": "ceph-0:0.80.5-4.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph@0.80.5-4.el6ost?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-urllib3-0:1.8.2-4.1.el6.src",
+								"product": {
+									"name": "python-urllib3-0:1.8.2-4.1.el6.src",
+									"product_id": "python-urllib3-0:1.8.2-4.1.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-urllib3@1.8.2-4.1.el6?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mariadb-galera-0:5.5.41-1.el6ost.src",
+								"product": {
+									"name": "mariadb-galera-0:5.5.41-1.el6ost.src",
+									"product_id": "mariadb-galera-0:5.5.41-1.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mariadb-galera@5.5.41-1.el6ost?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-requests-0:2.3.0-1.el6.noarch",
+								"product": {
+									"name": "python-requests-0:2.3.0-1.el6.noarch",
+									"product_id": "python-requests-0:2.3.0-1.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-requests@2.3.0-1.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-novaclient-1:2.17.0-4.el6ost.noarch",
+								"product": {
+									"name": "python-novaclient-1:2.17.0-4.el6ost.noarch",
+									"product_id": "python-novaclient-1:2.17.0-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-novaclient@2.17.0-4.el6ost?arch=noarch&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+								"product": {
+									"name": "python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+									"product_id": "python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-novaclient-doc@2.17.0-4.el6ost?arch=noarch&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-utils-0:2014.2-1.el6ost.noarch",
+								"product": {
+									"name": "openstack-utils-0:2014.2-1.el6ost.noarch",
+									"product_id": "openstack-utils-0:2014.2-1.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-utils@2014.2-1.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-urllib3-0:1.8.2-4.1.el6.noarch",
+								"product": {
+									"name": "python-urllib3-0:1.8.2-4.1.el6.noarch",
+									"product_id": "python-urllib3-0:1.8.2-4.1.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-urllib3@1.8.2-4.1.el6?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+								"product": {
+									"name": "python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+									"product_id": "python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-sqlalchemy@0.8.4-2.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+								"product": {
+									"name": "python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+									"product_id": "python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-sqlalchemy-debuginfo@0.8.4-2.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-common-0:0.80.5-4.el6ost.x86_64",
+								"product": {
+									"name": "ceph-common-0:0.80.5-4.el6ost.x86_64",
+									"product_id": "ceph-common-0:0.80.5-4.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph-common@0.80.5-4.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "librbd1-0:0.80.5-4.el6ost.x86_64",
+								"product": {
+									"name": "librbd1-0:0.80.5-4.el6ost.x86_64",
+									"product_id": "librbd1-0:0.80.5-4.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/librbd1@0.80.5-4.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-ceph-0:0.80.5-4.el6ost.x86_64",
+								"product": {
+									"name": "python-ceph-0:0.80.5-4.el6ost.x86_64",
+									"product_id": "python-ceph-0:0.80.5-4.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-ceph@0.80.5-4.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+								"product": {
+									"name": "ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+									"product_id": "ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph-debuginfo@0.80.5-4.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "librados2-0:0.80.5-4.el6ost.x86_64",
+								"product": {
+									"name": "librados2-0:0.80.5-4.el6ost.x86_64",
+									"product_id": "librados2-0:0.80.5-4.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/librados2@0.80.5-4.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+								"product": {
+									"name": "mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+									"product_id": "mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mariadb-galera-debuginfo@5.5.41-1.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+								"product": {
+									"name": "mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+									"product_id": "mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mariadb-galera-common@5.5.41-1.el6ost?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+								"product": {
+									"name": "mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+									"product_id": "mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mariadb-galera-server@5.5.41-1.el6ost?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-0:0.80.5-4.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src"
+				},
+				"product_reference": "ceph-0:0.80.5-4.el6ost.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-common-0:0.80.5-4.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64"
+				},
+				"product_reference": "ceph-common-0:0.80.5-4.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-debuginfo-0:0.80.5-4.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64"
+				},
+				"product_reference": "ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "librados2-0:0.80.5-4.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64"
+				},
+				"product_reference": "librados2-0:0.80.5-4.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "librbd1-0:0.80.5-4.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64"
+				},
+				"product_reference": "librbd1-0:0.80.5-4.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mariadb-galera-0:5.5.41-1.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src"
+				},
+				"product_reference": "mariadb-galera-0:5.5.41-1.el6ost.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mariadb-galera-common-0:5.5.41-1.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64"
+				},
+				"product_reference": "mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64"
+				},
+				"product_reference": "mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mariadb-galera-server-0:5.5.41-1.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64"
+				},
+				"product_reference": "mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-utils-0:2014.2-1.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch"
+				},
+				"product_reference": "openstack-utils-0:2014.2-1.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-utils-0:2014.2-1.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src"
+				},
+				"product_reference": "openstack-utils-0:2014.2-1.el6ost.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-ceph-0:0.80.5-4.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64"
+				},
+				"product_reference": "python-ceph-0:0.80.5-4.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-novaclient-1:2.17.0-4.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch"
+				},
+				"product_reference": "python-novaclient-1:2.17.0-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-novaclient-1:2.17.0-4.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src"
+				},
+				"product_reference": "python-novaclient-1:2.17.0-4.el6ost.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-novaclient-doc-1:2.17.0-4.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch"
+				},
+				"product_reference": "python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-requests-0:2.3.0-1.el6.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch"
+				},
+				"product_reference": "python-requests-0:2.3.0-1.el6.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-requests-0:2.3.0-1.el6.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src"
+				},
+				"product_reference": "python-requests-0:2.3.0-1.el6.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-sqlalchemy-0:0.8.4-2.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src"
+				},
+				"product_reference": "python-sqlalchemy-0:0.8.4-2.el6ost.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-sqlalchemy-0:0.8.4-2.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64"
+				},
+				"product_reference": "python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64 as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64"
+				},
+				"product_reference": "python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-urllib3-0:1.8.2-4.1.el6.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch"
+				},
+				"product_reference": "python-urllib3-0:1.8.2-4.1.el6.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-urllib3-0:1.8.2-4.1.el6.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				},
+				"product_reference": "python-urllib3-0:1.8.2-4.1.el6.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2014-6568",
+			"discovery_date": "2015-01-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1184552"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in Oracle MySQL Server 5.5.40 and earlier, and 5.6.21 and earlier, allows remote authenticated users to affect availability via vectors related to Server : InnoDB : DML.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-6568 mysql: unspecified vulnerability related to Server:InnoDB:DML (CPU Jan 2015)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-6568"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1184552",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1184552"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-6568",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-6568"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-6568",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-6568"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL",
+					"url": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL"
+				}
+			],
+			"release_date": "2015-01-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, ensure all previously released errata relevant to your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 5 runs on Red Hat Enterprise Linux 6.6.\n\nThe Red Hat Enterprise Linux OpenStack Platform 5 Release Notes (see References section) contain the following:\n* An explanation of the way in which the provided components interact to form a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 5, including which channels need to be enabled and disabled.\n\nThis update is available through the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 3.5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:S/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2014-6568 mysql: unspecified vulnerability related to Server:InnoDB:DML (CPU Jan 2015)"
+		},
+		{
+			"cve": "CVE-2015-0374",
+			"discovery_date": "2015-01-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1184553"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in Oracle MySQL Server 5.5.40 and earlier and 5.6.21 and earlier allows remote authenticated users to affect confidentiality via unknown vectors related to Server : Security : Privileges : Foreign Key.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-0374 mysql: unspecified vulnerability related to Server:Security:Privileges:Foreign Key (CPU Jan 2015)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-0374"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1184553",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1184553"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-0374",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-0374"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-0374",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0374"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL",
+					"url": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL"
+				}
+			],
+			"release_date": "2015-01-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, ensure all previously released errata relevant to your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 5 runs on Red Hat Enterprise Linux 6.6.\n\nThe Red Hat Enterprise Linux OpenStack Platform 5 Release Notes (see References section) contain the following:\n* An explanation of the way in which the provided components interact to form a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 5, including which channels need to be enabled and disabled.\n\nThis update is available through the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 3.5,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2015-0374 mysql: unspecified vulnerability related to Server:Security:Privileges:Foreign Key (CPU Jan 2015)"
+		},
+		{
+			"cve": "CVE-2015-0381",
+			"discovery_date": "2015-01-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1184554"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in Oracle MySQL Server 5.5.40 and earlier and 5.6.21 and earlier allows remote attackers to affect availability via unknown vectors related to Server : Replication, a different vulnerability than CVE-2015-0382.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-0381 mysql: unspecified vulnerability related to Server:Replication (CPU Jan 2015)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-0381"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1184554",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1184554"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-0381",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-0381"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-0381",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0381"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL",
+					"url": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL"
+				}
+			],
+			"release_date": "2015-01-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, ensure all previously released errata relevant to your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 5 runs on Red Hat Enterprise Linux 6.6.\n\nThe Red Hat Enterprise Linux OpenStack Platform 5 Release Notes (see References section) contain the following:\n* An explanation of the way in which the provided components interact to form a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 5, including which channels need to be enabled and disabled.\n\nThis update is available through the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2015-0381 mysql: unspecified vulnerability related to Server:Replication (CPU Jan 2015)"
+		},
+		{
+			"cve": "CVE-2015-0382",
+			"discovery_date": "2015-01-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1184555"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in Oracle MySQL Server 5.5.40 and earlier and 5.6.21 and earlier allows remote attackers to affect availability via unknown vectors related to Server : Replication, a different vulnerability than CVE-2015-0381.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-0382 mysql: unspecified vulnerability related to Server:Replication (CPU Jan 2015)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-0382"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1184555",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1184555"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-0382",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-0382"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-0382",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0382"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL",
+					"url": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL"
+				}
+			],
+			"release_date": "2015-01-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, ensure all previously released errata relevant to your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 5 runs on Red Hat Enterprise Linux 6.6.\n\nThe Red Hat Enterprise Linux OpenStack Platform 5 Release Notes (see References section) contain the following:\n* An explanation of the way in which the provided components interact to form a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 5, including which channels need to be enabled and disabled.\n\nThis update is available through the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2015-0382 mysql: unspecified vulnerability related to Server:Replication (CPU Jan 2015)"
+		},
+		{
+			"cve": "CVE-2015-0411",
+			"discovery_date": "2015-01-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1184560"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in Oracle MySQL Server 5.5.40 and earlier, and 5.6.21 and earlier, allows remote attackers to affect confidentiality, integrity, and availability via unknown vectors related to Server : Security : Encryption.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-0411 mysql: unspecified vulnerability related to Server:Security:Encryption (CPU Jan 2015)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-0411"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1184560",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1184560"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-0411",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-0411"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-0411",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0411"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL",
+					"url": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL"
+				}
+			],
+			"release_date": "2015-01-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, ensure all previously released errata relevant to your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 5 runs on Red Hat Enterprise Linux 6.6.\n\nThe Red Hat Enterprise Linux OpenStack Platform 5 Release Notes (see References section) contain the following:\n* An explanation of the way in which the provided components interact to form a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 5, including which channels need to be enabled and disabled.\n\nThis update is available through the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2015-0411 mysql: unspecified vulnerability related to Server:Security:Encryption (CPU Jan 2015)"
+		},
+		{
+			"cve": "CVE-2015-0432",
+			"discovery_date": "2015-01-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1184561"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in Oracle MySQL Server 5.5.40 and earlier allows remote authenticated users to affect availability via vectors related to Server : InnoDB : DDL : Foreign Key.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-0432 mysql: unspecified vulnerability related to Server:InnoDB:DDL:Foreign Key (CPU Jan 2015)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+					"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-0432"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1184561",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1184561"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-0432",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-0432"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-0432",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0432"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL",
+					"url": "http://www.oracle.com/technetwork/topics/security/cpujan2015-1972971.html#AppendixMSQL"
+				}
+			],
+			"release_date": "2015-01-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, ensure all previously released errata relevant to your system have been applied.\n\nRed Hat Enterprise Linux OpenStack Platform 5 runs on Red Hat Enterprise Linux 6.6.\n\nThe Red Hat Enterprise Linux OpenStack Platform 5 Release Notes (see References section) contain the following:\n* An explanation of the way in which the provided components interact to form a working cloud computing environment.\n* Technology Previews, Recommended Practices, and Known Issues.\n* The channels required for Red Hat Enterprise Linux OpenStack Platform 5, including which channels need to be enabled and disabled.\n\nThis update is available through the Red Hat Network. Details on how to use the Red Hat Network to apply this update are available at https://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:0820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:ceph-0:0.80.5-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:ceph-common-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:ceph-debuginfo-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librados2-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:librbd1-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-0:5.5.41-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-common-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-debuginfo-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:mariadb-galera-server-0:5.5.41-1.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-utils-0:2014.2-1.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-ceph-0:0.80.5-4.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-novaclient-1:2.17.0-4.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-novaclient-doc-1:2.17.0-4.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-requests-0:2.3.0-1.el6.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-sqlalchemy-debuginfo-0:0.8.4-2.el6ost.x86_64",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.noarch",
+						"6Server-RH6-RHOS-5.0:python-urllib3-0:1.8.2-4.1.el6.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2015-0432 mysql: unspecified vulnerability related to Server:InnoDB:DDL:Foreign Key (CPU Jan 2015)"
+		}
+	]
+}

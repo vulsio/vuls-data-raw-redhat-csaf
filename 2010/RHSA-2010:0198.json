@@ -1,0 +1,2580 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openldap packages that fix one security issue and several bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "OpenLDAP is an open source suite of LDAP (Lightweight Directory Access\nProtocol) applications and development tools.\n\nA flaw was found in the way OpenLDAP handled NUL characters in the\nCommonName field of X.509 certificates. An attacker able to get a\ncarefully-crafted certificate signed by a trusted Certificate Authority\ncould trick applications using OpenLDAP libraries into accepting it by\nmistake, allowing the attacker to perform a man-in-the-middle attack.\n(CVE-2009-3767)\n\nThis update also fixes the following bugs:\n\n* the ldap init script did not provide a way to alter system limits for the\nslapd daemon. A variable is now available in \"/etc/sysconfig/ldap\" for this\noption. (BZ#527313)\n\n* applications that use the OpenLDAP libraries to contact a Microsoft\nActive Directory server could crash when a large number of network\ninterfaces existed. This update implements locks in the OpenLDAP library\ncode to resolve this issue. (BZ#510522)\n\n* when slapd was configured to allow client certificates, approximately 90%\nof connections froze because of a large CA certificate file and slapd not\nchecking the success of the SSL handshake. (BZ#509230)\n\n* the OpenLDAP server would freeze for unknown reasons under high load.\nThese packages add support for accepting incoming connections by new\nthreads, resolving the issue. (BZ#507276)\n\n* the compat-openldap libraries did not list dependencies on other\nlibraries, causing programs that did not specifically specify the libraries\nto fail. Detection of the Application Binary Interface (ABI) in use on\n64-bit systems has been added with this update. (BZ#503734)\n\n* the OpenLDAP libraries caused applications to crash due to an unprocessed\nnetwork timeout. A timeval of -1 is now passed when NULL is passed to LDAP.\n(BZ#495701)\n\n* slapd could crash on a server under heavy load when using rwm overlay,\ncaused by freeing non-allocated memory during operation cleanup.\n(BZ#495628)\n\n* the ldap init script made a temporary script in \"/tmp/\" and attempted to\nexecute it. Problems arose when \"/tmp/\" was mounted with the noexec option.\nThe temporary script is no longer created. (BZ#483356)\n\n* the ldap init script always started slapd listening on ldap:/// even if\ninstructed to listen only on ldaps:///. By correcting the init script, a\nuser can now select which ports slapd should listen on. (BZ#481003)\n\n* the slapd manual page did not mention the supported options -V and -o.\n(BZ#468206)\n\n* slapd.conf had a commented-out option to load the syncprov.la module.\nOnce un-commented, slapd crashed at start-up because the module had already\nbeen statically linked to OpenLDAP. This update removes \"moduleload\nsyncprov.la\" from slapd.conf, which resolves this issue. (BZ#466937)\n\n* the migrate_automount.pl script produced output that was unsupported by\nautofs. This is corrected by updating the output LDIF format for automount\nrecords. (BZ#460331)\n\n* the ldap init script uses the TERM signal followed by the KILL signal\nwhen shutting down slapd. Minimal delay between the two signals could cause\nthe LDAP database to become corrupted if it had not finished saving its\nstate. A delay between the signals has been added via the \"STOP_DELAY\"\noption in \"/etc/sysconfig/ldap\". (BZ#452064)\n\n* the migrate_passwd.pl migration script had a problem when number fields\ncontained only a zero. Such fields were considered to be empty, leading to\nthe attribute not being set in the LDIF output. The condition in\ndump_shadow_attributes has been corrected to allow for the attributes to\ncontain only a zero. (BZ#113857)\n\n* the migrate_base.pl migration script did not handle third level domains\ncorrectly, creating a second level domain that could not be held by a\ndatabase with a three level base. This is now allowed by modifying the\nmigrate_base.pl script to generate only one domain. (BZ#104585)\n\nUsers of OpenLDAP should upgrade to these updated packages, which resolve\nthese issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2010:0198",
+				"url": "https://access.redhat.com/errata/RHSA-2010:0198"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2010/rhsa-2010_0198.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openldap security and bug fix update",
+		"tracking": {
+			"current_release_date": "2010-03-29T09:22:42+00:00",
+			"generator": {
+				"date": "2023-10-17T15:52:22+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2010:0198",
+			"initial_release_date": "2010-03-29T12:00:00+00:00",
+			"revision_history": [
+				{
+					"date": "2010-03-29T09:22:42+00:00",
+					"number": "4",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "4"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-sql@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-overlays@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-servers-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-servers-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-clients-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-clients-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-clients-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-clients@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.x86_64",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.x86_64",
+									"product_id": "openldap-0:2.3.43-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-sql-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-servers-sql-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-servers-sql-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-sql@2.3.43-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-overlays-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-servers-overlays-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-servers-overlays-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-overlays@2.3.43-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-servers-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-servers-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers@2.3.43-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-clients-0:2.3.43-12.el5.i386",
+								"product": {
+									"name": "openldap-clients-0:2.3.43-12.el5.i386",
+									"product_id": "openldap-clients-0:2.3.43-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-clients@2.3.43-12.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.src",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.src",
+									"product_id": "openldap-0:2.3.43-12.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-servers-sql-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-servers-sql-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-servers-sql-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-sql@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-overlays@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-clients-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-clients-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-clients-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-clients@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-0:2.3.43-12.el5.ia64",
+								"product": {
+									"name": "openldap-servers-0:2.3.43-12.el5.ia64",
+									"product_id": "openldap-servers-0:2.3.43-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers@2.3.43-12.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-servers-sql-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-servers-sql-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-servers-sql-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-sql@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-overlays@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-clients-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-clients-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-clients-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-clients@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-0:2.3.43-12.el5.ppc",
+								"product": {
+									"name": "openldap-servers-0:2.3.43-12.el5.ppc",
+									"product_id": "openldap-servers-0:2.3.43-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers@2.3.43-12.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.ppc64",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.ppc64",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.ppc64",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.ppc64",
+									"product_id": "openldap-0:2.3.43-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-servers-sql-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-servers-sql-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-servers-sql-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-sql@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers-overlays@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-clients-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-clients-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-clients-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-clients@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-servers-0:2.3.43-12.el5.s390x",
+								"product": {
+									"name": "openldap-servers-0:2.3.43-12.el5.s390x",
+									"product_id": "openldap-servers-0:2.3.43-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-servers@2.3.43-12.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openldap-devel-0:2.3.43-12.el5.s390",
+								"product": {
+									"name": "openldap-devel-0:2.3.43-12.el5.s390",
+									"product_id": "openldap-devel-0:2.3.43-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-devel@2.3.43-12.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+								"product": {
+									"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+									"product_id": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/compat-openldap@2.3.43_2.2.29-12.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-debuginfo-0:2.3.43-12.el5.s390",
+								"product": {
+									"name": "openldap-debuginfo-0:2.3.43-12.el5.s390",
+									"product_id": "openldap-debuginfo-0:2.3.43-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap-debuginfo@2.3.43-12.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openldap-0:2.3.43-12.el5.s390",
+								"product": {
+									"name": "openldap-0:2.3.43-12.el5.s390",
+									"product_id": "openldap-0:2.3.43-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openldap@2.3.43-12.el5?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.i386"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.src"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-clients-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-clients-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-clients-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-devel-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.i386"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.src"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-clients-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-clients-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-clients-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-clients-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-clients-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-debuginfo-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-devel-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-overlays-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-overlays-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-overlays-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-overlays-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-overlays-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-sql-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-sql-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-sql-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-sql-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openldap-servers-sql-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.i386"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64"
+				},
+				"product_reference": "compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.src"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-clients-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-clients-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-clients-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-clients-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-clients-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-clients-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-clients-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-debuginfo-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-debuginfo-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.ppc64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.s390"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-devel-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-devel-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-devel-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-overlays-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-overlays-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-overlays-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-overlays-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-overlays-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-sql-0:2.3.43-12.el5.i386"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-sql-0:2.3.43-12.el5.ia64"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-sql-0:2.3.43-12.el5.ppc"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-sql-0:2.3.43-12.el5.s390x"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openldap-servers-sql-0:2.3.43-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openldap-servers-sql-0:2.3.43-12.el5.x86_64"
+				},
+				"product_reference": "openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2009-3767",
+			"discovery_date": "2009-08-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "530715"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "libraries/libldap/tls_o.c in OpenLDAP 2.2 and 2.4, and possibly other versions, when OpenSSL is used, does not properly handle a '\\0' character in a domain name in the subject's Common Name (CN) field of an X.509 certificate, which allows man-in-the-middle attackers to spoof arbitrary SSL servers via a crafted certificate issued by a legitimate Certification Authority, a related issue to CVE-2009-2408.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3767 OpenLDAP: Doesn't properly handle NULL character in subject Common Name",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue was addressed in the openldap packages as shipped with Red Hat Enterprise Linux 5 and 4 via: https://rhn.redhat.com/errata/RHSA-2010-0198.html and https://rhn.redhat.com/errata/RHSA-2010-0543.html respectively.\n\nThe Red Hat Security Response Team has rated this issue as having moderate security impact, a future openldap update may address this flaw in Red Hat Enterprise Linux 3.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+					"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.ppc64",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.s390",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.src",
+					"5Client-Workstation:openldap-0:2.3.43-12.el5.x86_64",
+					"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.x86_64",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc64",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.x86_64",
+					"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.x86_64",
+					"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+					"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.i386",
+					"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+					"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+					"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+					"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+					"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+					"5Client:openldap-0:2.3.43-12.el5.i386",
+					"5Client:openldap-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-0:2.3.43-12.el5.ppc64",
+					"5Client:openldap-0:2.3.43-12.el5.s390",
+					"5Client:openldap-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-0:2.3.43-12.el5.src",
+					"5Client:openldap-0:2.3.43-12.el5.x86_64",
+					"5Client:openldap-clients-0:2.3.43-12.el5.i386",
+					"5Client:openldap-clients-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-clients-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-clients-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-clients-0:2.3.43-12.el5.x86_64",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.i386",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.s390",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+					"5Client:openldap-devel-0:2.3.43-12.el5.i386",
+					"5Client:openldap-devel-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-devel-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-devel-0:2.3.43-12.el5.ppc64",
+					"5Client:openldap-devel-0:2.3.43-12.el5.s390",
+					"5Client:openldap-devel-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-devel-0:2.3.43-12.el5.x86_64",
+					"5Client:openldap-servers-0:2.3.43-12.el5.i386",
+					"5Client:openldap-servers-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-servers-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-servers-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-servers-0:2.3.43-12.el5.x86_64",
+					"5Client:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+					"5Client:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+					"5Client:openldap-servers-sql-0:2.3.43-12.el5.i386",
+					"5Client:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+					"5Client:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+					"5Client:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+					"5Client:openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+					"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+					"5Server:openldap-0:2.3.43-12.el5.i386",
+					"5Server:openldap-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-0:2.3.43-12.el5.ppc64",
+					"5Server:openldap-0:2.3.43-12.el5.s390",
+					"5Server:openldap-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-0:2.3.43-12.el5.src",
+					"5Server:openldap-0:2.3.43-12.el5.x86_64",
+					"5Server:openldap-clients-0:2.3.43-12.el5.i386",
+					"5Server:openldap-clients-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-clients-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-clients-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-clients-0:2.3.43-12.el5.x86_64",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.i386",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.s390",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+					"5Server:openldap-devel-0:2.3.43-12.el5.i386",
+					"5Server:openldap-devel-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-devel-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-devel-0:2.3.43-12.el5.ppc64",
+					"5Server:openldap-devel-0:2.3.43-12.el5.s390",
+					"5Server:openldap-devel-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-devel-0:2.3.43-12.el5.x86_64",
+					"5Server:openldap-servers-0:2.3.43-12.el5.i386",
+					"5Server:openldap-servers-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-servers-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-servers-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-servers-0:2.3.43-12.el5.x86_64",
+					"5Server:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+					"5Server:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+					"5Server:openldap-servers-sql-0:2.3.43-12.el5.i386",
+					"5Server:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+					"5Server:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+					"5Server:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+					"5Server:openldap-servers-sql-0:2.3.43-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3767"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#530715",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=530715"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3767",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3767"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3767",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3767"
+				}
+			],
+			"release_date": "2009-08-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.ppc64",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.s390",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.src",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc64",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+						"5Client:openldap-0:2.3.43-12.el5.i386",
+						"5Client:openldap-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-0:2.3.43-12.el5.ppc64",
+						"5Client:openldap-0:2.3.43-12.el5.s390",
+						"5Client:openldap-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-0:2.3.43-12.el5.src",
+						"5Client:openldap-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-clients-0:2.3.43-12.el5.i386",
+						"5Client:openldap-clients-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-clients-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-clients-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-clients-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.i386",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.s390",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-devel-0:2.3.43-12.el5.i386",
+						"5Client:openldap-devel-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-devel-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-devel-0:2.3.43-12.el5.ppc64",
+						"5Client:openldap-devel-0:2.3.43-12.el5.s390",
+						"5Client:openldap-devel-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-devel-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-servers-0:2.3.43-12.el5.i386",
+						"5Client:openldap-servers-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-servers-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-servers-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-servers-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.i386",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+						"5Server:openldap-0:2.3.43-12.el5.i386",
+						"5Server:openldap-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-0:2.3.43-12.el5.ppc64",
+						"5Server:openldap-0:2.3.43-12.el5.s390",
+						"5Server:openldap-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-0:2.3.43-12.el5.src",
+						"5Server:openldap-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-clients-0:2.3.43-12.el5.i386",
+						"5Server:openldap-clients-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-clients-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-clients-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-clients-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.i386",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.s390",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-devel-0:2.3.43-12.el5.i386",
+						"5Server:openldap-devel-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-devel-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-devel-0:2.3.43-12.el5.ppc64",
+						"5Server:openldap-devel-0:2.3.43-12.el5.s390",
+						"5Server:openldap-devel-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-devel-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-servers-0:2.3.43-12.el5.i386",
+						"5Server:openldap-servers-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-servers-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-servers-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-servers-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.i386",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0198"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+						"5Client-Workstation:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.ppc64",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.s390",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.src",
+						"5Client-Workstation:openldap-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-clients-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.ppc64",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-devel-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-servers-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.i386",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+						"5Client-Workstation:openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+						"5Client:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+						"5Client:openldap-0:2.3.43-12.el5.i386",
+						"5Client:openldap-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-0:2.3.43-12.el5.ppc64",
+						"5Client:openldap-0:2.3.43-12.el5.s390",
+						"5Client:openldap-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-0:2.3.43-12.el5.src",
+						"5Client:openldap-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-clients-0:2.3.43-12.el5.i386",
+						"5Client:openldap-clients-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-clients-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-clients-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-clients-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.i386",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.s390",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-devel-0:2.3.43-12.el5.i386",
+						"5Client:openldap-devel-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-devel-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-devel-0:2.3.43-12.el5.ppc64",
+						"5Client:openldap-devel-0:2.3.43-12.el5.s390",
+						"5Client:openldap-devel-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-devel-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-servers-0:2.3.43-12.el5.i386",
+						"5Client:openldap-servers-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-servers-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-servers-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-servers-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.i386",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+						"5Client:openldap-servers-sql-0:2.3.43-12.el5.x86_64",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.i386",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ia64",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.ppc64",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.s390x",
+						"5Server:compat-openldap-0:2.3.43_2.2.29-12.el5.x86_64",
+						"5Server:openldap-0:2.3.43-12.el5.i386",
+						"5Server:openldap-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-0:2.3.43-12.el5.ppc64",
+						"5Server:openldap-0:2.3.43-12.el5.s390",
+						"5Server:openldap-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-0:2.3.43-12.el5.src",
+						"5Server:openldap-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-clients-0:2.3.43-12.el5.i386",
+						"5Server:openldap-clients-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-clients-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-clients-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-clients-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.i386",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.ppc64",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.s390",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-debuginfo-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-devel-0:2.3.43-12.el5.i386",
+						"5Server:openldap-devel-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-devel-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-devel-0:2.3.43-12.el5.ppc64",
+						"5Server:openldap-devel-0:2.3.43-12.el5.s390",
+						"5Server:openldap-devel-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-devel-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-servers-0:2.3.43-12.el5.i386",
+						"5Server:openldap-servers-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-servers-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-servers-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-servers-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.i386",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-servers-overlays-0:2.3.43-12.el5.x86_64",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.i386",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.ia64",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.ppc",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.s390x",
+						"5Server:openldap-servers-sql-0:2.3.43-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-3767 OpenLDAP: Doesn't properly handle NULL character in subject Common Name"
+		}
+	]
+}

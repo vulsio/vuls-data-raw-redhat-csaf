@@ -1,0 +1,567 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for imgbased, redhat-release-virtualization-host, and redhat-virtualization-host is now available for Red Hat Virtualization 4 for RHEL-7.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The redhat-virtualization-host packages provide the Red Hat Virtualization Host. These packages include redhat-release-virtualization-host, ovirt-node, and rhev-hypervisor. Red Hat Virtualization Hosts (RHVH) are installed using a special build of Red Hat Enterprise Linux with only the packages required to host virtual machines. RHVH features a Cockpit user interface for monitoring the host's resources and performing administrative tasks.\n\nSecurity Fix(es):\n\n* procps-ng, procps: Integer overflows leading to heap overflow in file2strvec (CVE-2018-1124)\n\n* procps-ng, procps: incorrect integer size in proc/alloc.* leading to truncation / integer overflow issues (CVE-2018-1126)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nRed Hat would like to thank Qualys Research Labs for reporting these issues.\n\nBug Fix(es):\n\n* Previously some SELinux %post scripts were not re-executed because imgbased attempts to re-execute RPM %post scripts which involve SELinux commands inside a namespace, and some commands failed due to SELinux namespacing rules.\n\nThis update ensures that SELinux contexts inside imgbased update namespaces now update appropriately, and the scripts are re-executed by remounting /sys and /sys/fs/selinux inside the update namespace. (BZ#1571607)\n\n* Previously, vmcore files that were created by kdump were not relabelled by kdumpctl after a reboot. As a result, Rsync returned an error when trying to remove the security.selinux attribute while syncing unlabelled files, as this is forbidden by selinux.\n\nIn this release, restorecon is run on the source directory before syncing it, which enables the files to be synchronized with the correct labels. (BZ#1579141)\n\nEnhancement(s):\n\n* Previously, imgbased filtered out stderr from LVM commands to improve parsing reliability. In this release, imgbased now logs stderr from LVM commands in order to provide this information in the imgbased logs, for example during an upgrade failure. (BZ#1574187)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2018:1820",
+				"url": "https://access.redhat.com/errata/RHSA-2018:1820"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2018/rhsa-2018_1820.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat Virtualization security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2018-06-11T06:57:24+00:00",
+			"generator": {
+				"date": "2023-10-17T16:22:14+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2018:1820",
+			"initial_release_date": "2018-06-11T06:57:24+00:00",
+			"revision_history": [
+				{
+					"date": "2018-06-11T06:57:24+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+								"product": {
+									"name": "RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+									"product_id": "7Server-RHEV-4-HypervisorBuild-7",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::hypervisor"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Virtualization 4 Hypervisor for RHEL 7",
+								"product": {
+									"name": "Red Hat Virtualization 4 Hypervisor for RHEL 7",
+									"product_id": "7Server-RHEV-4-Hypervisor-7",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::hypervisor"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+								"product": {
+									"name": "python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+									"product_id": "python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-imgbased@1.0.17-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "imgbased-0:1.0.17-0.1.el7ev.noarch",
+								"product": {
+									"name": "imgbased-0:1.0.17-0.1.el7ev.noarch",
+									"product_id": "imgbased-0:1.0.17-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/imgbased@1.0.17-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch",
+								"product": {
+									"name": "redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch",
+									"product_id": "redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-virtualization-host-image-update-placeholder@4.2-3.1.el7?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+								"product": {
+									"name": "redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+									"product_id": "redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-virtualization-host-image-update@4.2-20180531.0.el7_5?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "imgbased-0:1.0.17-0.1.el7ev.src",
+								"product": {
+									"name": "imgbased-0:1.0.17-0.1.el7ev.src",
+									"product_id": "imgbased-0:1.0.17-0.1.el7ev.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/imgbased@1.0.17-0.1.el7ev?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+								"product": {
+									"name": "redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+									"product_id": "redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-release-virtualization-host@4.2-3.1.el7?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+								"product": {
+									"name": "redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+									"product_id": "redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-virtualization-host@4.2-20180531.0.el7_5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+								"product": {
+									"name": "redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+									"product_id": "redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-release-virtualization-host@4.2-3.1.el7?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-virtualization-host-0:4.2-20180531.0.el7_5.src as a component of Red Hat Virtualization 4 Hypervisor for RHEL 7",
+					"product_id": "7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src"
+				},
+				"product_reference": "redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+				"relates_to_product_reference": "7Server-RHEV-4-Hypervisor-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch as a component of Red Hat Virtualization 4 Hypervisor for RHEL 7",
+					"product_id": "7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch"
+				},
+				"product_reference": "redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+				"relates_to_product_reference": "7Server-RHEV-4-Hypervisor-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "imgbased-0:1.0.17-0.1.el7ev.noarch as a component of RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+					"product_id": "7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch"
+				},
+				"product_reference": "imgbased-0:1.0.17-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-4-HypervisorBuild-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "imgbased-0:1.0.17-0.1.el7ev.src as a component of RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+					"product_id": "7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src"
+				},
+				"product_reference": "imgbased-0:1.0.17-0.1.el7ev.src",
+				"relates_to_product_reference": "7Server-RHEV-4-HypervisorBuild-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-imgbased-0:1.0.17-0.1.el7ev.noarch as a component of RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+					"product_id": "7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch"
+				},
+				"product_reference": "python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-4-HypervisorBuild-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-release-virtualization-host-0:4.2-3.1.el7.src as a component of RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+					"product_id": "7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src"
+				},
+				"product_reference": "redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+				"relates_to_product_reference": "7Server-RHEV-4-HypervisorBuild-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64 as a component of RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+					"product_id": "7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64"
+				},
+				"product_reference": "redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+				"relates_to_product_reference": "7Server-RHEV-4-HypervisorBuild-7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch as a component of RHEL 7-based RHEV-H for RHEV 4 (build requirements)",
+					"product_id": "7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+				},
+				"product_reference": "redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch",
+				"relates_to_product_reference": "7Server-RHEV-4-HypervisorBuild-7"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Qualys Research Labs"
+					]
+				}
+			],
+			"cve": "CVE-2018-1124",
+			"cwe": {
+				"id": "CWE-122",
+				"name": "Heap-based Buffer Overflow"
+			},
+			"discovery_date": "2018-05-07T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1575465"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple integer overflows leading to heap corruption flaws were discovered in file2strvec(). These vulnerabilities can lead to privilege escalation for a local attacker who can create entries in procfs by starting processes, which will lead to crashes or arbitrary code execution in proc utilities run by other users (eg pgrep, pkill, pidof, w).",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2018-1124 procps-ng, procps: Integer overflows leading to heap overflow in file2strvec",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+					"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+					"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch",
+					"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src",
+					"7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+					"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+					"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+					"7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2018-1124"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1575465",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1575465"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2018-1124",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2018-1124"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2018-1124",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2018-1124"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.qualys.com/2018/05/17/procps-ng-audit-report-advisory.txt",
+					"url": "https://www.qualys.com/2018/05/17/procps-ng-audit-report-advisory.txt"
+				}
+			],
+			"release_date": "2018-05-17T17:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891",
+					"product_ids": [
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src",
+						"7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2018:1820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7.3,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src",
+						"7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2018-1124 procps-ng, procps: Integer overflows leading to heap overflow in file2strvec"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Qualys Research Labs"
+					]
+				}
+			],
+			"cve": "CVE-2018-1126",
+			"cwe": {
+				"id": "CWE-190",
+				"name": "Integer Overflow or Wraparound"
+			},
+			"discovery_date": "2018-05-07T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1575853"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found where procps-ng provides wrappers for standard C allocators that took `unsigned int` instead of `size_t` parameters. On platforms where these differ (such as x86_64), this could cause integer truncation, leading to undersized regions being returned to callers that could then be overflowed. The only known exploitable vector for this issue is CVE-2018-1124.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2018-1126 procps-ng, procps: incorrect integer size in proc/alloc.* leading to truncation / integer overflow issues",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+					"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+					"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch",
+					"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src",
+					"7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+					"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+					"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+					"7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2018-1126"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1575853",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1575853"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2018-1126",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2018-1126"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2018-1126",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2018-1126"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.qualys.com/2018/05/17/procps-ng-audit-report-advisory.txt",
+					"url": "https://www.qualys.com/2018/05/17/procps-ng-audit-report-advisory.txt"
+				}
+			],
+			"release_date": "2018-05-17T17:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891",
+					"product_ids": [
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src",
+						"7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2018:1820"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "LOW",
+						"baseScore": 4.8,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "LOW",
+						"integrityImpact": "LOW",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.0/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:L",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-0:4.2-20180531.0.el7_5.src",
+						"7Server-RHEV-4-Hypervisor-7:redhat-virtualization-host-image-update-0:4.2-20180531.0.el7_5.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:imgbased-0:1.0.17-0.1.el7ev.src",
+						"7Server-RHEV-4-HypervisorBuild-7:python-imgbased-0:1.0.17-0.1.el7ev.noarch",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.src",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-release-virtualization-host-0:4.2-3.1.el7.x86_64",
+						"7Server-RHEV-4-HypervisorBuild-7:redhat-virtualization-host-image-update-placeholder-0:4.2-3.1.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2018-1126 procps-ng, procps: incorrect integer size in proc/alloc.* leading to truncation / integer overflow issues"
+		}
+	]
+}

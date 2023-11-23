@@ -1,0 +1,1135 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated pacemaker packages that fix one security issue, several bugs, and\nadd various enhancements are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Pacemaker is a high-availability cluster resource manager with a powerful\npolicy engine.\n\nA denial of service flaw was found in the way Pacemaker performed\nauthentication and processing of remote connections in certain\ncircumstances. When Pacemaker was configured to allow remote Cluster\nInformation Base (CIB) configuration or resource management, a remote\nattacker could use this flaw to cause Pacemaker to block indefinitely\n(preventing it from serving other requests). (CVE-2013-0281)\n\nNote: The default Pacemaker configuration in Red Hat Enterprise Linux 6 has\nthe remote CIB management functionality disabled.\n\nThe pacemaker package has been upgraded to upstream version 1.1.10, which\nprovides a number of bug fixes and enhancements over the previous version:\n\n* Pacemaker no longer assumes unknown cman nodes are safely stopped.\n\n* The core dump file now converts all exit codes into positive 'errno'\nvalues.\n\n* Pacemaker ensures a return to a stable state after too many fencing\nfailures, and initiates a shutdown if a node claimed to be fenced is still\nactive.\n\n* The crm_error tool adds the ability to list and print error symbols.\n\n* The crm_resource command allows individual resources to be reprobed, and\nimplements the \"--ban\" option for moving resources away from nodes.\nThe \"--clear\" option has replaced the \"--unmove\" option. Also, crm_resource\nnow supports OCF tracing when using the \"--force\" option.\n\n* The IPC mechanism restores the ability for members of the haclient group\nto connect to the cluster.\n\n* The Policy Engine daemon allows active nodes in the current membership to\nbe fenced without quorum.\n\n* Policy Engine now suppresses meaningless IDs when displaying anonymous\nclone status, supports maintenance mode for a single node, and correctly\nhandles the recovered resources before they are operated on.\n\n* XML configuration files are now checked for non-printing characters and\nreplaced with their octal equivalent when exporting XML text. Also, a more\nreliable buffer allocation strategy has been implemented to prevent\nlockups.\n\n(BZ#987355)\n\nAdditional bug fixes:\n\n* The \"crm_resource --move\" command was designed for atomic resources and\ncould not handle resources on clones, masters, or slaves present on\nmultiple nodes. Consequently, crm_resource could not obtain enough\ninformation to move a resource and did not perform any action. The \"--ban\"\nand \"--clear\" options have been added to allow the administrator to\ninstruct the cluster unambiguously. Clone, master, and slave resources can\nnow be navigated within the cluster as expected. (BZ#902407)\n\n* The hacluster user account did not have a user identification (UID) or\ngroup identification (GID) number reserved on the system. Thus, UID and GID\nvalues were picked randomly during the installation process. The UID and\nGID number 189 was reserved for hacluster and is now used consistently for\nall installations. (BZ#908450)\n\n* Certain clusters used node host names that did not match the output of\nthe \"uname -n\" command. Thus, the default node name used by the crm_standby\nand crm_failcount commands was incorrect and caused the cluster to ignore\nthe update by the administrator. The crm_node command is now used instead\nof the uname utility in helper scripts. As a result, the cluster behaves as\nexpected. (BZ#913093)\n\n* Due to incorrect return code handling, internal recovery logic of the\ncrm_mon utility was not executed when a configuration updated failed to\napply, leading to an assertion failure. Return codes are now checked\ncorrectly, and the recovery of an expected error state is now handled\ntransparently. (BZ#951371)\n\n* cman's automatic unfencing feature failed when combined with Pacemaker.\nSupport for automated unfencing in Pacemaker has been added, and the\nunwanted behavior no longer occurs. (BZ#996850)\n\nAll pacemaker users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:1635",
+				"url": "https://access.redhat.com/errata/RHSA-2013:1635"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_1635.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: pacemaker security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2013-11-20T16:53:44+00:00",
+			"generator": {
+				"date": "2023-10-17T15:58:48+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:1635",
+			"initial_release_date": "2013-11-20T16:41:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-11-20T16:53:44+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+									"product_id": "6Server-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux High Availability (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux High Availability (v. 6)",
+									"product_id": "6Server-HighAvailability",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Resilient Storage (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Resilient Storage (v. 6)",
+									"product_id": "6Server-ResilientStorage",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "pacemaker-0:1.1.10-14.el6.src",
+								"product": {
+									"name": "pacemaker-0:1.1.10-14.el6.src",
+									"product_id": "pacemaker-0:1.1.10-14.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker@1.1.10-14.el6?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "pacemaker-remote-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-remote-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-remote-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-remote@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-debuginfo@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-doc-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-doc-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-doc-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-doc@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-cts-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-cts-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-cts-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-cts@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-libs-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-libs-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-libs-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-libs@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-cluster-libs@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-cli-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-cli-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-cli-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-cli@1.1.10-14.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+								"product": {
+									"name": "pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+									"product_id": "pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-libs-devel@1.1.10-14.el6?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "pacemaker-remote-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-remote-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-remote-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-remote@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-debuginfo@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-doc-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-doc-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-doc-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-doc@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-cts-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-cts-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-cts-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-cts@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-libs-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-libs-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-libs-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-libs@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-cluster-libs@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-cli-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-cli-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-cli-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-cli@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+								"product": {
+									"name": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+									"product_id": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pacemaker-libs-devel@1.1.10-14.el6?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.src as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.src"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.src",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cli-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cli-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cli-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cli-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cts-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cts-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cts-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cts-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-debuginfo-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-doc-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-doc-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-doc-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-doc-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-libs-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-libs-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-devel-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-remote-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-remote-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-remote-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux High Availability (v. 6)",
+					"product_id": "6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-remote-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-HighAvailability"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.src as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.src"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.src",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cli-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cli-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cli-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cli-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cts-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cts-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cts-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cts-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-debuginfo-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-doc-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-doc-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-doc-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-doc-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-libs-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-libs-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-devel-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-remote-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-remote-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-remote-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Resilient Storage (v. 6)",
+					"product_id": "6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-remote-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-ResilientStorage"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.src as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-0:1.1.10-14.el6.src"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.src",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cli-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-cli-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cli-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cli-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-cli-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cli-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cts-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-cts-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-cts-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-cts-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-cts-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-cts-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-debuginfo-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-doc-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-doc-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-doc-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-doc-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-doc-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-doc-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-libs-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-libs-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-libs-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-libs-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-devel-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-remote-0:1.1.10-14.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-remote-0:1.1.10-14.el6.i686"
+				},
+				"product_reference": "pacemaker-remote-0:1.1.10-14.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pacemaker-remote-0:1.1.10-14.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pacemaker-remote-0:1.1.10-14.el6.x86_64"
+				},
+				"product_reference": "pacemaker-remote-0:1.1.10-14.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2013-0281",
+			"discovery_date": "2013-01-03T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "891922"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Pacemaker 1.1.10, when remote Cluster Information Base (CIB) configuration or resource management is enabled, does not limit the duration of connections to the blocking sockets, which allows remote attackers to cause a denial of service (connection blocking).",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-0281 pacemaker: remote DoS when CIB management is enabled caused by use of blocking sockets",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.src",
+					"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+					"6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.i686",
+					"6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.src",
+					"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+					"6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.i686",
+					"6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-0:1.1.10-14.el6.src",
+					"6Server-optional:pacemaker-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-cli-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-cts-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-doc-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-libs-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+					"6Server-optional:pacemaker-remote-0:1.1.10-14.el6.i686",
+					"6Server-optional:pacemaker-remote-0:1.1.10-14.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-0281"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#891922",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=891922"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-0281",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-0281"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-0281",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-0281"
+				}
+			],
+			"release_date": "2013-02-14T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.src",
+						"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.src",
+						"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-0:1.1.10-14.el6.src",
+						"6Server-optional:pacemaker-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-cli-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-cts-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-doc-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-libs-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-remote-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-remote-0:1.1.10-14.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:1635"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.src",
+						"6Server-HighAvailability:pacemaker-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+						"6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.i686",
+						"6Server-HighAvailability:pacemaker-remote-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.src",
+						"6Server-ResilientStorage:pacemaker-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+						"6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.i686",
+						"6Server-ResilientStorage:pacemaker-remote-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-0:1.1.10-14.el6.src",
+						"6Server-optional:pacemaker-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-cli-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-cli-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-cluster-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-cts-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-cts-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-debuginfo-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-doc-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-doc-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-libs-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-libs-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-libs-devel-0:1.1.10-14.el6.x86_64",
+						"6Server-optional:pacemaker-remote-0:1.1.10-14.el6.i686",
+						"6Server-optional:pacemaker-remote-0:1.1.10-14.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2013-0281 pacemaker: remote DoS when CIB management is enabled caused by use of blocking sockets"
+		}
+	]
+}

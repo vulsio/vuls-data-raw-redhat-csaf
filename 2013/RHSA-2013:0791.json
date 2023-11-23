@@ -1,0 +1,222 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_informational_advisory",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated qemu-kvm-rhev packages that fix one security issue and two bugs are\nnow available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "KVM (Kernel-based Virtual Machine) is a full virtualization solution for\nLinux on AMD64 and Intel 64 systems. The qemu-kvm-rhev packages form the\nuser-space component for running virtual machines using KVM.\n\nIt was found that QEMU Guest Agent (the \"qemu-ga\" service) created\ncertain files with world-writable permissions when run in daemon mode\n(the default mode). An unprivileged guest user could use this flaw to\nconsume all free space on the partition containing the qemu-ga log file, or\nmodify the contents of the log. When a UNIX domain socket transport was\nexplicitly configured to be used (not the default), an unprivileged guest\nuser could potentially use this flaw to escalate their privileges in the\nguest. This update requires manual action. Refer below for details.\n(CVE-2013-2007)\n\nThis update does not change the permissions of the existing log file or\nthe UNIX domain socket. For these to be changed, stop the qemu-ga service,\nand then manually remove all \"group\" and \"other\" permissions on the\naffected files, or remove the files.\n\nNote that after installing this update, files created by the\nguest-file-open QEMU Monitor Protocol (QMP) command will still continue to\nbe created with world-writable permissions for backwards compatibility.\n\nThis issue was discovered by Laszlo Ersek of Red Hat.\n\nThis update also fixes the following bugs:\n\n* Previously, due to integer overflow in code calculations, the qemu-kvm\nutility was reporting incorrect memory size on QMP events when using the\nvirtio balloon driver with more than 4 GB of memory. This update fixes the\noverflow in the code and qemu-kvm works as expected in the described\nscenario. (BZ#958750)\n\n* When the set_link flag is set to \"off\" to change the status of a network\ncard, the status is changed to \"down\" on the respective guest. Previously,\nwith certain network cards, when such a guest was restarted, the status of\nthe network card was unexpectedly reset to \"up\", even though the network\nwas unavailable. A patch has been provided to address this bug and the link\nstatus change is now preserved across restarts for all network cards.\n(BZ#927591)\n\nAll users of qemu-kvm-rhev are advised to upgrade to these updated\npackages, which contain backported patches to correct these issues. After\ninstalling this update, shut down all running virtual machines. Once all\nvirtual machines have shut down, start them again for this update to take\neffect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0791",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0791"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0791.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: qemu-kvm-rhev security and bug fix update",
+		"tracking": {
+			"current_release_date": "2013-06-03T17:29:50+00:00",
+			"generator": {
+				"date": "2023-10-17T15:55:55+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0791",
+			"initial_release_date": "2013-06-03T17:26:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-06-03T17:29:50+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHEV Agents (vdsm)",
+								"product": {
+									"name": "RHEV Agents (vdsm)",
+									"product_id": "6Server-RHEV-Agents",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_linux:6::hypervisor"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.src",
+								"product": {
+									"name": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.src",
+									"product_id": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev@0.12.1.2-2.355.el6_4.5?arch=src&epoch=2"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+								"product": {
+									"name": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_id": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev@0.12.1.2-2.355.el6_4.5?arch=x86_64&epoch=2"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-tools-2:0.12.1.2-2.355.el6_4.5.x86_64",
+								"product": {
+									"name": "qemu-kvm-rhev-tools-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_id": "qemu-kvm-rhev-tools-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev-tools@0.12.1.2-2.355.el6_4.5?arch=x86_64&epoch=2"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-img-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+								"product": {
+									"name": "qemu-img-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_id": "qemu-img-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-img-rhev@0.12.1.2-2.355.el6_4.5?arch=x86_64&epoch=2"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.355.el6_4.5.x86_64",
+								"product": {
+									"name": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_id": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.355.el6_4.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev-debuginfo@0.12.1.2-2.355.el6_4.5?arch=x86_64&epoch=2"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-img-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64"
+				},
+				"product_reference": "qemu-img-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.src as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.src"
+				},
+				"product_reference": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.src",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64"
+				},
+				"product_reference": "qemu-kvm-rhev-2:0.12.1.2-2.355.el6_4.5.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.355.el6_4.5.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.355.el6_4.5.x86_64"
+				},
+				"product_reference": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.355.el6_4.5.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-tools-2:0.12.1.2-2.355.el6_4.5.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-tools-2:0.12.1.2-2.355.el6_4.5.x86_64"
+				},
+				"product_reference": "qemu-kvm-rhev-tools-2:0.12.1.2-2.355.el6_4.5.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			}
+		]
+	}
+}

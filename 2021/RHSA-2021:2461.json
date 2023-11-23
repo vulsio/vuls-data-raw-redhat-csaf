@@ -1,0 +1,405 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Red Hat Advanced Cluster Management for Kubernetes 2.2.4 General Availability\nrelease images, which fix several bugs and security issues.\n\nRed Hat Product Security has rated this update as having a security impact\nof Moderate. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available for each vulnerability\nfrom the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat Advanced Cluster Management for Kubernetes 2.2.4 images\n\nRed Hat Advanced Cluster Management for Kubernetes provides the\ncapabilities to address common challenges that administrators and site reliability\nengineers face as they work across a range of public and private cloud environments.\nClusters and applications are all visible and managed from a single\nconsole—with security policy built in.\n\nThis advisory contains the container images for Red Hat Advanced Cluster\nManagement for Kubernetes, which fix several bugs and security issues. See\nthe following Release Notes documentation, which will be updated shortly for\nthis release, for additional details about this release:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html/release_notes/\n\nSecurity fixes:\n\n* redisgraph-tls: redis: integer overflow when configurable limit for maximum supported bulk input size is too big on 32-bit platforms (CVE-2021-21309)\n\n* console-header-container: nodejs-netmask: improper input validation of octal input data (CVE-2021-28092)\n\n* console-container: nodejs-is-svg: ReDoS via malicious string (CVE-2021-28918)\n\nBug fixes: \n\n* RHACM 2.2.4 images (BZ# 1957254)\n\n* Enabling observability for OpenShift Container Storage with RHACM 2.2 on OCP 4.7 (BZ#1950832)\n\n* ACM Operator should support using the default route TLS (BZ# 1955270)\n\n* The scrolling bar for search filter does not work properly (BZ# 1956852)\n\n* Limits on Length of MultiClusterObservability Resource Name (BZ# 1959426)\n\n* The proxy setup in install-config.yaml is not worked when IPI installing with RHACM (BZ# 1960181)\n\n* Unable to make SSH connection to a Bitbucket server (BZ# 1966513)\n\n* Observability Thanos store shard crashing - cannot unmarshall DNS message (BZ# 1967890)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2021:2461",
+				"url": "https://access.redhat.com/errata/RHSA-2021:2461"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2021/rhsa-2021_2461.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat Advanced Cluster Management 2.2.4 security and bug fix update",
+		"tracking": {
+			"current_release_date": "2021-06-16T19:26:00Z",
+			"generator": {
+				"date": "2023-07-01T04:56:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2021:2461",
+			"initial_release_date": "2021-06-16T19:26:00Z",
+			"revision_history": [
+				{
+					"date": "2021-06-16T19:26:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"category": "product_family",
+						"name": "Red Hat ACM",
+						"product": {
+							"name": "Red Hat ACM",
+							"product_id": "Red Hat ACM"
+						}
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2021-21309",
+			"cwe": {
+				"id": "CWE-120",
+				"name": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')"
+			},
+			"discovery_date": "2021-02-24T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1932634"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "An integer overflow was found in Redis. Redis 4.0 or newer uses a configurable limit for the maximum supported bulk input size. The default size is 512MB which is a safe value for all platforms. Authenticated Redis users could increase the bulk input size by changing the \"proto-max-bulk-len\" configuration parameter, leading to heap corruption and potentially remote code execution.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "redis: integer overflow when configurable limit for maximum supported bulk input size is too big on 32-bit platforms",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat ACM"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2021-21309",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2021-21309"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2021-21309",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2021-21309"
+				},
+				{
+					"category": "external",
+					"summary": "https://github.com/redis/redis/security/advisories/GHSA-hgj8-vff2-7cjf",
+					"url": "https://github.com/redis/redis/security/advisories/GHSA-hgj8-vff2-7cjf"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2021-21309",
+					"url": "https://access.redhat.com/security/cve/CVE-2021-21309"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1932634: CVE-2021-21309 redis: integer overflow when configurable limit for maximum supported bulk input size is too big on 32-bit platforms",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1932634"
+				}
+			],
+			"release_date": "2021-02-22T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#installing",
+					"product_ids": [
+						"Red Hat ACM"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2021:2461"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 8.8,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"Red Hat ACM"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2021-02-24T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2021-21309 redis: integer overflow when configurable limit for maximum supported bulk input size is too big on 32-bit platforms"
+		},
+		{
+			"cve": "CVE-2021-28092",
+			"cwe": {
+				"id": "CWE-400",
+				"name": "Uncontrolled Resource Consumption"
+			},
+			"discovery_date": "2021-03-12T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1939103"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "A flaw was found in is-svg package. A malicious string provided by an attacker may lead to Regular Expression Denial of Service (ReDoS).\r\nThe highest threat from this vulnerability is to availability.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "nodejs-is-svg: ReDoS via malicious string",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat ACM"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2021-28092",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2021-28092"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2021-28092",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2021-28092"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2021-28092",
+					"url": "https://access.redhat.com/security/cve/CVE-2021-28092"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1939103: CVE-2021-28092 nodejs-is-svg: ReDoS via malicious string",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1939103"
+				}
+			],
+			"release_date": "2021-03-11T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#installing",
+					"product_ids": [
+						"Red Hat ACM"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2021:2461"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7.5,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"Red Hat ACM"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2021-03-12T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2021-28092 nodejs-is-svg: ReDoS via malicious string"
+		},
+		{
+			"cve": "CVE-2021-28918",
+			"cwe": {
+				"id": "CWE-918",
+				"name": "Server-Side Request Forgery (SSRF)"
+			},
+			"discovery_date": "2021-03-30T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1944827"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "A flaw was found in nodejs-netmask. Octal input data may lead to a server-side request forgery, remote file inclusion, local file inclusion, and other vulnerabilities. The highest threat from this vulnerability is to data integrity.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "nodejs-netmask: improper input validation of octal input data",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat ACM"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2021-28918",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2021-28918"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2021-28918",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2021-28918"
+				},
+				{
+					"category": "external",
+					"summary": "https://sick.codes/universal-netmask-npm-package-used-by-270000-projects-vulnerable-to-octal-input-data-server-side-request-forgery-remote-file-inclusion-local-file-inclusion-and-more-cve-2021-28918",
+					"url": "https://sick.codes/universal-netmask-npm-package-used-by-270000-projects-vulnerable-to-octal-input-data-server-side-request-forgery-remote-file-inclusion-local-file-inclusion-and-more-cve-2021-28918"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2021-28918",
+					"url": "https://access.redhat.com/security/cve/CVE-2021-28918"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1944827: CVE-2021-28918 nodejs-netmask: improper input validation of octal input data",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1944827"
+				}
+			],
+			"release_date": "2021-03-29T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#installing",
+					"product_ids": [
+						"Red Hat ACM"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2021:2461"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 9.1,
+						"baseSeverity": "CRITICAL",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+						"version": "3.1"
+					},
+					"products": [
+						"Red Hat ACM"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2021-03-30T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2021-28918 nodejs-netmask: improper input validation of octal input data"
+		}
+	]
+}

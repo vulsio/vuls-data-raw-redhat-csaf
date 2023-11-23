@@ -1,0 +1,336 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "[Update 20 Mar 2002:\nAdded kernel packages for Red Hat Linux 6.2 on sparc64.  Updated VNC\npackages as the previous fix caused another denial of service\nvulnerability; thanks to Const Kaplinsky for reporting this]\n\n[Update 14 Mar 2002: \nUpdated kernel packages for Red Hat Linux 6.2 and 7.0 which were missing \nthe zlib fix; added missing kernel-headers package for 6.2.]\n \nThe zlib library provides in-memory compression/decompression \nfunctions. The library is widely used throughout Linux and other \noperating \nsystems. \n \nWhile performing tests on the gdk-pixbuf library, Matthias Clasen created \nan invalid PNG image that caused libpng to crash. Upon further \ninvestigation, this turned out to be a bug in zlib 1.1.3 where certain \ntypes of input will cause zlib to free the same area of memory twice \n(called a \"double free\"). \n \nThis bug can be used to crash any program that takes untrusted \ncompressed input. Web browsers or email programs that \ndisplay image attachments or other programs that uncompress data are \nparticularly affected. This vulnerability makes it easy to perform \nvarious \ndenial-of-service attacks against such programs.  \n \nIt is also possible that an attacker could manage a more significant \nexploit, since the result of a double free is the corruption of the \nmalloc() implementation's data structures. This could include running \narbitrary code on local or remote systems. \n \nMost packages in Red Hat Linux use the shared zlib library and can be \nprotected against vulnerability by updating to the errata zlib \npackage. However, we have identified a number of packages in Red Hat \nLinux that either statically link to zlib or contain an internal \nversion of zlib code. \n \nAlthough no exploits for this issue or these packages are currently \nknown to exist, this is a serious vulnerability which could be \nlocally or remotely exploited. All users should upgrade affected packages \nimmediately. \n \nAdditionally, if you have any programs that you have compiled yourself, \nyou should check to see if they use zlib. If they link to the shared \nzlib library then they will not be vulnerable once the shared zlib \nlibrary is updated to the errata package. However, if any programs that \ndecompress arbitrary data statically link to zlib or use their own \nversion \nof the zlib code internally, then they need to be patched or \nrecompiled.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The following details apply to the main Red Hat Linux distribution\nonly. Please see advisory RHSA-2002:027 for Powertools packages.\n\ncvs: cvs is a version control system. The cvs package has been rebuilt to\nlink against the shared system zlib instead of the internal version. \n\nAdditionally, cvs has been updated to version 1.11.1p1 for Red Hat Linux\n6.2, 7.0 and 7.1 which also corrects a possible security vulnerability due\nto an improperly initialized global variable. (CAN-2002-0092)\n\ndump: The dump package contains programs for backing up and restoring\nfilesystems.  It links statically to zlib and has been rebuilt\nagainst the errata zlib package.  Red Hat Linux 7, 7.1, and 7.2\npackages have also been upgraded to dump-0.4b25, which includes\nmany non-security fixes.\n\ngcc3: The gcc3 package contains the GNU Compiler Collection version\n3.0. It has been updated to version 3.0.4 and patched to link against\nthe system zlib instead of the internal version.\n\nlibgcj: The libgcj package includes the Java runtime library, which is\nneeded to run Java programs compiled using the gcc Java compiler\n(gcj).  libgcj has been patched to use the shared system zlib.\n\nkernel: The Linux kernel internally contains several variants of zlib \ncode. However, ppp compression is the only implementation that is used with\nuntrusted data streams.  This issue has been patched.  New kernel errata\npackages are included for Red Hat Linux 6.2 and 7.  \n\nUsers of Red Hat Linux 7.1, or 7.2 should update to the currently\nreleased kernel errata RHSA-2002-028 (2.4.9-31) which already contains this\nfix.\n\nNetscape Navigator: Users are advised to obtain an update from Netscape.\n\nrsync: rsync is a program for synchronizing files over a network.\nrsync uses a modified version of zlib internally. These errata\npackages patch this internal version of zlib.\n\nThe rsync update package also fixes another security issue where rsync did\nnot call setgroups() before dropping the privileges of the connecting user.\nHence, it is possible for users to retain the group IDs of any supplemental\ngroups that rsync was started in (for example, supplementary groups of the\nroot user), allowing users to access files they may not otherwise be able\nto access.  Thanks to Martin Pool and Andrew Tridgell for alerting us to\nthis issue. CAN-2002-0080.\n\nVNC: VNC is a remote display system in Powertools 6.2.  VNC has been\npatched to use the system zlib library.  \n\nIn addition, there is a small HTTP server implementation in the VNC server\nwhich can be made to wait indefinitely for input, thereby freezing an\nactive VNC session. The VNC packages recommended by this advisory have\nbeen patched to fix this issue. Users of VNC should be aware that the\nprogram is designed for use on a trusted network.\n\nzlib: The zlib library has been updated with a patch to fix the\naforementioned vulnerability.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2002:026",
+				"url": "https://access.redhat.com/errata/RHSA-2002:026"
+			},
+			{
+				"category": "external",
+				"summary": "The Common Vulnerabilities and Exposures project (cve.mitre.org) has",
+				"url": "The Common Vulnerabilities and Exposures project (cve.mitre.org) has"
+			},
+			{
+				"category": "external",
+				"summary": "assigned the name CAN-2002-0059 to the zlib issue. Red Hat would like to",
+				"url": "assigned the name CAN-2002-0059 to the zlib issue. Red Hat would like to"
+			},
+			{
+				"category": "external",
+				"summary": "thank CERT/CC for their help in coordinating this issue with other vendors",
+				"url": "thank CERT/CC for their help in coordinating this issue with other vendors"
+			},
+			{
+				"category": "external",
+				"summary": "http://bugzilla.gnome.org/show_bug.cgi?id=70594",
+				"url": "http://bugzilla.gnome.org/show_bug.cgi?id=70594"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2002/rhsa-2002_026.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: : : : Vulnerability in zlib library",
+		"tracking": {
+			"current_release_date": "2002-03-11T00:00:00Z",
+			"generator": {
+				"date": "2023-06-30T18:59:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2002:026",
+			"initial_release_date": "2002-03-11T20:15:00Z",
+			"revision_history": [
+				{
+					"date": "2002-03-11T00:00:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"category": "product_family",
+						"name": "Red Hat Linux",
+						"product": {
+							"name": "Red Hat Linux",
+							"product_id": "Red Hat Linux"
+						}
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2002-0059",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
+			"discovery_date": "2002-03-09T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1616731"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "The decompression algorithm in zlib 1.1.3 and earlier, as used in many different utilities and packages, causes inflateEnd to release certain memory more than once (a \"double free\"), which may allow local and remote attackers to execute arbitrary code via a block of malformed compression data.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "zlib: Double free in inflateEnd",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2002-0059",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2002-0059"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2002-0059",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2002-0059"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2002-0059",
+					"url": "https://access.redhat.com/security/cve/CVE-2002-0059"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1616731: CVE-2002-0059 zlib: Double free in inflateEnd",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1616731"
+				}
+			],
+			"release_date": "2002-03-09T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nTo update all RPMs for your particular architecture, run:\n\nrpm -Fvh [filenames]\n\nwhere [filenames] is a list of the RPMs you wish to upgrade.  Only those\nRPMs which are currently installed will be updated.  Those RPMs which are\nnot installed but included in the list will not be updated.  Note that you\ncan also use wildcards (*.rpm) if your current directory *only* contains\nthe desired RPMs.\n\nThe procedure for upgrading the kernel is documented at:\n\n     http://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network.  Many\npeople find this an easier way to apply updates.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2002:026"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"Red Hat Linux"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2002-03-09T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2002-0059 zlib: Double free in inflateEnd"
+		},
+		{
+			"cve": "CVE-2002-0080",
+			"discovery_date": "",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1616738"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "rsync, when running in daemon mode, does not properly call setgroups before dropping privileges, which could provide supplemental group privileges to local users, who could then read certain files that would otherwise be disallowed.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2002-0080",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2002-0080"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2002-0080",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2002-0080"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2002-0080",
+					"url": "https://access.redhat.com/security/cve/CVE-2002-0080"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1616738: CVE-2002-0080 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1616738"
+				}
+			],
+			"release_date": "2002-03-11T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nTo update all RPMs for your particular architecture, run:\n\nrpm -Fvh [filenames]\n\nwhere [filenames] is a list of the RPMs you wish to upgrade.  Only those\nRPMs which are currently installed will be updated.  Those RPMs which are\nnot installed but included in the list will not be updated.  Note that you\ncan also use wildcards (*.rpm) if your current directory *only* contains\nthe desired RPMs.\n\nThe procedure for upgrading the kernel is documented at:\n\n     http://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network.  Many\npeople find this an easier way to apply updates.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2002:026"
+				}
+			],
+			"title": "CVE-2002-0080 security flaw"
+		},
+		{
+			"cve": "CVE-2002-0092",
+			"discovery_date": "",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1616742"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "CVS before 1.10.8 does not properly initialize a global variable, which allows remote attackers to cause a denial of service (server crash) via the diff capability.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2002-0092",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2002-0092"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2002-0092",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2002-0092"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2002-0092",
+					"url": "https://access.redhat.com/security/cve/CVE-2002-0092"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1616742: CVE-2002-0092 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1616742"
+				}
+			],
+			"release_date": "2002-02-20T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nTo update all RPMs for your particular architecture, run:\n\nrpm -Fvh [filenames]\n\nwhere [filenames] is a list of the RPMs you wish to upgrade.  Only those\nRPMs which are currently installed will be updated.  Those RPMs which are\nnot installed but included in the list will not be updated.  Note that you\ncan also use wildcards (*.rpm) if your current directory *only* contains\nthe desired RPMs.\n\nThe procedure for upgrading the kernel is documented at:\n\n     http://www.redhat.com/support/docs/howto/kernel-upgrade/\n\nPlease read the directions for your architecture carefully before\nproceeding with the kernel upgrade.\n\nPlease note that this update is also available via Red Hat Network.  Many\npeople find this an easier way to apply updates.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2002:026"
+				}
+			],
+			"title": "CVE-2002-0092 security flaw"
+		}
+	]
+}

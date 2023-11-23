@@ -1,0 +1,1676 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel packages that fix one security issue and several bugs are\nnow available for Red Hat Enterprise Linux 5.6 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel packages contain the Linux kernel.\n\nSecurity fix:\n\n* A flaw in skb_gro_header_slow() in the Linux kernel could lead to GRO\n(Generic Receive Offload) fields being left in an inconsistent state. An\nattacker on the local network could use this flaw to trigger a denial of\nservice. (CVE-2011-2723, Moderate)\n\nRed Hat would like to thank Brent Meshier for reporting this issue.\n\nBug fixes:\n\n* When reading a file from a subdirectory in /proc/bus/pci/ while\nhot-unplugging the device related to that file, the system will crash. Now,\nthe kernel correctly handles the simultaneous removal of a device and\naccess to the representation of that device in the proc file system.\n(BZ#713454)\n\n* RHSA-2011:0017 introduced a regression: Non-disk SCSI devices (except for\ntape drives) such as enclosure or CD-ROM devices were hidden when attached\nto a SAS based RAID controller that uses the megaraid_sas driver. With this\nupdate, such devices are accessible, as expected. (BZ#726487)\n\n* The fix for CVE-2010-3432 provided in RHSA-2011:0004 introduced a\nregression: Information in sctp_packet_config(), which was called before\nappending data chunks to a packet, was not reset, causing considerably poor\nSCTP (Stream Control Transmission Protocol) performance. With this update,\nthe packet information is reset after transmission. (BZ#727591)\n\n* Certain systems do not correctly set the ACPI FADT APIC mode bit. They\nset the bit to \"cluster\" mode instead of \"physical\" mode which caused these\nsystems to boot without the TSC (Time Stamp Counter). With this update, the\nACPI FADT check has been removed due to its unreliability. (BZ#728162)\n\n* Performance when invalidating and rereading cached data as a glock moves\naround the cluster with GFS2 is improved. (BZ#729082)\n\n* Performance issues occurred when multiple nodes attempted to call mmap()\non the same inode at the same time on a GFS2 file system, as it was using\nan exclusive glock. With this update, a shared lock is used when \"noatime\"\nis set on the mount, allowing mmap() operations to occur in parallel,\nfixing this bug. Note that this issue only refers to mmap() system calls,\nand not to subsequent page faults. (BZ#729090)\n\n* Some of the functions in the GFS2 file system were not reserving enough\nspace for the resource group header in a transaction and for resource\ngroups bit blocks that get added when a memory allocation is performed.\nThat resulted in failed write and allocation operations. With this update,\nGFS2 makes sure to reserve space in the described scenario, using the new\ngfs2_rg_blocks() inline function. (BZ#729092)\n\n* When GFS2 grew the file system, it never reread the rindex file during\nthe grow. This is necessary for large grows when the file system is almost\nfull, and GFS2 needs to use some of the space allocated earlier in the grow\nto complete it. Now, if GFS2 fails to reserve the necessary space and the\nrindex data is not up-to-date, it rereads it. (BZ#729094)\n\n* Previously, when the Xen hypervisor split a 2 MB page into 4 KB pages, it\nlinked the new page from PDE (Page Directory Entry) before it filled\nentries of the page with appropriate data. Consequently, when doing a live\nmigration with EPT (Extended Page Tables) enabled on a non-idle guest\nrunning with more than two virtual CPUs, the guest often terminated\nunexpectedly. With this update, the Xen hypervisor prepares the page table\nentry first, and then links it in. (BZ#730684)\n\n* Changes made to TSC as a clock source for IRQs caused virtual machines\nrunning under the VMware ESX or ESXi hypervisors to become unresponsive\nduring the initial kernel boot process. With this update, the\nenable_tsc_timer flag enables the do_timer_tsc_timekeeping() function to be\ncalled in the do_timer_interrupt_hook() function, preventing a deadlock in\nthe timer interrupt handler. (BZ#730688)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2011:1321",
+				"url": "https://access.redhat.com/errata/RHSA-2011:1321"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2011/rhsa-2011_1321.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel security and bug fix update",
+		"tracking": {
+			"current_release_date": "2011-09-20T13:50:47+00:00",
+			"generator": {
+				"date": "2023-10-17T15:53:43+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2011:1321",
+			"initial_release_date": "2011-09-20T17:45:00+00:00",
+			"revision_history": [
+				{
+					"date": "2011-09-20T13:50:47+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5.6.z server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5.6.z server)",
+									"product_id": "5Server-5.6.Z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-debug-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-PAE@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-debuginfo@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-devel@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-PAE-devel@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-devel-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-PAE-debuginfo@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-xen-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-xen-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_id": "kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-238.27.1.el5?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-238.27.1.el5.i386",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-238.27.1.el5.i386",
+									"product_id": "kernel-headers-0:2.6.18-238.27.1.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-238.27.1.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-debuginfo@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-devel@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+									"product_id": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-238.27.1.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-devel@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-debuginfo@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+									"product_id": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-238.27.1.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+									"product_id": "kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-238.27.1.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-devel@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-debuginfo@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+									"product_id": "kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-238.27.1.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-debuginfo@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-devel@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+									"product_id": "kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-238.27.1.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+								"product": {
+									"name": "kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+									"product_id": "kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-doc@2.6.18-238.27.1.el5?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-238.27.1.el5.src",
+								"product": {
+									"name": "kernel-0:2.6.18-238.27.1.el5.src",
+									"product_id": "kernel-0:2.6.18-238.27.1.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-238.27.1.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-238.27.1.el5.src as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.src"
+				},
+				"product_reference": "kernel-0:2.6.18-238.27.1.el5.src",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-PAE-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-PAE-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-doc-0:2.6.18-238.27.1.el5.noarch as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-doc-0:2.6.18-238.27.1.el5.noarch"
+				},
+				"product_reference": "kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-238.27.1.el5.i386 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.i386"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-238.27.1.el5.i386",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-238.27.1.el5.ppc as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64"
+				},
+				"product_reference": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x"
+				},
+				"product_reference": "kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-xen-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.i686 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.i686"
+				},
+				"product_reference": "kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64"
+				},
+				"product_reference": "kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5.6.z server)",
+					"product_id": "5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64"
+				},
+				"product_reference": "kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.6.Z"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Brent Meshier"
+					]
+				}
+			],
+			"cve": "CVE-2011-2723",
+			"discovery_date": "2011-07-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "726552"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The skb_gro_header_slow function in include/linux/netdevice.h in the Linux kernel before 2.6.39.4, when Generic Receive Offload (GRO) is enabled, resets certain fields in incorrect situations, which allows remote attackers to cause a denial of service (system crash) via crafted network traffic.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-2723 kernel: gro: only reset frag0 when skb can be pulled",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of Linux kernel as shipped with Red Hat Enterprise Linux 4 as it did not backport the upstream commit a5b1cf28 that introduced this issue. This has been addressed in Red Hat Enterprise Linux 5, 6, and Red Hat Enterprise MRG via https://rhn.redhat.com/errata/RHSA-2011-1386.html, https://rhn.redhat.com/errata/RHSA-2011-1350.html, and https://rhn.redhat.com/errata/RHSA-2012-0010.html.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.src",
+					"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+					"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.i386",
+					"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+					"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+					"5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+					"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+					"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+					"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+					"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-2723"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#726552",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=726552"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-2723",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-2723"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-2723",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-2723"
+				},
+				{
+					"category": "external",
+					"summary": "http://git.kernel.org/linus/17dd759c67f21e34f2156abcf415e1f60605a188",
+					"url": "http://git.kernel.org/linus/17dd759c67f21e34f2156abcf415e1f60605a188"
+				}
+			],
+			"release_date": "2011-07-27T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.src",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.i386",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:1321"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 5.7,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:M/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.src",
+						"5Server-5.6.Z:kernel-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-PAE-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-PAE-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-PAE-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debug-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debug-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debug-devel-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-debuginfo-common-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-devel-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-doc-0:2.6.18-238.27.1.el5.noarch",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.i386",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-headers-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-kdump-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-kdump-debuginfo-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.ppc64",
+						"5Server-5.6.Z:kernel-kdump-devel-0:2.6.18-238.27.1.el5.s390x",
+						"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-xen-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-xen-debuginfo-0:2.6.18-238.27.1.el5.x86_64",
+						"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.i686",
+						"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.ia64",
+						"5Server-5.6.Z:kernel-xen-devel-0:2.6.18-238.27.1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-2723 kernel: gro: only reset frag0 when skb can be pulled"
+		}
+	]
+}

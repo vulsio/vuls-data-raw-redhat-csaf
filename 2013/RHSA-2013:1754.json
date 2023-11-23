@@ -1,0 +1,343 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated qemu-kvm-rhev, qemu-kvm-rhev-tools, and qemu-img-rhev packages are\nnow available.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. A Common Vulnerability Scoring System (CVSS)\nbase score, which gives a detailed severity rating, is available from the\nCVE link in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "KVM (Kernel-based Virtual Machine) is a full virtualization solution for\nLinux on AMD64 and Intel 64 systems. The qemu-kvm-rhev package provides the\nuser-space component for running virtual machines using KVM, in\nenvironments managed by Red Hat Enterprise Virtualization Manager.\n\nA buffer overflow flaw was found in the way QEMU processed the SCSI \"REPORT\nLUNS\" command when more than 256 LUNs were specified for a single SCSI\ntarget. A privileged guest user could use this flaw to corrupt QEMU process\nmemory on the host, which could potentially result in arbitrary code\nexecution on the host with the privileges of the QEMU process.\n(CVE-2013-4344)\n\nThis issue was discovered by Asias He of Red Hat.\n\nThis update fixes the following bugs:\n\n* In QMP monitor, if an attempt was made to create an image with the same\nfile name as the backing file, an error was generated, but no message was\ndisplayed. Performing this action in QMP Monitor now generates the same\nerror message as performing the action in HMP: \"Error: Trying to create an\nimage with the same file name as the backing file\". (BZ#877240)\n\n* QEMU I/O throttling has been disabled in Red Hat Enterprise Linux and is\nnow only available enabled in the Red Hat Enterprise Virtualization QEMU\npackage (qemu-kvm-rhev). (BZ#975468)\n\n* When booting a guest machine, it would still boot when specifying iops\nand bps as a negative value, without displaying an error message. This has\nbeen fixed so that if a negative value is used the guest does not boot and\nQEMU exits with the following message 'bps and iops values must be 0 or\ngreater'. (BZ#987725)\n\n* When booting a guest with QMP server, hot plug was failing. It can now do\nhotplug with QEMU I/O throttling including iops, iops_wr, iops_rd, bps,\nbps_wr, bps_rd inofs successfully. (BZ#987745)\n\n* Due to a change in virtualization features, all fixes and errata related\nto Red Hat Enterprise Virtualization specific features, can only be posted\nto the Red Hat Enterprise Virtualization channel. Therefore a Red Hat\nEnterprise Virtualization specific qemu-kvm (for RHEV-H-6.5.0 Errata) was\ndeveloped. This meant that the qemu-kvm-rhev binary was mapped to a Red Had\nenterprise Virtualization channel, entitled to Red Hat Enterprise\nVirtualization customers, and disabled from the Red Hat Enterprise Linux\nchannel. (BZ#997032)\n\n* The qemu-kvm-rhev package now contains /usr/lib64/qemu, as this directory\nis where CEPH packages provide librbd to be used by QEMU at runtime.\n(BZ#999705)\n\n* QEMU performed a core dump when iops.bps was set to a negative value.\nThis has been fixed so that it no longer performs a core dump when a\nnegative value is entered, instead an error message is displayed indicating\nthe values must be zero of greater. (BZ#1001436)\n\n* When running the \"rpm -V qemu-kvm-rhev\" command, an error was generated\nstating there were unsatisfied dependencies. This has been fixed so there\nnow are no unsatisfied dependencies and it executes correctly. (BZ#1010930)\n\nIn addition, this update adds the following enhancements:\n\n* QEMU I/O throttling allows for finer control of the rate of I/O\noperations at the QEMU level, and is therefore independent of the\nunderlying storage device. A similar feature can be created by using\ncgroups at the libvirt level, but cgroups is limited as it does not support\nsome storage devices (such as image files over NFS) and throttles the whole\nvirtual machine, including access to meta-data, while qemu I/O is more\nfine-grained. (BZ#956825)\n\n* Patches were added to the QEMU block driver for accessing CEPH storage on\nqemu-kvm-rhev. However,this is not usable on its own, a librbd library\nstill needs to be provided. The librbd library is not provided in Red Hat\nEnterprise Linux and will be handled by a third party source. (BZ#988079)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:1754",
+				"url": "https://access.redhat.com/errata/RHSA-2013:1754"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_1754.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: qemu-kvm-rhev, qemu-kvm-rhev-tools, qemu-img-rhev security and bug fix update",
+		"tracking": {
+			"current_release_date": "2013-11-21T05:48:24+00:00",
+			"generator": {
+				"date": "2023-10-17T16:01:10+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:1754",
+			"initial_release_date": "2013-11-21T05:49:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-11-21T05:48:24+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHEV Agents (vdsm)",
+								"product": {
+									"name": "RHEV Agents (vdsm)",
+									"product_id": "6Server-RHEV-Agents",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_linux:6::hypervisor"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+								"product": {
+									"name": "qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+									"product_id": "qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-img-rhev@0.12.1.2-2.415.el6?arch=x86_64&epoch=2"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+								"product": {
+									"name": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+									"product_id": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev@0.12.1.2-2.415.el6?arch=x86_64&epoch=2"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+								"product": {
+									"name": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+									"product_id": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev-debuginfo@0.12.1.2-2.415.el6?arch=x86_64&epoch=2"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64",
+								"product": {
+									"name": "qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64",
+									"product_id": "qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev-tools@0.12.1.2-2.415.el6?arch=x86_64&epoch=2"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+								"product": {
+									"name": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+									"product_id": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-rhev@0.12.1.2-2.415.el6?arch=src&epoch=2"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64"
+				},
+				"product_reference": "qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src"
+				},
+				"product_reference": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64"
+				},
+				"product_reference": "qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64"
+				},
+				"product_reference": "qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64"
+				},
+				"product_reference": "qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Asias He"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2013-4344",
+			"discovery_date": "2013-09-12T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1007330"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Buffer overflow in the SCSI implementation in QEMU, as used in Xen, when a SCSI controller has more than 256 attached devices, allows local users to gain privileges via a small transfer buffer in a REPORT LUNS command.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "buffer overflow in scsi_target_emulate_report_luns",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affect the kvm and xen packages as shipped with Red Hat Enterprise Linux 5.\n\nThis issue does affect the qemu-kvm package as shipped with Red Hat Enterprise Linux 6. Future qemu-kvm updates in Red Hat Enterprise Linux 6 may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RHEV-Agents:qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+					"6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+					"6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+					"6Server-RHEV-Agents:qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+					"6Server-RHEV-Agents:qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-4344"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1007330",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1007330"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-4344",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-4344"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-4344",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-4344"
+				}
+			],
+			"release_date": "2013-10-02T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All Red Hat Enterprise Virtualization users with deployed virtualization\nhosts are advised to install these updated packages, which contain\nbackported patches to correct these issues and add these enhancements.\n\nBefore applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RHEV-Agents:qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:1754"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:A/AC:H/Au:S/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RHEV-Agents:qemu-img-rhev-2:0.12.1.2-2.415.el6.x86_64",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.src",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-2:0.12.1.2-2.415.el6.x86_64",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-debuginfo-2:0.12.1.2-2.415.el6.x86_64",
+						"6Server-RHEV-Agents:qemu-kvm-rhev-tools-2:0.12.1.2-2.415.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "buffer overflow in scsi_target_emulate_report_luns"
+		}
+	]
+}

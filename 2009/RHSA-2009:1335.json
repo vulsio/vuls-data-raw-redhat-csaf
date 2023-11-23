@@ -1,0 +1,3783 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openssl packages that fix several security issues, various bugs,\nand add enhancements are now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "OpenSSL is a toolkit that implements the Secure Sockets Layer (SSL v2/v3)\nand Transport Layer Security (TLS v1) protocols, as well as a full-strength\ngeneral purpose cryptography library. Datagram TLS (DTLS) is a protocol\nbased on TLS that is capable of securing datagram transport (for example,\nUDP).\n\nMultiple denial of service flaws were discovered in OpenSSL's DTLS\nimplementation. A remote attacker could use these flaws to cause a DTLS\nserver to use excessive amounts of memory, or crash on an invalid memory\naccess or NULL pointer dereference. (CVE-2009-1377, CVE-2009-1378,\nCVE-2009-1379, CVE-2009-1386, CVE-2009-1387)\n\nNote: These flaws only affect applications that use DTLS. Red Hat does not\nship any DTLS client or server applications in Red Hat Enterprise Linux.\n\nAn input validation flaw was found in the handling of the BMPString and\nUniversalString ASN1 string types in OpenSSL's ASN1_STRING_print_ex()\nfunction. An attacker could use this flaw to create a specially-crafted\nX.509 certificate that could cause applications using the affected function\nto crash when printing certificate contents. (CVE-2009-0590)\n\nNote: The affected function is rarely used. No application shipped with Red\nHat Enterprise Linux calls this function, for example.\n\nThese updated packages also fix the following bugs:\n\n* \"openssl smime -verify -in\" verifies the signature of the input file and\nthe \"-verify\" switch expects a signed or encrypted input file. Previously,\nrunning openssl on an S/MIME file that was not encrypted or signed caused\nopenssl to segfault. With this update, the input file is now checked for a\nsignature or encryption. Consequently, openssl now returns an error and\nquits when attempting to verify an unencrypted or unsigned S/MIME file.\n(BZ#472440)\n\n* when generating RSA keys, pairwise tests were called even in non-FIPS\nmode. This prevented small keys from being generated. With this update,\ngenerating keys in non-FIPS mode no longer calls the pairwise tests and\nkeys as small as 32-bits can be generated in this mode. Note: In FIPS mode,\npairwise tests are still called and keys generated in this mode must still\nbe 1024-bits or larger. (BZ#479817)\n\nAs well, these updated packages add the following enhancements:\n\n* both the libcrypto and libssl shared libraries, which are part of the\nOpenSSL FIPS module, are now checked for integrity on initialization of\nFIPS mode. (BZ#475798)\n\n* an issuing Certificate Authority (CA) allows multiple certificate\ntemplates to inherit the CA's Common Name (CN). Because this CN is used as\na unique identifier, each template had to have its own Certificate\nRevocation List (CRL). With this update, multiple CRLs with the same\nsubject name can now be stored in a X509_STORE structure, with their\nsignature field being used to distinguish between them. (BZ#457134)\n\n* the fipscheck library is no longer needed for rebuilding the openssl\nsource RPM. (BZ#475798)\n\nOpenSSL users should upgrade to these updated packages, which resolve these\nissues and add these enhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:1335",
+				"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_1335.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openssl security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2009-09-01T06:41:25+00:00",
+			"generator": {
+				"date": "2023-10-17T15:50:52+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:1335",
+			"initial_release_date": "2009-09-02T08:00:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-09-01T06:41:25+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.x86_64",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.x86_64",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.x86_64",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.x86_64",
+									"product_id": "openssl-0:0.9.8e-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5.x86_64",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5.x86_64",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.i386",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.i386",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.i386",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.i386",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.i386",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.i386",
+									"product_id": "openssl-0:0.9.8e-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5.i386",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5.i386",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.src",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.src",
+									"product_id": "openssl-0:0.9.8e-12.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.i686",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.i686",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.i686",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.i686",
+									"product_id": "openssl-0:0.9.8e-12.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.ia64",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.ia64",
+									"product_id": "openssl-0:0.9.8e-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.ia64",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.ia64",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5.ia64",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5.ia64",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.ppc64",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.ppc64",
+									"product_id": "openssl-0:0.9.8e-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.ppc64",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.ppc64",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.ppc",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.ppc",
+									"product_id": "openssl-0:0.9.8e-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.ppc",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.ppc",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5.ppc",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5.ppc",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.s390x",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.s390x",
+									"product_id": "openssl-0:0.9.8e-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.s390x",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.s390x",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5.s390x",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5.s390x",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5.s390",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5.s390",
+									"product_id": "openssl-0:0.9.8e-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5.s390",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5.s390",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.i686 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.i686"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.i686",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.src"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.i686 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.i686",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.i686 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.i686"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.i686",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.src"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.i686 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.i686",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-devel-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-perl-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-perl-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-perl-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-perl-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.i686 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.i686"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.i686",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.src"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.i686 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.i686",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.ppc64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.s390"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-devel-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-perl-0:0.9.8e-12.el5.i386"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-perl-0:0.9.8e-12.el5.ia64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-perl-0:0.9.8e-12.el5.ppc"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-perl-0:0.9.8e-12.el5.s390x"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2006-7250",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2006-08-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "798100"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The mime_hdr_cmp function in crypto/asn1/asn_mime.c in OpenSSL 0.9.8t and earlier allows remote attackers to cause a denial of service (NULL pointer dereference and application crash) via a crafted S/MIME message.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2006-7250 openssl: mime_hdr_cmp NULL dereference crash",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue was corrected in Red Hat Enterprise Linux 5 via RHSA-2009:1335. It did not affect openssl packages shipped with Red Hat Enterprise Linux 6.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2006-7250"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#798100",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=798100"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2006-7250",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2006-7250"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2006-7250",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2006-7250"
+				}
+			],
+			"release_date": "2006-08-29T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2006-7250 openssl: mime_hdr_cmp NULL dereference crash"
+		},
+		{
+			"cve": "CVE-2009-0590",
+			"discovery_date": "2009-03-25T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "492304"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The ASN1_STRING_print_ex function in OpenSSL before 0.9.8k allows remote attackers to cause a denial of service (invalid memory access and application crash) via vectors that trigger printing of a (1) BMPString or (2) UniversalString with an invalid encoded length.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-0590 openssl: ASN1 printing crash",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-0590"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#492304",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=492304"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-0590",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-0590"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-0590",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-0590"
+				}
+			],
+			"release_date": "2009-03-25T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2009-0590 openssl: ASN1 printing crash"
+		},
+		{
+			"cve": "CVE-2009-1377",
+			"discovery_date": "2009-05-18T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "501253"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The dtls1_buffer_record function in ssl/d1_pkt.c in OpenSSL 0.9.8k and earlier 0.9.8 versions allows remote attackers to cause a denial of service (memory consumption) via a large series of \"future epoch\" DTLS records that are buffered in a queue, aka \"DTLS record buffer limitation bug.\"",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-1377 OpenSSL: DTLS epoch record buffer memory DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect versions of openssl as shipped in Red Hat Enterprise Linux 3 and 4.\n\nNote that both the DTLS specification and OpenSSLs implementation is still in development and unlikely to be used in production environments. There is no component shipped in Red Hat Enterprise Linux 5 using OpenSSLs DTLS implementation, except for OpenSSLs testing command line client - openssl.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-1377"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#501253",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=501253"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-1377",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-1377"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-1377",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1377"
+				}
+			],
+			"release_date": "2009-05-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-1377 OpenSSL: DTLS epoch record buffer memory DoS"
+		},
+		{
+			"cve": "CVE-2009-1378",
+			"discovery_date": "2009-05-18T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "501254"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple memory leaks in the dtls1_process_out_of_seq_message function in ssl/d1_both.c in OpenSSL 0.9.8k and earlier 0.9.8 versions allow remote attackers to cause a denial of service (memory consumption) via DTLS records that (1) are duplicates or (2) have sequence numbers much greater than current sequence numbers, aka \"DTLS fragment handling memory leak.\"",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-1378 OpenSSL: DTLS fragment handling memory DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect versions of openssl as shipped in Red Hat Enterprise Linux 3 and 4.\n\nNote that both the DTLS specification and OpenSSLs implementation is still in development and unlikely to be used in production environments. There is no component shipped in Red Hat Enterprise Linux 5 using OpenSSLs DTLS implementation, except for OpenSSLs testing command line client - openssl.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-1378"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#501254",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=501254"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-1378",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-1378"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-1378",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1378"
+				}
+			],
+			"release_date": "2009-05-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-1378 OpenSSL: DTLS fragment handling memory DoS"
+		},
+		{
+			"cve": "CVE-2009-1379",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
+			"discovery_date": "2009-05-18T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "501572"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Use-after-free vulnerability in the dtls1_retrieve_buffered_fragment function in ssl/d1_both.c in OpenSSL 1.0.0 Beta 2 allows remote attackers to cause a denial of service (openssl s_client crash) and possibly have unspecified other impact via a DTLS packet, as demonstrated by a packet from a server that uses a crafted server certificate.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-1379 OpenSSL: DTLS pointer use-after-free flaw (DoS)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect versions of openssl as shipped in Red Hat Enterprise Linux 3 and 4.\n\nNote that both the DTLS specification and OpenSSLs implementation is still in development and unlikely to be used in production environments. There is no component shipped in Red Hat Enterprise Linux 5 using OpenSSLs DTLS implementation, except for OpenSSLs testing command line client - openssl.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-1379"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#501572",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=501572"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-1379",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-1379"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-1379",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1379"
+				}
+			],
+			"release_date": "2009-05-11T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-1379 OpenSSL: DTLS pointer use-after-free flaw (DoS)"
+		},
+		{
+			"cve": "CVE-2009-1386",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2009-06-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "503685"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "ssl/s3_pkt.c in OpenSSL before 0.9.8i allows remote attackers to cause a denial of service (NULL pointer dereference and daemon crash) via a DTLS ChangeCipherSpec packet that occurs before ClientHello.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-1386 openssl: DTLS NULL deref crash on early ChangeCipherSpec request",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-1386"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#503685",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=503685"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-1386",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-1386"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-1386",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1386"
+				}
+			],
+			"release_date": "2009-06-02T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-1386 openssl: DTLS NULL deref crash on early ChangeCipherSpec request"
+		},
+		{
+			"cve": "CVE-2009-1387",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2009-06-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "503688"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The dtls1_retrieve_buffered_fragment function in ssl/d1_both.c in OpenSSL before 1.0.0 Beta 2 allows remote attackers to cause a denial of service (NULL pointer dereference and daemon crash) via an out-of-sequence DTLS handshake message, related to a \"fragment bug.\"",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-1387 openssl: DTLS out-of-sequence message handling NULL deref DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+					"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-0:0.9.8e-12.el5.src",
+					"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-0:0.9.8e-12.el5.src",
+					"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+					"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-1387"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#503688",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=503688"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-1387",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-1387"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-1387",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1387"
+				}
+			],
+			"release_date": "2009-06-02T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1335"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.src",
+						"5Client-Workstation:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client-Workstation:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-0:0.9.8e-12.el5.src",
+						"5Client:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Client:openssl-perl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-0:0.9.8e-12.el5.src",
+						"5Server:openssl-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.i686",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-debuginfo-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.ppc64",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-devel-0:0.9.8e-12.el5.x86_64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.i386",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ia64",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.ppc",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.s390x",
+						"5Server:openssl-perl-0:0.9.8e-12.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-1387 openssl: DTLS out-of-sequence message handling NULL deref DoS"
+		}
+	]
+}

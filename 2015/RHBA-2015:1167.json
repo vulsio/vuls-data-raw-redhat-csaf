@@ -1,0 +1,753 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated docker packages that fix several bugs are now available for Red Hat Enterprise Linux 7 Extras.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Docker is an open-source engine that automates the deployment of any application as a lightweight, portable, self-sufficient container that will run virtually anywhere.\n\nThis update fixes the following bugs:\n\n* Previously, if you had one image tagged in at least two repositories, running the \"docker rmi ID\" command untagged the image from just one repository and the other persisted. This bug has been fixed and \"docker rmi ID\" now untags all associated images. (BZ#1222784)\n\n* Previously, the docker service did not try to match short names against local fully qualified images names while doing a push. As a consequence, the push command reported that the image name could not be found and the user had to fully qualify the argument and execute the push again. This bug has been fixed and the docker service now tries to match short names against local images fully qualified with the default registry (those added with the \"--add-registry flag\"). Now, the user does not have to fully qualify the image name in order to push it to one of the default registries. (BZ#1218639)\n\n* During initialization of both the Docker client and daemon, the public Docker registry was resolved, in order to check whether it was secured or not. This happened regardless of the docker.io registry being blocked. Consequently, docker was attempting to resolve docker.io to an IP address any time a Docker client was run. This prolonged commands execution in environments without external DNS lookups. After this update, docker no longer checks whether the public Docker index is secure. As a result, no DNS lookups for docker.io are done unless a public Docker registry is enabled and a pull, push, or search operation is performed on it. (BZ#1224387)\n\n* The default handling of SELinux labeling did not work correctly and the docker service was unable to mount certain directories into containers. This bug has been fixed and mounting a directory into a container now executes successfully. (BZ#1209625)\n\n* Previously, the docker service was labeling shared volumes as private by default. As a consequence, other containers could not execute the content from them. With this update, the underlying source code has been fixed to label shared volumes correctly. As a result, shared volumes now work correctly with SELinux in enforcing mode. (BZ#1226320, BZ#1225549)\n\n* If a volume was specified with more than one object, the docker service did not perform relabeling. As a consequence, you could not, for example, mount a volume that is both read-only and needs relabeling at the same time. The labeling check has been fixed, and docker now relabels correctly in the described scenario. (BZ#1225556)\n\n* Previously, the docker service and SELinux were blocking relabels of the /usr directory, even if the user did not request relabeling. As a consequence, certain volume mounts of content in /usr were blocked and a container could not run. The check on relabeling has been fixed and volumes in /usr can now be mounted into a container successfully. (BZ#1230192)\n\nUsers of docker are advised to upgrade to these updated packages, which fix these bugs.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHBA-2015:1167",
+				"url": "https://access.redhat.com/errata/RHBA-2015:1167"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhba-2015_1167.json"
+			}
+		],
+		"title": "Red Hat Bug Fix Advisory: docker bug fix update",
+		"tracking": {
+			"current_release_date": "2019-09-24T14:43:41+00:00",
+			"generator": {
+				"date": "2023-10-17T16:03:45+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHBA-2015:1167",
+			"initial_release_date": "2015-06-23T09:29:05+00:00",
+			"revision_history": [
+				{
+					"date": "2019-09-24T14:43:41+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux 7 Extras",
+								"product": {
+									"name": "Red Hat Enterprise Linux 7 Extras",
+									"product_id": "7Server-EXTRAS",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux Extras"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "atomic-0:0-0.40.gitf863afd.el7.x86_64",
+								"product": {
+									"name": "atomic-0:0-0.40.gitf863afd.el7.x86_64",
+									"product_id": "atomic-0:0-0.40.gitf863afd.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/atomic@0-0.40.gitf863afd.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-selinux-0:1.6.2-14.el7.x86_64",
+								"product": {
+									"name": "docker-selinux-0:1.6.2-14.el7.x86_64",
+									"product_id": "docker-selinux-0:1.6.2-14.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-selinux@1.6.2-14.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-0:1.6.2-14.el7.x86_64",
+								"product": {
+									"name": "docker-0:1.6.2-14.el7.x86_64",
+									"product_id": "docker-0:1.6.2-14.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker@1.6.2-14.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-logrotate-0:1.6.2-14.el7.x86_64",
+								"product": {
+									"name": "docker-logrotate-0:1.6.2-14.el7.x86_64",
+									"product_id": "docker-logrotate-0:1.6.2-14.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-logrotate@1.6.2-14.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-python-0:1.0.0-53.el7.x86_64",
+								"product": {
+									"name": "docker-python-0:1.0.0-53.el7.x86_64",
+									"product_id": "docker-python-0:1.0.0-53.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-python@1.0.0-53.el7?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "docker-0:1.6.2-14.el7.src",
+								"product": {
+									"name": "docker-0:1.6.2-14.el7.src",
+									"product_id": "docker-0:1.6.2-14.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker@1.6.2-14.el7?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-websocket-client-0:0.14.1-97.el7.noarch",
+								"product": {
+									"name": "python-websocket-client-0:0.14.1-97.el7.noarch",
+									"product_id": "python-websocket-client-0:0.14.1-97.el7.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-websocket-client@0.14.1-97.el7?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "atomic-0:0-0.40.gitf863afd.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64"
+				},
+				"product_reference": "atomic-0:0-0.40.gitf863afd.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-0:1.6.2-14.el7.src as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-0:1.6.2-14.el7.src"
+				},
+				"product_reference": "docker-0:1.6.2-14.el7.src",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-0:1.6.2-14.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64"
+				},
+				"product_reference": "docker-0:1.6.2-14.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-logrotate-0:1.6.2-14.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64"
+				},
+				"product_reference": "docker-logrotate-0:1.6.2-14.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-python-0:1.0.0-53.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64"
+				},
+				"product_reference": "docker-python-0:1.0.0-53.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-selinux-0:1.6.2-14.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64"
+				},
+				"product_reference": "docker-selinux-0:1.6.2-14.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-websocket-client-0:0.14.1-97.el7.noarch as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+				},
+				"product_reference": "python-websocket-client-0:0.14.1-97.el7.noarch",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Eric Windisch"
+					],
+					"organization": "Docker project"
+				}
+			],
+			"cve": "CVE-2015-3627",
+			"cwe": {
+				"id": "CWE-22",
+				"name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+			},
+			"discovery_date": "2015-05-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1219061"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Libcontainer and Docker Engine before 1.6.1 opens the file-descriptor passed to the pid-1 process before performing the chroot, which allows local users to gain privileges via a symlink attack in an image.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "insecure opening of file-descriptor 1 leading to privilege escalation",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+					"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-3627"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1219061",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1219061"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-3627",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-3627"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-3627",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3627"
+				}
+			],
+			"release_date": "2015-05-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "insecure opening of file-descriptor 1 leading to privilege escalation"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Eric Windisch"
+					],
+					"organization": "Docker project"
+				}
+			],
+			"cve": "CVE-2015-3629",
+			"cwe": {
+				"id": "CWE-22",
+				"name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+			},
+			"discovery_date": "2015-05-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1219058"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Libcontainer 1.6.0, as used in Docker Engine, allows local users to escape containerization (\"mount namespace breakout\") and write to arbitrary file on the host system via a symlink attack in an image when respawning a container.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "symlink traversal on container respawn allows local privilege escalation",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+					"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-3629"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1219058",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1219058"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-3629",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-3629"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-3629",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3629"
+				}
+			],
+			"release_date": "2015-05-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "symlink traversal on container respawn allows local privilege escalation"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Eric Windisch"
+					],
+					"organization": "Docker project"
+				}
+			],
+			"cve": "CVE-2015-3630",
+			"discovery_date": "2015-05-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1219063"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Docker Engine before 1.6.1 uses weak permissions for (1) /proc/asound, (2) /proc/timer_stats, (3) /proc/latency_stats, and (4) /proc/fs, which allows local users to modify the host, obtain sensitive information, and perform protocol downgrade attacks via a crafted image.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Read/write proc paths allow host modification & information disclosure",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+					"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-3630"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1219063",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1219063"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-3630",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-3630"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-3630",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3630"
+				}
+			],
+			"release_date": "2015-05-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "Read/write proc paths allow host modification & information disclosure"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Eric Windisch"
+					],
+					"organization": "Docker project"
+				}
+			],
+			"cve": "CVE-2015-3631",
+			"cwe": {
+				"id": "CWE-642",
+				"name": "External Control of Critical State Data"
+			},
+			"discovery_date": "2015-05-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1219065"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Docker Engine before 1.6.1 allows local users to set arbitrary Linux Security Modules (LSM) and docker_t policies via an image that allows volumes to override files in /proc.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "volume mounts allow LSM profile escalation",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+					"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+					"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+					"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-3631"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1219065",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1219065"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-3631",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-3631"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-3631",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3631"
+				}
+			],
+			"release_date": "2015-05-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2015:1167"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-EXTRAS:atomic-0:0-0.40.gitf863afd.el7.x86_64",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.src",
+						"7Server-EXTRAS:docker-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:docker-python-0:1.0.0-53.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.6.2-14.el7.x86_64",
+						"7Server-EXTRAS:python-websocket-client-0:0.14.1-97.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "volume mounts allow LSM profile escalation"
+		}
+	]
+}

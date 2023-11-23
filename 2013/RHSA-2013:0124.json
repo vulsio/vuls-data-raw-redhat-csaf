@@ -1,0 +1,2011 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated net-snmp packages that fix one security issue and multiple bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "These packages provide various libraries and tools for the Simple Network\nManagement Protocol (SNMP).\n\nAn out-of-bounds buffer read flaw was found in the net-snmp agent. A remote\nattacker with read privileges to a Management Information Base (MIB)\nsubtree handled by the \"extend\" directive (in \"/etc/snmp/snmpd.conf\") could\nuse this flaw to crash snmpd via a crafted SNMP GET request.\n(CVE-2012-2141)\n\nBug fixes:\n\n* Devices that used certain file systems were not reported in the\n\"HOST-RESOURCES-MIB::hrStorageTable\" table. As a result, the snmpd daemon\ndid not recognize devices using tmpfs, ReiserFS, and Oracle Cluster File\nSystem (OCFS2) file systems. This update recognizes these devices and\nreports them in the \"HOST-RESOURCES-MIB::hrStorageTable\" table.\n(BZ#754652, BZ#755958, BZ#822061)\n\n* The snmptrapd (8) man page did not correctly describe how to load\nmultiple configuration files using the \"-c\" option. This update describes\ncorrectly that multiple configuration files must be separated by a comma.\n(BZ#760001)\n\n* Integers truncated from 64 to 32-bit were not correctly evaluated. As a\nconsequence, the snmpd daemon could enter an endless loop when encoding the\ntruncated integers to network format. This update modifies the underlying\ncode so that snmpd correctly checks truncated 64-bit integers. Now, snmpd\navoids an endless loop. (BZ#783892)\n\n* snmpd did not correctly check for interrupted system calls when\nenumerating existing IPv6 network prefixes during startup. As a\nconsequence, snmpd could prematurely exit when receiving a signal during\nthis enumeration. This update checks the network prefix enumeration code\nfor interrupted system calls. Now, snmpd no longer terminates when a signal\nis received. (BZ#799699)\n\n* snmpd used the wrong length of COUNTER64 values in the AgentX protocol.\nAs a consequence, snmpd could not decode two consecutive COUNTER64 values\nin one AgentX packet. This update uses the correct COUNTER64 size and can\nprocess two or mode COUNTER64 values in AgentX communication. (BZ#803585)\n\n* snmpd ignored the \"-e\" parameter of the \"trapsess\" option in the snmpd\nconfiguration file. As a result, outgoing traps were incorrectly sent with\nthe default EngineID of snmpd when configuring \"trapsess\" with an explicit\nEngineID. This update modifies the underlying code to send outgoing traps\nusing the EngineID as specified in the \"trapsess -e\" parameter in the\nconfiguration file. (BZ#805689)\n\n* snmpd did not correctly encode negative Request-IDs in outgoing requests,\nfor example during trap operations. As a consequence, a 32-bit value could\nbe encoded in 5 bytes instead of 4, and the outgoing requests were refused\nby certain implementations of the SNMP protocol as invalid. With this\nupdate, a Request-ID can no longer become negative and is always encoded in\n4 bytes. (BZ#818259)\n\n* snmpd ignored the port number of the \"clientaddr\" option when specifying\nthe source address of outgoing SNMP requests. As a consequence, the system\nassigned a random address. This update allows to specify both the port\nnumber and the source IP address in the \"clientaddr\" option. Now,\nadministrators can increase security with firewall rules and\nSecurity-Enhanced Linux (SELinux) policies by configuring a specific source\nport of outgoing traps and other requests. (BZ#828691)\n\n* snmpd did not correctly process responses to internal queries when\ninitializing monitoring enabled by the \"monitor\" option in the\n\"/etc/snmp/snmpd.conf\" configuration file. As a consequence, snmpd was not\nfully initialized and the error message \"failed to run mteTrigger query\"\nappeared in the system log 30 seconds after the snmpd startup. This update\nexplicitly checks for responses to internal monitoring queries. (BZ#830042)\n\nUsers of net-snmp should upgrade to these updated packages, which contain\nbackported patches to correct these issues. After installing the update,\nthe snmpd and snmptrapd daemons will be restarted automatically.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0124",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0124"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0124.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: net-snmp security and bug fix update",
+		"tracking": {
+			"current_release_date": "2013-01-08T04:22:53+00:00",
+			"generator": {
+				"date": "2023-10-17T15:59:51+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0124",
+			"initial_release_date": "2013-01-08T04:16:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-01-08T04:22:53+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.i386",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.i386",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-1:5.3.2.2-20.el5.i386",
+								"product": {
+									"name": "net-snmp-1:5.3.2.2-20.el5.i386",
+									"product_id": "net-snmp-1:5.3.2.2-20.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp@5.3.2.2-20.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-perl-1:5.3.2.2-20.el5.i386",
+								"product": {
+									"name": "net-snmp-perl-1:5.3.2.2-20.el5.i386",
+									"product_id": "net-snmp-perl-1:5.3.2.2-20.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-perl@5.3.2.2-20.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-utils-1:5.3.2.2-20.el5.i386",
+								"product": {
+									"name": "net-snmp-utils-1:5.3.2.2-20.el5.i386",
+									"product_id": "net-snmp-utils-1:5.3.2.2-20.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-utils@5.3.2.2-20.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.i386",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.i386",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=i386&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-1:5.3.2.2-20.el5.x86_64",
+								"product": {
+									"name": "net-snmp-1:5.3.2.2-20.el5.x86_64",
+									"product_id": "net-snmp-1:5.3.2.2-20.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp@5.3.2.2-20.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+								"product": {
+									"name": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+									"product_id": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-perl@5.3.2.2-20.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+								"product": {
+									"name": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+									"product_id": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-utils@5.3.2.2-20.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=x86_64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-1:5.3.2.2-20.el5.src",
+								"product": {
+									"name": "net-snmp-1:5.3.2.2-20.el5.src",
+									"product_id": "net-snmp-1:5.3.2.2-20.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp@5.3.2.2-20.el5?arch=src&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-1:5.3.2.2-20.el5.s390x",
+								"product": {
+									"name": "net-snmp-1:5.3.2.2-20.el5.s390x",
+									"product_id": "net-snmp-1:5.3.2.2-20.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp@5.3.2.2-20.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+								"product": {
+									"name": "net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+									"product_id": "net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-perl@5.3.2.2-20.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+								"product": {
+									"name": "net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+									"product_id": "net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-utils@5.3.2.2-20.el5?arch=s390x&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=s390&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=s390&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=s390&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=ppc64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=ppc64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=ppc64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-1:5.3.2.2-20.el5.ppc",
+								"product": {
+									"name": "net-snmp-1:5.3.2.2-20.el5.ppc",
+									"product_id": "net-snmp-1:5.3.2.2-20.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp@5.3.2.2-20.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+								"product": {
+									"name": "net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+									"product_id": "net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-perl@5.3.2.2-20.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+								"product": {
+									"name": "net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+									"product_id": "net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-utils@5.3.2.2-20.el5?arch=ppc&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+								"product": {
+									"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+									"product_id": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-debuginfo@5.3.2.2-20.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-1:5.3.2.2-20.el5.ia64",
+								"product": {
+									"name": "net-snmp-1:5.3.2.2-20.el5.ia64",
+									"product_id": "net-snmp-1:5.3.2.2-20.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp@5.3.2.2-20.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+								"product": {
+									"name": "net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+									"product_id": "net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-libs@5.3.2.2-20.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+								"product": {
+									"name": "net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+									"product_id": "net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-devel@5.3.2.2-20.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+								"product": {
+									"name": "net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+									"product_id": "net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-perl@5.3.2.2-20.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+								"product": {
+									"name": "net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+									"product_id": "net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/net-snmp-utils@5.3.2.2-20.el5?arch=ia64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.src"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-1:5.3.2.2-20.el5.src"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-devel-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-libs-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-perl-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-perl-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-perl-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-perl-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-perl-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-utils-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-utils-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-utils-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-utils-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:net-snmp-utils-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-1:5.3.2.2-20.el5.src"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-devel-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-libs-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-perl-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-perl-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-perl-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-perl-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-perl-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-utils-1:5.3.2.2-20.el5.i386"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-utils-1:5.3.2.2-20.el5.ia64"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-utils-1:5.3.2.2-20.el5.ppc"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-utils-1:5.3.2.2-20.el5.s390x"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:net-snmp-utils-1:5.3.2.2-20.el5.x86_64"
+				},
+				"product_reference": "net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2012-2141",
+			"discovery_date": "2012-04-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "815813"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Array index error in the handle_nsExtendOutput2Table function in agent/mibgroup/agent/extend.c in Net-SNMP 5.7.1 allows remote authenticated users to cause a denial of service (out-of-bounds read and snmpd crash) via an SNMP GET request for an entry not in the extension table.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-2141 net-snmp: Array index error, leading to out-of heap-based buffer read (snmpd crash)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.i386",
+					"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ia64",
+					"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ppc",
+					"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.s390x",
+					"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.src",
+					"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.x86_64",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+					"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+					"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+					"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+					"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+					"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+					"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+					"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+					"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+					"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+					"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+					"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+					"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+					"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+					"5Client:net-snmp-1:5.3.2.2-20.el5.i386",
+					"5Client:net-snmp-1:5.3.2.2-20.el5.ia64",
+					"5Client:net-snmp-1:5.3.2.2-20.el5.ppc",
+					"5Client:net-snmp-1:5.3.2.2-20.el5.s390x",
+					"5Client:net-snmp-1:5.3.2.2-20.el5.src",
+					"5Client:net-snmp-1:5.3.2.2-20.el5.x86_64",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+					"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+					"5Client:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+					"5Client:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+					"5Client:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+					"5Client:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+					"5Client:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+					"5Client:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+					"5Client:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+					"5Client:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+					"5Client:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+					"5Client:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+					"5Client:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+					"5Client:net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+					"5Server:net-snmp-1:5.3.2.2-20.el5.i386",
+					"5Server:net-snmp-1:5.3.2.2-20.el5.ia64",
+					"5Server:net-snmp-1:5.3.2.2-20.el5.ppc",
+					"5Server:net-snmp-1:5.3.2.2-20.el5.s390x",
+					"5Server:net-snmp-1:5.3.2.2-20.el5.src",
+					"5Server:net-snmp-1:5.3.2.2-20.el5.x86_64",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+					"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+					"5Server:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+					"5Server:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+					"5Server:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+					"5Server:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+					"5Server:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+					"5Server:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+					"5Server:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+					"5Server:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+					"5Server:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+					"5Server:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+					"5Server:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+					"5Server:net-snmp-utils-1:5.3.2.2-20.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-2141"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#815813",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=815813"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-2141",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-2141"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-2141",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2141"
+				}
+			],
+			"release_date": "2012-04-24T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.src",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.src",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.src",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0124"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.src",
+						"5Client-Workstation:net-snmp-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+						"5Client-Workstation:net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.src",
+						"5Client:net-snmp-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+						"5Client:net-snmp-utils-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.src",
+						"5Server:net-snmp-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.ppc64",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-debuginfo-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.ppc64",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-devel-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.ppc64",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-libs-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-perl-1:5.3.2.2-20.el5.x86_64",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.i386",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.ia64",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.ppc",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.s390x",
+						"5Server:net-snmp-utils-1:5.3.2.2-20.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2012-2141 net-snmp: Array index error, leading to out-of heap-based buffer read (snmpd crash)"
+		}
+	]
+}

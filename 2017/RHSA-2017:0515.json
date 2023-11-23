@@ -1,0 +1,421 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for ansible and ceph-ansible is now available for Red Hat Storage Console 2.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The ceph-ansible package provides Ansible playbooks for installing, maintaining, and upgrading Red Hat Ceph Storage.\n\nAnsible is a simple model-driven configuration management, multi-node deployment, and remote task execution system. Ansible works over SSH and does not require any software or daemons to be installed on remote nodes. Extension modules can be written in any language and are transferred to managed machines automatically.\n\nThe following packages have been upgraded to a later upstream version: ceph-installer (1.2.2), ansible (2.2.1.0), python-passlib (1.6.5), ceph-ansible (2.1.9). (BZ#1405630)\n\nSecurity Fix(es):\n\n* An input validation vulnerability was found in Ansible's handling of data sent from client systems. An attacker with control over a client system being managed by Ansible and the ability to send facts back to the Ansible server could use this flaw to execute arbitrary code on the Ansible server using the Ansible server privileges. (CVE-2016-9587)\n\nBug Fix(es):\n\n* Previously, the ceph-ansible utility permanently disabled the swap partition. With this update, ceph-ansible can no longer disable swap. (BZ#1364167)\n\n* Previously, the ceph-ansible utility did not support adding encrypted OSD nodes. As a consequence, an attempt to upgrade to a newer, minor, or major version failed on encrypted OSD nodes. In addition, Ansible returned the following error message during the disk activation task:\n\n    mount: unknown filesystem type 'crypto_LUKS'\n\nWith this update, ceph-ansible supports adding encrypted OSD nodes, and upgrading works as expected. (BZ#1366808)\n\n* Due to a bug in the underlying source code, the ceph-ansible utility in some cases failed on the copy roundep task. Consequently, the installation process was unsuccessful. This bug has been fixed, and the installation now proceeds as expected. (BZ#1382878)\n\n* Previously, installation using the ceph-ansible utility failed on the \"fix partitions gpt header or labels of the journal devices\" task in the ceph-osd role because of an empty variable. The underlying source code has been modified, and the installation no longer fails in this case. (BZ#1400967)\n\n* Previously, Red Hat Console Agent setup performed by the ceph-ansible utility only supported installations by using the Content Delivery Network (CDN). Installations with an ISO file or local Yum repository failed. With this update, all installations are successful. (BZ#1403576)\n\n* Previously, the ceph-ansible utility was unable to purge a cluster with encrypted OSD devices because the underlying ceph-disk utility was unable to destroy the partition table on an encrypted device by using the \"--zap-disk\" option. The underlying source code has been fixed allowing ceph-disk to use the \"--zap-disk\" option on encrypted devices. As a result, ceph-ansible can purge clusters with encrypted OSD devices as expected. (BZ#1414647)\n\n* Previously, during the creation of Ceph clusters with nodes that use IPv6 addressing, ceph-ansible added the \"ms bind ipv6\" key to the Ceph configuration file, but it did not assign any value to it. This behavior caused an error when parsing the configuration file after the cluster creation. With this update, the \"ms bind ipv6\" key is properly set in the Ceph configuration file allowing for proper configuration file parsing on clusters that use IPv6 addressing. (BZ#1419814)\n\nEnhancement(s):\n\n* The ceph-ansible utility now supports the client role. This new role enables you to install Ceph clients by using Ansible and deploy nodes to run tests against the Ceph cluster. (BZ#1384622)\n\n* The ceph-installer API now supports installation of OSD nodes that have journals collocated on the same devices. (BZ#1412867)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2017:0515",
+				"url": "https://access.redhat.com/errata/RHSA-2017:0515"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/documentation/en/red-hat-storage-console/2.0/paged/release-notes/",
+				"url": "https://access.redhat.com/documentation/en/red-hat-storage-console/2.0/paged/release-notes/"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2017/rhsa-2017_0515.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: ansible and ceph-ansible security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2017-04-18T17:12:31+00:00",
+			"generator": {
+				"date": "2023-10-17T16:17:51+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2017:0515",
+			"initial_release_date": "2017-03-14T15:41:46+00:00",
+			"revision_history": [
+				{
+					"date": "2017-04-18T17:12:31+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Storage Console Installer 2",
+								"product": {
+									"name": "Red Hat Storage Console Installer 2",
+									"product_id": "7Server-RH7-RHSCON-INSTALLER-2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhscon:2::el7"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Storage Console"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ansible-0:2.2.1.0-1.el7.src",
+								"product": {
+									"name": "ansible-0:2.2.1.0-1.el7.src",
+									"product_id": "ansible-0:2.2.1.0-1.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ansible@2.2.1.0-1.el7?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-passlib-0:1.6.5-1.1.el7.src",
+								"product": {
+									"name": "python-passlib-0:1.6.5-1.1.el7.src",
+									"product_id": "python-passlib-0:1.6.5-1.1.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-passlib@1.6.5-1.1.el7?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-installer-0:1.2.2-1.el7scon.src",
+								"product": {
+									"name": "ceph-installer-0:1.2.2-1.el7scon.src",
+									"product_id": "ceph-installer-0:1.2.2-1.el7scon.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph-installer@1.2.2-1.el7scon?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-ansible-0:2.1.9-1.el7scon.src",
+								"product": {
+									"name": "ceph-ansible-0:2.1.9-1.el7scon.src",
+									"product_id": "ceph-ansible-0:2.1.9-1.el7scon.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph-ansible@2.1.9-1.el7scon?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ansible-0:2.2.1.0-1.el7.noarch",
+								"product": {
+									"name": "ansible-0:2.2.1.0-1.el7.noarch",
+									"product_id": "ansible-0:2.2.1.0-1.el7.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ansible@2.2.1.0-1.el7?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-passlib-0:1.6.5-1.1.el7.noarch",
+								"product": {
+									"name": "python-passlib-0:1.6.5-1.1.el7.noarch",
+									"product_id": "python-passlib-0:1.6.5-1.1.el7.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-passlib@1.6.5-1.1.el7?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-installer-0:1.2.2-1.el7scon.noarch",
+								"product": {
+									"name": "ceph-installer-0:1.2.2-1.el7scon.noarch",
+									"product_id": "ceph-installer-0:1.2.2-1.el7scon.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph-installer@1.2.2-1.el7scon?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ceph-ansible-0:2.1.9-1.el7scon.noarch",
+								"product": {
+									"name": "ceph-ansible-0:2.1.9-1.el7scon.noarch",
+									"product_id": "ceph-ansible-0:2.1.9-1.el7scon.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ceph-ansible@2.1.9-1.el7scon?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.1.0-1.el7.noarch as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.noarch"
+				},
+				"product_reference": "ansible-0:2.2.1.0-1.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.1.0-1.el7.src as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.src"
+				},
+				"product_reference": "ansible-0:2.2.1.0-1.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-ansible-0:2.1.9-1.el7scon.noarch as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.noarch"
+				},
+				"product_reference": "ceph-ansible-0:2.1.9-1.el7scon.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-ansible-0:2.1.9-1.el7scon.src as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.src"
+				},
+				"product_reference": "ceph-ansible-0:2.1.9-1.el7scon.src",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-installer-0:1.2.2-1.el7scon.noarch as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.noarch"
+				},
+				"product_reference": "ceph-installer-0:1.2.2-1.el7scon.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ceph-installer-0:1.2.2-1.el7scon.src as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.src"
+				},
+				"product_reference": "ceph-installer-0:1.2.2-1.el7scon.src",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-passlib-0:1.6.5-1.1.el7.noarch as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.noarch"
+				},
+				"product_reference": "python-passlib-0:1.6.5-1.1.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-passlib-0:1.6.5-1.1.el7.src as a component of Red Hat Storage Console Installer 2",
+					"product_id": "7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.src"
+				},
+				"product_reference": "python-passlib-0:1.6.5-1.1.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHSCON-INSTALLER-2"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2016-9587",
+			"cwe": {
+				"id": "CWE-20",
+				"name": "Improper Input Validation"
+			},
+			"discovery_date": "2016-12-12T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1404378"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An input validation vulnerability was found in Ansible's handling of data sent from client systems. An attacker with control over a client system being managed by Ansible and the ability to send facts back to the Ansible server could use this flaw to execute arbitrary code on the Ansible server using the Ansible server privileges.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2016-9587 Ansible: Compromised remote hosts can lead to running commands on the Ansible controller",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.noarch",
+					"7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.src",
+					"7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.noarch",
+					"7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.src",
+					"7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.noarch",
+					"7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.src",
+					"7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.noarch",
+					"7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2016-9587"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1404378",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1404378"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2016-9587",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2016-9587"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2016-9587",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2016-9587"
+				}
+			],
+			"release_date": "2017-01-09T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.src",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.src",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.src",
+						"7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2017:0515"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 6.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 6.6,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "HIGH",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.0/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:ansible-0:2.2.1.0-1.el7.src",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-ansible-0:2.1.9-1.el7scon.src",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:ceph-installer-0:1.2.2-1.el7scon.src",
+						"7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.noarch",
+						"7Server-RH7-RHSCON-INSTALLER-2:python-passlib-0:1.6.5-1.1.el7.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2016-9587 Ansible: Compromised remote hosts can lead to running commands on the Ansible controller"
+		}
+	]
+}

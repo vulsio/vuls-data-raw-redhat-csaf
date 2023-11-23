@@ -1,0 +1,736 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel-rt packages that fix two security issues and various bugs\nare now available for Red Hat Enterprise MRG 2.1.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* When a set user ID (setuid) application is executed, certain personality\nflags for controlling the application's behavior are cleared (that is, a\nprivileged application will not be affected by those flags). It was found\nthat those flags were not cleared if the application was made privileged\nvia file system capabilities. A local, unprivileged user could use this\nflaw to change the behavior of such applications, allowing them to bypass\nintended restrictions. Note that for default installations, no application\nshipped by Red Hat for Red Hat Enterprise MRG is made privileged via file\nsystem capabilities. (CVE-2012-2123, Important)\n\n* A flaw was found in the way the Linux kernel's journal_unmap_buffer()\nfunction handled buffer head states. On systems that have an ext4 file\nsystem with a journal mounted, a local, unprivileged user could use this\nflaw to cause a denial of service. (CVE-2011-4086, Moderate)\n\nThis update also fixes the following bugs:\n\n* The CAP_SYS_ADMIN check was missing from the dmesg_restrict feature.\nConsequently, an unprivileged and jailed root user could bypass the\ndmesg_restrict protection. This update adds CAP_SYS_ADMIN to both\ndmesg_restrict and kptr_restrict, which only allows writing to\ndmesg_restrict when root has CAP_SYS_ADMIN. (BZ#808271)\n\n* Previously, the _copy_from_pages() function, which is used to copy data \nfrom the temporary buffer to the user-passed buffer, was passed the wrong \nsize parameter when copying data. Consequently, if the user provided a \nbuffer greater than PAGE_SIZE, the getxattr() syscalls were handled \nincorrectly. This update fixes _copy_from_pages() to use the ACL length, \nwhich uses a correctly-sized buffer. (BZ#753230)\n\n* Some older versions of hardware or their software could not recognize\ncertain commands and would log messages for illegal or unsupported errors\nthe driver could not properly handle. This bug has been fixed and no bogus\nerror messages are now returned in the described scenario. (BZ#813892)\n\n* Previously, the qla2x00_poll() function did the local_irq_save() call\nbefore calling qla24xx_intr_handler(), which had a spinlock. Since\nspinlocks are sleepable in the real-time kernel, it is not allowed to call\nthem with interrupts disabled. This scenario produced error messages and\ncould cause a system deadlock. With this update, the\nlocal_irq_save_nort(flags) function is used to save flags without disabling\ninterrupts, which prevents potential deadlocks and removes the error\nmessages. (BZ#818220)\n\nUsers should upgrade to these updated packages, which correct these issues.\nThe system must be rebooted for this update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:0670",
+				"url": "https://access.redhat.com/errata/RHSA-2012:0670"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_0670.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel-rt security and bug fix update",
+		"tracking": {
+			"current_release_date": "2012-05-15T20:14:03+00:00",
+			"generator": {
+				"date": "2023-10-17T16:00:47+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:0670",
+			"initial_release_date": "2012-05-15T20:08:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-05-15T20:14:03+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+								"product": {
+									"name": "Red Hat MRG Realtime for RHEL 6 Server v.2",
+									"product_id": "6Server-MRG-Realtime-2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:2:server:el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise MRG for RHEL-6"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-devel@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-debuginfo@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-devel@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-debuginfo@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-devel@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-devel@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-debuginfo@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_id": "kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo-common-x86_64@3.0.30-rt50.62.el6rt?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+								"product": {
+									"name": "kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+									"product_id": "kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-firmware@3.0.30-rt50.62.el6rt?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+								"product": {
+									"name": "kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+									"product_id": "kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-doc@3.0.30-rt50.62.el6rt?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+								"product": {
+									"name": "kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+									"product_id": "kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@3.0.30-rt50.62.el6rt?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:3.0.30-rt50.62.el6rt.src as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src"
+				},
+				"product_reference": "kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch"
+				},
+				"product_reference": "kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch"
+				},
+				"product_reference": "kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64 as a component of Red Hat MRG Realtime for RHEL 6 Server v.2",
+					"product_id": "6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+				"relates_to_product_reference": "6Server-MRG-Realtime-2"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-4086",
+			"discovery_date": "2011-10-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "749143"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The journal_unmap_buffer function in fs/jbd2/transaction.c in the Linux kernel before 3.3.1 does not properly handle the _Delay and _Unwritten buffer head states, which allows local users to cause a denial of service (system crash) by leveraging the presence of an ext4 filesystem that was mounted with a journal.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4086 kernel: jbd2: unmapped buffer with _Unwritten or _Delay flags set can lead to DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This has been addressed in Red Hat Enterprise Linux 5, 6, and Red Hat Enterprise MRG via https://rhn.redhat.com/errata/RHSA-2012-0107.html, https://rhn.redhat.com/errata/RHSA-2012-0571.html, and https://rhn.redhat.com/errata/RHSA-2012-0670.html. Red Hat Enterprise Linux 4 is now in Production 3 of the maintenance life-cycle, https://access.redhat.com/support/policy/updates/errata/, therefore the fix for this issue is not currently planned to be included in the future updates.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+					"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4086"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#749143",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=749143"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4086",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4086"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4086",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4086"
+				}
+			],
+			"release_date": "2012-01-25T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0670"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4086 kernel: jbd2: unmapped buffer with _Unwritten or _Delay flags set can lead to DoS"
+		},
+		{
+			"cve": "CVE-2012-2123",
+			"discovery_date": "2012-03-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "806722"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The cap_bprm_set_creds function in security/commoncap.c in the Linux kernel before 3.3.3 does not properly handle the use of file system capabilities (aka fcaps) for implementing a privileged executable file, which allows local users to bypass intended personality restrictions via a crafted application, as demonstrated by an attack that uses a parent process to disable ASLR.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-2123 kernel: fcaps: clear the same personality flags as suid when fcaps are used",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the Linux kernel as shipped with Red Hat Enterprise Linux 4, and 5. This has been addressed in Red Hat Enterprise MRG via https://rhn.redhat.com/errata/RHSA-2012-0670.html. This has been addressed in Red Hat Enterprise Linux 6 via https://rhn.redhat.com/errata/RHSA-2012-0743.html.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+					"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+					"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-2123"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#806722",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=806722"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-2123",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-2123"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-2123",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2123"
+				}
+			],
+			"release_date": "2012-04-17T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0670"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.src",
+						"6Server-MRG-Realtime-2:kernel-rt-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debug-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-debuginfo-common-x86_64-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-doc-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-firmware-0:3.0.30-rt50.62.el6rt.noarch",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-trace-devel-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-debuginfo-0:3.0.30-rt50.62.el6rt.x86_64",
+						"6Server-MRG-Realtime-2:kernel-rt-vanilla-devel-0:3.0.30-rt50.62.el6rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2012-2123 kernel: fcaps: clear the same personality flags as suid when fcaps are used"
+		}
+	]
+}

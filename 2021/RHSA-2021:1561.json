@@ -1,0 +1,545 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Red Hat OpenShift Container Platform release 4.7.12 is now available with updates to packages and images that fix several bugs.\n\nThis release includes a security update for Red Hat OpenShift Container Platform 4.7.12.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat OpenShift Container Platform is Red Hat's cloud computing\nKubernetes application platform solution designed for on-premise or private\ncloud deployments.\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nThis advisory contains the container images for Red Hat OpenShift Container Platform 4.7.12. See the following advisory for the RPM packages for this release:\n\nhttps://access.redhat.com/errata/RHSA-1562\n\nSpace precludes documenting all of the container images in this advisory. See the following Release Notes documentation, which will be updated shortly for this release, for details about these changes:\n\nhttps://docs.openshift.com/container-platform/4.7/release_notes/ocp-4-7-release-notes.html\n\nThis update fixes the following bugs among others:\n\n* Previously, the node-exporter daemonset's mountstats collector caused high memory usage on nodes with NFS mount points. By disabling the mountstats collector, this fix reduces memory usage. (BZ#1955469)\n\n* A previous change to gophercloud/utils introduced a custom HTTP client that uses a self-signed certificate. But because this change removed settings from DefaultTransport, including those for proxy environment variables, this caused failures for installations that use both self-signed certificates and proxies. In this update, the custom HTTP client inherits settings from DefaultTransport, so now OCP can be installed with self-signed certificates and proxies. (BZ#1943500)\n\n* Previously, bare metal deployments failed when large packet transfers between Ironic and the RAM disk resulted in connection failures. In this update, Ironic queries the RAM disk for information to work around the connection error, allowing deployments to succeed.(BZ#1958965)\n\n* Previously, when an IPv6 cluster was started on nodes that had IPv4 addresses, kublet sometimes used the nodes' IPv4 IP addresses instead of their IPv6 IP addresses, which prevented host-network pods from reaching IPv6-only pods. This update changes the way node IP addresses are chosen. Now, all nodes have IPv6 addresses. (BZ#1942488)\n\n* Previously, OVN changed the source IP addresses of hairpin traffic packets to the IP address of the load balancer, which sometimes blocked traffic when a network policy was in use. With this update, Kuryr opens traffic to the IP addresses of all services in a network policy's namespace, and hairpin traffic flows freely. (BZ#1959766)\n\nSecurity Fix(es):\n\n* golang-github-gorilla-websocket: integer overflow leads to denial of service (CVE-2020-27813)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nYou may download the oc tool and use it to inspect release image metadata as follows:\n\n(For x86_64 architecture)\n\n  $ oc adm release info quay.io/openshift-release-dev/ocp-release:4.7.12-x86_64\n\nThe image digest is sha256:2029c5779202293f23418d47a1a823c4e4c8539c1ab25e8bda30d48335b4892e\n\n(For s390x architecture)\n\n  $ oc adm release info quay.io/openshift-release-dev/ocp-release:4.7.12-s390x\n\nThe image digest is sha256:5f4aa1beddcf61182b715bc6301bf39ca1d967225b1052e3e41e02464bd9989b\n\n(For ppc64le architecture)\n\n  $ oc adm release info quay.io/openshift-release-dev/ocp-release:4.7.12-ppc64le\n\nThe image digest is sha256:44c395af371114178a0d2a06c9db60055608b3974bb0e4a58da930ce34c3bec9\n\nAll OpenShift Container Platform 4.7 users are advised to upgrade to these updated packages and images when they are available in the appropriate release channel. To check for available updates, use the OpenShift Console or the CLI oc command. Instructions for upgrading a cluster are available\nat https://docs.openshift.com/container-platform/4.7/updating/updating-cluster-between-minor.html#understanding-upgrade-channels_updating-cluster-between-minor",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2021:1561",
+				"url": "https://access.redhat.com/errata/RHSA-2021:1561"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2021/rhsa-2021_1561.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: OpenShift Container Platform 4.7.12 bug fix and security update",
+		"tracking": {
+			"current_release_date": "2021-05-24T17:14:00Z",
+			"generator": {
+				"date": "2023-07-01T04:51:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2021:1561",
+			"initial_release_date": "2021-05-24T17:14:00Z",
+			"revision_history": [
+				{
+					"date": "2021-05-24T17:14:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Platform 4.7",
+								"product": {
+									"name": "Red Hat OpenShift Container Platform 4.7",
+									"product_id": "8Base-RHOSE-4.7",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift:4.7::el8"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenShift Enterprise"
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0",
+						"product": {
+							"name": "openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0",
+							"product_id": "openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0",
+						"product": {
+							"name": "openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0",
+							"product_id": "openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0",
+						"product": {
+							"name": "openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0",
+							"product_id": "openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0",
+						"product": {
+							"name": "openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0",
+							"product_id": "openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0",
+						"product": {
+							"name": "openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0",
+							"product_id": "openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-docker-builder:v4.7.0-202105142104.p0",
+						"product": {
+							"name": "openshift4/ose-docker-builder:v4.7.0-202105142104.p0",
+							"product_id": "openshift4/ose-docker-builder:v4.7.0-202105142104.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0",
+						"product": {
+							"name": "openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0",
+							"product_id": "openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-hyperkube:v4.7.0-202105160013.p0",
+						"product": {
+							"name": "openshift4/ose-hyperkube:v4.7.0-202105160013.p0",
+							"product_id": "openshift4/ose-hyperkube:v4.7.0-202105160013.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0",
+						"product": {
+							"name": "openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0",
+							"product_id": "openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-installer:v4.7.0-202105150002.p0",
+						"product": {
+							"name": "openshift4/ose-installer:v4.7.0-202105150002.p0",
+							"product_id": "openshift4/ose-installer:v4.7.0-202105150002.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0",
+						"product": {
+							"name": "openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0",
+							"product_id": "openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0",
+						"product": {
+							"name": "openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0",
+							"product_id": "openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0",
+						"product": {
+							"name": "openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0",
+							"product_id": "openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0",
+						"product": {
+							"name": "openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0",
+							"product_id": "openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0",
+						"product": {
+							"name": "openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0",
+							"product_id": "openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0",
+						"product": {
+							"name": "openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0",
+							"product_id": "openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0"
+						}
+					},
+					{
+						"category": "product_version",
+						"name": "openshift4/ose-tests:v4.7.0-202105141715.p0",
+						"product": {
+							"name": "openshift4/ose-tests:v4.7.0-202105141715.p0",
+							"product_id": "openshift4/ose-tests:v4.7.0-202105141715.p0"
+						}
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0"
+				},
+				"product_reference": "openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0"
+				},
+				"product_reference": "openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0"
+				},
+				"product_reference": "openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0"
+				},
+				"product_reference": "openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0"
+				},
+				"product_reference": "openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-docker-builder:v4.7.0-202105142104.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-docker-builder:v4.7.0-202105142104.p0"
+				},
+				"product_reference": "openshift4/ose-docker-builder:v4.7.0-202105142104.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0"
+				},
+				"product_reference": "openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-hyperkube:v4.7.0-202105160013.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-hyperkube:v4.7.0-202105160013.p0"
+				},
+				"product_reference": "openshift4/ose-hyperkube:v4.7.0-202105160013.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0"
+				},
+				"product_reference": "openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-installer:v4.7.0-202105150002.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-installer:v4.7.0-202105150002.p0"
+				},
+				"product_reference": "openshift4/ose-installer:v4.7.0-202105150002.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0"
+				},
+				"product_reference": "openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0"
+				},
+				"product_reference": "openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0"
+				},
+				"product_reference": "openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0"
+				},
+				"product_reference": "openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0"
+				},
+				"product_reference": "openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0"
+				},
+				"product_reference": "openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift4/ose-tests:v4.7.0-202105141715.p0 as a component of Red Hat OpenShift Container Platform 4.7",
+					"product_id": "8Base-RHOSE-4.7:openshift4/ose-tests:v4.7.0-202105141715.p0"
+				},
+				"product_reference": "openshift4/ose-tests:v4.7.0-202105141715.p0",
+				"relates_to_product_reference": "8Base-RHOSE-4.7"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2020-27813",
+			"cwe": {
+				"id": "CWE-400",
+				"name": "Uncontrolled Resource Consumption"
+			},
+			"discovery_date": "2020-11-27T00:00:00Z",
+			"flags": [
+				{
+					"label": "component_not_present",
+					"product_ids": [
+						"8Base-RHOSE-4.7:openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-docker-builder:v4.7.0-202105142104.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-installer:v4.7.0-202105150002.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0",
+						"8Base-RHOSE-4.7:openshift4/ose-tests:v4.7.0-202105141715.p0"
+					]
+				}
+			],
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1902111"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "An integer overflow vulnerability exists with the length of websocket frames received via a websocket connection. An attacker could use this flaw to cause a denial of service attack on an HTTP Server allowing websocket connections.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang-github-gorilla-websocket: integer overflow leads to denial of service",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-RHOSE-4.7:openshift4/ose-hyperkube:v4.7.0-202105160013.p0"
+				],
+				"known_not_affected": [
+					"8Base-RHOSE-4.7:openshift4/driver-toolkit-rhel8:v4.7.0-202105141944.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-baremetal-installer-rhel8:v4.7.0-202105150002.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-cloud-credential-operator:v4.7.0-202105140655.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-cluster-authentication-operator:v4.7.0-202105150125.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-cluster-monitoring-operator:v4.7.0-202105151205.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-docker-builder:v4.7.0-202105142104.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-hello-openshift-rhel8:v4.7.0-202105141715.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-installer-artifacts:v4.7.0-202105150002.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-installer:v4.7.0-202105150002.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-ironic-rhel8:v4.7.0-202105140104.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-kuryr-cni-rhel8:v4.7.0-202105140104.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-kuryr-controller-rhel8:v4.7.0-202105140104.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-machine-api-operator:v4.7.0-202105160938.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-operator-lifecycle-manager:v4.7.0-202105141828.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-ovn-kubernetes:v4.7.0-202105140104.p0",
+					"8Base-RHOSE-4.7:openshift4/ose-tests:v4.7.0-202105141715.p0"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2020-27813",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2020-27813"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2020-27813",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2020-27813"
+				},
+				{
+					"category": "external",
+					"summary": "https://github.com/gorilla/websocket/security/advisories/GHSA-jf24-p9p9-4rjh",
+					"url": "https://github.com/gorilla/websocket/security/advisories/GHSA-jf24-p9p9-4rjh"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2020-27813",
+					"url": "https://access.redhat.com/security/cve/CVE-2020-27813"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1902111: CVE-2020-27813 golang-github-gorilla-websocket: integer overflow leads to denial of service",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1902111"
+				}
+			],
+			"release_date": "2019-08-25T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For OpenShift Container Platform 4.7 see the following documentation, which\nwill be updated shortly for this release, for important instructions on how\nto upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.7/release_notes/ocp-4-7-release-notes.html\n\nDetails on how to access this content are available at\nhttps://docs.openshift.com/container-platform/4.7/updating/updating-cluster-cli.html",
+					"product_ids": [
+						"8Base-RHOSE-4.7:openshift4/ose-hyperkube:v4.7.0-202105160013.p0"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2021:1561"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7.5,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-RHOSE-4.7:openshift4/ose-hyperkube:v4.7.0-202105160013.p0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2020-11-27T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2020-27813 golang-github-gorilla-websocket: integer overflow leads to denial of service"
+		}
+	]
+}

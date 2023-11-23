@@ -1,0 +1,639 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated lftp package that fixes one security issue and various bugs is\nnow available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "LFTP is a sophisticated file transfer program for the FTP and HTTP\nprotocols. Like bash, it has job control and uses the readline library for\ninput. It has bookmarks, built-in mirroring, and can transfer several files\nin parallel. It is designed with reliability in mind.\n\nIt was discovered that lftp did not properly escape shell metacharacters\nwhen generating shell scripts using the \"mirror --script\" command. A\nmirroring script generated to download files from a malicious FTP server\ncould allow an attacker controlling the FTP server to run an arbitrary\ncommand as the user running lftp. (CVE-2007-2348)\n\nThis update also fixes the following bugs:\n\n* when using the \"mirror\" or \"get\" commands with the \"-c\" option, lftp did\nnot check for some specific conditions that could result in the program\nbecoming unresponsive, hanging and the command not completing. For example,\nwhen waiting for a directory listing, if lftp received a \"226\" message,\ndenoting an empty directory, it previously ignored the message and kept\nwaiting. With this update, these conditions are properly checked for and\nlftp no longer hangs when \"-c\" is used with \"mirror\" or \"get\". (BZ#422881)\n\n* when using the \"put\", \"mput\" or \"reput\" commands over a Secure FTP (SFTP)\nconnection, specifying the \"-c\" option sometimes resulted in corrupted\nfiles of incorrect size. With this update, using these commands over SFTP\nwith the \"-c\" option works as expected, and transferred files are no\nlonger corrupted in the transfer process. (BZ#434294)\n\n* previously, LFTP linked to the OpenSSL library. OpenSSL's license is,\nhowever, incompatible with LFTP's GNU GPL license and LFTP does not include\nan exception allowing OpenSSL linking. With this update, LFTP links to the\nGnuTLS (GNU Transport Layer Security) library, which is released under the\nGNU LGPL license. Like OpenSSL, GnuTLS implements the SSL and TLS\nprotocols, so functionality has not changed. (BZ#458777)\n\n* running \"help mirror\" from within lftp only presented a sub-set of the\navailable options compared to the full list presented in the man page. With\nthis update, running \"help mirror\" in lftp presents the same list of mirror\noptions as is available in the Commands section of the lftp man page.\n(BZ#461922)\n\n* LFTP imports gnu-lib from upstream. Subsequent to gnu-lib switching from\nGNU GPLv2 to GNU GPLv3, the LFTP license was internally inconsistent, with\nLFTP licensed as GNU GPLv2 but portions of the package apparently licensed\nas GNU GPLv3 because of changes made by the gnu-lib import. With this\nupdate, LFTP itself switches to GNU GPLv3, resolving the inconsistency.\n(BZ#468858)\n\n* when the \"ls\" command was used within lftp to present a directory listing\non a remote system connected to via HTTP, file names containing spaces were\npresented incorrectly. This update corrects this behavior. (BZ#504591)\n\n* the default alias \"edit\" did not define a default editor. If EDITOR was\nnot set in advance by the system, lftp attempted to execute\n\"~/.lftp/edit.tmp.$$\" (which failed because the file is not set to\nexecutable). The edit alias also did not support tab-completion of file\nnames and incorrectly interpreted file names containing spaces. The updated\npackage defines a default editor (vi) in the absence of a system-defined\nEDITOR. The edit alias now also supports tab-completion and handles file\nnames containing spaces correctly for both downloading and uploading.\n(BZ#504594)\n\nNote: This update upgrades LFTP from version 3.7.3 to upstream version\n3.7.11, which incorporates a number of further bug fixes to those noted\nabove. For details regarding these fixes, refer to the\n\"/usr/share/doc/lftp-3.7.11/NEWS\" file after installing this update.\n(BZ#308721)\n\nAll LFTP users are advised to upgrade to this updated package, which\nresolves these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:1278",
+				"url": "https://access.redhat.com/errata/RHSA-2009:1278"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_1278.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: lftp security and bug fix update",
+		"tracking": {
+			"current_release_date": "2009-09-01T05:46:46+00:00",
+			"generator": {
+				"date": "2023-10-17T15:50:18+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:1278",
+			"initial_release_date": "2009-09-02T08:00:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-09-01T05:46:46+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "lftp-0:3.7.11-4.el5.src",
+								"product": {
+									"name": "lftp-0:3.7.11-4.el5.src",
+									"product_id": "lftp-0:3.7.11-4.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp@3.7.11-4.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "lftp-0:3.7.11-4.el5.x86_64",
+								"product": {
+									"name": "lftp-0:3.7.11-4.el5.x86_64",
+									"product_id": "lftp-0:3.7.11-4.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp@3.7.11-4.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+								"product": {
+									"name": "lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+									"product_id": "lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp-debuginfo@3.7.11-4.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "lftp-0:3.7.11-4.el5.i386",
+								"product": {
+									"name": "lftp-0:3.7.11-4.el5.i386",
+									"product_id": "lftp-0:3.7.11-4.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp@3.7.11-4.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "lftp-debuginfo-0:3.7.11-4.el5.i386",
+								"product": {
+									"name": "lftp-debuginfo-0:3.7.11-4.el5.i386",
+									"product_id": "lftp-debuginfo-0:3.7.11-4.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp-debuginfo@3.7.11-4.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "lftp-0:3.7.11-4.el5.ia64",
+								"product": {
+									"name": "lftp-0:3.7.11-4.el5.ia64",
+									"product_id": "lftp-0:3.7.11-4.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp@3.7.11-4.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "lftp-debuginfo-0:3.7.11-4.el5.ia64",
+								"product": {
+									"name": "lftp-debuginfo-0:3.7.11-4.el5.ia64",
+									"product_id": "lftp-debuginfo-0:3.7.11-4.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp-debuginfo@3.7.11-4.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "lftp-0:3.7.11-4.el5.ppc",
+								"product": {
+									"name": "lftp-0:3.7.11-4.el5.ppc",
+									"product_id": "lftp-0:3.7.11-4.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp@3.7.11-4.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "lftp-debuginfo-0:3.7.11-4.el5.ppc",
+								"product": {
+									"name": "lftp-debuginfo-0:3.7.11-4.el5.ppc",
+									"product_id": "lftp-debuginfo-0:3.7.11-4.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp-debuginfo@3.7.11-4.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "lftp-0:3.7.11-4.el5.s390x",
+								"product": {
+									"name": "lftp-0:3.7.11-4.el5.s390x",
+									"product_id": "lftp-0:3.7.11-4.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp@3.7.11-4.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "lftp-debuginfo-0:3.7.11-4.el5.s390x",
+								"product": {
+									"name": "lftp-debuginfo-0:3.7.11-4.el5.s390x",
+									"product_id": "lftp-debuginfo-0:3.7.11-4.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/lftp-debuginfo@3.7.11-4.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-0:3.7.11-4.el5.i386"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-0:3.7.11-4.el5.ia64"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-0:3.7.11-4.el5.ppc"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-0:3.7.11-4.el5.s390x"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-0:3.7.11-4.el5.src"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-0:3.7.11-4.el5.x86_64"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-debuginfo-0:3.7.11-4.el5.i386"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-debuginfo-0:3.7.11-4.el5.ia64"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-debuginfo-0:3.7.11-4.el5.ppc"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-debuginfo-0:3.7.11-4.el5.s390x"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:lftp-debuginfo-0:3.7.11-4.el5.x86_64"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-0:3.7.11-4.el5.i386"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-0:3.7.11-4.el5.ia64"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-0:3.7.11-4.el5.ppc"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-0:3.7.11-4.el5.s390x"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-0:3.7.11-4.el5.src"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-0:3.7.11-4.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-0:3.7.11-4.el5.x86_64"
+				},
+				"product_reference": "lftp-0:3.7.11-4.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-debuginfo-0:3.7.11-4.el5.i386"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-debuginfo-0:3.7.11-4.el5.ia64"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-debuginfo-0:3.7.11-4.el5.ppc"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-debuginfo-0:3.7.11-4.el5.s390x"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "lftp-debuginfo-0:3.7.11-4.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:lftp-debuginfo-0:3.7.11-4.el5.x86_64"
+				},
+				"product_reference": "lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2007-2348",
+			"discovery_date": "2007-04-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "236238"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "mirror --script in lftp before 3.5.9 does not properly quote shell metacharacters, which might allow remote user-assisted attackers to execute shell commands via a malicious script. NOTE: it is not clear whether this issue crosses security boundaries, since the script already supports commands such as \"get\" which could overwrite executable files.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2007-2348 lftp mirror --script does not escape names and targets of symbolic links",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affect lftp as supplied with Red Hat Enterprise Linux 3.\n\nThis issue was addressed for Red Hat Enterprise Linux 5 by\nhttps://rhn.redhat.com/errata/RHSA-2009-1278.html\n\nThe Red Hat Security Response Team has rated this issue as having low security impact, this issue will not fixed in Red Hat Enterprise Linux 4.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client:lftp-0:3.7.11-4.el5.i386",
+					"5Client:lftp-0:3.7.11-4.el5.ia64",
+					"5Client:lftp-0:3.7.11-4.el5.ppc",
+					"5Client:lftp-0:3.7.11-4.el5.s390x",
+					"5Client:lftp-0:3.7.11-4.el5.src",
+					"5Client:lftp-0:3.7.11-4.el5.x86_64",
+					"5Client:lftp-debuginfo-0:3.7.11-4.el5.i386",
+					"5Client:lftp-debuginfo-0:3.7.11-4.el5.ia64",
+					"5Client:lftp-debuginfo-0:3.7.11-4.el5.ppc",
+					"5Client:lftp-debuginfo-0:3.7.11-4.el5.s390x",
+					"5Client:lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+					"5Server:lftp-0:3.7.11-4.el5.i386",
+					"5Server:lftp-0:3.7.11-4.el5.ia64",
+					"5Server:lftp-0:3.7.11-4.el5.ppc",
+					"5Server:lftp-0:3.7.11-4.el5.s390x",
+					"5Server:lftp-0:3.7.11-4.el5.src",
+					"5Server:lftp-0:3.7.11-4.el5.x86_64",
+					"5Server:lftp-debuginfo-0:3.7.11-4.el5.i386",
+					"5Server:lftp-debuginfo-0:3.7.11-4.el5.ia64",
+					"5Server:lftp-debuginfo-0:3.7.11-4.el5.ppc",
+					"5Server:lftp-debuginfo-0:3.7.11-4.el5.s390x",
+					"5Server:lftp-debuginfo-0:3.7.11-4.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2007-2348"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#236238",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=236238"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2007-2348",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2007-2348"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2007-2348",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2007-2348"
+				}
+			],
+			"release_date": "2007-01-09T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client:lftp-0:3.7.11-4.el5.i386",
+						"5Client:lftp-0:3.7.11-4.el5.ia64",
+						"5Client:lftp-0:3.7.11-4.el5.ppc",
+						"5Client:lftp-0:3.7.11-4.el5.s390x",
+						"5Client:lftp-0:3.7.11-4.el5.src",
+						"5Client:lftp-0:3.7.11-4.el5.x86_64",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.i386",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.ia64",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.ppc",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.s390x",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+						"5Server:lftp-0:3.7.11-4.el5.i386",
+						"5Server:lftp-0:3.7.11-4.el5.ia64",
+						"5Server:lftp-0:3.7.11-4.el5.ppc",
+						"5Server:lftp-0:3.7.11-4.el5.s390x",
+						"5Server:lftp-0:3.7.11-4.el5.src",
+						"5Server:lftp-0:3.7.11-4.el5.x86_64",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.i386",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.ia64",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.ppc",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.s390x",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1278"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client:lftp-0:3.7.11-4.el5.i386",
+						"5Client:lftp-0:3.7.11-4.el5.ia64",
+						"5Client:lftp-0:3.7.11-4.el5.ppc",
+						"5Client:lftp-0:3.7.11-4.el5.s390x",
+						"5Client:lftp-0:3.7.11-4.el5.src",
+						"5Client:lftp-0:3.7.11-4.el5.x86_64",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.i386",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.ia64",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.ppc",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.s390x",
+						"5Client:lftp-debuginfo-0:3.7.11-4.el5.x86_64",
+						"5Server:lftp-0:3.7.11-4.el5.i386",
+						"5Server:lftp-0:3.7.11-4.el5.ia64",
+						"5Server:lftp-0:3.7.11-4.el5.ppc",
+						"5Server:lftp-0:3.7.11-4.el5.s390x",
+						"5Server:lftp-0:3.7.11-4.el5.src",
+						"5Server:lftp-0:3.7.11-4.el5.x86_64",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.i386",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.ia64",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.ppc",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.s390x",
+						"5Server:lftp-debuginfo-0:3.7.11-4.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2007-2348 lftp mirror --script does not escape names and targets of symbolic links"
+		}
+	]
+}

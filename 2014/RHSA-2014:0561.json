@@ -1,0 +1,2896 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated curl packages that fix two security issues and several bugs are now\navailable for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having Moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "cURL provides the libcurl library and a command line tool for downloading\nfiles from servers using various protocols, including HTTP, FTP, and LDAP.\n\nIt was found that libcurl could incorrectly reuse existing connections for\nrequests that should have used different or no authentication credentials,\nwhen using one of the following protocols: HTTP(S) with NTLM\nauthentication, LDAP(S), SCP, or SFTP. If an application using the libcurl\nlibrary connected to a remote server with certain authentication\ncredentials, this flaw could cause other requests to use those same\ncredentials. (CVE-2014-0015, CVE-2014-0138)\n\nRed Hat would like to thank the cURL project for reporting these issues.\nUpstream acknowledges Paras Sethia as the original reporter of\nCVE-2014-0015 and Yehezkel Horowitz for discovering the security impact of\nthis issue, and Steve Holme as the original reporter of CVE-2014-0138.\n\nThis update also fixes the following bugs:\n\n* Previously, the libcurl library was closing a network socket without\nfirst terminating the SSL connection using the socket. This resulted in a\nwrite after close and consequent leakage of memory dynamically allocated by\nthe SSL library. An upstream patch has been applied on libcurl to fix this\nbug. As a result, the write after close no longer happens, and the SSL\nlibrary no longer leaks memory. (BZ#1092479)\n\n* Previously, the libcurl library did not implement a non-blocking SSL\nhandshake, which negatively affected performance of applications based on\nlibcurl's multi API. To fix this bug, the non-blocking SSL handshake has\nbeen implemented by libcurl. With this update, libcurl's multi API\nimmediately returns the control back to the application whenever it cannot\nread/write data from/to the underlying network socket. (BZ#1092480)\n\n* Previously, the curl package could not be rebuilt from sources due to an\nexpired cookie in the upstream test-suite, which runs during the build. An\nupstream patch has been applied to postpone the expiration date of the\ncookie, which makes it possible to rebuild the package from sources again.\n(BZ#1092486)\n\n* Previously, the libcurl library attempted to authenticate using Kerberos\nwhenever such an authentication method was offered by the server. This\ncaused problems when the server offered multiple authentication methods and\nKerberos was not the selected one. An upstream patch has been applied on\nlibcurl to fix this bug. Now libcurl no longer uses Kerberos authentication\nif another authentication method is selected. (BZ#1096797)\n\nAll curl users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. All running\napplications that use libcurl have to be restarted for this update to\ntake effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2014:0561",
+				"url": "https://access.redhat.com/errata/RHSA-2014:0561"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2014/rhsa-2014_0561.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: curl security and bug fix update",
+		"tracking": {
+			"current_release_date": "2014-05-27T16:25:18+00:00",
+			"generator": {
+				"date": "2023-10-17T16:10:52+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2014:0561",
+			"initial_release_date": "2014-05-27T16:25:17+00:00",
+			"revision_history": [
+				{
+					"date": "2014-05-27T16:25:18+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+									"product_id": "6ComputeNode-6.5.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 6)",
+									"product_id": "6Server-6.5.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+									"product_id": "6ComputeNode-optional-6.5.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+									"product_id": "6Client-6.5.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+									"product_id": "6Client-optional-6.5.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+									"product_id": "6Workstation-6.5.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+								"product": {
+									"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+									"product_id": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl@7.19.7-37.el6_5.3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+								"product": {
+									"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+									"product_id": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl-debuginfo@7.19.7-37.el6_5.3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-0:7.19.7-37.el6_5.3.x86_64",
+								"product": {
+									"name": "curl-0:7.19.7-37.el6_5.3.x86_64",
+									"product_id": "curl-0:7.19.7-37.el6_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl@7.19.7-37.el6_5.3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+								"product": {
+									"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+									"product_id": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl-devel@7.19.7-37.el6_5.3?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcurl-0:7.19.7-37.el6_5.3.i686",
+								"product": {
+									"name": "libcurl-0:7.19.7-37.el6_5.3.i686",
+									"product_id": "libcurl-0:7.19.7-37.el6_5.3.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl@7.19.7-37.el6_5.3?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+								"product": {
+									"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+									"product_id": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl-debuginfo@7.19.7-37.el6_5.3?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+								"product": {
+									"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+									"product_id": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl-devel@7.19.7-37.el6_5.3?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-0:7.19.7-37.el6_5.3.i686",
+								"product": {
+									"name": "curl-0:7.19.7-37.el6_5.3.i686",
+									"product_id": "curl-0:7.19.7-37.el6_5.3.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl@7.19.7-37.el6_5.3?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "curl-0:7.19.7-37.el6_5.3.src",
+								"product": {
+									"name": "curl-0:7.19.7-37.el6_5.3.src",
+									"product_id": "curl-0:7.19.7-37.el6_5.3.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl@7.19.7-37.el6_5.3?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+								"product": {
+									"name": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+									"product_id": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl@7.19.7-37.el6_5.3?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+								"product": {
+									"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+									"product_id": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl-debuginfo@7.19.7-37.el6_5.3?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-0:7.19.7-37.el6_5.3.s390x",
+								"product": {
+									"name": "curl-0:7.19.7-37.el6_5.3.s390x",
+									"product_id": "curl-0:7.19.7-37.el6_5.3.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl@7.19.7-37.el6_5.3?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+								"product": {
+									"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+									"product_id": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl-devel@7.19.7-37.el6_5.3?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcurl-0:7.19.7-37.el6_5.3.s390",
+								"product": {
+									"name": "libcurl-0:7.19.7-37.el6_5.3.s390",
+									"product_id": "libcurl-0:7.19.7-37.el6_5.3.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl@7.19.7-37.el6_5.3?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+								"product": {
+									"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+									"product_id": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl-debuginfo@7.19.7-37.el6_5.3?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+								"product": {
+									"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+									"product_id": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl-devel@7.19.7-37.el6_5.3?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+								"product": {
+									"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+									"product_id": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl@7.19.7-37.el6_5.3?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+								"product": {
+									"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+									"product_id": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl-debuginfo@7.19.7-37.el6_5.3?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-0:7.19.7-37.el6_5.3.ppc64",
+								"product": {
+									"name": "curl-0:7.19.7-37.el6_5.3.ppc64",
+									"product_id": "curl-0:7.19.7-37.el6_5.3.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl@7.19.7-37.el6_5.3?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+								"product": {
+									"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+									"product_id": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl-devel@7.19.7-37.el6_5.3?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+								"product": {
+									"name": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+									"product_id": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl@7.19.7-37.el6_5.3?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+								"product": {
+									"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+									"product_id": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/curl-debuginfo@7.19.7-37.el6_5.3?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+								"product": {
+									"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+									"product_id": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcurl-devel@7.19.7-37.el6_5.3?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.src as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.src",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.src as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.src",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.src as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.src",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.src as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.src",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.src as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.src",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Server-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.src as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.src",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				},
+				"product_reference": "libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+				"relates_to_product_reference": "6Workstation-6.5.z"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"cURL project"
+					]
+				}
+			],
+			"cve": "CVE-2014-0015",
+			"discovery_date": "2014-01-13T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1053903"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "cURL and libcurl 7.10.6 through 7.34.0, when more than one authentication method is enabled, re-uses NTLM connections, which might allow context-dependent attackers to authenticate as other users via a request.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "re-use of wrong HTTP NTLM connection in libcurl",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the version of curl as shipped with Red Hat Enterprise Linux 5 and 7. The Red Hat Security Response Team has rated this issue as having Moderate security impact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-0015"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1053903",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1053903"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-0015",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-0015"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-0015",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-0015"
+				},
+				{
+					"category": "external",
+					"summary": "http://curl.haxx.se/docs/security.html#20140129",
+					"url": "http://curl.haxx.se/docs/security.html#20140129"
+				}
+			],
+			"release_date": "2014-01-29T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:0561"
+				},
+				{
+					"category": "workaround",
+					"details": "Avoid using HTTP NTLM in your application.  If you must use NTLM authentication, ensure that it is the only requested authentication method (use --ntlm specifically, do not use --anyauth or other authentication methods).",
+					"product_ids": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "re-use of wrong HTTP NTLM connection in libcurl"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"cURL project"
+					]
+				},
+				{
+					"names": [
+						"Steve Holme"
+					],
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2014-0138",
+			"discovery_date": "2014-03-17T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1079148"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The default configuration in cURL and libcurl 7.10.6 before 7.36.0 re-uses (1) SCP, (2) SFTP, (3) POP3, (4) POP3S, (5) IMAP, (6) IMAPS, (7) SMTP, (8) SMTPS, (9) LDAP, and (10) LDAPS connections, which might allow context-dependent attackers to connect as other users via a request, a similar issue to CVE-2014-0015.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "wrong re-use of connections in libcurl",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the version of curl as shipped with Red Hat Enterprise Linux 5 and 7. The Red Hat Security Response Team has rated this issue as having Moderate security impact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+					"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+					"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-0138"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1079148",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1079148"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-0138",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-0138"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-0138",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-0138"
+				},
+				{
+					"category": "external",
+					"summary": "http://curl.haxx.se/docs/adv_20140326A.html",
+					"url": "http://curl.haxx.se/docs/adv_20140326A.html"
+				}
+			],
+			"release_date": "2014-03-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:0561"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Client-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Client-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6ComputeNode-optional-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6ComputeNode-optional-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Server-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Server-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.src",
+						"6Workstation-6.5.z:curl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:curl-debuginfo-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-0:7.19.7-37.el6_5.3.x86_64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.i686",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.ppc64",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.s390x",
+						"6Workstation-6.5.z:libcurl-devel-0:7.19.7-37.el6_5.3.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "wrong re-use of connections in libcurl"
+		}
+	]
+}

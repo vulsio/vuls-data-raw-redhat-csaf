@@ -1,0 +1,770 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for org.ovirt.engine-root is now available for RHEV Engine version 4.0.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The Red Hat Virtualization Manager is a centralized management platform\nthat allows system administrators to view and manage virtual machines. The\nManager provides a comprehensive range of features including search\ncapabilities, resource management, live migrations, and virtual\ninfrastructure provisioning.\n\nThe Manager is a JBoss Application Server application that provides several\ninterfaces through which the virtual environment can be accessed and\ninteracted with, including an Administration Portal, a User Portal, and a\nRepresentational State Transfer (REST) Application Programming Interface\n(API).\n\nSecurity Fix(es):\n\n* It was found that the ovirt-engine-provisiondb utility did not correctly sanitize the authentication details used with the \"--provision*db\" options from the output before storing them in log files. This could allow an attacker with read access to these log files to obtain sensitive information such as passwords. (CVE-2016-5432)\n\nThis issue was discovered by Yedidyah Bar David (Red Hat).\n\nBug Fix(es):\n\n* Previously, when checking permissions for a CPU profile, group permissions were not considered. Users that were part of a group could not assign a CPU profile and so could not start a virtual machine. This was fixed by using PermissionDao and correct SQL functions when checking permissions, so group permissions are now considered. (BZ#1371888)\n\n* Setting only one of the thresholds for power saving/evenly distributed memory based balancing (high or low) can lead to unexpected results. For example, when in power saving load balancing the threshold for memory over utilized hosts was set with a value, and the threshold for memory under utilized hosts was undefined thus getting a default value of 0. All hosts were considered as under utilized hosts and were chosen as sources for migration, but no host was chosen as a destination for migration.\n\nThis has now been changed so that when the threshold for memory under utilized host is undefined, it gets a default value of Long.MAX. Now, when the threshold for memory over utilized hosts is set with a value, and the threshold for memory under utilized host is undefined, only over utilized hosts will be selected as sources for migration, and destination hosts will be hosts that are not over utilized. (BZ#1354281)\n\n* This update ensures that Quality of Service (QoS) Storage values that are sent to the VDSM service, are used by the VDSM and Memory Overcommit Manager (MoM). The result is that QoS is live-applied on virtual machines, and all MoM-related virtual machine changes are only applied when the memory ballooning device is enabled on the virtual machine. (BZ#1328731)\n\nEnhancement(s):\n\n* Previously, it was possible to install incorrect versions of virtio drivers, especially when running an older Windows operating system. This sometimes caused the guest to terminate unexpectedly with a stop error, also known as the \"Blue Screen of Death\", if the particular driver and Windows versions were incompatible. This update adds target OS version information to driver files, which enables Windows to automatically select the best driver when pointed to the root of the virtio-win CD image. Installing an incompatible driver version manually is also no longer possible, as Windows now presents the user with an error message if installation is attempted. (BZ#1328181)\n\n* With this release, Red Hat Virtualization now supports CephFS as a POSIX storage domain. (BZ#1095615)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2016:1967",
+				"url": "https://access.redhat.com/errata/RHSA-2016:1967"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2016/rhsa-2016_1967.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: org.ovirt.engine-root security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2016-09-28T21:02:10+00:00",
+			"generator": {
+				"date": "2023-10-17T16:16:35+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2016:1967",
+			"initial_release_date": "2016-09-28T21:02:10+00:00",
+			"revision_history": [
+				{
+					"date": "2016-09-28T21:02:10+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHEV-M 4.0",
+								"product": {
+									"name": "RHEV-M 4.0",
+									"product_id": "7Server-RHEV-S-4.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhev_manager:4"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-userportal@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-userportal-debuginfo@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-setup-plugin-vmconsole-proxy-helper@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-dbscripts@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-setup-plugin-ovirt-engine-common@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-websocket-proxy@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-tools-backup@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-lib@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-tools@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-extensions-api-impl-javadoc@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-vmconsole-proxy-helper@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-setup-plugin-websocket-proxy@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-setup@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-extensions-api-impl@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-webadmin-portal-debuginfo@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-backend@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhevm-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "rhevm-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "rhevm-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhevm@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-setup-base@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-restapi@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-webadmin-portal@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_id": "ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine-setup-plugin-ovirt-engine@4.0.4.4-0.1.el7ev?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+								"product": {
+									"name": "ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+									"product_id": "ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/ovirt-engine@4.0.4.4-0.1.el7ev?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-0:4.0.4.4-0.1.el7ev.src as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.src"
+				},
+				"product_reference": "ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhevm-0:4.0.4.4-0.1.el7ev.noarch as a component of RHEV-M 4.0",
+					"product_id": "7Server-RHEV-S-4.0:rhevm-0:4.0.4.4-0.1.el7ev.noarch"
+				},
+				"product_reference": "rhevm-0:4.0.4.4-0.1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHEV-S-4.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Yedidyah Bar David"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2016-5432",
+			"cwe": {
+				"id": "CWE-312",
+				"name": "Cleartext Storage of Sensitive Information"
+			},
+			"discovery_date": "2016-08-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1371428"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the ovirt-engine-provisiondb utility did not correctly sanitize the authentication details used with the “—provision*db” options from the output before storing them in log files. This could allow an attacker with read access to these log files to obtain sensitive information such as passwords.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2016-5432 ovirt-engine: ovirt-engine-provisiondb logs contain DB username and password in plain text",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+					"7Server-RHEV-S-4.0:ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+					"7Server-RHEV-S-4.0:rhevm-0:4.0.4.4-0.1.el7ev.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2016-5432"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1371428",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1371428"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2016-5432",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2016-5432"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2016-5432",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2016-5432"
+				}
+			],
+			"release_date": "2016-08-30T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+						"7Server-RHEV-S-4.0:ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:rhevm-0:4.0.4.4-0.1.el7ev.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:1967"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.9,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-0:4.0.4.4-0.1.el7ev.src",
+						"7Server-RHEV-S-4.0:ovirt-engine-backend-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-dbscripts-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-extensions-api-impl-javadoc-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-lib-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-restapi-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-base-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-setup-plugin-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-tools-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-tools-backup-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-userportal-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-userportal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-vmconsole-proxy-helper-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-webadmin-portal-debuginfo-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:ovirt-engine-websocket-proxy-0:4.0.4.4-0.1.el7ev.noarch",
+						"7Server-RHEV-S-4.0:rhevm-0:4.0.4.4-0.1.el7ev.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2016-5432 ovirt-engine: ovirt-engine-provisiondb logs contain DB username and password in plain text"
+		}
+	]
+}

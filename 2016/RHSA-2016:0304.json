@@ -1,0 +1,1661 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openssl packages that fix multiple security issues are now\navailable for Red Hat Enterprise Linux 5.6 and 5.9 Long Life.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "OpenSSL is a toolkit that implements the Secure Sockets Layer (SSL v2/v3)\nand Transport Layer Security (TLS v1) protocols, as well as a\nfull-strength, general purpose cryptography library.\n\nA padding oracle flaw was found in the Secure Sockets Layer version 2.0\n(SSLv2) protocol. An attacker can potentially use this flaw to decrypt\nRSA-encrypted cipher text from a connection using a newer SSL/TLS protocol\nversion, allowing them to decrypt such connections. This cross-protocol\nattack is publicly referred to as DROWN. (CVE-2016-0800)\n\nNote: This issue was addressed by disabling the SSLv2 protocol by default\nwhen using the 'SSLv23' connection methods, and removing support for weak\nSSLv2 cipher suites. It is possible to re-enable the SSLv2 protocol in the\n'SSLv23' connection methods by default by setting the OPENSSL_ENABLE_SSL2\nenvironment variable before starting an application that needs to have\nSSLv2 enabled. For more information, refer to the knowledge base article\nlinked to in the References section.\n\nIt was discovered that the SSLv2 servers using OpenSSL accepted SSLv2\nconnection handshakes that indicated non-zero clear key length for\nnon-export cipher suites. An attacker could use this flaw to decrypt\nrecorded SSLv2 sessions with the server by using it as a decryption \noracle.(CVE-2016-0703)\n\nIt was discovered that the SSLv2 protocol implementation in OpenSSL did \nnot properly implement the Bleichenbacher protection for export cipher \nsuites. An attacker could use a SSLv2 server using OpenSSL as a \nBleichenbacher oracle. (CVE-2016-0704)\n\nNote: The CVE-2016-0703 and CVE-2016-0704 issues could allow for more\nefficient exploitation of the CVE-2016-0800 issue via the DROWN attack.\n\nA denial of service flaw was found in the way OpenSSL handled SSLv2\nhandshake messages. A remote attacker could use this flaw to cause a\nTLS/SSL server using OpenSSL to exit on a failed assertion if it had both\nthe SSLv2 protocol and EXPORT-grade cipher suites enabled. (CVE-2015-0293)\n\nA flaw was found in the way malicious SSLv2 clients could negotiate SSLv2\nciphers that have been disabled on the server. This could result in weak\nSSLv2 ciphers being used for SSLv2 connections, making them vulnerable to\nman-in-the-middle attacks. (CVE-2015-3197)\n\nRed Hat would like to thank the OpenSSL project for reporting these issues.\nUpstream acknowledges Nimrod Aviram and Sebastian Schinzel as the original\nreporters of CVE-2016-0800 and CVE-2015-3197; David Adrian (University of\nMichigan) and J. Alex Halderman (University of Michigan) as the original\nreporters of CVE-2016-0703 and CVE-2016-0704; and Sean Burford (Google) and\nEmilia Käsper (OpenSSL development team) as the original reporters of\nCVE-2015-0293.\n\nAll openssl users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. For the update to take\neffect, all services linked to the OpenSSL library must be restarted, or\nthe system rebooted.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2016:0304",
+				"url": "https://access.redhat.com/errata/RHSA-2016:0304"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/articles/2176731",
+				"url": "https://access.redhat.com/articles/2176731"
+			},
+			{
+				"category": "external",
+				"summary": "https://drownattack.com/",
+				"url": "https://drownattack.com/"
+			},
+			{
+				"category": "external",
+				"summary": "https://openssl.org/news/secadv/20160128.txt",
+				"url": "https://openssl.org/news/secadv/20160128.txt"
+			},
+			{
+				"category": "external",
+				"summary": "https://openssl.org/news/secadv/20160301.txt",
+				"url": "https://openssl.org/news/secadv/20160301.txt"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2016/rhsa-2016_0304.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openssl security update",
+		"tracking": {
+			"current_release_date": "2016-03-01T14:45:06+00:00",
+			"generator": {
+				"date": "2023-10-17T16:14:10+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2016:0304",
+			"initial_release_date": "2016-03-01T14:45:06+00:00",
+			"revision_history": [
+				{
+					"date": "2016-03-01T14:45:06+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+									"product_id": "5Server-5.6.LL",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_mission_critical:5.6"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+									"product_id": "5Server-5.9.AUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_aus:5.9"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5_6.13?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5_6.13?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5_6.13.i386",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5_6.13.i386",
+									"product_id": "openssl-0:0.9.8e-12.el5_6.13.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5_6.13?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5_6.13?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+									"product_id": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-26.el5_9.5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+									"product_id": "openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-26.el5_9.5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+									"product_id": "openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-26.el5_9.5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-26.el5_9.5.i386",
+								"product": {
+									"name": "openssl-0:0.9.8e-26.el5_9.5.i386",
+									"product_id": "openssl-0:0.9.8e-26.el5_9.5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-26.el5_9.5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5_6.13?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5_6.13.i686",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5_6.13.i686",
+									"product_id": "openssl-0:0.9.8e-12.el5_6.13.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5_6.13?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+									"product_id": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-26.el5_9.5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-26.el5_9.5.i686",
+								"product": {
+									"name": "openssl-0:0.9.8e-26.el5_9.5.i686",
+									"product_id": "openssl-0:0.9.8e-26.el5_9.5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-26.el5_9.5?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5_6.13?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5_6.13?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5_6.13?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5_6.13.x86_64",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_id": "openssl-0:0.9.8e-12.el5_6.13.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5_6.13?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_id": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-26.el5_9.5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_id": "openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-26.el5_9.5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-26.el5_9.5.x86_64",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_id": "openssl-perl-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-26.el5_9.5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-26.el5_9.5.x86_64",
+								"product": {
+									"name": "openssl-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_id": "openssl-0:0.9.8e-26.el5_9.5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-26.el5_9.5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+								"product": {
+									"name": "openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+									"product_id": "openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-devel@0.9.8e-12.el5_6.13?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5_6.13.ia64",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5_6.13.ia64",
+									"product_id": "openssl-0:0.9.8e-12.el5_6.13.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5_6.13?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+								"product": {
+									"name": "openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+									"product_id": "openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-perl@0.9.8e-12.el5_6.13?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+								"product": {
+									"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+									"product_id": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl-debuginfo@0.9.8e-12.el5_6.13?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-12.el5_6.13.src",
+								"product": {
+									"name": "openssl-0:0.9.8e-12.el5_6.13.src",
+									"product_id": "openssl-0:0.9.8e-12.el5_6.13.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-12.el5_6.13?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssl-0:0.9.8e-26.el5_9.5.src",
+								"product": {
+									"name": "openssl-0:0.9.8e-26.el5_9.5.src",
+									"product_id": "openssl-0:0.9.8e-26.el5_9.5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openssl@0.9.8e-26.el5_9.5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5_6.13.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5_6.13.i386",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5_6.13.i686 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5_6.13.i686",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5_6.13.ia64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5_6.13.ia64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5_6.13.src as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5_6.13.src",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-12.el5_6.13.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64"
+				},
+				"product_reference": "openssl-0:0.9.8e-12.el5_6.13.x86_64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5_6.13.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5_6.13.ia64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-12.el5_6.13.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5_6.13.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5_6.13.ia64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-12.el5_6.13.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.6 server)",
+					"product_id": "5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+				"relates_to_product_reference": "5Server-5.6.LL"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-26.el5_9.5.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386"
+				},
+				"product_reference": "openssl-0:0.9.8e-26.el5_9.5.i386",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-26.el5_9.5.i686 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686"
+				},
+				"product_reference": "openssl-0:0.9.8e-26.el5_9.5.i686",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-26.el5_9.5.src as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src"
+				},
+				"product_reference": "openssl-0:0.9.8e-26.el5_9.5.src",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-0:0.9.8e-26.el5_9.5.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64"
+				},
+				"product_reference": "openssl-0:0.9.8e-26.el5_9.5.x86_64",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64"
+				},
+				"product_reference": "openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-26.el5_9.5.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-devel-0:0.9.8e-26.el5_9.5.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64"
+				},
+				"product_reference": "openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-26.el5_9.5.i386 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssl-perl-0:0.9.8e-26.el5_9.5.x86_64 as a component of Red Hat Enterprise Linux Long Life (v. 5.9 server)",
+					"product_id": "5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+				},
+				"product_reference": "openssl-perl-0:0.9.8e-26.el5_9.5.x86_64",
+				"relates_to_product_reference": "5Server-5.9.AUS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"the OpenSSL project"
+					]
+				},
+				{
+					"names": [
+						"Emilia Käsper"
+					],
+					"organization": "the OpenSSL development team",
+					"summary": "Acknowledged by upstream."
+				},
+				{
+					"names": [
+						"Sean Burford"
+					],
+					"organization": "Google",
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2015-0293",
+			"cwe": {
+				"id": "CWE-617",
+				"name": "Reachable Assertion"
+			},
+			"discovery_date": "2015-03-16T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1202404"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A denial of service flaw was found in the way OpenSSL handled SSLv2 handshake messages. A remote attacker could use this flaw to cause a TLS/SSL server using OpenSSL to exit on a failed assertion if it had both the SSLv2 protocol and EXPORT-grade cipher suites enabled.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-0293 openssl: assertion failure in SSLv2 servers",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-0293"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1202404",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1202404"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-0293",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-0293"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-0293",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0293"
+				},
+				{
+					"category": "external",
+					"summary": "https://access.redhat.com/articles/1384453",
+					"url": "https://access.redhat.com/articles/1384453"
+				},
+				{
+					"category": "external",
+					"summary": "https://openssl.org/news/secadv_20150319.txt",
+					"url": "https://openssl.org/news/secadv_20150319.txt"
+				}
+			],
+			"release_date": "2015-03-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:0304"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2015-0293 openssl: assertion failure in SSLv2 servers"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"the OpenSSL project"
+					]
+				},
+				{
+					"names": [
+						"Nimrod Aviram",
+						"Sebastian Schinzel"
+					],
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2015-3197",
+			"discovery_date": "2016-01-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1301846"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the way malicious SSLv2 clients could negotiate SSLv2 ciphers that were disabled on the server. This could result in weak SSLv2 ciphers being used for SSLv2 connections, making them vulnerable to man-in-the-middle attacks.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-3197 OpenSSL: SSLv2 doesn't block disabled ciphers",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This security flaw can only be exploited when a malicious client negotiates SSLv2 ciphers and completes a SSLv2 handshake. This flaw cannot be actively exploited by a Man-In-The-Middle attacker. \n\nAll versions of OpenSSL shipped with Red Hat Enterprise Linux enable SSLv2 protocol, but disable SSLv2 ciphers by default (in Red Hat Enterprise Linux 6 and later), therefore are vulnerable to this flaw. Red Hat Product Security has rated this issue as having Low security impact, a future update may address this flaw.\n\nSSLv2 suffers from a number of security flaws allowing attackers to capture and alter information passed between a client and the server. Therefore we strongly recommend that SSLv2 should be disabled on all the SSL/TLS servers.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-3197"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1301846",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1301846"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-3197",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-3197"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-3197",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3197"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.openssl.org/news/secadv/20160128.txt",
+					"url": "https://www.openssl.org/news/secadv/20160128.txt"
+				}
+			],
+			"release_date": "2016-01-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:0304"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2015-3197 OpenSSL: SSLv2 doesn't block disabled ciphers"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"the OpenSSL project"
+					]
+				},
+				{
+					"names": [
+						"David Adrian",
+						"J. Alex Halderman"
+					],
+					"organization": "University of Michigan",
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2016-0703",
+			"discovery_date": "2016-02-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1310811"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was discovered that the SSLv2 servers using OpenSSL accepted SSLv2 connection handshakes that indicated non-zero clear key length for non-export cipher suites. An attacker could use this flaw to decrypt recorded SSLv2 sessions with the server by using it as a decryption oracle.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2016-0703 openssl: Divide-and-conquer session key recovery in SSLv2",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2016-0703"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1310811",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1310811"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2016-0703",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2016-0703"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2016-0703",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2016-0703"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.openssl.org/news/secadv/20160301.txt",
+					"url": "https://www.openssl.org/news/secadv/20160301.txt"
+				}
+			],
+			"release_date": "2016-03-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:0304"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2016-0703 openssl: Divide-and-conquer session key recovery in SSLv2"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"the OpenSSL project"
+					]
+				},
+				{
+					"names": [
+						"David Adrian",
+						"J. Alex Halderman"
+					],
+					"organization": "University of Michigan",
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2016-0704",
+			"discovery_date": "2016-02-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1310814"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was discovered that the SSLv2 protocol implementation in OpenSSL did not properly implement the Bleichenbacher protection for export cipher suites. An attacker could use a SSLv2 server using OpenSSL as a Bleichenbacher oracle.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2016-0704 openssl: SSLv2 Bleichenbacher protection overwrites wrong bytes for export ciphers",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2016-0704"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1310814",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1310814"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2016-0704",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2016-0704"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2016-0704",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2016-0704"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.openssl.org/news/secadv/20160301.txt",
+					"url": "https://www.openssl.org/news/secadv/20160301.txt"
+				}
+			],
+			"release_date": "2016-03-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:0304"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2016-0704 openssl: SSLv2 Bleichenbacher protection overwrites wrong bytes for export ciphers"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"the OpenSSL project"
+					]
+				},
+				{
+					"names": [
+						"Nimrod Aviram",
+						"Sebastian Schinzel"
+					],
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2016-0800",
+			"discovery_date": "2016-02-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1310593"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A padding oracle flaw was found in the Secure Sockets Layer version 2.0 (SSLv2) protocol. An attacker could potentially use this flaw to decrypt RSA-encrypted cipher text from a connection using a newer SSL/TLS protocol version, allowing them to decrypt such connections. This cross-protocol attack is publicly referred to as DROWN.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2016-0800 SSL/TLS: Cross-protocol attack on TLS using SSLv2 (DROWN)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+					"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+					"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+					"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+					"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+					"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2016-0800"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1310593",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1310593"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2016-0800",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2016-0800"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2016-0800",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2016-0800"
+				},
+				{
+					"category": "external",
+					"summary": "https://access.redhat.com/articles/2176731",
+					"url": "https://access.redhat.com/articles/2176731"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.drownattack.com/",
+					"url": "https://www.drownattack.com/"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.openssl.org/news/secadv/20160301.txt",
+					"url": "https://www.openssl.org/news/secadv/20160301.txt"
+				}
+			],
+			"release_date": "2016-03-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:0304"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.src",
+						"5Server-5.6.LL:openssl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.i686",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-debuginfo-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-devel-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.i386",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.ia64",
+						"5Server-5.6.LL:openssl-perl-0:0.9.8e-12.el5_6.13.x86_64",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.src",
+						"5Server-5.9.AUS:openssl-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.i686",
+						"5Server-5.9.AUS:openssl-debuginfo-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-devel-0:0.9.8e-26.el5_9.5.x86_64",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.i386",
+						"5Server-5.9.AUS:openssl-perl-0:0.9.8e-26.el5_9.5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2016-0800 SSL/TLS: Cross-protocol attack on TLS using SSLv2 (DROWN)"
+		}
+	]
+}

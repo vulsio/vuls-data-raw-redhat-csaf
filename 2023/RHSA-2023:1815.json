@@ -1,0 +1,215 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "A security update for Debezium is now available for Red Hat Integration.\n\nRed Hat Product Security has rated this update as having a security impact of Low. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Debezium is a distributed platform that turns your existing databases into event streams, so applications can see and respond immediately to each row-level change in the databases.\n\nDebezium is built on top of Apache Kafka and provides Kafka Connect compatible connectors that monitor specific database management systems. Debezium records the history of data changes in Kafka logs, from where your application consumes them. This makes it possible for your application to easily consume all of the events correctly and completely. Even if your application stops unexpectedly, it will not miss anything: when the application restarts, it will resume consuming the events where it left off.\n\nSecurity Fix(es):\n\n* jdbc-postgresql: postgresql-jdbc: PreparedStatement.setText(int, InputStream) will create a temporary file if the InputStream is larger than 2k (CVE-2022-41946) \n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2023:1815",
+				"url": "https://access.redhat.com/errata/RHSA-2023:1815"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2023/rhsa-2023_1815.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat Integration Debezium 2.1.4 security update",
+		"tracking": {
+			"current_release_date": "2023-04-17T15:18:57+00:00",
+			"generator": {
+				"date": "2023-10-17T17:45:11+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2023:1815",
+			"initial_release_date": "2023-04-17T15:18:57+00:00",
+			"revision_history": [
+				{
+					"date": "2023-04-17T15:18:57+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHINT Debezium 2.1.4",
+								"product": {
+									"name": "RHINT Debezium 2.1.4",
+									"product_id": "RHINT Debezium 2.1.4",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:debezium:2"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Integration"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2022-41946",
+			"cwe": {
+				"id": "CWE-377",
+				"name": "Insecure Temporary File"
+			},
+			"discovery_date": "2022-12-14T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2153399"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in org.postgresql. This issue allows the creation of a temporary file when using PreparedStatement.setText(int, InputStream) and PreparedStatemet.setBytea(int, InputStream). This could allow a user to create an unexpected file available to all users, which could end in unexpected behavior.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Information leak of prepared statement data due to insecure temporary file permissions",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "Red Hat Satellite ships a PostgreSQL JDBC Driver for Hibernate ORM framework, which is embeds into Candlepin. Although Candlepin itself doesn't make direct use of the PreparedStatement methods from the PostgreSQL JDBC Driver, Hibernate ORM does utilize these methods, potentially making framework affected. Satellite server operating in an environment with untrusted users while the driver is running are vulnerable to the flaw, however, deployments without untrusted users are considered safe. A future Satellite update should address this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"RHINT Debezium 2.1.4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2022-41946"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2153399",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2153399"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2022-41946",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2022-41946"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2022-41946",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2022-41946"
+				}
+			],
+			"release_date": "2022-11-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"RHINT Debezium 2.1.4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2023:1815"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.5,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+						"version": "3.1"
+					},
+					"products": [
+						"RHINT Debezium 2.1.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "Information leak of prepared statement data due to insecure temporary file permissions"
+		}
+	]
+}

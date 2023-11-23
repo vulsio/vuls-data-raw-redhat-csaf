@@ -1,0 +1,1343 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for ansible and openshift-ansible is now available for Red Hat OpenShift Container Platform 3.2, Red Hat OpenShift Container Platform 3.3, Red Hat OpenShift Container Platform 3.4, and Red Hat OpenShift Container Platform 3.5.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Ansible is a simple model-driven configuration management, multi-node deployment, and remote task execution system. Ansible works over SSH and does not require any software or daemons to be installed on remote nodes. \n\nThe openshift-ansible packages contain Ansible code and playbooks for installing and upgrading OpenShift Container Platform 3.\n\nSecurity Fix(es):\n\n* An input validation vulnerability was found in Ansible's handling of data sent from client systems. An attacker with control over a client system being managed by Ansible, and the ability to send facts back to the Ansible server, could use this flaw to execute arbitrary code on the Ansible server using the Ansible server privileges. (CVE-2017-7466)\n\n* An input validation flaw was found in Ansible, where it fails to properly mark lookup-plugin results as unsafe. If an attacker could control the results of lookup() calls, they could inject Unicode strings to be parsed by the jinja2 templating system, resulting in code execution. By default, the jinja2 templating language is now marked as 'unsafe' and is not evaluated. (CVE-2017-7481)\n\nThese issues were discovered by Evgeni Golov (Red Hat).\n\nBug Fix(es):\n\n* The installer could fail to add iptables rules if other iptables rules were updated at the same time. The installer now waits to obtain a lock, ensuring that rules are properly created. (BZ#1445194, BZ#1445282)\n\n* In multi-master environments, if `ansible_host` and `openshift_hostname` values differ and Ansible sorts one of the lists differently from the other, the CA host may be the first master but it was still signing the initial certificates with the host names of the first master. By ensuring that the host names of the CA host are used when creating the certificate authority, this bug fix ensures that certificates are signed with correct host names. (BZ#1447399, BZ#1440309, BZ#1447398)\n\n* Running Ansible via `batch` systems like the `nohup` command caused Ansible to leak file descriptors and abort playbooks whenever the maximum number of open file descriptors was reached. Ansible 2.2.3.0 includes a fix for this problem, and OCP channels have been updated to include this version. (BZ#1439277)\n\n* The OCP 3.4 logging stack upgraded the schema to use the common standard logging data model. However, some of the Elasticsearch and Kibana configuration using this schema was missing, causing Kibana to show an error message upon startup. The correct Elasticsearch and Kibana configuration is now added to the logging stack, including for upgrades from OCP 3.3 to 3.4, and from 3.4.x to 3.4.y. As a result, Kibana works correctly with the new logging data schema. (BZ#1444106)\n\n* Because the upgrade playbooks upgraded packages in a serial manner rather than all at once, yum dependency resolution installed the latest version available in the enabled repositories rather than the requested version. This bug fix updates the playbooks to upgrade all packages to the requested version at once, which prevents yum from potentially upgrading to the latest version. (BZ#1391325, BZ#1449220, BZ#1449221) \n\n* In an environment utilizing mixed containerized and RPM-based installation methods, the installer failed to gather facts when a master and node used different installation methods. This bug fix updates the installer to ensure mixed installations work properly. (BZ#1408663)\n\n* Previously, if `enable_excluders=false` was set, playbooks still installed and upgraded the excluders during the config.yml playbook even if the excluders were never previously installed. With this bug fix, if the excluders were not previously installed, playbooks avoid installing them. (BZ#1434679)\n\n* Previously, playbooks aborted if a namespace had non-ASCII characters in their descriptions. This bug fix updates playbooks to properly decode Unicode characters, ensuring that upgrades to OCP 3.5 work as expected. (BZ#1444806)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2017:1244",
+				"url": "https://access.redhat.com/errata/RHSA-2017:1244"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2017/rhsa-2017_1244.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: ansible and openshift-ansible security and bug fix update",
+		"tracking": {
+			"current_release_date": "2017-05-25T17:43:00Z",
+			"generator": {
+				"date": "2023-06-30T22:32:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2017:1244",
+			"initial_release_date": "2017-05-17T17:37:00Z",
+			"revision_history": [
+				{
+					"date": "2017-05-25T17:43:00Z",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Platform 3.2",
+								"product": {
+									"name": "Red Hat OpenShift Container Platform 3.2",
+									"product_id": "7Server-RH7-RHOSE-3.2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift:3.2::el7"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Platform 3.3",
+								"product": {
+									"name": "Red Hat OpenShift Container Platform 3.3",
+									"product_id": "7Server-RH7-RHOSE-3.3",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift:3.3::el7"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Platform 3.4",
+								"product": {
+									"name": "Red Hat OpenShift Container Platform 3.4",
+									"product_id": "7Server-RH7-RHOSE-3.4",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift:3.4::el7"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Platform 3.5",
+								"product": {
+									"name": "Red Hat OpenShift Container Platform 3.5",
+									"product_id": "7Server-RH7-RHOSE-3.5",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift:3.5::el7"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenShift Enterprise"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ansible-0:2.2.3.0-1.el7.noarch",
+								"product": {
+									"name": "ansible-0:2.2.3.0-1.el7.noarch",
+									"product_id": "ansible-0:2.2.3.0-1.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_id": "openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_id": "openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_id": "openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch",
+								"product": {
+									"name": "openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_id": "openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ansible-0:2.2.3.0-1.el7.src",
+								"product": {
+									"name": "ansible-0:2.2.3.0-1.el7.src",
+									"product_id": "ansible-0:2.2.3.0-1.el7.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+								"product": {
+									"name": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+									"product_id": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+								"product": {
+									"name": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+									"product_id": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+								"product": {
+									"name": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+									"product_id": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+								"product": {
+									"name": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+									"product_id": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.src as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src"
+				},
+				"product_reference": "openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch as a component of Red Hat OpenShift Container Platform 3.2",
+					"product_id": "7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.src as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src"
+				},
+				"product_reference": "openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch as a component of Red Hat OpenShift Container Platform 3.3",
+					"product_id": "7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.src as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src"
+				},
+				"product_reference": "openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch as a component of Red Hat OpenShift Container Platform 3.4",
+					"product_id": "7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.4"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ansible-0:2.2.3.0-1.el7.src as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src"
+				},
+				"product_reference": "ansible-0:2.2.3.0-1.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src"
+				},
+				"product_reference": "openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch as a component of Red Hat OpenShift Container Platform 3.5",
+					"product_id": "7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				},
+				"product_reference": "openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch",
+				"relates_to_product_reference": "7Server-RH7-RHOSE-3.5"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Evgeni Golov"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2017-7466",
+			"cwe": {
+				"id": "CWE-20",
+				"name": "Improper Input Validation"
+			},
+			"discovery_date": "2017-03-31T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1439212"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "An input validation vulnerability was found in Ansible's handling of data sent from client systems. An attacker with control over a client system being managed by Ansible, and the ability to send facts back to the Ansible server, could use this flaw to execute arbitrary code on the Ansible server using the Ansible server privileges.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "ansible: Arbitrary code execution on control node (incomplete fix for CVE-2016-9587)",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2017-7466",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2017-7466"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2017-7466",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2017-7466"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2017-7466",
+					"url": "https://access.redhat.com/security/cve/CVE-2017-7466"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1439212: CVE-2017-7466 ansible: Arbitrary code execution on control node (incomplete fix for CVE-2016-9587)",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1439212"
+				}
+			],
+			"release_date": "2017-04-11T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2017:1244"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 8,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.0/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2017-03-31T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2017-7466 ansible: Arbitrary code execution on control node (incomplete fix for CVE-2016-9587)"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Evgeni Golov"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2017-7481",
+			"cwe": {
+				"id": "CWE-20",
+				"name": "Improper Input Validation"
+			},
+			"discovery_date": "2017-04-13T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1450018"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "An input validation flaw was found in Ansible, where it fails to properly mark lookup-plugin results as unsafe. If an attacker could control the results of lookup() calls, they could inject Unicode strings to be parsed by the jinja2 templating system, resulting in code execution. By default, the jinja2 templating language is now marked as 'unsafe' and is not evaluated.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "ansible: Security issue with lookup return not tainting the jinja2 environment",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src",
+					"7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+					"7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2017-7481",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2017-7481"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2017-7481",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2017-7481"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2017-7481",
+					"url": "https://access.redhat.com/security/cve/CVE-2017-7481"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1450018: CVE-2017-7481 ansible: Security issue with lookup return not tainting the jinja2 environment",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1450018"
+				}
+			],
+			"release_date": "2017-05-09T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2017:1244"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.3,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.0/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:H/A:N",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.2:atomic-openshift-utils-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-0:3.2.56-1.git.0.b844ab7.el7.src",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-docs-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-filter-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-lookup-plugins-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-playbooks-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.2:openshift-ansible-roles-0:3.2.56-1.git.0.b844ab7.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.3:atomic-openshift-utils-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-0:3.3.82-1.git.0.af0c922.el7.src",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-callback-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-docs-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-filter-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-lookup-plugins-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-playbooks-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.3:openshift-ansible-roles-0:3.3.82-1.git.0.af0c922.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.4:atomic-openshift-utils-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-0:3.4.89-1.git.0.ac29ce8.el7.src",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-callback-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-docs-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-filter-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-lookup-plugins-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-playbooks-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.4:openshift-ansible-roles-0:3.4.89-1.git.0.ac29ce8.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:ansible-0:2.2.3.0-1.el7.src",
+						"7Server-RH7-RHOSE-3.5:atomic-openshift-utils-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-0:3.5.71-1.git.0.128c2db.el7.src",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-callback-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-docs-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-filter-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-lookup-plugins-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-playbooks-0:3.5.71-1.git.0.128c2db.el7.noarch",
+						"7Server-RH7-RHOSE-3.5:openshift-ansible-roles-0:3.5.71-1.git.0.128c2db.el7.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2017-04-13T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2017-7481 ansible: Security issue with lookup return not tainting the jinja2 environment"
+		}
+	]
+}

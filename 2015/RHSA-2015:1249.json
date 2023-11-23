@@ -1,0 +1,2472 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated httpd packages that fix one security issue, several bugs, and add\none enhancement are now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The httpd packages provide the Apache HTTP Server, a powerful, efficient,\nand extensible web server.\n\nA flaw was found in the way httpd handled HTTP Trailer headers when\nprocessing requests using chunked encoding. A malicious client could use\nTrailer headers to set additional HTTP headers after header processing was\nperformed by other modules. This could, for example, lead to a bypass of\nheader restrictions defined with mod_headers. (CVE-2013-5704)\n\nThis update also fixes the following bugs:\n\n* The order of mod_proxy workers was not checked when httpd configuration\nwas reloaded. When mod_proxy workers were removed, added, or their order\nwas changed, their parameters and scores could become mixed. The order of\nmod_proxy workers has been made internally consistent during configuration\nreload. (BZ#1149906)\n\n* The local host certificate created during firstboot contained CA\nextensions, which caused the httpd service to return warning messages.\nThis has been addressed by local host certificates being generated with the\n\"-extensions v3_req\" option. (BZ#906476)\n\n* The default mod_ssl configuration no longer enables support for SSL\ncipher suites using the single DES, IDEA, or SEED encryption algorithms.\n(BZ#1086771)\n\n* The apachectl script did not take into account the HTTPD_LANG variable\nset in the /etc/sysconfig/httpd file during graceful restarts.\nConsequently, httpd did not use a changed value of HTTPD_LANG when the\ndaemon was restarted gracefully. The script has been fixed to handle the\nHTTPD_LANG variable correctly. (BZ#963146)\n\n* The mod_deflate module failed to check the original file size while\nextracting files larger than 4 GB, making it impossible to extract large\nfiles. Now, mod_deflate checks the original file size properly according to\nRFC1952, and it is able to decompress files larger than 4 GB. (BZ#1057695)\n\n* The httpd service did not check configuration before restart. When a\nconfiguration contained an error, an attempt to restart httpd gracefully\nfailed. Now, httpd checks configuration before restart and if the\nconfiguration is in an inconsistent state, an error message is printed,\nhttpd is not stopped and a restart is not performed. (BZ#1146194)\n\n* The SSL_CLIENT_VERIFY environment variable was incorrectly handled when\nthe \"SSLVerifyClient optional_no_ca\" and \"SSLSessionCache\" options were\nused. When an SSL session was resumed, the SSL_CLIENT_VERIFY value was set\nto \"SUCCESS\" instead of the previously set \"GENEROUS\". SSL_CLIENT_VERIFY is\nnow correctly set to GENEROUS in this scenario. (BZ#1149703)\n\n* The ab utility did not correctly handle situations when an SSL connection\nwas closed after some data had already been read. As a consequence, ab did\nnot work correctly with SSL servers and printed \"SSL read failed\" error\nmessages. With this update, ab works as expected with HTTPS servers.\n(BZ#1045477)\n\n* When a client presented a revoked certificate, log entries were created\nonly at the debug level. The log level of messages regarding a revoked\ncertificate has been increased to INFO, and administrators are now properly\ninformed of this situation. (BZ#1161328)\n\nIn addition, this update adds the following enhancement:\n\n* A mod_proxy worker can now be set into drain mode (N) using the\nbalancer-manager web interface or using the httpd configuration file.\nA worker in drain mode accepts only existing sticky sessions destined for\nitself and ignores all other requests. The worker waits until all clients\ncurrently connected to this worker complete their work before the worker is\nstopped. As a result, drain mode enables to perform maintenance on a worker\nwithout affecting clients. (BZ#767130)\n\nUsers of httpd are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add this\nenhancement. After installing the updated packages, the httpd service will\nbe restarted automatically.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2015:1249",
+				"url": "https://access.redhat.com/errata/RHSA-2015:1249"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhsa-2015_1249.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: httpd security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2015-07-20T13:50:12+00:00",
+			"generator": {
+				"date": "2023-10-17T16:10:53+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2015:1249",
+			"initial_release_date": "2015-07-20T13:50:12+00:00",
+			"revision_history": [
+				{
+					"date": "2015-07-20T13:50:12+00:00",
+					"number": "3",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "3"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+									"product_id": "6Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+									"product_id": "6ComputeNode-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+									"product_id": "6Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+									"product_id": "6ComputeNode",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 6)",
+									"product_id": "6Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+									"product_id": "6Client-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.15-45.el6.i686",
+								"product": {
+									"name": "httpd-devel-0:2.2.15-45.el6.i686",
+									"product_id": "httpd-devel-0:2.2.15-45.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.15-45.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+									"product_id": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.15-45.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-tools-0:2.2.15-45.el6.i686",
+								"product": {
+									"name": "httpd-tools-0:2.2.15-45.el6.i686",
+									"product_id": "httpd-tools-0:2.2.15-45.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-tools@2.2.15-45.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.15-45.el6.i686",
+								"product": {
+									"name": "httpd-0:2.2.15-45.el6.i686",
+									"product_id": "httpd-0:2.2.15-45.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.15-45.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.15-45.el6.i686",
+								"product": {
+									"name": "mod_ssl-1:2.2.15-45.el6.i686",
+									"product_id": "mod_ssl-1:2.2.15-45.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.15-45.el6?arch=i686&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.15-45.el6.x86_64",
+								"product": {
+									"name": "httpd-devel-0:2.2.15-45.el6.x86_64",
+									"product_id": "httpd-devel-0:2.2.15-45.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.15-45.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-tools-0:2.2.15-45.el6.x86_64",
+								"product": {
+									"name": "httpd-tools-0:2.2.15-45.el6.x86_64",
+									"product_id": "httpd-tools-0:2.2.15-45.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-tools@2.2.15-45.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.15-45.el6.x86_64",
+								"product": {
+									"name": "httpd-0:2.2.15-45.el6.x86_64",
+									"product_id": "httpd-0:2.2.15-45.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.15-45.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.15-45.el6.x86_64",
+								"product": {
+									"name": "mod_ssl-1:2.2.15-45.el6.x86_64",
+									"product_id": "mod_ssl-1:2.2.15-45.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.15-45.el6?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+									"product_id": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.15-45.el6?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.15-45.el6.src",
+								"product": {
+									"name": "httpd-0:2.2.15-45.el6.src",
+									"product_id": "httpd-0:2.2.15-45.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.15-45.el6?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-manual-0:2.2.15-45.el6.noarch",
+								"product": {
+									"name": "httpd-manual-0:2.2.15-45.el6.noarch",
+									"product_id": "httpd-manual-0:2.2.15-45.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-manual@2.2.15-45.el6?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.15-45.el6.s390x",
+								"product": {
+									"name": "httpd-devel-0:2.2.15-45.el6.s390x",
+									"product_id": "httpd-devel-0:2.2.15-45.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.15-45.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-tools-0:2.2.15-45.el6.s390x",
+								"product": {
+									"name": "httpd-tools-0:2.2.15-45.el6.s390x",
+									"product_id": "httpd-tools-0:2.2.15-45.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-tools@2.2.15-45.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.15-45.el6.s390x",
+								"product": {
+									"name": "httpd-0:2.2.15-45.el6.s390x",
+									"product_id": "httpd-0:2.2.15-45.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.15-45.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.15-45.el6.s390x",
+								"product": {
+									"name": "mod_ssl-1:2.2.15-45.el6.s390x",
+									"product_id": "mod_ssl-1:2.2.15-45.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.15-45.el6?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+									"product_id": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.15-45.el6?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.15-45.el6.s390",
+								"product": {
+									"name": "httpd-devel-0:2.2.15-45.el6.s390",
+									"product_id": "httpd-devel-0:2.2.15-45.el6.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.15-45.el6?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+									"product_id": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.15-45.el6?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.15-45.el6.ppc",
+								"product": {
+									"name": "httpd-devel-0:2.2.15-45.el6.ppc",
+									"product_id": "httpd-devel-0:2.2.15-45.el6.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.15-45.el6?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+									"product_id": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.15-45.el6?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.15-45.el6.ppc64",
+								"product": {
+									"name": "httpd-devel-0:2.2.15-45.el6.ppc64",
+									"product_id": "httpd-devel-0:2.2.15-45.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.15-45.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-tools-0:2.2.15-45.el6.ppc64",
+								"product": {
+									"name": "httpd-tools-0:2.2.15-45.el6.ppc64",
+									"product_id": "httpd-tools-0:2.2.15-45.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-tools@2.2.15-45.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.15-45.el6.ppc64",
+								"product": {
+									"name": "httpd-0:2.2.15-45.el6.ppc64",
+									"product_id": "httpd-0:2.2.15-45.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.15-45.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.15-45.el6.ppc64",
+								"product": {
+									"name": "mod_ssl-1:2.2.15-45.el6.ppc64",
+									"product_id": "mod_ssl-1:2.2.15-45.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.15-45.el6?arch=ppc64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+									"product_id": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.15-45.el6?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.src as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-0:2.2.15-45.el6.src"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.src",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-devel-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-devel-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-devel-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-devel-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.15-45.el6.noarch as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-manual-0:2.2.15-45.el6.noarch"
+				},
+				"product_reference": "httpd-manual-0:2.2.15-45.el6.noarch",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-tools-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-tools-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-tools-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:httpd-tools-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:mod_ssl-1:2.2.15-45.el6.i686"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:mod_ssl-1:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:mod_ssl-1:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:mod_ssl-1:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.src as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-0:2.2.15-45.el6.src"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.src",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-debuginfo-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-debuginfo-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-debuginfo-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-debuginfo-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-devel-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-devel-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-devel-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-devel-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-devel-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-devel-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.15-45.el6.noarch as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-manual-0:2.2.15-45.el6.noarch"
+				},
+				"product_reference": "httpd-manual-0:2.2.15-45.el6.noarch",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-tools-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-tools-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-tools-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:httpd-tools-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:mod_ssl-1:2.2.15-45.el6.i686"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:mod_ssl-1:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:mod_ssl-1:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:mod_ssl-1:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.src as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-0:2.2.15-45.el6.src"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.src",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.15-45.el6.noarch as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-manual-0:2.2.15-45.el6.noarch"
+				},
+				"product_reference": "httpd-manual-0:2.2.15-45.el6.noarch",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.i686"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.src as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-0:2.2.15-45.el6.src"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.src",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-devel-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-devel-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.15-45.el6.noarch as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-manual-0:2.2.15-45.el6.noarch"
+				},
+				"product_reference": "httpd-manual-0:2.2.15-45.el6.noarch",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-tools-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-tools-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-tools-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:httpd-tools-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:mod_ssl-1:2.2.15-45.el6.i686"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:mod_ssl-1:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:mod_ssl-1:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:mod_ssl-1:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.src as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-0:2.2.15-45.el6.src"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.src",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-debuginfo-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-debuginfo-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-debuginfo-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-debuginfo-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-devel-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-devel-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-devel-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-devel-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-devel-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-devel-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.15-45.el6.noarch as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-manual-0:2.2.15-45.el6.noarch"
+				},
+				"product_reference": "httpd-manual-0:2.2.15-45.el6.noarch",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-tools-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-tools-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-tools-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:httpd-tools-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:mod_ssl-1:2.2.15-45.el6.i686"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:mod_ssl-1:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:mod_ssl-1:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:mod_ssl-1:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.src as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-0:2.2.15-45.el6.src"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.src",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-debuginfo-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-debuginfo-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-devel-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-devel-0:2.2.15-45.el6.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-devel-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-devel-0:2.2.15-45.el6.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-devel-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-devel-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.15-45.el6.noarch as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-manual-0:2.2.15-45.el6.noarch"
+				},
+				"product_reference": "httpd-manual-0:2.2.15-45.el6.noarch",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-tools-0:2.2.15-45.el6.i686"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-tools-0:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-tools-0:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-tools-0:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:httpd-tools-0:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "httpd-tools-0:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:mod_ssl-1:2.2.15-45.el6.i686"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:mod_ssl-1:2.2.15-45.el6.ppc64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:mod_ssl-1:2.2.15-45.el6.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.15-45.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:mod_ssl-1:2.2.15-45.el6.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.15-45.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2013-5704",
+			"cwe": {
+				"id": "CWE-287",
+				"name": "Improper Authentication"
+			},
+			"discovery_date": "2014-03-31T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1082903"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the way httpd handled HTTP Trailer headers when processing requests using chunked encoding. A malicious client could use Trailer headers to set additional HTTP headers after header processing was performed by other modules. This could, for example, lead to a bypass of header restrictions defined with mod_headers.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-5704 httpd: bypass of mod_headers rules via chunked requests",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of the httpd package as shipped with Red Hat JBoss Enterprise Application Platform 6; and Red Hat JBoss Web Server 2. Red Hat Product Security has rated this issue as having Low security impact. A future update may address this issue. For additional information, refer to the Issue Severity Classification: https://access.redhat.com/security/updates/classification/.\n\nRed Hat Certificate System does not use the mod_headers module, even when installed, and is thus not affected by this flaw.\n\nRed Hat Enterprise Linux 5 is now in Production 3 Phase of the support and maintenance life cycle. This has been rated as having Low security impact and is not currently planned to be addressed in future updates. For additional information, refer to the Red Hat Enterprise Linux Life Cycle: https://access.redhat.com/support/policy/updates/errata/.\n\nRed Hat JBoss Enterprise Application Platform 5 and Red Hat JBoss Web Server 1 are now in Phase 3, Extended Life Support, of their respective life cycles. This issue has been rated as having Low security impact and is not currently planned to be addressed in future updates. For additional information, refer to the Red Hat JBoss Middleware and Red Hat JBoss Operations Network Product Update and Support Policy: https://access.redhat.com/support/policy/updates/jboss_notes/",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:httpd-0:2.2.15-45.el6.i686",
+					"6Client-optional:httpd-0:2.2.15-45.el6.ppc64",
+					"6Client-optional:httpd-0:2.2.15-45.el6.s390x",
+					"6Client-optional:httpd-0:2.2.15-45.el6.src",
+					"6Client-optional:httpd-0:2.2.15-45.el6.x86_64",
+					"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.i686",
+					"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+					"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+					"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390",
+					"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+					"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+					"6Client-optional:httpd-devel-0:2.2.15-45.el6.i686",
+					"6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc",
+					"6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc64",
+					"6Client-optional:httpd-devel-0:2.2.15-45.el6.s390",
+					"6Client-optional:httpd-devel-0:2.2.15-45.el6.s390x",
+					"6Client-optional:httpd-devel-0:2.2.15-45.el6.x86_64",
+					"6Client-optional:httpd-manual-0:2.2.15-45.el6.noarch",
+					"6Client-optional:httpd-tools-0:2.2.15-45.el6.i686",
+					"6Client-optional:httpd-tools-0:2.2.15-45.el6.ppc64",
+					"6Client-optional:httpd-tools-0:2.2.15-45.el6.s390x",
+					"6Client-optional:httpd-tools-0:2.2.15-45.el6.x86_64",
+					"6Client-optional:mod_ssl-1:2.2.15-45.el6.i686",
+					"6Client-optional:mod_ssl-1:2.2.15-45.el6.ppc64",
+					"6Client-optional:mod_ssl-1:2.2.15-45.el6.s390x",
+					"6Client-optional:mod_ssl-1:2.2.15-45.el6.x86_64",
+					"6Client:httpd-0:2.2.15-45.el6.i686",
+					"6Client:httpd-0:2.2.15-45.el6.ppc64",
+					"6Client:httpd-0:2.2.15-45.el6.s390x",
+					"6Client:httpd-0:2.2.15-45.el6.src",
+					"6Client:httpd-0:2.2.15-45.el6.x86_64",
+					"6Client:httpd-debuginfo-0:2.2.15-45.el6.i686",
+					"6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+					"6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+					"6Client:httpd-debuginfo-0:2.2.15-45.el6.s390",
+					"6Client:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+					"6Client:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+					"6Client:httpd-devel-0:2.2.15-45.el6.i686",
+					"6Client:httpd-devel-0:2.2.15-45.el6.ppc",
+					"6Client:httpd-devel-0:2.2.15-45.el6.ppc64",
+					"6Client:httpd-devel-0:2.2.15-45.el6.s390",
+					"6Client:httpd-devel-0:2.2.15-45.el6.s390x",
+					"6Client:httpd-devel-0:2.2.15-45.el6.x86_64",
+					"6Client:httpd-manual-0:2.2.15-45.el6.noarch",
+					"6Client:httpd-tools-0:2.2.15-45.el6.i686",
+					"6Client:httpd-tools-0:2.2.15-45.el6.ppc64",
+					"6Client:httpd-tools-0:2.2.15-45.el6.s390x",
+					"6Client:httpd-tools-0:2.2.15-45.el6.x86_64",
+					"6Client:mod_ssl-1:2.2.15-45.el6.i686",
+					"6Client:mod_ssl-1:2.2.15-45.el6.ppc64",
+					"6Client:mod_ssl-1:2.2.15-45.el6.s390x",
+					"6Client:mod_ssl-1:2.2.15-45.el6.x86_64",
+					"6ComputeNode-optional:httpd-0:2.2.15-45.el6.i686",
+					"6ComputeNode-optional:httpd-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode-optional:httpd-0:2.2.15-45.el6.s390x",
+					"6ComputeNode-optional:httpd-0:2.2.15-45.el6.src",
+					"6ComputeNode-optional:httpd-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.i686",
+					"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+					"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390",
+					"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+					"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.i686",
+					"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc",
+					"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390",
+					"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390x",
+					"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode-optional:httpd-manual-0:2.2.15-45.el6.noarch",
+					"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.i686",
+					"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.s390x",
+					"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.i686",
+					"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.ppc64",
+					"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.s390x",
+					"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.x86_64",
+					"6ComputeNode:httpd-0:2.2.15-45.el6.i686",
+					"6ComputeNode:httpd-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode:httpd-0:2.2.15-45.el6.s390x",
+					"6ComputeNode:httpd-0:2.2.15-45.el6.src",
+					"6ComputeNode:httpd-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.i686",
+					"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+					"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390",
+					"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+					"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode:httpd-devel-0:2.2.15-45.el6.i686",
+					"6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc",
+					"6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390",
+					"6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390x",
+					"6ComputeNode:httpd-devel-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode:httpd-manual-0:2.2.15-45.el6.noarch",
+					"6ComputeNode:httpd-tools-0:2.2.15-45.el6.i686",
+					"6ComputeNode:httpd-tools-0:2.2.15-45.el6.ppc64",
+					"6ComputeNode:httpd-tools-0:2.2.15-45.el6.s390x",
+					"6ComputeNode:httpd-tools-0:2.2.15-45.el6.x86_64",
+					"6ComputeNode:mod_ssl-1:2.2.15-45.el6.i686",
+					"6ComputeNode:mod_ssl-1:2.2.15-45.el6.ppc64",
+					"6ComputeNode:mod_ssl-1:2.2.15-45.el6.s390x",
+					"6ComputeNode:mod_ssl-1:2.2.15-45.el6.x86_64",
+					"6Server:httpd-0:2.2.15-45.el6.i686",
+					"6Server:httpd-0:2.2.15-45.el6.ppc64",
+					"6Server:httpd-0:2.2.15-45.el6.s390x",
+					"6Server:httpd-0:2.2.15-45.el6.src",
+					"6Server:httpd-0:2.2.15-45.el6.x86_64",
+					"6Server:httpd-debuginfo-0:2.2.15-45.el6.i686",
+					"6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+					"6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+					"6Server:httpd-debuginfo-0:2.2.15-45.el6.s390",
+					"6Server:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+					"6Server:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+					"6Server:httpd-devel-0:2.2.15-45.el6.i686",
+					"6Server:httpd-devel-0:2.2.15-45.el6.ppc",
+					"6Server:httpd-devel-0:2.2.15-45.el6.ppc64",
+					"6Server:httpd-devel-0:2.2.15-45.el6.s390",
+					"6Server:httpd-devel-0:2.2.15-45.el6.s390x",
+					"6Server:httpd-devel-0:2.2.15-45.el6.x86_64",
+					"6Server:httpd-manual-0:2.2.15-45.el6.noarch",
+					"6Server:httpd-tools-0:2.2.15-45.el6.i686",
+					"6Server:httpd-tools-0:2.2.15-45.el6.ppc64",
+					"6Server:httpd-tools-0:2.2.15-45.el6.s390x",
+					"6Server:httpd-tools-0:2.2.15-45.el6.x86_64",
+					"6Server:mod_ssl-1:2.2.15-45.el6.i686",
+					"6Server:mod_ssl-1:2.2.15-45.el6.ppc64",
+					"6Server:mod_ssl-1:2.2.15-45.el6.s390x",
+					"6Server:mod_ssl-1:2.2.15-45.el6.x86_64",
+					"6Workstation:httpd-0:2.2.15-45.el6.i686",
+					"6Workstation:httpd-0:2.2.15-45.el6.ppc64",
+					"6Workstation:httpd-0:2.2.15-45.el6.s390x",
+					"6Workstation:httpd-0:2.2.15-45.el6.src",
+					"6Workstation:httpd-0:2.2.15-45.el6.x86_64",
+					"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.i686",
+					"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+					"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+					"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390",
+					"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+					"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+					"6Workstation:httpd-devel-0:2.2.15-45.el6.i686",
+					"6Workstation:httpd-devel-0:2.2.15-45.el6.ppc",
+					"6Workstation:httpd-devel-0:2.2.15-45.el6.ppc64",
+					"6Workstation:httpd-devel-0:2.2.15-45.el6.s390",
+					"6Workstation:httpd-devel-0:2.2.15-45.el6.s390x",
+					"6Workstation:httpd-devel-0:2.2.15-45.el6.x86_64",
+					"6Workstation:httpd-manual-0:2.2.15-45.el6.noarch",
+					"6Workstation:httpd-tools-0:2.2.15-45.el6.i686",
+					"6Workstation:httpd-tools-0:2.2.15-45.el6.ppc64",
+					"6Workstation:httpd-tools-0:2.2.15-45.el6.s390x",
+					"6Workstation:httpd-tools-0:2.2.15-45.el6.x86_64",
+					"6Workstation:mod_ssl-1:2.2.15-45.el6.i686",
+					"6Workstation:mod_ssl-1:2.2.15-45.el6.ppc64",
+					"6Workstation:mod_ssl-1:2.2.15-45.el6.s390x",
+					"6Workstation:mod_ssl-1:2.2.15-45.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-5704"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1082903",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1082903"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-5704",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-5704"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-5704",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-5704"
+				}
+			],
+			"release_date": "2013-10-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Client-optional:httpd-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-0:2.2.15-45.el6.src",
+						"6Client-optional:httpd-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6Client:httpd-0:2.2.15-45.el6.i686",
+						"6Client:httpd-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-0:2.2.15-45.el6.src",
+						"6Client:httpd-0:2.2.15-45.el6.x86_64",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Client:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Client:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Client:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Client:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Client:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Client:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Client:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Client:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Client:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Client:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Client:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.src",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.src",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.i686",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6Server:httpd-0:2.2.15-45.el6.i686",
+						"6Server:httpd-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-0:2.2.15-45.el6.src",
+						"6Server:httpd-0:2.2.15-45.el6.x86_64",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Server:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Server:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Server:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Server:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Server:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Server:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Server:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Server:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Server:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Server:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Server:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-0:2.2.15-45.el6.src",
+						"6Workstation:httpd-0:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1249"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:httpd-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-0:2.2.15-45.el6.src",
+						"6Client-optional:httpd-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Client-optional:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Client-optional:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6Client:httpd-0:2.2.15-45.el6.i686",
+						"6Client:httpd-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-0:2.2.15-45.el6.src",
+						"6Client:httpd-0:2.2.15-45.el6.x86_64",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Client:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Client:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Client:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Client:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Client:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Client:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Client:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Client:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Client:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Client:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Client:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Client:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Client:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.src",
+						"6ComputeNode-optional:httpd-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.i686",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6ComputeNode-optional:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.src",
+						"6ComputeNode:httpd-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.i686",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6ComputeNode:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.i686",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6ComputeNode:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6Server:httpd-0:2.2.15-45.el6.i686",
+						"6Server:httpd-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-0:2.2.15-45.el6.src",
+						"6Server:httpd-0:2.2.15-45.el6.x86_64",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Server:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Server:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Server:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Server:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Server:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Server:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Server:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Server:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Server:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Server:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Server:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Server:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Server:mod_ssl-1:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-0:2.2.15-45.el6.src",
+						"6Workstation:httpd-0:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-debuginfo-0:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.ppc",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.s390",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-devel-0:2.2.15-45.el6.x86_64",
+						"6Workstation:httpd-manual-0:2.2.15-45.el6.noarch",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.i686",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.ppc64",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.s390x",
+						"6Workstation:httpd-tools-0:2.2.15-45.el6.x86_64",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.i686",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.ppc64",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.s390x",
+						"6Workstation:mod_ssl-1:2.2.15-45.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2013-5704 httpd: bypass of mod_headers rules via chunked requests"
+		}
+	]
+}

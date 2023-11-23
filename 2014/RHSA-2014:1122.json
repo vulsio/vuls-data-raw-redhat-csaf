@@ -1,0 +1,542 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openstack-keystone packages that fix three security issues and\nseveral bugs are now available for Red Hat Enterprise Linux OpenStack\nPlatform 5.0 for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The OpenStack Identity service (Keystone) authenticates and authorizes\nOpenStack users by keeping track of users and their permitted activities.\nThe Identity service supports multiple forms of authentication, including\nuser name and password credentials, token-based systems, and AWS-style\nlogins.\n\nIt was found that the MySQL token driver did not correctly store token\nexpiration times, which prevented manual token revocation. Only OpenStack\nIdentity setups configured to make use of revocation events were affected.\n(CVE-2014-5251)\n\nA flaw was found in keystone revocation events that resulted in the\n\"issued_at\" time being updated when a token created by the V2 API was\nprocessed by the V3 API. This could allow a user to evade token revocation.\nOnly OpenStack Identity setups configured to make use of revocation events\nand UUID tokens were affected. (CVE-2014-5252)\n\nIt was discovered that domain-scoped tokens were not revoked when a domain\nwas disabled. Only OpenStack Identity setups configured to make use of\nrevocation events were affected. (CVE-2014-5253)\n\nThe openstack-keystone packages have been upgraded to upstream version\n2014.1.2.1, which provides a number of bug fixes over the previous version.\nThe most notable bug fixes are:\n\n* When a scoped token that was created from an unscoped token was revoked,\nthe original token was revoked as well. This was because the scope was not\nincluded in the revocation event. By including the scope in the revocation\nevent, only the scoped token is revoked.\n\n* If a domain or a project was renamed, the old name remained in the cache.\nAs a result the old name could be used in some requests until the cache\nrecord expired. For example, the old domain name could still be used for\nauthentication after renaming the domain. Cache entries are now properly\ninvalidated for domain and project rename operations.\n\n* OpenStack Identity did not return the same status and headers for HEAD\nand GET requests, which does not follow the HTTP specification. This would\nlead to different status codes between running keystone-all versus running\nkeystone in Apache httpd with mod_wsgi. The responses have been corrected\nto be consistent regardless of the webserver being used.\n\n* The migration operation that creates the region table did not explicitly\nset the character set to 'utf8'. Consequently, when the database's default\ncharacter set was not set, the db_sync operation failed. The migration\noperation now detects this condition and corrects the database.\n\nRefer to https://launchpad.net/keystone/icehouse/2014.1.2 for more\ninformation on the bug fixes included in version 2014.1.2.1. (BZ#1127434)\n\nAll openstack-keystone users are advised to upgrade to these updated\npackages, which correct these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2014:1122",
+				"url": "https://access.redhat.com/errata/RHSA-2014:1122"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "external",
+				"summary": "https://launchpad.net/keystone/icehouse/2014.1.2",
+				"url": "https://launchpad.net/keystone/icehouse/2014.1.2"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2014/rhsa-2014_1122.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openstack-keystone security and bug fix update",
+		"tracking": {
+			"current_release_date": "2014-09-02T17:58:25+00:00",
+			"generator": {
+				"date": "2023-10-17T16:09:06+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2014:1122",
+			"initial_release_date": "2014-09-02T17:58:24+00:00",
+			"revision_history": [
+				{
+					"date": "2014-09-02T17:58:25+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+								"product": {
+									"name": "Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+									"product_id": "6Server-RH6-RHOS-5.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openstack:5::el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenStack Platform"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-keystone-0:2014.1.2.1-2.el6ost.noarch",
+								"product": {
+									"name": "python-keystone-0:2014.1.2.1-2.el6ost.noarch",
+									"product_id": "python-keystone-0:2014.1.2.1-2.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-keystone@2014.1.2.1-2.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+								"product": {
+									"name": "openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+									"product_id": "openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-keystone@2014.1.2.1-2.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+								"product": {
+									"name": "openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+									"product_id": "openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-keystone-doc@2014.1.2.1-2.el6ost?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+								"product": {
+									"name": "openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+									"product_id": "openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-keystone@2014.1.2.1-2.el6ost?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-keystone-0:2014.1.2.1-2.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch"
+				},
+				"product_reference": "openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-keystone-0:2014.1.2.1-2.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src"
+				},
+				"product_reference": "openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch"
+				},
+				"product_reference": "openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-keystone-0:2014.1.2.1-2.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 5.0 (Icehouse) for RHEL 6",
+					"product_id": "6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+				},
+				"product_reference": "python-keystone-0:2014.1.2.1-2.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RH6-RHOS-5.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2014-5251",
+			"cwe": {
+				"id": "CWE-613",
+				"name": "Insufficient Session Expiration"
+			},
+			"discovery_date": "2014-08-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1127259"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the MySQL token driver did not correctly store token expiration times, which prevented manual token revocation. Only OpenStack Identity setups configured to make use of revocation events were affected.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-5251 openstack-keystone: revocation events are broken with mysql",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affected openstack-keystone as shipped with Red Hat Enterprise Linux OpenStack Platform 4.0.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-5251"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1127259",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1127259"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-5251",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-5251"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-5251",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-5251"
+				}
+			],
+			"release_date": "2014-07-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:1122"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2014-5251 openstack-keystone: revocation events are broken with mysql"
+		},
+		{
+			"cve": "CVE-2014-5252",
+			"cwe": {
+				"id": "CWE-613",
+				"name": "Insufficient Session Expiration"
+			},
+			"discovery_date": "2014-08-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1127250"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in keystone revocation events that resulted in the \"issued_at\" time being updated when a token created by the V2 API was processed by the V3 API. This could allow a user to evade token revocation. Only OpenStack Identity setups configured to make use of revocation events and UUID tokens were affected.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-5252 openstack-keystone: token expiration date stored incorrectly",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affected openstack-keystone as shipped with Red Hat Enterprise Linux OpenStack Platform 4.0.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-5252"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1127250",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1127250"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-5252",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-5252"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-5252",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-5252"
+				}
+			],
+			"release_date": "2014-07-25T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:1122"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2014-5252 openstack-keystone: token expiration date stored incorrectly"
+		},
+		{
+			"cve": "CVE-2014-5253",
+			"cwe": {
+				"id": "CWE-613",
+				"name": "Insufficient Session Expiration"
+			},
+			"discovery_date": "2014-08-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1127253"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was discovered that domain-scoped tokens were not revoked when a domain was disabled. Only OpenStack Identity setups configured to make use of revocation events were affected.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-5253 openstack-keystone: domain-scoped tokens don't get revoked",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affected openstack-keystone as shipped with Red Hat Enterprise Linux OpenStack Platform 4.0.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+					"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+					"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-5253"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1127253",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1127253"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-5253",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-5253"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-5253",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-5253"
+				}
+			],
+			"release_date": "2014-07-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:1122"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-0:2014.1.2.1-2.el6ost.src",
+						"6Server-RH6-RHOS-5.0:openstack-keystone-doc-0:2014.1.2.1-2.el6ost.noarch",
+						"6Server-RH6-RHOS-5.0:python-keystone-0:2014.1.2.1-2.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2014-5253 openstack-keystone: domain-scoped tokens don't get revoked"
+		}
+	]
+}

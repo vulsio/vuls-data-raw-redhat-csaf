@@ -1,0 +1,1780 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated krb5 packages that fix one security issue and one bug are now\navailable for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. A Common Vulnerability Scoring System (CVSS)\nbase score, which gives a detailed severity rating, is available from the\nCVE link in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Kerberos is a network authentication system which allows clients and\nservers to authenticate to each other using symmetric encryption and a\ntrusted third party, the Key Distribution Center (KDC).\n\nA use-after-free flaw was discovered in the MIT Kerberos administration\ndaemon, kadmind. A remote, authenticated attacker could use this flaw to\ncrash the kadmind daemon. Administrative privileges are not required to\ntrigger this flaw, as any realm user can request information about their\nown principal from kadmind. (CVE-2010-0629)\n\nThis update also fixes the following bug:\n\n* when a Kerberos client seeks tickets for use with a service, it must\ncontact the Key Distribution Center (KDC) to obtain them. The client must\nalso determine which realm the service belongs to and it typically does\nthis with a combination of client configuration detail, DNS information and\nguesswork.\n\nIf the service belongs to a realm other than the client's, cross-realm\nauthentication is required. Using a combination of client configuration and\nguesswork, the client determines the trust relationship sequence which\nforms the trusted path between the client's realm and the service's realm.\nThis may include one or more intermediate realms.\n\nAnticipating the KDC has better knowledge of extant trust relationships,\nthe client then requests a ticket from the service's KDC, indicating it\nwill accept guidance from the service's KDC by setting a special flag in\nthe request. A KDC which recognizes the flag can, at its option, return a\nticket-granting ticket for the next realm along the trust path the client\nshould be following.\n\nIf the ticket-granting ticket returned by the service's KDC is for use with\na realm the client has already determined was in the trusted path, the\nclient accepts this as an optimization and continues. If, however, the\nticket is for use in a realm the client is not expecting, the client\nresponds incorrectly: it treats the case as an error rather than continuing\nalong the path suggested by the service's KDC.\n\nFor this update, the krb5 1.7 modifications which allow the client to trust\nsuch KDCs to send them along the correct path, resulting in the client\nobtaining the tickets it originally desired, were backported to krb 1.6.1\n(the version shipped with Red Hat Enterprise Linux 5.5). (BZ#578540)\n\nAll krb5 users should upgrade to these updated packages, which contain\nbackported patches to correct these issues. All running KDC services must\nbe restarted for the update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2010:0343",
+				"url": "https://access.redhat.com/errata/RHSA-2010:0343"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2010/rhsa-2010_0343.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: krb5 security and bug fix update",
+		"tracking": {
+			"current_release_date": "2010-04-06T19:07:55+00:00",
+			"generator": {
+				"date": "2023-10-17T15:52:39+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2010:0343",
+			"initial_release_date": "2010-04-06T23:07:00+00:00",
+			"revision_history": [
+				{
+					"date": "2010-04-06T19:07:55+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-0:1.6.1-36.el5_5.2.src",
+								"product": {
+									"name": "krb5-0:1.6.1-36.el5_5.2.src",
+									"product_id": "krb5-0:1.6.1-36.el5_5.2.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5@1.6.1-36.el5_5.2?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+								"product": {
+									"name": "krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+									"product_id": "krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-server@1.6.1-36.el5_5.2?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+								"product": {
+									"name": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+									"product_id": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-workstation@1.6.1-36.el5_5.2?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.i386",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.i386",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-server-0:1.6.1-36.el5_5.2.i386",
+								"product": {
+									"name": "krb5-server-0:1.6.1-36.el5_5.2.i386",
+									"product_id": "krb5-server-0:1.6.1-36.el5_5.2.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-server@1.6.1-36.el5_5.2?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.i386",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.i386",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+								"product": {
+									"name": "krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+									"product_id": "krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-workstation@1.6.1-36.el5_5.2?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+								"product": {
+									"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+									"product_id": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-workstation@1.6.1-36.el5_5.2?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-server-0:1.6.1-36.el5_5.2.ia64",
+								"product": {
+									"name": "krb5-server-0:1.6.1-36.el5_5.2.ia64",
+									"product_id": "krb5-server-0:1.6.1-36.el5_5.2.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-server@1.6.1-36.el5_5.2?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+								"product": {
+									"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+									"product_id": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-workstation@1.6.1-36.el5_5.2?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-server-0:1.6.1-36.el5_5.2.ppc",
+								"product": {
+									"name": "krb5-server-0:1.6.1-36.el5_5.2.ppc",
+									"product_id": "krb5-server-0:1.6.1-36.el5_5.2.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-server@1.6.1-36.el5_5.2?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+								"product": {
+									"name": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+									"product_id": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-workstation@1.6.1-36.el5_5.2?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-server-0:1.6.1-36.el5_5.2.s390x",
+								"product": {
+									"name": "krb5-server-0:1.6.1-36.el5_5.2.s390x",
+									"product_id": "krb5-server-0:1.6.1-36.el5_5.2.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-server@1.6.1-36.el5_5.2?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+								"product": {
+									"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+									"product_id": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-debuginfo@1.6.1-36.el5_5.2?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390",
+								"product": {
+									"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390",
+									"product_id": "krb5-devel-0:1.6.1-36.el5_5.2.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-devel@1.6.1-36.el5_5.2?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390",
+								"product": {
+									"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390",
+									"product_id": "krb5-libs-0:1.6.1-36.el5_5.2.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/krb5-libs@1.6.1-36.el5_5.2?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-0:1.6.1-36.el5_5.2.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-0:1.6.1-36.el5_5.2.src"
+				},
+				"product_reference": "krb5-0:1.6.1-36.el5_5.2.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-0:1.6.1-36.el5_5.2.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-0:1.6.1-36.el5_5.2.src"
+				},
+				"product_reference": "krb5-0:1.6.1-36.el5_5.2.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-devel-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-libs-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-server-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-server-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-server-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-server-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-server-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-workstation-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-workstation-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-0:1.6.1-36.el5_5.2.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-0:1.6.1-36.el5_5.2.src"
+				},
+				"product_reference": "krb5-0:1.6.1-36.el5_5.2.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-devel-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-libs-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-server-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-server-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-server-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-server-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-server-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-server-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-workstation-0:1.6.1-36.el5_5.2.i386"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ia64"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ppc"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-workstation-0:1.6.1-36.el5_5.2.s390x"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64"
+				},
+				"product_reference": "krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2010-0629",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
+			"discovery_date": "2010-03-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "576011"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Use-after-free vulnerability in kadmin/server/server_stubs.c in kadmind in MIT Kerberos 5 (aka krb5) 1.5 through 1.6.3 allows remote authenticated users to cause a denial of service (daemon crash) via a request from a kadmin client that sends an invalid API version number.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-0629 krb5: kadmind use-after-free remote crash (MITKRB5-SA-2010-003)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:krb5-0:1.6.1-36.el5_5.2.src",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+					"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+					"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+					"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.i386",
+					"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+					"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+					"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+					"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+					"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+					"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+					"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+					"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client:krb5-0:1.6.1-36.el5_5.2.src",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+					"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+					"5Client:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+					"5Client:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client:krb5-server-0:1.6.1-36.el5_5.2.i386",
+					"5Client:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+					"5Client:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+					"5Client:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+					"5Client:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+					"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+					"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+					"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+					"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+					"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+					"5Server:krb5-0:1.6.1-36.el5_5.2.src",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+					"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+					"5Server:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+					"5Server:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+					"5Server:krb5-server-0:1.6.1-36.el5_5.2.i386",
+					"5Server:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+					"5Server:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+					"5Server:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+					"5Server:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+					"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+					"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+					"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+					"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+					"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-0629"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#576011",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=576011"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-0629",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-0629"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-0629",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0629"
+				}
+			],
+			"release_date": "2010-01-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:krb5-0:1.6.1-36.el5_5.2.src",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-0:1.6.1-36.el5_5.2.src",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-0:1.6.1-36.el5_5.2.src",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0343"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:krb5-0:1.6.1-36.el5_5.2.src",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+						"5Client-Workstation:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-0:1.6.1-36.el5_5.2.src",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+						"5Client:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-0:1.6.1-36.el5_5.2.src",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.ppc64",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-debuginfo-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.ppc64",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-devel-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.ppc64",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-libs-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-server-0:1.6.1-36.el5_5.2.x86_64",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.i386",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ia64",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.ppc",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.s390x",
+						"5Server:krb5-workstation-0:1.6.1-36.el5_5.2.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2010-0629 krb5: kadmind use-after-free remote crash (MITKRB5-SA-2010-003)"
+		}
+	]
+}

@@ -1,0 +1,639 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated nfs-utils package that fixes one security issue, various bugs,\nand adds one enhancement is now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The nfs-utils package provides a daemon for the kernel Network File System\n(NFS) server, and related tools such as the mount.nfs, umount.nfs, and\nshowmount programs.\n\nIt was found that the mount.nfs tool did not handle certain errors\ncorrectly when updating the mtab (mounted file systems table) file. A\nlocal attacker could use this flaw to corrupt the mtab file.\n(CVE-2011-1749)\n\nThis update also fixes the following bugs:\n\n* The nfs service failed to start if the NFSv1, NFSv2, and NFSv4 support\nwas disabled (the MOUNTD_NFS_V1=\"no\", MOUNTD_NFS_V2=\"no\" MOUNTD_NFS_V3=\"no\"\nlines in /etc/sysconfig/nfs were uncommented) because the mountd daemon\nfailed to handle the settings correctly. With this update, the underlying\ncode has been modified and the nfs service starts successfully in the\ndescribed scenario. (BZ#529588)\n\n* When a user's Kerberos ticket expired, the \"sh rpc.gssd\" messages flooded\nthe /var/log/messages file. With this update, the excessive logging has\nbeen suppressed. (BZ#593097)\n\n* The crash simulation (SM_SIMU_CRASH) of the rpc.statd service had a\nvulnerability that could be detected by ISS (Internet Security Scanner). As\na result, the rpc.statd service terminated unexpectedly with the following\nerror after an ISS scan:\n\n  rpc.statd[xxxx]: recv_rply: can't decode RPC message!\n  rpc.statd[xxxx]: *** SIMULATING CRASH! ***\n  rpc.statd[xxxx]: unable to register (statd, 1, udp).\n\nHowever, the rpc.statd service ignored SM_SIMU_CRASH. This update removes\nthe simulation crash support from the service and the problem no longer\noccurs. (BZ#600497)\n\n* The nfs-utils init scripts returned incorrect status codes in the\nfollowing cases: if the rpcgssd and rpcsvcgssd daemon were not configured,\nwere provided an unknown argument, their function call failed, if a program\nwas no longer running and a /var/lock/subsys/$SERVICE file existed, if\nstarting a service under an unprivileged user, if a program was no longer\nrunning and its pid file still existed in the /var/run/ directory. With\nthis update, the correct codes are returned in these scenarios. (BZ#710020)\n\n* The \"nfsstat -m\" command did not display NFSv4 mounts. With this update,\nthe underlying code has been modified and the command returns the list of\nall mounts, including any NFSv4 mounts, as expected. (BZ#712438)\n\n* Previously, the nfs manual pages described the fsc mount option; however,\nthis option is not supported. This update removes the option description\nfrom the manual pages. (BZ#715523)\n\n* The nfs-utils preinstall scriptlet failed to change the default group ID\nfor the nfsnobody user to 65534. This update modifies the preinstall\nscriptlet and the default group ID is changed to 65534 after nfs-utils\nupgrade as expected. (BZ#729603)\n\n* The mount.nfs command with the \"-o retry\" option did not try to mount for\nthe time specified in the \"retry=X\" configuration option. This occurred due\nto incorrect error handling by the command. With this update, the\nunderlying code has been fixed and the \"-o retry\" option works as expected.\n(BZ#736677)\n\nIn addition, this update adds the following enhancement:\n\n* The noresvport option, which allows NFS clients to use insecure ports\n(ports above 1023), has been added to the NFS server configuration options.\n(BZ#513094)\n\nAll nfs-utils users are advised to upgrade to this updated package, which\nresolves these issues and adds this enhancement. After installing this\nupdate, the nfs service will be restarted automatically.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:0310",
+				"url": "https://access.redhat.com/errata/RHSA-2012:0310"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_0310.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: nfs-utils security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2012-02-21T02:25:03+00:00",
+			"generator": {
+				"date": "2023-10-17T15:58:32+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:0310",
+			"initial_release_date": "2012-02-21T02:20:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-02-21T02:25:03+00:00",
+					"number": "3",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "3"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-1:1.0.9-60.el5.src",
+								"product": {
+									"name": "nfs-utils-1:1.0.9-60.el5.src",
+									"product_id": "nfs-utils-1:1.0.9-60.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.9-60.el5?arch=src&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-1:1.0.9-60.el5.i386",
+								"product": {
+									"name": "nfs-utils-1:1.0.9-60.el5.i386",
+									"product_id": "nfs-utils-1:1.0.9-60.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.9-60.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+								"product": {
+									"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+									"product_id": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.9-60.el5?arch=i386&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-1:1.0.9-60.el5.x86_64",
+								"product": {
+									"name": "nfs-utils-1:1.0.9-60.el5.x86_64",
+									"product_id": "nfs-utils-1:1.0.9-60.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.9-60.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+								"product": {
+									"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+									"product_id": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.9-60.el5?arch=x86_64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-1:1.0.9-60.el5.ia64",
+								"product": {
+									"name": "nfs-utils-1:1.0.9-60.el5.ia64",
+									"product_id": "nfs-utils-1:1.0.9-60.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.9-60.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+								"product": {
+									"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+									"product_id": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.9-60.el5?arch=ia64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-1:1.0.9-60.el5.ppc",
+								"product": {
+									"name": "nfs-utils-1:1.0.9-60.el5.ppc",
+									"product_id": "nfs-utils-1:1.0.9-60.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.9-60.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+								"product": {
+									"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+									"product_id": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.9-60.el5?arch=ppc&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-1:1.0.9-60.el5.s390x",
+								"product": {
+									"name": "nfs-utils-1:1.0.9-60.el5.s390x",
+									"product_id": "nfs-utils-1:1.0.9-60.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.9-60.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+								"product": {
+									"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+									"product_id": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.9-60.el5?arch=s390x&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-1:1.0.9-60.el5.i386"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-1:1.0.9-60.el5.ia64"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-1:1.0.9-60.el5.ppc"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-1:1.0.9-60.el5.s390x"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-1:1.0.9-60.el5.src"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-1:1.0.9-60.el5.x86_64"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.i386"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-1:1.0.9-60.el5.i386"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-1:1.0.9-60.el5.ia64"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-1:1.0.9-60.el5.ppc"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-1:1.0.9-60.el5.s390x"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-1:1.0.9-60.el5.src"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-1:1.0.9-60.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-1:1.0.9-60.el5.x86_64"
+				},
+				"product_reference": "nfs-utils-1:1.0.9-60.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.i386"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64"
+				},
+				"product_reference": "nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-1749",
+			"discovery_date": "2011-04-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "697975"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The nfs_addmntent function in support/nfs/nfs_mntent.c in the mount.nsf tool in nfs-utils before 1.2.4 attempts to append to the /etc/mtab file without first checking whether resource limits would interfere, which allows local users to corrupt this file via a process with a small RLIMIT_FSIZE value, a related issue to CVE-2011-1089.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-1749 nfs-utils: mount.nfs fails to anticipate RLIMIT_FSIZE",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of nfs-utils as shipped with Red Hat Enterprise Linux 4 as it did not include include mount.nfs. It was addressed in Red Hat Enterprise Linux 5 and 6 via RHSA-2012:0310 and RHSA-2011:1534 respectively.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client:nfs-utils-1:1.0.9-60.el5.i386",
+					"5Client:nfs-utils-1:1.0.9-60.el5.ia64",
+					"5Client:nfs-utils-1:1.0.9-60.el5.ppc",
+					"5Client:nfs-utils-1:1.0.9-60.el5.s390x",
+					"5Client:nfs-utils-1:1.0.9-60.el5.src",
+					"5Client:nfs-utils-1:1.0.9-60.el5.x86_64",
+					"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+					"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+					"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+					"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+					"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+					"5Server:nfs-utils-1:1.0.9-60.el5.i386",
+					"5Server:nfs-utils-1:1.0.9-60.el5.ia64",
+					"5Server:nfs-utils-1:1.0.9-60.el5.ppc",
+					"5Server:nfs-utils-1:1.0.9-60.el5.s390x",
+					"5Server:nfs-utils-1:1.0.9-60.el5.src",
+					"5Server:nfs-utils-1:1.0.9-60.el5.x86_64",
+					"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+					"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+					"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+					"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+					"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-1749"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#697975",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=697975"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-1749",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-1749"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-1749",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-1749"
+				}
+			],
+			"release_date": "2011-04-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259",
+					"product_ids": [
+						"5Client:nfs-utils-1:1.0.9-60.el5.i386",
+						"5Client:nfs-utils-1:1.0.9-60.el5.ia64",
+						"5Client:nfs-utils-1:1.0.9-60.el5.ppc",
+						"5Client:nfs-utils-1:1.0.9-60.el5.s390x",
+						"5Client:nfs-utils-1:1.0.9-60.el5.src",
+						"5Client:nfs-utils-1:1.0.9-60.el5.x86_64",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+						"5Server:nfs-utils-1:1.0.9-60.el5.i386",
+						"5Server:nfs-utils-1:1.0.9-60.el5.ia64",
+						"5Server:nfs-utils-1:1.0.9-60.el5.ppc",
+						"5Server:nfs-utils-1:1.0.9-60.el5.s390x",
+						"5Server:nfs-utils-1:1.0.9-60.el5.src",
+						"5Server:nfs-utils-1:1.0.9-60.el5.x86_64",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0310"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client:nfs-utils-1:1.0.9-60.el5.i386",
+						"5Client:nfs-utils-1:1.0.9-60.el5.ia64",
+						"5Client:nfs-utils-1:1.0.9-60.el5.ppc",
+						"5Client:nfs-utils-1:1.0.9-60.el5.s390x",
+						"5Client:nfs-utils-1:1.0.9-60.el5.src",
+						"5Client:nfs-utils-1:1.0.9-60.el5.x86_64",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+						"5Client:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64",
+						"5Server:nfs-utils-1:1.0.9-60.el5.i386",
+						"5Server:nfs-utils-1:1.0.9-60.el5.ia64",
+						"5Server:nfs-utils-1:1.0.9-60.el5.ppc",
+						"5Server:nfs-utils-1:1.0.9-60.el5.s390x",
+						"5Server:nfs-utils-1:1.0.9-60.el5.src",
+						"5Server:nfs-utils-1:1.0.9-60.el5.x86_64",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.i386",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ia64",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.ppc",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.s390x",
+						"5Server:nfs-utils-debuginfo-1:1.0.9-60.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2011-1749 nfs-utils: mount.nfs fails to anticipate RLIMIT_FSIZE"
+		}
+	]
+}

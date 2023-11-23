@@ -1,0 +1,914 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for the OpenSSL component for JBoss Enterprise Application\nPlatform 6.0.0 for Solaris and Microsoft Windows that fixes multiple\nsecurity issues is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "OpenSSL is a toolkit that implements the Secure Sockets Layer (SSL v2/v3)\nand Transport Layer Security (TLS v1) protocols, as well as a\nfull-strength, general purpose cryptography library.\n\nMultiple numeric conversion errors, leading to a buffer overflow, were\nfound in the way OpenSSL parsed ASN.1 (Abstract Syntax Notation One) data\nfrom BIO (OpenSSL's I/O abstraction) inputs. Specially-crafted DER\n(Distinguished Encoding Rules) encoded data read from a file or other BIO\ninput could cause an application using the OpenSSL library to crash or,\npotentially, execute arbitrary code. (CVE-2012-2110)\n\nA double free flaw was discovered in the policy checking code in OpenSSL.\nA remote attacker could use this flaw to crash an application that uses\nOpenSSL by providing an X.509 certificate that has specially-crafted\npolicy extension data. (CVE-2011-4109)\n\nAn information leak flaw was found in the SSL 3.0 protocol implementation\nin OpenSSL. Incorrect initialization of SSL record padding bytes could\ncause an SSL client or server to send a limited amount of possibly\nsensitive data to its SSL peer via the encrypted connection.\n(CVE-2011-4576)\n\nIt was discovered that OpenSSL did not limit the number of TLS/SSL\nhandshake restarts required to support Server Gated Cryptography. A remote\nattacker could use this flaw to make a TLS/SSL server using OpenSSL consume\nan excessive amount of CPU by continuously restarting the handshake.\n(CVE-2011-4619)\n\nThis update also fixes additional security issues in OpenSSL that are not\nexposed in JBoss Enterprise Application Platform: CVE-2011-4108,\nCVE-2012-0884, CVE-2012-1165, and CVE-2012-2333.\n\nWarning: Before applying this update, back up your existing JBoss\nEnterprise Application Platform installation and deployed applications, and\nalso back up your existing Apache HTTP Server installation (including all\napplications and configuration files).\n\nAll users of JBoss Enterprise Application Platform 6.0.0 for Solaris and\nMicrosoft Windows as provided from the Red Hat Customer Portal are advised\nto apply this update.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:1308",
+				"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=securityPatches&version=6.0.0",
+				"url": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=securityPatches&version=6.0.0"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_1308.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openssl security update",
+		"tracking": {
+			"current_release_date": "2019-02-20T12:44:33+00:00",
+			"generator": {
+				"date": "2023-10-17T15:58:48+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:1308",
+			"initial_release_date": "2012-09-24T15:55:00+00:00",
+			"revision_history": [
+				{
+					"date": "2019-02-20T12:44:33+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat JBoss Enterprise Application Platform 6.0",
+								"product": {
+									"name": "Red Hat JBoss Enterprise Application Platform 6.0",
+									"product_id": "Red Hat JBoss Enterprise Application Platform 6.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:jboss_enterprise_application_platform:6.0"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat JBoss Enterprise Application Platform"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-4108",
+			"discovery_date": "2012-01-04T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "771770"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The DTLS implementation in OpenSSL before 0.9.8s and 1.x before 1.0.0f performs a MAC check only if certain padding is valid, which makes it easier for remote attackers to recover plaintext via a padding oracle attack.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4108 openssl: DTLS plaintext recovery attack",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of openssl as shipped with Red Hat Enterprise Linux 4 as they do not include support for DTLS protocol.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4108"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#771770",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=771770"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4108",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4108"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4108",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4108"
+				}
+			],
+			"release_date": "2012-01-04T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4108 openssl: DTLS plaintext recovery attack"
+		},
+		{
+			"cve": "CVE-2011-4109",
+			"discovery_date": "2012-01-04T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "771771"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Double free vulnerability in OpenSSL 0.9.8 before 0.9.8s, when X509_V_FLAG_POLICY_CHECK is enabled, allows remote attackers to have an unspecified impact by triggering failure of a policy check.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4109 openssl: double-free in policy checks",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of openssl as shipped with Red Hat Enterprise Linux 4 and 6.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4109"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#771771",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=771771"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4109",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4109"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4109",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4109"
+				}
+			],
+			"release_date": "2012-01-04T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4109 openssl: double-free in policy checks"
+		},
+		{
+			"cve": "CVE-2011-4576",
+			"discovery_date": "2012-01-04T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "771775"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The SSL 3.0 implementation in OpenSSL before 0.9.8s and 1.x before 1.0.0f does not properly initialize data structures for block cipher padding, which might allow remote attackers to obtain sensitive information by decrypting the padding data sent by an SSL peer.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4576 openssl: uninitialized SSL 3.0 padding",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4576"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#771775",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=771775"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4576",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4576"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4576",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4576"
+				}
+			],
+			"release_date": "2012-01-04T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4576 openssl: uninitialized SSL 3.0 padding"
+		},
+		{
+			"cve": "CVE-2011-4619",
+			"discovery_date": "2012-01-04T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "771780"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The Server Gated Cryptography (SGC) implementation in OpenSSL before 0.9.8s and 1.x before 1.0.0f does not properly handle handshake restarts, which allows remote attackers to cause a denial of service (CPU consumption) via unspecified vectors.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4619 openssl: SGC restart DoS attack",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4619"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#771780",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=771780"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4619",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4619"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4619",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4619"
+				}
+			],
+			"release_date": "2012-01-04T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4619 openssl: SGC restart DoS attack"
+		},
+		{
+			"cve": "CVE-2012-0884",
+			"discovery_date": "2012-03-12T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "802725"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The implementation of Cryptographic Message Syntax (CMS) and PKCS #7 in OpenSSL before 0.9.8u and 1.x before 1.0.0h does not properly restrict certain oracle behavior, which makes it easier for context-dependent attackers to decrypt data via a Million Message Attack (MMA) adaptive chosen ciphertext attack.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-0884 openssl: CMS and PKCS#7 Bleichenbacher attack",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-0884"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#802725",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=802725"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-0884",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-0884"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-0884",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0884"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.openssl.org/news/secadv_20120312.txt",
+					"url": "http://www.openssl.org/news/secadv_20120312.txt"
+				}
+			],
+			"release_date": "2012-03-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2012-0884 openssl: CMS and PKCS#7 Bleichenbacher attack"
+		},
+		{
+			"cve": "CVE-2012-1165",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2012-03-12T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "802489"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The mime_param_cmp function in crypto/asn1/asn_mime.c in OpenSSL before 0.9.8u and 1.x before 1.0.0h allows remote attackers to cause a denial of service (NULL pointer dereference and application crash) via a crafted S/MIME message, a different vulnerability than CVE-2006-7250.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-1165 openssl: mime_param_cmp NULL dereference crash",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-1165"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#802489",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=802489"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-1165",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-1165"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-1165",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-1165"
+				}
+			],
+			"release_date": "2012-03-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2012-1165 openssl: mime_param_cmp NULL dereference crash"
+		},
+		{
+			"cve": "CVE-2012-2110",
+			"cwe": {
+				"id": "CWE-119",
+				"name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+			},
+			"discovery_date": "2012-04-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "814185"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The asn1_d2i_read_bio function in crypto/asn1/a_d2i_fp.c in OpenSSL before 0.9.8v, 1.0.0 before 1.0.0i, and 1.0.1 before 1.0.1a does not properly interpret integer data, which allows remote attackers to conduct buffer overflow attacks, and cause a denial of service (memory corruption) or possibly have unspecified other impact, via crafted DER data, as demonstrated by an X.509 certificate or an RSA public key.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-2110 openssl: asn1_d2i_read_bio integer errors leading to buffer overflow",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-2110"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#814185",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=814185"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-2110",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-2110"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-2110",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2110"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.openssl.org/news/secadv_20120419.txt",
+					"url": "http://www.openssl.org/news/secadv_20120419.txt"
+				}
+			],
+			"release_date": "2012-04-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 7.5,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2012-2110 openssl: asn1_d2i_read_bio integer errors leading to buffer overflow"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"OpenSSL project"
+					]
+				},
+				{
+					"names": [
+						"Codenomicon"
+					],
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2012-2333",
+			"cwe": {
+				"id": "CWE-190",
+				"name": "Integer Overflow or Wraparound"
+			},
+			"discovery_date": "2012-05-09T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "820686"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Integer underflow in OpenSSL before 0.9.8x, 1.0.0 before 1.0.0j, and 1.0.1 before 1.0.1c, when TLS 1.1, TLS 1.2, or DTLS is used with CBC encryption, allows remote attackers to cause a denial of service (buffer over-read) or possibly have unspecified other impact via a crafted TLS packet that is not properly handled during a certain explicit IV calculation.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "record length handling integer underflow",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of openssl as shipped with Red Hat Enterprise Linux 3 and 4. The openssl versions in Red Hat Enterprise Linux 5 and 6 were partially affected, as they support DTLS, but they do not support TLS 1.1 and TLS 1.2. This issue was addressed in Red Hat Enterprise Linux 5 and 6 via RHSA-2012:0699.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform 6.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-2333"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#820686",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=820686"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-2333",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-2333"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-2333",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2333"
+				},
+				{
+					"category": "external",
+					"summary": "http://openssl.org/news/secadv_20120510.txt",
+					"url": "http://openssl.org/news/secadv_20120510.txt"
+				}
+			],
+			"release_date": "2012-05-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Application Platform installation and deployed\napplications, and also back up your existing Apache HTTP Server\ninstallation (including all applications and configuration files).\n\nThe Apache HTTP Server, as well as JBoss server instances configured to use\nthe Tomcat Native library, must be restarted for this update to take\neffect.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1308"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform 6.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "record length handling integer underflow"
+		}
+	]
+}

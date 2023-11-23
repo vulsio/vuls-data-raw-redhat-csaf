@@ -1,0 +1,476 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated condor packages that fix a security issue and several bugs are now\navailable for Red Hat Enterprise MRG.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Condor is a specialized workload management system for compute-intensive\njobs. It provides a job queuing mechanism, scheduling policy, priority\nscheme, and resource monitoring and management.\n\nA flaw was found in the way Condor interpreted wildcards in authorization\nlists. Certain authorization lists using wildcards in DENY rules, such as\nDENY_WRITE or HOSTDENY_WRITE, that conflict with the definitions in ALLOW\nrules, could permit authenticated remote users to submit computation jobs,\neven when such access should have been denied. (CVE-2008-3424)\n\nBug fixes:\n\n* the /etc/condor/condor_config file started with \"What machine is your\ncentral manager?\". The following line was blank, instead of having the\n\"CONDOR_HOST\" option, causing confusion. The \"What machine...\" text is now\nremoved.\n\n* condor_config.local defined \"LOCK = /tmp/[lock file]\". This is no longer\nexplicitly defined; however, lock files may be in \"/tmp/\", and could be\nremoved by tmpwatch. A \"LOCK_FILE_UPDATE_INTERVAL\" option, which defaults\nto eight hours, has been added. This updates the timestamps on lock files,\npreventing them from being removed by tools such as tmpwatch.\n\n* when a \"SCHEDD_NAME\" name in condor_config ended with an \"@\", the\nsystem's hostname was appended. For example, if \"SCHEDD_NAME = test@\" was\nconfigured, \"condor_q -name test@\" failed with an \"Collector has no record\nof schedd/submitter\" error. Now, the hostname is not appended when a name\nends with an \"@\". In High Availability (HA) Schedd deployments, this allows\na name to be shared by multiple Schedds.\n\n* when too few arguments were passed to \"condor_qedit\", such as\n\"condor_qedit -constraint TRUE\", a segfault occurred. Better argument\nhandling has been added to resolve this.\n\n* due to missing common_createddl.sql and pgsql_createddl.sql files,\nit was not possible to use Quill. Now, these files are included in\n\"/usr/share/condor/sql/\".\n\n* \"condor_submit -dump ad [file-name]\" caused a segfault if the [file-name]\njob contained \"universe = grid\".\n\n* previously, a condor user and group were created if they did not exist,\nwithout specifying a specific UID and GID. Now, UID and GID 64 are used.\nThe effect of this change is non-existent if upgrading the condor packages.\nIf an existing condor user and group are manually changed, problems with\nfile ownership will occur.\n\nConfiguration changes (from the Condor release notes - see link below):\n\n* a new CKPT_SERVER_CHECK_PARENT_INTERVAL variable sets the time interval\nbetween a checkpoint server checking if its parent is running. If the\nparent server has died, the checkpoint server is shut down.\n\n* a new CKPT_PROBE variable to define an executable for the helper process\nCondor uses for information about the CheckpointPlatform attribute.\n\n* STARTER_UPLOAD_TIMEOUT now defaults to 300 seconds.\n\n* new variables (booleans) PREEMPTION_REQUIREMENTS_STABLE and\nPREEMPTION_RANK_STABLE, configure whether attributes used in\nPREEMPTION_REQUIREMENTS and PREEMPTION_RANK change during negotiation\ncycles.\n\n* a new GRIDMANAGER_MAX_WS_DESTROYS_PER_RESOURCE variable, with a\ndefault value of 5, defines the number of simultaneous WS destroy commands\nthat can be sent to a server for type gt4 grid universe jobs.\n\n* now, VALID_SPOOL_FILES automatically includes the \"SCHEDD.lock\" lock file\nfor condor_schedd HA failover.\n\n* the default value for SEC_DEFAULT_SESSION_DURATION has been changed from\n8640000 seconds (100 days) to 86400 seconds (one day).\n\nImportant: these updated packages upgrade Condor to version 7.0.4. For a\nfull list of changes, refer to the Condor release notes:\nwww.cs.wisc.edu/condor/manual/v7.0/8_3Stable_Release.html\n\ncondor users should upgrade to these updated packages, which resolve these\nissues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2008:0814",
+				"url": "https://access.redhat.com/errata/RHSA-2008:0814"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2008/rhsa-2008_0814.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: condor security and bug fix update",
+		"tracking": {
+			"current_release_date": "2008-08-11T13:48:14+00:00",
+			"generator": {
+				"date": "2023-10-17T15:49:29+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2008:0814",
+			"initial_release_date": "2008-08-11T17:48:00+00:00",
+			"revision_history": [
+				{
+					"date": "2008-08-11T13:48:14+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "MRG Grid Execute Node for RHEL 5 Server",
+								"product": {
+									"name": "MRG Grid Execute Node for RHEL 5 Server",
+									"product_id": "5Server-MRG-Grid-Execute-Node-1.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "MRG Grid for RHEL 5 Server",
+								"product": {
+									"name": "MRG Grid for RHEL 5 Server",
+									"product_id": "5Server-MRG-Grid-1.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise MRG for RHEL-5"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "condor-debuginfo-0:7.0.4-4.el5.x86_64",
+								"product": {
+									"name": "condor-debuginfo-0:7.0.4-4.el5.x86_64",
+									"product_id": "condor-debuginfo-0:7.0.4-4.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor-debuginfo@7.0.4-4.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "condor-static-0:7.0.4-4.el5.x86_64",
+								"product": {
+									"name": "condor-static-0:7.0.4-4.el5.x86_64",
+									"product_id": "condor-static-0:7.0.4-4.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor-static@7.0.4-4.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "condor-0:7.0.4-4.el5.x86_64",
+								"product": {
+									"name": "condor-0:7.0.4-4.el5.x86_64",
+									"product_id": "condor-0:7.0.4-4.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor@7.0.4-4.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "condor-debuginfo-0:7.0.4-4.el5.i386",
+								"product": {
+									"name": "condor-debuginfo-0:7.0.4-4.el5.i386",
+									"product_id": "condor-debuginfo-0:7.0.4-4.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor-debuginfo@7.0.4-4.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "condor-static-0:7.0.4-4.el5.i386",
+								"product": {
+									"name": "condor-static-0:7.0.4-4.el5.i386",
+									"product_id": "condor-static-0:7.0.4-4.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor-static@7.0.4-4.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "condor-0:7.0.4-4.el5.i386",
+								"product": {
+									"name": "condor-0:7.0.4-4.el5.i386",
+									"product_id": "condor-0:7.0.4-4.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor@7.0.4-4.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "condor-0:7.0.4-4.el5.src",
+								"product": {
+									"name": "condor-0:7.0.4-4.el5.src",
+									"product_id": "condor-0:7.0.4-4.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/condor@7.0.4-4.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-0:7.0.4-4.el5.i386 as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.i386"
+				},
+				"product_reference": "condor-0:7.0.4-4.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-0:7.0.4-4.el5.src as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.src"
+				},
+				"product_reference": "condor-0:7.0.4-4.el5.src",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-0:7.0.4-4.el5.x86_64 as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.x86_64"
+				},
+				"product_reference": "condor-0:7.0.4-4.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-debuginfo-0:7.0.4-4.el5.i386 as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.i386"
+				},
+				"product_reference": "condor-debuginfo-0:7.0.4-4.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-debuginfo-0:7.0.4-4.el5.x86_64 as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64"
+				},
+				"product_reference": "condor-debuginfo-0:7.0.4-4.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-static-0:7.0.4-4.el5.i386 as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.i386"
+				},
+				"product_reference": "condor-static-0:7.0.4-4.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-static-0:7.0.4-4.el5.x86_64 as a component of MRG Grid for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.x86_64"
+				},
+				"product_reference": "condor-static-0:7.0.4-4.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Grid-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-0:7.0.4-4.el5.i386 as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.i386"
+				},
+				"product_reference": "condor-0:7.0.4-4.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-0:7.0.4-4.el5.src as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.src"
+				},
+				"product_reference": "condor-0:7.0.4-4.el5.src",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-0:7.0.4-4.el5.x86_64 as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.x86_64"
+				},
+				"product_reference": "condor-0:7.0.4-4.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-debuginfo-0:7.0.4-4.el5.i386 as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.i386"
+				},
+				"product_reference": "condor-debuginfo-0:7.0.4-4.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-debuginfo-0:7.0.4-4.el5.x86_64 as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64"
+				},
+				"product_reference": "condor-debuginfo-0:7.0.4-4.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-static-0:7.0.4-4.el5.i386 as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.i386"
+				},
+				"product_reference": "condor-static-0:7.0.4-4.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "condor-static-0:7.0.4-4.el5.x86_64 as a component of MRG Grid Execute Node for RHEL 5 Server",
+					"product_id": "5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.x86_64"
+				},
+				"product_reference": "condor-static-0:7.0.4-4.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Grid-Execute-Node-1.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2008-3424",
+			"discovery_date": "2008-07-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "457372"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Condor before 7.0.4 does not properly handle wildcards in the ALLOW_WRITE, DENY_WRITE, HOSTALLOW_WRITE, or HOSTDENY_WRITE configuration variables in authorization policy lists, which might allow remote attackers to bypass intended access restrictions.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-3424 condor: incorrect handling of wild cards in authorization lists",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.i386",
+					"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.src",
+					"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.x86_64",
+					"5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.i386",
+					"5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64",
+					"5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.i386",
+					"5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.x86_64",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.i386",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.src",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.x86_64",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.i386",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.i386",
+					"5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-3424"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#457372",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=457372"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-3424",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-3424"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-3424",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-3424"
+				}
+			],
+			"release_date": "2008-07-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188",
+					"product_ids": [
+						"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.src",
+						"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.src",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2008:0814"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 6.5,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:L/Au:S/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.src",
+						"5Server-MRG-Grid-1.0:condor-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-1.0:condor-static-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.src",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-debuginfo-0:7.0.4-4.el5.x86_64",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.i386",
+						"5Server-MRG-Grid-Execute-Node-1.0:condor-static-0:7.0.4-4.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2008-3424 condor: incorrect handling of wild cards in authorization lists"
+		}
+	]
+}

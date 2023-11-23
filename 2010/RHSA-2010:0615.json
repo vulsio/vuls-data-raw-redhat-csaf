@@ -1,0 +1,867 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated libvirt packages that fix two security issues and three bugs are\nnow available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The libvirt library is a C API for managing and interacting with the\nvirtualization capabilities of Linux and other operating systems. In\naddition, libvirt provides tools for remotely managing virtualized systems.\n\nIt was found that libvirt did not set the user-defined backing store format\nwhen creating a new image, possibly resulting in applications having to\nprobe the backing store to discover the format. A privileged guest user\ncould use this flaw to read arbitrary files on the host. (CVE-2010-2239)\n\nIt was found that libvirt created insecure iptables rules on the host when\na guest system was configured for IP masquerading, allowing the guest to\nuse privileged ports on the host when accessing network resources. A\nprivileged guest user could use this flaw to access network resources that\nwould otherwise not be accessible to the guest. (CVE-2010-2242)\n\nRed Hat would like to thank Jeremy Nickurak for reporting the CVE-2010-2242\nissue.\n\nThis update also fixes the following bugs:\n\n* a Linux software bridge assumes the MAC address of the enslaved interface\nwith the numerically lowest MAC address. When the bridge changes its MAC\naddress, for a period of time it does not relay packets across network\nsegments, resulting in a temporary network \"blackout\". The bridge should\nthus avoid changing its MAC address in order not to disrupt network\ncommunications.\n\nThe Linux kernel assigns network TAP devices a random MAC address.\nOccasionally, this random MAC address is lower than that of the physical\ninterface which is enslaved (for example, eth0 or eth1), which causes the\nbridge to change its MAC address, thereby disrupting network communications\nfor a period of time.\n\nWith this update, libvirt now sets an explicit MAC address for all TAP\ndevices created using the configured MAC address from the XML, but with the\nhigh bit set to 0xFE. The result is that TAP device MAC addresses are now\nnumerically greater than those for physical interfaces, and bridges should\nno longer attempt to switch their MAC address to that of the TAP device,\nthus avoiding potential spurious network disruptions. (BZ#617243)\n\n* a memory leak in the libvirt driver for the Xen hypervisor has been fixed\nwith this update. (BZ#619711)\n\n* the xm and virsh management user interfaces for virtual guests can be\ncalled on the command line to list the number of active guests. However,\nunder certain circumstances, running the \"virsh list\" command resulted in\nvirsh not listing all of the virtual guests that were active (that is,\nrunning) at the time. This update incorporates a fix that matches the logic\nused for determining active guests with that of \"xm list\", such that both\ncommands should now list the same number of active virtual guests under all\ncircumstances. (BZ#618200)\n\nAll users of libvirt are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues. After installing\nthe updated packages, the system must be rebooted for the update to take\neffect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2010:0615",
+				"url": "https://access.redhat.com/errata/RHSA-2010:0615"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2010/rhsa-2010_0615.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: libvirt security and bug fix update",
+		"tracking": {
+			"current_release_date": "2010-08-10T13:02:33+00:00",
+			"generator": {
+				"date": "2023-10-17T15:53:16+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2010:0615",
+			"initial_release_date": "2010-08-10T17:02:00+00:00",
+			"revision_history": [
+				{
+					"date": "2010-08-10T13:02:33+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Virtualization (v. 5 server)",
+									"product_id": "5Server-VT",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_virtualization:5::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+									"product_id": "5Client-VT",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_virtualization:5::client"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libvirt-0:0.6.3-33.el5_5.3.ia64",
+								"product": {
+									"name": "libvirt-0:0.6.3-33.el5_5.3.ia64",
+									"product_id": "libvirt-0:0.6.3-33.el5_5.3.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt@0.6.3-33.el5_5.3?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+								"product": {
+									"name": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+									"product_id": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-devel@0.6.3-33.el5_5.3?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+								"product": {
+									"name": "libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+									"product_id": "libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-python@0.6.3-33.el5_5.3?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+								"product": {
+									"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+									"product_id": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-debuginfo@0.6.3-33.el5_5.3?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libvirt-0:0.6.3-33.el5_5.3.src",
+								"product": {
+									"name": "libvirt-0:0.6.3-33.el5_5.3.src",
+									"product_id": "libvirt-0:0.6.3-33.el5_5.3.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt@0.6.3-33.el5_5.3?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libvirt-0:0.6.3-33.el5_5.3.x86_64",
+								"product": {
+									"name": "libvirt-0:0.6.3-33.el5_5.3.x86_64",
+									"product_id": "libvirt-0:0.6.3-33.el5_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt@0.6.3-33.el5_5.3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+								"product": {
+									"name": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+									"product_id": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-devel@0.6.3-33.el5_5.3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+								"product": {
+									"name": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+									"product_id": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-python@0.6.3-33.el5_5.3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+								"product": {
+									"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+									"product_id": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-debuginfo@0.6.3-33.el5_5.3?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libvirt-0:0.6.3-33.el5_5.3.i386",
+								"product": {
+									"name": "libvirt-0:0.6.3-33.el5_5.3.i386",
+									"product_id": "libvirt-0:0.6.3-33.el5_5.3.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt@0.6.3-33.el5_5.3?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+								"product": {
+									"name": "libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+									"product_id": "libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-devel@0.6.3-33.el5_5.3?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+								"product": {
+									"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+									"product_id": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-debuginfo@0.6.3-33.el5_5.3?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libvirt-python-0:0.6.3-33.el5_5.3.i386",
+								"product": {
+									"name": "libvirt-python-0:0.6.3-33.el5_5.3.i386",
+									"product_id": "libvirt-python-0:0.6.3-33.el5_5.3.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libvirt-python@0.6.3-33.el5_5.3?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.src as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.src",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-devel-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-python-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-python-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-python-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Desktop Multi OS (v. 5 client)",
+					"product_id": "5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Client-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.src as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.src",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-devel-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-python-0:0.6.3-33.el5_5.3.i386 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386"
+				},
+				"product_reference": "libvirt-python-0:0.6.3-33.el5_5.3.i386",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-python-0:0.6.3-33.el5_5.3.ia64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64"
+				},
+				"product_reference": "libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+				"relates_to_product_reference": "5Server-VT"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64 as a component of Red Hat Enterprise Linux Virtualization (v. 5 server)",
+					"product_id": "5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+				},
+				"product_reference": "libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+				"relates_to_product_reference": "5Server-VT"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2010-2239",
+			"discovery_date": "2010-06-15T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "607812"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat libvirt, possibly 0.6.0 through 0.8.2, creates new images without setting the user-defined backing-store format, which allows guest OS users to read arbitrary files on the host OS via unspecified vectors.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-2239 libvirt: not setting user defined backing store format when creating new image",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+					"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+					"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+					"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-2239"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#607812",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=607812"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-2239",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-2239"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-2239",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-2239"
+				}
+			],
+			"release_date": "2010-07-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0615"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.4,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:S/C:C/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2010-2239 libvirt: not setting user defined backing store format when creating new image"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Jeremy Nickurak"
+					]
+				}
+			],
+			"cve": "CVE-2010-2242",
+			"discovery_date": "2010-06-09T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "602455"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat libvirt 0.2.0 through 0.8.2 creates iptables rules with improper mappings of privileged source ports, which allows guest OS users to bypass intended access restrictions by leveraging IP address and source-port values, as demonstrated by copying and deleting an NFS directory tree.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "improperly mapped source privileged ports may allow for obtaining privileged resources on the host",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+					"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+					"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+					"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+					"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+					"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+					"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+					"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+					"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+					"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+					"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-2242"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#602455",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=602455"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-2242",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-2242"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-2242",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-2242"
+				}
+			],
+			"release_date": "2010-07-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0615"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:S/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Client-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Client-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.src",
+						"5Server-VT:libvirt-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-debuginfo-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-devel-0:0.6.3-33.el5_5.3.x86_64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.i386",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.ia64",
+						"5Server-VT:libvirt-python-0:0.6.3-33.el5_5.3.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "improperly mapped source privileged ports may allow for obtaining privileged resources on the host"
+		}
+	]
+}

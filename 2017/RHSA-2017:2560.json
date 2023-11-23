@@ -1,0 +1,624 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update is now available for Red Hat Certificate System 8 with Advanced Access.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat Certificate System is a complete implementation of an enterprise software system designed to manage enterprise public key infrastructure (PKI) deployments.\n\nSecurity Fix(es):\n\n* An input validation error was found in Red Hat Certificate System's handling of client provided certificates. If the certreq field is not present in a certificate an assertion error is triggered causing a denial of service. (CVE-2017-7509)\n\nBug Fix(es):\n\n* Previously, the Token Management System (TMS) required that certificates that were on hold must first become valid before they can be revoked. This update removes that limitation, and it is now possible to directly revoke currently on hold certificates. (BZ#1262000)\n\n* With this update, Red Hat Certificate System instances can be installed using existing CA signing certificate/keys. This existing CA can be a functional CA from a different vendor, or keys or CSR generated to be signed by an external CA for the purpose of chaining it to a publicly recognized CA. \n\nNote that this feature is only supported when installing with the \"pkisilent\" tool, not when using the graphical user interface. Additionally, since the CSR is generated externally prior to configuration of the CA instance and is not stored in the NSS security databases, it should be understood that the CSR value attached to the \"ca.signing.certreq\" variable stored inside the \"/var/lib/pki-ca/conf/CS.cfg\" file is a reconstruction of the CSR created during configuration, and not the original CSR utilized to obtain the existing CA certificate. (BZ#1280391)\n\n* Previously, a bug in CRLDistributionPointsExtension caused some certificate profiles to encounter problems when being viewed in the Certificate Manager graphical interface. This bug is now fixed, and aforementioned profile can now be viewed normally. (BZ#1282589)\n\n* Previously, if access to a component such as an HSM or an LDAP server was lost during Certificate Revocation List (CRL) generation, the CA could become stuck in a loop that generated large amounts of log entries until the problem was resolved. To avoid these scenarios, two new configuration parameters are being introduced in this patch to allow the CA to slow down. (BZ#1290650)\n\n* A patch has been applied to the Token Processing System (TPS) to ensure that the \"symmetricKeys.requiredVersion\" option is being handled correctly in all cases. (BZ#1302103)\n\n* A patch has been applied to the Certificate System Token Processing System (TPS) to fix a bug where existing objects were not always cleared when enrolling over an active token. (BZ#1302116)\n\n* This update fixes a bug where the Token Processing System (TPS) could not correctly execute re-enrollment operations (taking a currently enrolled token and enrolling it again with new certificates) on some G&D smart cards. (BZ#1320283)\n\n* The Token Processing System (TPS) could previously leave old data in a token's Coolkey applet when re-enrolling the token with new certificates and keys. This bug is now fixed, and only data associated with certificates which are actually on the token is preserved after a successful re-enrollment. (BZ#1327653)\n\n* Previously, a problem when setting the final life cycle state of a token at the end of a re-enrollment operation could cause it to fail to report that it is properly enrolled. This bug is now fixed, and re-enrolled token now report their \"enrolled\" status accurately. (BZ#1382376)\n\n* Prior to this update, ECDSA certificates were issued with a NULL value in the \"parameter\" field. These certificates were not compliant with the RFC 5758 specification which mandates this field to be omitted completely. This bug has been fixed, and ECDSA certificates are now issued without the \"parameter\" field. (BZ#1454414)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2017:2560",
+				"url": "https://access.redhat.com/errata/RHSA-2017:2560"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2017/rhsa-2017_2560.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat Certificate System 8 security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2017-08-30T15:04:19+00:00",
+			"generator": {
+				"date": "2023-10-17T16:17:12+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2017:2560",
+			"initial_release_date": "2017-08-30T15:04:19+00:00",
+			"revision_history": [
+				{
+					"date": "2017-08-30T15:04:19+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Certificate System 8 Advanced Access",
+								"product": {
+									"name": "Red Hat Certificate System 8 Advanced Access",
+									"product_id": "5Server-RHCertSystem-Advanced",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:certificate_system:8::el5"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Certificate System"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.src",
+								"product": {
+									"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.src",
+									"product_id": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-pki-ca-ui@8.1.1-2.el5pki?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-ca-0:8.1.9-2.el5pki.src",
+								"product": {
+									"name": "pki-ca-0:8.1.9-2.el5pki.src",
+									"product_id": "pki-ca-0:8.1.9-2.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-ca@8.1.9-2.el5pki?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-kra-0:8.1.7-2.el5pki.src",
+								"product": {
+									"name": "pki-kra-0:8.1.7-2.el5pki.src",
+									"product_id": "pki-kra-0:8.1.7-2.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-kra@8.1.7-2.el5pki?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-silent-0:8.1.2-3.el5pki.src",
+								"product": {
+									"name": "pki-silent-0:8.1.2-3.el5pki.src",
+									"product_id": "pki-silent-0:8.1.2-3.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-silent@8.1.2-3.el5pki?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-util-0:8.1.3-2.el5pki.src",
+								"product": {
+									"name": "pki-util-0:8.1.3-2.el5pki.src",
+									"product_id": "pki-util-0:8.1.3-2.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-util@8.1.3-2.el5pki?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-common-0:8.1.20-1.el5pki.src",
+								"product": {
+									"name": "pki-common-0:8.1.20-1.el5pki.src",
+									"product_id": "pki-common-0:8.1.20-1.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-common@8.1.20-1.el5pki?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-tps-0:8.1.30-1.el5pki.src",
+								"product": {
+									"name": "pki-tps-0:8.1.30-1.el5pki.src",
+									"product_id": "pki-tps-0:8.1.30-1.el5pki.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-tps@8.1.30-1.el5pki?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+								"product": {
+									"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+									"product_id": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/redhat-pki-ca-ui@8.1.1-2.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-ca-0:8.1.9-2.el5pki.noarch",
+								"product": {
+									"name": "pki-ca-0:8.1.9-2.el5pki.noarch",
+									"product_id": "pki-ca-0:8.1.9-2.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-ca@8.1.9-2.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-kra-0:8.1.7-2.el5pki.noarch",
+								"product": {
+									"name": "pki-kra-0:8.1.7-2.el5pki.noarch",
+									"product_id": "pki-kra-0:8.1.7-2.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-kra@8.1.7-2.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-silent-0:8.1.2-3.el5pki.noarch",
+								"product": {
+									"name": "pki-silent-0:8.1.2-3.el5pki.noarch",
+									"product_id": "pki-silent-0:8.1.2-3.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-silent@8.1.2-3.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+								"product": {
+									"name": "pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+									"product_id": "pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-util-javadoc@8.1.3-2.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-util-0:8.1.3-2.el5pki.noarch",
+								"product": {
+									"name": "pki-util-0:8.1.3-2.el5pki.noarch",
+									"product_id": "pki-util-0:8.1.3-2.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-util@8.1.3-2.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-common-0:8.1.20-1.el5pki.noarch",
+								"product": {
+									"name": "pki-common-0:8.1.20-1.el5pki.noarch",
+									"product_id": "pki-common-0:8.1.20-1.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-common@8.1.20-1.el5pki?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+								"product": {
+									"name": "pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+									"product_id": "pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-common-javadoc@8.1.20-1.el5pki?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "pki-tps-0:8.1.30-1.el5pki.x86_64",
+								"product": {
+									"name": "pki-tps-0:8.1.30-1.el5pki.x86_64",
+									"product_id": "pki-tps-0:8.1.30-1.el5pki.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-tps@8.1.30-1.el5pki?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "pki-tps-0:8.1.30-1.el5pki.i386",
+								"product": {
+									"name": "pki-tps-0:8.1.30-1.el5pki.i386",
+									"product_id": "pki-tps-0:8.1.30-1.el5pki.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pki-tps@8.1.30-1.el5pki?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-ca-0:8.1.9-2.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.noarch"
+				},
+				"product_reference": "pki-ca-0:8.1.9-2.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-ca-0:8.1.9-2.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.src"
+				},
+				"product_reference": "pki-ca-0:8.1.9-2.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-common-0:8.1.20-1.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.noarch"
+				},
+				"product_reference": "pki-common-0:8.1.20-1.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-common-0:8.1.20-1.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.src"
+				},
+				"product_reference": "pki-common-0:8.1.20-1.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-common-javadoc-0:8.1.20-1.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-common-javadoc-0:8.1.20-1.el5pki.noarch"
+				},
+				"product_reference": "pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-kra-0:8.1.7-2.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.noarch"
+				},
+				"product_reference": "pki-kra-0:8.1.7-2.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-kra-0:8.1.7-2.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.src"
+				},
+				"product_reference": "pki-kra-0:8.1.7-2.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-silent-0:8.1.2-3.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.noarch"
+				},
+				"product_reference": "pki-silent-0:8.1.2-3.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-silent-0:8.1.2-3.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.src"
+				},
+				"product_reference": "pki-silent-0:8.1.2-3.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-tps-0:8.1.30-1.el5pki.i386 as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.i386"
+				},
+				"product_reference": "pki-tps-0:8.1.30-1.el5pki.i386",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-tps-0:8.1.30-1.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.src"
+				},
+				"product_reference": "pki-tps-0:8.1.30-1.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-tps-0:8.1.30-1.el5pki.x86_64 as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.x86_64"
+				},
+				"product_reference": "pki-tps-0:8.1.30-1.el5pki.x86_64",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-util-0:8.1.3-2.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.noarch"
+				},
+				"product_reference": "pki-util-0:8.1.3-2.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-util-0:8.1.3-2.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.src"
+				},
+				"product_reference": "pki-util-0:8.1.3-2.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pki-util-javadoc-0:8.1.3-2.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:pki-util-javadoc-0:8.1.3-2.el5pki.noarch"
+				},
+				"product_reference": "pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch"
+				},
+				"product_reference": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.src as a component of Red Hat Certificate System 8 Advanced Access",
+					"product_id": "5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.src"
+				},
+				"product_reference": "redhat-pki-ca-ui-0:8.1.1-2.el5pki.src",
+				"relates_to_product_reference": "5Server-RHCertSystem-Advanced"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2017-7509",
+			"cwe": {
+				"id": "CWE-20",
+				"name": "Improper Input Validation"
+			},
+			"discovery_date": "2017-05-11T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1456030"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An input validation error was found in Red Hat Certificate System's handling of client provided certificates. If the certreq field is not present in a certificate an assertion error is triggered causing a denial of service.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2017-7509 certificate system 8: Enrolling certificate without certreq field causes CA to crash",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.src",
+					"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.src",
+					"5Server-RHCertSystem-Advanced:pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.src",
+					"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.src",
+					"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.i386",
+					"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.src",
+					"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.x86_64",
+					"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.src",
+					"5Server-RHCertSystem-Advanced:pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+					"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2017-7509"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1456030",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1456030"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2017-7509",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2017-7509"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2017-7509",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2017-7509"
+				}
+			],
+			"release_date": "2017-05-11T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.i386",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.x86_64",
+						"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2017:2560"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "LOW",
+						"baseScore": 3.5,
+						"baseSeverity": "LOW",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.0/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:L",
+						"version": "3.0"
+					},
+					"products": [
+						"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-ca-0:8.1.9-2.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-common-0:8.1.20-1.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-common-javadoc-0:8.1.20-1.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-kra-0:8.1.7-2.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-silent-0:8.1.2-3.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.i386",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-tps-0:8.1.30-1.el5pki.x86_64",
+						"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:pki-util-0:8.1.3-2.el5pki.src",
+						"5Server-RHCertSystem-Advanced:pki-util-javadoc-0:8.1.3-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.noarch",
+						"5Server-RHCertSystem-Advanced:redhat-pki-ca-ui-0:8.1.1-2.el5pki.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2017-7509 certificate system 8: Enrolling certificate without certreq field causes CA to crash"
+		}
+	]
+}

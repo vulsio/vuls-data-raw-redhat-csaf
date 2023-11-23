@@ -1,0 +1,1089 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for the Apache Tomcat 6 component for JBoss Enterprise Web Server\n1.0.2 that fixes multiple security issues and three bugs is now available\nfrom the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Apache Tomcat is a servlet container.\n\nJBoss Enterprise Web Server includes the Tomcat Native library, providing\nApache Portable Runtime (APR) support for Tomcat. References in this text\nto APR refer to the Tomcat Native implementation, not any other apr\npackage.\n\nThis update fixes the JBPAPP-4873, JBPAPP-6133, and JBPAPP-6852 bugs. It\nalso resolves the following security issues:\n\nMultiple flaws weakened the Tomcat HTTP DIGEST authentication\nimplementation, subjecting it to some of the weaknesses of HTTP BASIC\nauthentication, for example, allowing remote attackers to perform session\nreplay attacks. (CVE-2011-1184, CVE-2011-5062, CVE-2011-5063,\nCVE-2011-5064)\n\nA flaw was found in the way the Coyote (org.apache.coyote.ajp.AjpProcessor)\nand APR (org.apache.coyote.ajp.AjpAprProcessor) Tomcat AJP (Apache JServ\nProtocol) connectors processed certain POST requests. An attacker could\nsend a specially-crafted request that would cause the connector to treat\nthe message body as a new request. This allows arbitrary AJP messages to be\ninjected, possibly allowing an attacker to bypass a web application's\nauthentication checks and gain access to information they would otherwise\nbe unable to access. The JK (org.apache.jk.server.JkCoyoteHandler)\nconnector is used by default when the APR libraries are not present. The JK\nconnector is not affected by this flaw. (CVE-2011-3190)\n\nA flaw in the way Tomcat recycled objects that contain data from user\nrequests (such as IP addresses and HTTP headers) when certain errors\noccurred. If a user sent a request that caused an error to be logged,\nTomcat would return a reply to the next request (which could be sent by a\ndifferent user) with data from the first user's request, leading to\ninformation disclosure. Under certain conditions, a remote attacker could\nleverage this flaw to hijack sessions. (CVE-2011-3375)\n\nThe Java hashCode() method implementation was susceptible to predictable\nhash collisions. A remote attacker could use this flaw to cause Tomcat to\nuse an excessive amount of CPU time by sending an HTTP request with a large\nnumber of parameters whose names map to the same hash value. This update\nintroduces a limit on the number of parameters processed per request to\nmitigate this issue. The default limit is 512 for parameters and 128 for\nheaders. These defaults can be changed by setting the\norg.apache.tomcat.util.http.Parameters.MAX_COUNT and\norg.apache.tomcat.util.http.MimeHeaders.MAX_COUNT system properties.\n(CVE-2011-4858)\n\nTomcat did not handle large numbers of parameters and large parameter\nvalues efficiently. A remote attacker could make Tomcat use an excessive\namount of CPU time by sending an HTTP request containing a large number of\nparameters or large parameter values. This update introduces limits on the\nnumber of parameters and headers processed per request to address this\nissue. Refer to the CVE-2011-4858 description for information about the\norg.apache.tomcat.util.http.Parameters.MAX_COUNT and\norg.apache.tomcat.util.http.MimeHeaders.MAX_COUNT system properties.\n(CVE-2012-0022)\n\nA flaw in the Tomcat MemoryUserDatabase. If a runtime exception occurred\nwhen creating a new user with a JMX client, that user's password was logged\nto Tomcat log files. Note: By default, only administrators have access to\nsuch log files. (CVE-2011-2204)\n\nA flaw in the way Tomcat handled sendfile request attributes when using the\nHTTP APR or NIO (Non-Blocking I/O) connector. A malicious web application\nrunning on a Tomcat instance could use this flaw to bypass security manager\nrestrictions and gain access to files it would otherwise be unable to\naccess, or possibly terminate the Java Virtual Machine (JVM). The HTTP NIO\nconnector is used by default in JBoss Enterprise Web Server.\n(CVE-2011-2526)\n\nRed Hat would like to thank oCERT for reporting CVE-2011-4858, and the\nApache Tomcat project for reporting CVE-2011-2526. oCERT acknowledges\nJulian Wälde and Alexander Klink as the original reporters of\nCVE-2011-4858.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:0681",
+				"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "external",
+				"summary": "http://tomcat.apache.org/security-6.html",
+				"url": "http://tomcat.apache.org/security-6.html"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=webserver&downloadType=securityPatches&version=1.0.2",
+				"url": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=webserver&downloadType=securityPatches&version=1.0.2"
+			},
+			{
+				"category": "external",
+				"summary": "https://issues.jboss.org/browse/JBPAPP-4873",
+				"url": "https://issues.jboss.org/browse/JBPAPP-4873"
+			},
+			{
+				"category": "external",
+				"summary": "https://issues.jboss.org/browse/JBPAPP-6133",
+				"url": "https://issues.jboss.org/browse/JBPAPP-6133"
+			},
+			{
+				"category": "external",
+				"summary": "https://issues.jboss.org/browse/JBPAPP-6852",
+				"url": "https://issues.jboss.org/browse/JBPAPP-6852"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_0681.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: tomcat6 security and bug fix update",
+		"tracking": {
+			"current_release_date": "2019-02-20T12:43:57+00:00",
+			"generator": {
+				"date": "2023-10-17T15:58:47+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:0681",
+			"initial_release_date": "2012-05-21T16:32:00+00:00",
+			"revision_history": [
+				{
+					"date": "2019-02-20T12:43:57+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat JBoss Web Server 1.0",
+								"product": {
+									"name": "Red Hat JBoss Web Server 1.0",
+									"product_id": "Red Hat JBoss Web Server 1.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:jboss_enterprise_web_server:1.0"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat JBoss Web Server"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-1184",
+			"discovery_date": "2011-09-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "741401"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The HTTP Digest Access Authentication implementation in Apache Tomcat 5.5.x before 5.5.34, 6.x before 6.0.33, and 7.x before 7.0.12 does not have the expected countermeasures against replay attacks, which makes it easier for remote attackers to bypass intended access restrictions by sniffing the network for valid requests, related to lack of checking of nonce (aka server nonce) and nc (aka nonce-count or client nonce count) values.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-1184"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#741401",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=741401"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-1184",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-1184"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-1184",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-1184"
+				}
+			],
+			"release_date": "2011-09-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+		},
+		{
+			"cve": "CVE-2011-2204",
+			"discovery_date": "2011-06-27T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "717013"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache Tomcat 5.5.x before 5.5.34, 6.x before 6.0.33, and 7.x before 7.0.17, when the MemoryUserDatabase is used, creates log entries containing passwords upon encountering errors in JMX user creation, which allows local users to obtain sensitive information by reading a log file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-2204 tomcat: password disclosure vulnerability",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Red Hat Security Response Team has rated this issue as having low security\nimpact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-2204"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#717013",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=717013"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-2204",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-2204"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-2204",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-2204"
+				}
+			],
+			"release_date": "2011-06-27T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:H/Au:S/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2011-2204 tomcat: password disclosure vulnerability"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Apache Tomcat project"
+					]
+				}
+			],
+			"cve": "CVE-2011-2526",
+			"discovery_date": "2011-07-12T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "720948"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache Tomcat 5.5.x before 5.5.34, 6.x before 6.0.33, and 7.x before 7.0.19, when sendfile is enabled for the HTTP APR or HTTP NIO connector, does not validate certain request attributes, which allows local users to bypass intended file access restrictions or cause a denial of service (infinite loop or JVM crash) by leveraging an untrusted web application.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security manager restrictions bypass",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Red Hat Security Response Team has rated this issue as having low security\nimpact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-2526"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#720948",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=720948"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-2526",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-2526"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-2526",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-2526"
+				}
+			],
+			"release_date": "2011-07-13T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 2.6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:H/Au:N/C:P/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "security manager restrictions bypass"
+		},
+		{
+			"cve": "CVE-2011-3190",
+			"discovery_date": "2011-08-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "734868"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Certain AJP protocol connector implementations in Apache Tomcat 7.0.0 through 7.0.20, 6.0.0 through 6.0.33, 5.5.0 through 5.5.33, and possibly other versions allow remote attackers to spoof AJP requests, bypass authentication, and obtain sensitive information by causing the connector to interpret a request body as a new request.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-3190 tomcat: authentication bypass and information disclosure",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-3190"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#734868",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=734868"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-3190",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-3190"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-3190",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-3190"
+				}
+			],
+			"release_date": "2011-08-20T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-3190 tomcat: authentication bypass and information disclosure"
+		},
+		{
+			"cve": "CVE-2011-3375",
+			"discovery_date": "2012-01-17T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "782624"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache Tomcat 6.0.30 through 6.0.33 and 7.x before 7.0.22 does not properly perform certain caching and recycling operations involving request objects, which allows remote attackers to obtain unintended read access to IP address and HTTP header information in opportunistic circumstances by reading TCP data.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-3375 tomcat: information disclosure due to improper response and request object recycling",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-3375"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#782624",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=782624"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-3375",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-3375"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-3375",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-3375"
+				}
+			],
+			"release_date": "2012-01-17T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-3375 tomcat: information disclosure due to improper response and request object recycling"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"oCERT"
+					]
+				}
+			],
+			"cve": "CVE-2011-4858",
+			"discovery_date": "2011-11-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "750521"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache Tomcat before 5.5.35, 6.x before 6.0.35, and 7.x before 7.0.23 computes hash values for form parameters without restricting the ability to trigger hash collisions predictably, which allows remote attackers to cause a denial of service (CPU consumption) by sending many crafted parameters.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "hash table collisions CPU usage DoS (oCERT-2011-003)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4858"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#750521",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=750521"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4858",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4858"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4858",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4858"
+				}
+			],
+			"release_date": "2011-12-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "hash table collisions CPU usage DoS (oCERT-2011-003)"
+		},
+		{
+			"cve": "CVE-2011-5062",
+			"discovery_date": "2011-09-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "741401"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The HTTP Digest Access Authentication implementation in Apache Tomcat 5.5.x before 5.5.34, 6.x before 6.0.33, and 7.x before 7.0.12 does not check qop values, which might allow remote attackers to bypass intended integrity-protection requirements via a qop=auth value, a different vulnerability than CVE-2011-1184.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-5062"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#741401",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=741401"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-5062",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-5062"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-5062",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-5062"
+				}
+			],
+			"release_date": "2011-09-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+		},
+		{
+			"cve": "CVE-2011-5063",
+			"discovery_date": "2011-09-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "741401"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The HTTP Digest Access Authentication implementation in Apache Tomcat 5.5.x before 5.5.34, 6.x before 6.0.33, and 7.x before 7.0.12 does not check realm values, which might allow remote attackers to bypass intended access restrictions by leveraging the availability of a protection space with weaker authentication or authorization requirements, a different vulnerability than CVE-2011-1184.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-5063"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#741401",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=741401"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-5063",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-5063"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-5063",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-5063"
+				}
+			],
+			"release_date": "2011-09-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+		},
+		{
+			"cve": "CVE-2011-5064",
+			"discovery_date": "2011-09-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "741401"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "DigestAuthenticator.java in the HTTP Digest Access Authentication implementation in Apache Tomcat 5.5.x before 5.5.34, 6.x before 6.0.33, and 7.x before 7.0.12 uses Catalina as the hard-coded server secret (aka private key), which makes it easier for remote attackers to bypass cryptographic protection mechanisms by leveraging knowledge of this string, a different vulnerability than CVE-2011-1184.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-5064"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#741401",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=741401"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-5064",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-5064"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-5064",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-5064"
+				}
+			],
+			"release_date": "2011-09-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-1184 CVE-2011-5062 CVE-2011-5063 CVE-2011-5064 tomcat: Multiple weaknesses in HTTP DIGEST authentication"
+		},
+		{
+			"cve": "CVE-2012-0022",
+			"discovery_date": "2012-01-17T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "783359"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache Tomcat 5.5.x before 5.5.35, 6.x before 6.0.34, and 7.x before 7.0.23 uses an inefficient approach for handling parameters, which allows remote attackers to cause a denial of service (CPU consumption) via a request that contains many parameters and parameter values, a different vulnerability than CVE-2011-4858.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-0022 tomcat: large number of parameters DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Web Server 1.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-0022"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#783359",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=783359"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-0022",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-0022"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-0022",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0022"
+				}
+			],
+			"release_date": "2012-01-17T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All users of JBoss Enterprise Web Server 1.0.2 as provided from the Red Hat\nCustomer Portal are advised to apply this update.\n\nThe References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up your\nexisting JBoss Enterprise Web Server installation (including all\napplications and configuration files).\n\nTomcat must be restarted for this update to take effect.",
+					"product_ids": [
+						"Red Hat JBoss Web Server 1.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0681"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Web Server 1.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2012-0022 tomcat: large number of parameters DoS"
+		}
+	]
+}

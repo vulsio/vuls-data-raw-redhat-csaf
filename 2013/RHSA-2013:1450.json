@@ -1,0 +1,2718 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel packages that fix three security issues and several bugs are\nnow available for Red Hat Enterprise Linux 6.3 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the fix for CVE-2012-3552 released via RHSA-2012:1540\nintroduced an invalid free flaw in the Linux kernel's TCP/IP protocol suite\nimplementation. A local, unprivileged user could use this flaw to corrupt\nkernel memory via crafted sendmsg() calls, allowing them to cause a denial\nof service or, potentially, escalate their privileges on the\nsystem. (CVE-2013-2224, Important)\n\n* An information leak flaw was found in the way Linux kernel's device\nmapper subsystem, under certain conditions, interpreted data written to\nsnapshot block devices. An attacker could use this flaw to read data from\ndisk blocks in free space, which are normally inaccessible. (CVE-2013-4299,\nModerate)\n\n* A format string flaw was found in the b43_do_request_fw() function in the\nLinux kernel's b43 driver implementation. A local user who is able to\nspecify the \"fwpostfix\" b43 module parameter could use this flaw to cause a\ndenial of service or, potentially, escalate their privileges.\n(CVE-2013-2852, Low)\n\nRed Hat would like to thank Fujitsu for reporting CVE-2013-4299, and Kees\nCook for reporting CVE-2013-2852.\n\nThis update also fixes the following bugs:\n\n* An insufficiently designed calculation in the CPU accelerator could cause\nan arithmetic overflow in the set_cyc2ns_scale() function if the system\nuptime exceeded 208 days prior to using kexec to boot into a new\nkernel. This overflow led to a kernel panic on the systems using the Time\nStamp Counter (TSC) clock source, primarily the systems using Intel Xeon E5\nprocessors that do not reset TSC on soft power cycles. A patch has been\napplied to modify the calculation so that this arithmetic overflow and\nkernel panic can no longer occur under these circumstances. (BZ#1004185)\n\n* A race condition in the abort task and SPP device task management path of\nthe isci driver could, under certain circumstances, cause the driver to\nfail cleaning up timed-out I/O requests that were pending on an SAS disk\ndevice. As a consequence, the kernel removed such a device from the\nsystem. A patch applied to the isci driver fixes this problem by sending\nthe task management function request to the SAS drive anytime the abort\nfunction is entered and the task has not completed. The driver now cleans\nup timed-out I/O requests as expected in this situation. (BZ#1007467)\n\n* A kernel panic could occur during path failover on systems using multiple\niSCSI, FC or SRP paths to connect an iSCSI initiator and an iSCSI\ntarget. This happened because a race condition in the SCSI driver allowed\nremoving a SCSI device from the system before processing its run queue,\nwhich led to a NULL pointer dereference. The SCSI driver has been modified\nand the race is now avoided by holding a reference to a SCSI device run\nqueue while it is active. (BZ#1008507)\n\nAll kernel users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues. The system must be\nrebooted for this update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:1450",
+				"url": "https://access.redhat.com/errata/RHSA-2013:1450"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_1450.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel security and bug fix update",
+		"tracking": {
+			"current_release_date": "2013-10-22T17:02:00Z",
+			"generator": {
+				"date": "2023-06-30T21:07:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2013:1450",
+			"initial_release_date": "2013-10-22T16:58:00Z",
+			"revision_history": [
+				{
+					"date": "2013-10-22T17:02:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+									"product_id": "6ComputeNode-6.3.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_eus:6.3::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+									"product_id": "6ComputeNode-optional-6.3.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_eus:6.3::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server EUS (v. 6.3)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server EUS (v. 6.3)",
+									"product_id": "6Server-6.3.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_eus:6.3::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+									"product_id": "6Server-optional-6.3.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_eus:6.3::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "perf-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "perf-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "python-perf-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "python-perf-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+								"product": {
+									"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_id": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "perf-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "perf-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "python-perf-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "python-perf-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+								"product": {
+									"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_id": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-debug-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-devel-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "kernel-headers-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "perf-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "perf-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "python-perf-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "python-perf-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+								"product": {
+									"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_id": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "perf-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "perf-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "python-perf-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "python-perf-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+								"product": {
+									"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_id": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-279.37.2.el6.src",
+								"product": {
+									"name": "kernel-0:2.6.32-279.37.2.el6.src",
+									"product_id": "kernel-0:2.6.32-279.37.2.el6.src",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+								"product": {
+									"name": "kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+									"product_id": "kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+								"product": {
+									"name": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+									"product_id": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.src as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.src",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-doc-0:2.6.32-279.37.2.el6.noarch as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch"
+				},
+				"product_reference": "kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch"
+				},
+				"product_reference": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "perf-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node EUS (v. 6.3)",
+					"product_id": "6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.src as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.src",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "python-perf-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Compute Node Optional EUS (v. 6.3)",
+					"product_id": "6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.src as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.src",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-doc-0:2.6.32-279.37.2.el6.noarch as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch"
+				},
+				"product_reference": "kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch"
+				},
+				"product_reference": "kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "perf-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "perf-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "perf-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "perf-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.3)",
+					"product_id": "6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-279.37.2.el6.src as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src"
+				},
+				"product_reference": "kernel-0:2.6.32-279.37.2.el6.src",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "python-perf-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "python-perf-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "python-perf-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "python-perf-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional EUS (v. 6.3)",
+					"product_id": "6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				},
+				"product_reference": "python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.3.EUS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2013-2224",
+			"discovery_date": "2013-06-30T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=979936"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "A certain Red Hat patch for the Linux kernel 2.6.32 on Red Hat Enterprise Linux (RHEL) 6 allows local users to cause a denial of service (invalid free operation and system crash) or possibly gain privileges via a sendmsg system call with the IP_RETOPTS option, as demonstrated by hemlock.c. NOTE: this vulnerability exists because of an incorrect fix for CVE-2012-3552.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kernel: net: IP_REPOPTS invalid free",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+					"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+					"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+					"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-2224",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-2224"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-2224",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-2224"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2013-2224",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-2224"
+				},
+				{
+					"category": "external",
+					"summary": "bz#979936: CVE-2013-2224 kernel: net: IP_REPOPTS invalid free",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=979936"
+				}
+			],
+			"release_date": "2013-06-30T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.",
+					"product_ids": [
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2013:1450"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.9,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:M/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2013-06-30T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2013-2224 kernel: net: IP_REPOPTS invalid free"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Kees Cook"
+					]
+				}
+			],
+			"cve": "CVE-2013-2852",
+			"discovery_date": "2013-05-30T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=969518"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "Format string vulnerability in the b43_request_firmware function in drivers/net/wireless/b43/main.c in the Broadcom B43 wireless driver in the Linux kernel through 3.9.4 allows local users to gain privileges by leveraging root access and including format string specifiers in an fwpostfix modprobe parameter, leading to improper construction of an error message.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "format string leaking into error msgs",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+					"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+					"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+					"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-2852",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-2852"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-2852",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-2852"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2013-2852",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-2852"
+				},
+				{
+					"category": "external",
+					"summary": "bz#969518: format string leaking into error msgs",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=969518"
+				}
+			],
+			"release_date": "2013-06-06T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.",
+					"product_ids": [
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2013:1450"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:H/Au:S/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2013-05-30T00:00:00Z",
+					"details": "Low"
+				}
+			],
+			"title": "format string leaking into error msgs"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Fujitsu"
+					]
+				}
+			],
+			"cve": "CVE-2013-4299",
+			"discovery_date": "2013-08-08T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1004233"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "Interpretation conflict in drivers/md/dm-snap-persistent.c in the Linux kernel through 3.11.6 allows remote authenticated users to obtain sensitive information or modify data via a crafted mapping to a snapshot block device.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "dm-snapshot data leak",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+					"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+					"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+					"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+					"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-4299",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-4299"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-4299",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-4299"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2013-4299",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-4299"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1004233: dm-snapshot data leak",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1004233"
+				}
+			],
+			"release_date": "2013-10-16T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not use\n\"rpm -Uvh\" as that will remove the running kernel binaries from your\nsystem. You may use \"rpm -e\" to remove old kernels after determining that\nthe new kernel functions properly on your system.",
+					"product_ids": [
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2013:1450"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:H/Au:S/C:C/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6ComputeNode-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6ComputeNode-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6ComputeNode-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-bootwrapper-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debug-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-devel-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-doc-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-firmware-0:2.6.32-279.37.2.el6.noarch",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-headers-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:kernel-kdump-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:kernel-kdump-devel-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-0:2.6.32-279.37.2.el6.src",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debug-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-i686-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-s390x-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:kernel-kdump-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-0:2.6.32-279.37.2.el6.x86_64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.i686",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.ppc64",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.s390x",
+						"6Server-optional-6.3.EUS:python-perf-debuginfo-0:2.6.32-279.37.2.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2013-08-08T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "dm-snapshot data leak"
+		}
+	]
+}

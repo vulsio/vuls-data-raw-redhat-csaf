@@ -1,0 +1,596 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "JBoss Operations Network 2.4.2, which fixes multiple security issues and\nseveral bugs, is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "JBoss Operations Network (JBoss ON) is a middleware management solution\nthat provides a single point of control to deploy, manage, and monitor\nJBoss Enterprise Middleware, applications, and services.\n\nThis JBoss ON 2.4.2 release serves as a replacement for JBoss ON 2.4.1,\nand includes several bug fixes. Refer to the JBoss ON 2.4.2 Release Notes\nfor information on the most significant of these changes. The Release\nNotes will be available shortly from\nhttps://docs.redhat.com/docs/en-US/index.html\n\nThe following security issues are also fixed with this release:\n\nJBoss ON did not properly verify security tokens, allowing an unapproved\nagent to connect as an approved agent. A remote attacker could use this\nflaw to spoof the identity of an approved agent, allowing them to hijack\nthe approved agent's session and steal its security token. As a result,\nthe attacker could retrieve sensitive data about the server the hijacked\nagent was running on, including JMX credentials. (CVE-2012-0052)\n\nJBoss ON sometimes allowed agent registration to succeed when the\nregistration request did not include a security token. This is a feature\ndesigned to add convenience. A remote attacker could use this flaw to\nspoof the identity of an approved agent and pass a null security token,\nallowing them to hijack the approved agent's session, and steal its\nsecurity token. As a result, the attacker could retrieve sensitive data\nabout the server the hijacked agent was running on, including JMX\ncredentials. (CVE-2012-0062)\n\nIt was found that the Java hashCode() method implementation was\nsusceptible to predictable hash collisions. A remote attacker could use\nthis flaw to cause JBoss Web to use an excessive amount of CPU time by\nsending an HTTP request with a large number of parameters whose names map\nto the same hash value. This update introduces a limit on the number of\nparameters and headers processed per request to mitigate this issue. The\ndefault limit is 512 for parameters and 128 for headers. These defaults\ncan be changed by setting the\norg.apache.tomcat.util.http.Parameters.MAX_COUNT and\norg.apache.tomcat.util.http.MimeHeaders.MAX_COUNT system properties in\n\"server/$PROFILE/deploy/properties-service.xml\". (CVE-2011-4858)\n\nMultiple cross-site scripting (XSS) flaws were found in the JBoss ON\nadministration interface. If a remote attacker could trick a user, who was\nlogged into the JBoss ON administration interface, into visiting a\nspecially-crafted URL, it would lead to arbitrary web script execution in\nthe context of the user's JBoss ON session. (CVE-2011-3206)\n\nJBoss ON did not verify that a user had the proper modify resource\npermissions when they attempted to delete a plug-in configuration update\nfrom the group connection properties history. This could allow such a user\nto delete a plug-in configuration update from the audit trail. Note that a\nuser without modify resource permissions cannot use this flaw to make\nconfiguration changes. (CVE-2011-4573)\n\nRed Hat would like to thank oCERT for reporting CVE-2011-4858. oCERT\nacknowledges Julian Wälde and Alexander Klink as the original reporters of\nCVE-2011-4858.\n\nWarning: Before applying the update, back up your existing JBoss ON\ninstallation (including its databases, applications, configuration files,\nand so on).\n\nAll users of JBoss Operations Network 2.4.1 as provided from the Red Hat\nCustomer Portal are advised to upgrade to JBoss Operations Network 2.4.2.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:0089",
+				"url": "https://access.redhat.com/errata/RHSA-2012:0089"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://docs.redhat.com/docs/en-US/index.html",
+				"url": "https://docs.redhat.com/docs/en-US/index.html"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=em&version=2.4.2",
+				"url": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=em&version=2.4.2"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_0089.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: JBoss Operations Network 2.4.2 update",
+		"tracking": {
+			"current_release_date": "2012-02-01T21:57:57+00:00",
+			"generator": {
+				"date": "2023-10-17T16:00:09+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:0089",
+			"initial_release_date": "2012-02-01T21:57:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-02-01T21:57:57+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat JBoss Operations Network 2.4",
+								"product": {
+									"name": "Red Hat JBoss Operations Network 2.4",
+									"product_id": "Red Hat JBoss Operations Network 2.4",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:jboss_operations_network:2.4"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat JBoss Middleware"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-3206",
+			"cwe": {
+				"id": "CWE-79",
+				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+			},
+			"discovery_date": "2011-08-31T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "734662"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple cross-site scripting (XSS) vulnerabilities in the administration interface in RHQ 4.2.0, as used in JBoss Operations Network (aka JON or JBoss ON) before 3.0, allow remote attackers to inject arbitrary web script or HTML via unspecified vectors.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-3206 JON: Multiple XSS flaws",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Operations Network 2.4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-3206"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#734662",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=734662"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-3206",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-3206"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-3206",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-3206"
+				}
+			],
+			"release_date": "2011-12-08T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update).",
+					"product_ids": [
+						"Red Hat JBoss Operations Network 2.4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0089"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Operations Network 2.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2011-3206 JON: Multiple XSS flaws"
+		},
+		{
+			"cve": "CVE-2011-4573",
+			"discovery_date": "2011-12-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "760024"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat JBoss Operations Network (JON) before 2.4.2 does not properly enforce \"modify resource\" permissions for remote authenticated users when deleting a plug-in configuration update from the group connection properties history, which prevents such activities from being recorded in the audit trail.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4573 JON: Incorrect delete permissions check",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Operations Network 2.4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4573"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#760024",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=760024"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4573",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4573"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4573",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4573"
+				}
+			],
+			"release_date": "2011-12-08T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update).",
+					"product_ids": [
+						"Red Hat JBoss Operations Network 2.4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0089"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 3.5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Operations Network 2.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2011-4573 JON: Incorrect delete permissions check"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"oCERT"
+					]
+				}
+			],
+			"cve": "CVE-2011-4858",
+			"discovery_date": "2011-11-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "750521"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache Tomcat before 5.5.35, 6.x before 6.0.35, and 7.x before 7.0.23 computes hash values for form parameters without restricting the ability to trigger hash collisions predictably, which allows remote attackers to cause a denial of service (CPU consumption) by sending many crafted parameters.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "hash table collisions CPU usage DoS (oCERT-2011-003)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Operations Network 2.4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4858"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#750521",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=750521"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4858",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4858"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4858",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4858"
+				}
+			],
+			"release_date": "2011-12-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update).",
+					"product_ids": [
+						"Red Hat JBoss Operations Network 2.4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0089"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Operations Network 2.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "hash table collisions CPU usage DoS (oCERT-2011-003)"
+		},
+		{
+			"cve": "CVE-2012-0052",
+			"discovery_date": "2012-01-11T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "781964"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat JBoss Operations Network (JON) before 2.4.2 and 3.0.x before 3.0.1 does not check the JON agent key, which allows remote attackers to spoof the identity of arbitrary agents via the registered agent name.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-0052 JON: Unapproved agents can connect using the name of an existing approved agent",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Operations Network 2.4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-0052"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#781964",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=781964"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-0052",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-0052"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-0052",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0052"
+				}
+			],
+			"release_date": "2012-02-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update).",
+					"product_ids": [
+						"Red Hat JBoss Operations Network 2.4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0089"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Operations Network 2.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2012-0052 JON: Unapproved agents can connect using the name of an existing approved agent"
+		},
+		{
+			"cve": "CVE-2012-0062",
+			"discovery_date": "2012-01-18T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "783008"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat JBoss Operations Network (JON) before 2.4.2 and 3.0.x before 3.0.1 allows remote attackers to hijack agent sessions via an agent registration request without a security token.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-0062 JON: Unapproved agents can hijack an approved agent's endpoint by using a null security token",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Operations Network 2.4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-0062"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#783008",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=783008"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-0062",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-0062"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-0062",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0062"
+				}
+			],
+			"release_date": "2012-02-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update).",
+					"product_ids": [
+						"Red Hat JBoss Operations Network 2.4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0089"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Operations Network 2.4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2012-0062 JON: Unapproved agents can hijack an approved agent's endpoint by using a null security token"
+		}
+	]
+}

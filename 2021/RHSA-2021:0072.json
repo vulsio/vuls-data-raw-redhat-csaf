@@ -1,0 +1,335 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "OpenShift Serverless 1.9.0 release and security update is now available.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat OpenShift Serverless 1.9.0 is a generally available release of the OpenShift Serverless Operator. This version of the OpenShift Serverless Operator is supported on Red Hat OpenShift Container Platform version 4.5.\n\nSecurity Fix(es):\n\n* golang: data race in certain net/http servers including ReverseProxy can lead to DoS (CVE-2020-15586)\n\n* golang: ReadUvarint and ReadVarint can read an unlimited number of bytes from invalid inputs (CVE-2020-16845)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2021:0072",
+				"url": "https://access.redhat.com/errata/RHSA-2021:0072"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/documentation/en-us/openshift_container_platform/4.5/html/serverless_applications/index",
+				"url": "https://access.redhat.com/documentation/en-us/openshift_container_platform/4.5/html/serverless_applications/index"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2021/rhsa-2021_0072.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: OpenShift Serverless 1.9.0 release and security update",
+		"tracking": {
+			"current_release_date": "2021-01-11T21:59:01+00:00",
+			"generator": {
+				"date": "2023-10-17T16:59:38+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2021:0072",
+			"initial_release_date": "2021-01-11T21:59:01+00:00",
+			"revision_history": [
+				{
+					"date": "2021-01-11T21:59:01+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "OpenShift Serverless 1.9.0",
+								"product": {
+									"name": "OpenShift Serverless 1.9.0",
+									"product_id": "OpenShift Serverless 1.9.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:serverless:1"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenShift Serverless"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2020-15586",
+			"cwe": {
+				"id": "CWE-362",
+				"name": "Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')"
+			},
+			"discovery_date": "2020-07-14T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1856953"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found Go's net/http package. Servers using ReverseProxy from net/http in the Go standard library are vulnerable to a data race that results in a denial of service. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "data race in certain net/http servers including ReverseProxy can lead to DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "OpenShift Container Platform (OCP) components are primarily written in Go, meaning that any component using the net/http package includes the vulnerable code. OCP server endpoints using ReverseProxy are protected by authentication, reducing the severity of this vulnerability to Low for OCP.\n\nSimilar to OCP, OpenShift ServiceMesh (OSSM), RedHat OpenShift Jaeger (RHOSJ) and OpenShift Virtualization are also primarily written in Go and are protected via authentication, reducing the severity of this vulnerability to Low.\n\nRed Hat Gluster Storage 3 and Red Hat Openshift Container Storage 4 components are built with the affected version of Go, however the vulnerable functionality is currently not used by these products and hence this issue has been rated as having a security impact of Low.\n\nRed Hat Ceph Storage 3 and 4 components are built with the affected version of Go, however the vulnerable functionality is currently not used by these products and hence this issue has been rated as having a security impact of Low.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"OpenShift Serverless 1.9.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2020-15586"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1856953",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1856953"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2020-15586",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2020-15586"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2020-15586",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2020-15586"
+				},
+				{
+					"category": "external",
+					"summary": "https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w/m/E6gHDs32AQAJ",
+					"url": "https://groups.google.com/g/golang-announce/c/XZNfaiwgt2w/m/E6gHDs32AQAJ"
+				}
+			],
+			"release_date": "2020-07-14T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "See the documentation at:\nhttps://access.redhat.com/documentation/en-us/openshift_container_platform/4.5/html/serverless_applications/index",
+					"product_ids": [
+						"OpenShift Serverless 1.9.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2021:0072"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 5.9,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"OpenShift Serverless 1.9.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "data race in certain net/http servers including ReverseProxy can lead to DoS"
+		},
+		{
+			"cve": "CVE-2020-16845",
+			"cwe": {
+				"id": "CWE-835",
+				"name": "Loop with Unreachable Exit Condition ('Infinite Loop')"
+			},
+			"discovery_date": "2020-08-07T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1867099"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the Go encoding/binary package. Certain invalid inputs to the ReadUvarint or the ReadVarint causes those functions to read an unlimited number of bytes from the ByteReader argument before returning an error. This flaw possibly leads to processing more input than expected. The highest threat from this vulnerability is to system availability.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "ReadUvarint and ReadVarint can read an unlimited number of bytes from invalid inputs",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "OpenShift Container Platform (OCP), OpenShift ServiceMesh (OSSM), RedHat OpenShift Jaeger (RHOSJ) and OpenShift Virtualization components are primarily written in Go, meaning that any component using the encoding/binary package includes the vulnerable code. The affected components are behind OpenShift OAuth authentication, therefore the impact is low.\n\nRed Hat Gluster Storage 3, Red Hat OpenShift Container Storage 4 and Red Hat Ceph Storage (3 and 4)  components are built with the affected version of Go, however the vulnerable functionality is currently not used by these products and hence this issue has been rated as having a security impact of Low.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"OpenShift Serverless 1.9.0"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2020-16845"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1867099",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1867099"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2020-16845",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2020-16845"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2020-16845",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2020-16845"
+				},
+				{
+					"category": "external",
+					"summary": "https://groups.google.com/g/golang-announce/c/NyPIaucMgXo",
+					"url": "https://groups.google.com/g/golang-announce/c/NyPIaucMgXo"
+				}
+			],
+			"release_date": "2020-08-06T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "See the documentation at:\nhttps://access.redhat.com/documentation/en-us/openshift_container_platform/4.5/html/serverless_applications/index",
+					"product_ids": [
+						"OpenShift Serverless 1.9.0"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2021:0072"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7.5,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"OpenShift Serverless 1.9.0"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "ReadUvarint and ReadVarint can read an unlimited number of bytes from invalid inputs"
+		}
+	]
+}

@@ -1,0 +1,1093 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update is now available for Red Hat Virtualization Engine 4.3.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The org.ovirt.engine-root is a core component of oVirt.\n\nThe following packages have been upgraded to a later upstream version: org.ovirt.engine-root (4.3.8.2), ovirt-engine-dwh (4.3.8), ovirt-engine-metrics (1.3.6.1), ovirt-fast-forward-upgrade (1.0.0), ovirt-imageio-common (1.5.3), ovirt-imageio-proxy (1.5.3), ovirt-web-ui (1.6.0), rhv-log-collector-analyzer (0.2.15), v2v-conversion-host (1.16.0). (BZ#1767333, BZ#1776722, BZ#1779587, BZ#1779631)\n\nSecurity Fix(es):\n\n* ovirt-engine: response_type parameter allows reflected XSS (CVE-2019-19336)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Previously, when a vNIC had two references to a VM, if the VM is a template, one reference was used. Otherwise, the other reference was used. This construct confused the constraint checker of the database and enabled inconsistencies. Bug 1528316 and bug 1684586 disabled the check of this constraint during upgrades. The current release fixes this issue by merging both references into a single one, which has to be set. As a result, the improved data structure in the database matches the database constraints and prevents inconsistencies. (BZ#1688781)\n\n* Previously, after using the REST API to create an affinity group, the resulting group did not have the required labels, even though they were defined in the request body. The current release fixes this issue so the affinity group has the labels that were defined in the request body. (BZ#1781380)\n\n* Previously, when you deleted a snapshot of a VM with a LUN disk, its image ID parsed incorrectly and used \"mapper\" as its value, which caused a null pointer exception. The current release fixes this issue by avoiding disks whose image ID parses as 'mapper' so deleting the VM snapshot is successful. (BZ#1779664)\n\n* Prevously, upgrading RHV Manager from 4.2 to 4.3 ovirt-fast-forward-upgrade fails with a yum dependency error. The current version fixes this issue. (BZ#1754979)\n\n* Previously, when you used the VM Portal to create a Windows virtual machine, it failed with the following error \"CREATE_VM failed [Cannot add VM. Invalid time zone for given OS type., Attribute: vmStatic].\" The Administration Portal did not have this issue. The current release fixes this issue. (BZ#1773580)\n\n* Normally, when the \"UserSessionTimeOutInterval\" is set to a negative value such as \"-1\", the user remains logged into the VM Portal indefinitely. However, in RHV version 4.5.3.6, a negative value automatically logged the user out immediately. The current release fixes this issue. (BZ#1757423)\n\nEnhancements:\n\n* This release adds a new 'status' column to the affinity group table that shows whether all of an affinity group's rules are satisfied (status = ok) or not (status = broken). The \"Enforcing\" option does not affect this status. (BZ#1767333)\n\n* In this release, Metrics Store adds support for a flat DNS environment without subdomains. This capability helps you satisfy security policies that mandate having a \"flat\" DNS environment with no submains. To enable this capability, you add a suffix to the master0 virtual machine when you configure networking for Metrics Store virtual machines. For example, if you set 'openshift_ovirt_machine_suffix' to 'prod' and 'public_hosted_zone' is 'example.com', then the metrics store virtual machine will be called 'master-prod0.example.com'. (BZ#1782412)\n\n* This release adds a new feature, rhv-image-discrepancies, which reports discrepancies between images in the engine database and storage. The report lists images that are present in one location but missing from the other. Also, for images that are present in both locations, the report lists discrepancies in the values of attributes such as status, parent_id, and type. (BZ#1739106)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2020:0498",
+				"url": "https://access.redhat.com/errata/RHSA-2020:0498"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2020/rhsa-2020_0498.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat Virtualization Engine security, bug fix and enhancement update",
+		"tracking": {
+			"current_release_date": "2020-02-13T15:51:00Z",
+			"generator": {
+				"date": "2023-07-01T01:38:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2020:0498",
+			"initial_release_date": "2020-02-13T15:51:00Z",
+			"revision_history": [
+				{
+					"date": "2020-02-13T15:51:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHV-M 4.3",
+								"product": {
+									"name": "RHV-M 4.3",
+									"product_id": "7Server-RHV-S-4.3",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhev_manager:4.3"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+									"product_id": "ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+									"product_id": "ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+								"product": {
+									"name": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+									"product_id": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+								"product": {
+									"name": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+									"product_id": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+								"product": {
+									"name": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+									"product_id": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+								"product": {
+									"name": "ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+									"product_id": "ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+								"product": {
+									"name": "ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+									"product_id": "ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+								"product": {
+									"name": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+									"product_id": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhvm-0:4.3.8.2-0.4.el7.noarch",
+								"product": {
+									"name": "rhvm-0:4.3.8.2-0.4.el7.noarch",
+									"product_id": "rhvm-0:4.3.8.2-0.4.el7.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch",
+								"product": {
+									"name": "v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch",
+									"product_id": "v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-0:4.3.8.2-0.4.el7.src",
+								"product": {
+									"name": "ovirt-engine-0:4.3.8.2-0.4.el7.src",
+									"product_id": "ovirt-engine-0:4.3.8.2-0.4.el7.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+								"product": {
+									"name": "ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+									"product_id": "ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+								"product": {
+									"name": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+									"product_id": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+								"product": {
+									"name": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+									"product_id": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+								"product": {
+									"name": "ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+									"product_id": "ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+								"product": {
+									"name": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+									"product_id": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-web-ui-0:1.6.0-2.el7ev.src",
+								"product": {
+									"name": "ovirt-web-ui-0:1.6.0-2.el7ev.src",
+									"product_id": "ovirt-web-ui-0:1.6.0-2.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+								"product": {
+									"name": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+									"product_id": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "v2v-conversion-host-0:1.16.0-3.el7ev.src",
+								"product": {
+									"name": "v2v-conversion-host-0:1.16.0-3.el7ev.src",
+									"product_id": "v2v-conversion-host-0:1.16.0-3.el7ev.src",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+								"product": {
+									"name": "ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+									"product_id": "ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+								"product": {
+									"name": "ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+									"product_id": "ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-0:4.3.8.2-0.4.el7.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.src"
+				},
+				"product_reference": "ovirt-engine-0:4.3.8.2-0.4.el7.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-dwh-0:4.3.8-1.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.src"
+				},
+				"product_reference": "ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch"
+				},
+				"product_reference": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src"
+				},
+				"product_reference": "ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch"
+				},
+				"product_reference": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src"
+				},
+				"product_reference": "ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-imageio-common-0:1.5.3-0.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.src"
+				},
+				"product_reference": "ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64 as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64"
+				},
+				"product_reference": "ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64 as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64"
+				},
+				"product_reference": "ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch"
+				},
+				"product_reference": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.src"
+				},
+				"product_reference": "ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch"
+				},
+				"product_reference": "ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-web-ui-0:1.6.0-2.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.noarch"
+				},
+				"product_reference": "ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ovirt-web-ui-0:1.6.0-2.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.src"
+				},
+				"product_reference": "ovirt-web-ui-0:1.6.0-2.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch"
+				},
+				"product_reference": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src"
+				},
+				"product_reference": "rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhvm-0:4.3.8.2-0.4.el7.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:rhvm-0:4.3.8.2-0.4.el7.noarch"
+				},
+				"product_reference": "rhvm-0:4.3.8.2-0.4.el7.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "v2v-conversion-host-0:1.16.0-3.el7ev.src as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:v2v-conversion-host-0:1.16.0-3.el7ev.src"
+				},
+				"product_reference": "v2v-conversion-host-0:1.16.0-3.el7ev.src",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch as a component of RHV-M 4.3",
+					"product_id": "7Server-RHV-S-4.3:v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch"
+				},
+				"product_reference": "v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch",
+				"relates_to_product_reference": "7Server-RHV-S-4.3"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"@_w4rr4nt_"
+					]
+				}
+			],
+			"cve": "CVE-2019-19336",
+			"cwe": {
+				"id": "CWE-79",
+				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+			},
+			"discovery_date": "2019-12-09T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1781001"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "A cross-site scripting vulnerability was reported in the oVirt-engine's OAuth authorization endpoint. URL parameters were included in the HTML response without escaping. This flaw would allow an attacker to craft malicious HTML pages that can run scripts in the context of the user's oVirt session.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "ovirt-engine: response_type parameter allows reflected XSS",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.src",
+					"7Server-RHV-S-4.3:ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+					"7Server-RHV-S-4.3:ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+					"7Server-RHV-S-4.3:ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+					"7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+					"7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+					"7Server-RHV-S-4.3:ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+					"7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+					"7Server-RHV-S-4.3:ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+					"7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.src",
+					"7Server-RHV-S-4.3:python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+					"7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+					"7Server-RHV-S-4.3:rhvm-0:4.3.8.2-0.4.el7.noarch",
+					"7Server-RHV-S-4.3:v2v-conversion-host-0:1.16.0-3.el7ev.src",
+					"7Server-RHV-S-4.3:v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2019-19336",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2019-19336"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2019-19336",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2019-19336"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2019-19336",
+					"url": "https://access.redhat.com/security/cve/CVE-2019-19336"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1781001: CVE-2019-19336 ovirt-engine: response_type parameter allows reflected XSS",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1781001"
+				}
+			],
+			"release_date": "2020-01-11T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/2974891",
+					"product_ids": [
+						"7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.src",
+						"7Server-RHV-S-4.3:ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+						"7Server-RHV-S-4.3:ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+						"7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.src",
+						"7Server-RHV-S-4.3:python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+						"7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+						"7Server-RHV-S-4.3:rhvm-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:v2v-conversion-host-0:1.16.0-3.el7ev.src",
+						"7Server-RHV-S-4.3:v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2020:0498"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.4,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "LOW",
+						"integrityImpact": "LOW",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "REQUIRED",
+						"vectorString": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+						"version": "3.0"
+					},
+					"products": [
+						"7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-0:4.3.8.2-0.4.el7.src",
+						"7Server-RHV-S-4.3:ovirt-engine-backend-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-dbscripts-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-dwh-0:4.3.8-1.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-engine-dwh-setup-0:4.3.8-1.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-extensions-api-impl-javadoc-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-health-check-bundler-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-metrics-0:1.3.6.2-1.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-engine-restapi-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-base-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-cinderlib-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-ovirt-engine-common-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-setup-plugin-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-tools-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-tools-backup-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-vmconsole-proxy-helper-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-webadmin-portal-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-engine-websocket-proxy-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-fast-forward-upgrade-0:1.0.0-16.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-imageio-common-0:1.5.3-0.el7ev.x86_64",
+						"7Server-RHV-S-4.3:ovirt-imageio-common-debuginfo-0:1.5.3-0.el7ev.x86_64",
+						"7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-imageio-proxy-0:1.5.3-0.el7ev.src",
+						"7Server-RHV-S-4.3:ovirt-imageio-proxy-setup-0:1.5.3-0.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.noarch",
+						"7Server-RHV-S-4.3:ovirt-web-ui-0:1.6.0-2.el7ev.src",
+						"7Server-RHV-S-4.3:python2-ovirt-engine-lib-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.noarch",
+						"7Server-RHV-S-4.3:rhv-log-collector-analyzer-0:0.2.15-0.el7ev.src",
+						"7Server-RHV-S-4.3:rhvm-0:4.3.8.2-0.4.el7.noarch",
+						"7Server-RHV-S-4.3:v2v-conversion-host-0:1.16.0-3.el7ev.src",
+						"7Server-RHV-S-4.3:v2v-conversion-host-ansible-0:1.16.0-3.el7ev.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2019-12-09T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2019-19336 ovirt-engine: response_type parameter allows reflected XSS"
+		}
+	]
+}

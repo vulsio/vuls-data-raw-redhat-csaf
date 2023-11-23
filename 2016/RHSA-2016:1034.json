@@ -1,0 +1,361 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for docker is now available for Red Hat Enterprise Linux 7 Extras.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Docker is an open-source engine that automates the deployment of any application as a lightweight, portable, self-sufficient container that will run virtually anywhere.\n\nSecurity Fix(es):\n\n* It was found that Docker would launch containers under the specified UID instead of a username. An attacker able to launch a container could use this flaw to escalate their privileges to root within the launched container. (CVE-2016-3697)\n\nThis issue was discovered by Mrunal Patel (Red Hat).\n\nBug Fix(es):\n\n* The process of pulling an image spawns a new \"goroutine\" for each layer in the image manifest. If any of these downloads, everything stops and an error is returned, even though other goroutines would still be running and writing output through a progress reader which is attached to an http response writer. Since the request handler had already returned from the first error, the http server panics when one of these download goroutines makes a write to the response writer buffer. This bug has been fixed, and docker no longer panics when pulling an image. (BZ#1264562)\n\n* Previously, in certain situations, a container rootfs remained busy during container removal. This typically happened if a container mount point leaked into another mount namespace. As a consequence, container removal failed. To fix this bug, a new docker daemon option \"dm.use_deferred_deletion\" has been provided. If set to true, this option will defer the container rootfs deletion. The user will see success on container removal but the actual thin device backing the rootfs will be deleted later when it is not busy anymore. (BZ#1190492)\n \t\n* Previously, the Docker unit file had the \"Restart\" option set to \"on-failure\". Consequently, the docker daemon was forced to restart even in cases where it couldn't be started because of configuration or other issues and this situation forced unnecessary restarts of the docker-storage-setup service in a loop. This also caused real error messages to be lost due to so many restarts. To fix this bug, \"Restart=on-failure\" has been replaced with \"Restart=on-abnormal\" in the docker unit file. As a result, the docker daemon will not automatically restart if it fails with an unclean exit code. (BZ#1319783)\n\n* Previously, the request body was incorrectly read twice by the docker daemon and consequently, an EOF error was returned. To fix this bug, the code which incorrectly read the request body the first time has been removed. As a result, the EOF error is no longer returned and the body is correctly read when really needed. (BZ#1329743)\n\nEnhancement(s):\n\n* The /usr/bin/docker script now calls /usr/bin/docker-current or /usr/bin/docker-latest based on the value of the sysconfig variable DOCKERBINARY present in /etc/sysconfig/docker. /usr/bin/docker and /etc/sysconfig/docker provided by the docker-common package allow the admin to configure which docker client binary gets called. /usr/bin/docker will call /usr/bin/docker-latest by default when docker is not installed. If docker is installed, /usr/bin/docker will call /usr/bin/docker-current by default, unless DOCKERBINARY is set to /usr/bin/docker-latest in /etc/sysconfig/docker. This way, you can use docker-latest or docker without the need to check which version of the daemon is currently running. (BZ#1328219)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2016:1034",
+				"url": "https://access.redhat.com/errata/RHSA-2016:1034"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2016/rhsa-2016_1034.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: docker security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2016-05-12T15:15:01+00:00",
+			"generator": {
+				"date": "2023-10-17T16:09:23+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2016:1034",
+			"initial_release_date": "2016-05-12T15:15:01+00:00",
+			"revision_history": [
+				{
+					"date": "2016-05-12T15:15:01+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux 7 Extras",
+								"product": {
+									"name": "Red Hat Enterprise Linux 7 Extras",
+									"product_id": "7Server-EXTRAS",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_extras_other:7"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux Extras"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "docker-logrotate-0:1.9.1-40.el7.x86_64",
+								"product": {
+									"name": "docker-logrotate-0:1.9.1-40.el7.x86_64",
+									"product_id": "docker-logrotate-0:1.9.1-40.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-logrotate@1.9.1-40.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-selinux-0:1.9.1-40.el7.x86_64",
+								"product": {
+									"name": "docker-selinux-0:1.9.1-40.el7.x86_64",
+									"product_id": "docker-selinux-0:1.9.1-40.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-selinux@1.9.1-40.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-0:1.9.1-40.el7.x86_64",
+								"product": {
+									"name": "docker-0:1.9.1-40.el7.x86_64",
+									"product_id": "docker-0:1.9.1-40.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker@1.9.1-40.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-forward-journald-0:1.9.1-40.el7.x86_64",
+								"product": {
+									"name": "docker-forward-journald-0:1.9.1-40.el7.x86_64",
+									"product_id": "docker-forward-journald-0:1.9.1-40.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-forward-journald@1.9.1-40.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "docker-common-0:1.9.1-40.el7.x86_64",
+								"product": {
+									"name": "docker-common-0:1.9.1-40.el7.x86_64",
+									"product_id": "docker-common-0:1.9.1-40.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker-common@1.9.1-40.el7?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "docker-0:1.9.1-40.el7.src",
+								"product": {
+									"name": "docker-0:1.9.1-40.el7.src",
+									"product_id": "docker-0:1.9.1-40.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/docker@1.9.1-40.el7?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-0:1.9.1-40.el7.src as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-0:1.9.1-40.el7.src"
+				},
+				"product_reference": "docker-0:1.9.1-40.el7.src",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-0:1.9.1-40.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-0:1.9.1-40.el7.x86_64"
+				},
+				"product_reference": "docker-0:1.9.1-40.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-common-0:1.9.1-40.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-common-0:1.9.1-40.el7.x86_64"
+				},
+				"product_reference": "docker-common-0:1.9.1-40.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-forward-journald-0:1.9.1-40.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-forward-journald-0:1.9.1-40.el7.x86_64"
+				},
+				"product_reference": "docker-forward-journald-0:1.9.1-40.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-logrotate-0:1.9.1-40.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-logrotate-0:1.9.1-40.el7.x86_64"
+				},
+				"product_reference": "docker-logrotate-0:1.9.1-40.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "docker-selinux-0:1.9.1-40.el7.x86_64 as a component of Red Hat Enterprise Linux 7 Extras",
+					"product_id": "7Server-EXTRAS:docker-selinux-0:1.9.1-40.el7.x86_64"
+				},
+				"product_reference": "docker-selinux-0:1.9.1-40.el7.x86_64",
+				"relates_to_product_reference": "7Server-EXTRAS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Mrunal Patel"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2016-3697",
+			"discovery_date": "2016-04-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1329450"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that Docker would launch containers under the specified UID instead of a username. An attacker able to launch a container could use this flaw to escalate their privileges to root within the launched container.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2016-3697 docker: privilege escalation via confusion of usernames and UIDs",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-EXTRAS:docker-0:1.9.1-40.el7.src",
+					"7Server-EXTRAS:docker-0:1.9.1-40.el7.x86_64",
+					"7Server-EXTRAS:docker-common-0:1.9.1-40.el7.x86_64",
+					"7Server-EXTRAS:docker-forward-journald-0:1.9.1-40.el7.x86_64",
+					"7Server-EXTRAS:docker-logrotate-0:1.9.1-40.el7.x86_64",
+					"7Server-EXTRAS:docker-selinux-0:1.9.1-40.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2016-3697"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1329450",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1329450"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2016-3697",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2016-3697"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2016-3697",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2016-3697"
+				}
+			],
+			"release_date": "2016-04-22T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-EXTRAS:docker-0:1.9.1-40.el7.src",
+						"7Server-EXTRAS:docker-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-common-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-forward-journald-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.9.1-40.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2016:1034"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-EXTRAS:docker-0:1.9.1-40.el7.src",
+						"7Server-EXTRAS:docker-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-common-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-forward-journald-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-logrotate-0:1.9.1-40.el7.x86_64",
+						"7Server-EXTRAS:docker-selinux-0:1.9.1-40.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2016-3697 docker: privilege escalation via confusion of usernames and UIDs"
+		}
+	]
+}

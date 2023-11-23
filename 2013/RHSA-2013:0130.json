@@ -1,0 +1,2410 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated httpd packages that fix multiple security issues, various bugs,\nand add enhancements are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The httpd packages contain the Apache HTTP Server (httpd), which is the\nnamesake project of The Apache Software Foundation.\n\nInput sanitization flaws were found in the mod_negotiation module. A remote\nattacker able to upload or create files with arbitrary names in a directory\nthat has the MultiViews options enabled, could use these flaws to conduct\ncross-site scripting and HTTP response splitting attacks against users\nvisiting the site. (CVE-2008-0455, CVE-2008-0456, CVE-2012-2687)\n\nBug fixes:\n\n* Previously, no check was made to see if the\n/etc/pki/tls/private/localhost.key file was a valid key prior to running\nthe \"%post\" script for the \"mod_ssl\" package. Consequently, when\n/etc/pki/tls/certs/localhost.crt did not exist and \"localhost.key\" was\npresent but invalid, upgrading the Apache HTTP Server daemon (httpd) with\nmod_ssl failed. The \"%post\" script has been fixed to test for an existing\nSSL key. As a result, upgrading httpd with mod_ssl now proceeds as\nexpected. (BZ#752618)\n\n* The \"mod_ssl\" module did not support operation under FIPS mode.\nConsequently, when operating Red Hat Enterprise Linux 5 with FIPS mode\nenabled, httpd failed to start. An upstream patch has been applied to\ndisable non-FIPS functionality if operating under FIPS mode and httpd now\nstarts as expected. (BZ#773473)\n\n* Prior to this update, httpd exit status codes were not Linux Standard\nBase (LSB) compliant. When the command \"service httpd reload\" was run and\nhttpd failed, the exit status code returned was \"0\" and not in the range 1\nto 6 as expected. A patch has been applied to the init script and httpd now\nreturns \"1\" as an exit status code. (BZ#783242)\n\n* Chunked Transfer Coding is described in RFC 2616. Previously, the\nApache server did not correctly handle a chunked encoded POST request with\na \"chunk-size\" or \"chunk-extension\" value of 32 bytes or more.\nConsequently, when such a POST request was made the server did not respond.\nAn upstream patch has been applied and the problem no longer occurs.\n(BZ#840845)\n\n* Due to a regression, when mod_cache received a non-cacheable 304\nresponse, the headers were served incorrectly. Consequently, compressed\ndata could be returned to the client without the cached headers to indicate\nthe data was compressed. An upstream patch has been applied to merge\nresponse and cached headers before data from the cache is served to the\nclient. As a result, cached data is now correctly interpreted by the\nclient. (BZ#845532)\n\n* In a proxy configuration, certain response-line strings were not handled\ncorrectly. If a response-line without a \"description\" string was received\nfrom the origin server, for a non-standard status code, such as the \"450\"\nstatus code, a \"500 Internal Server Error\" would be returned to the client.\nThis bug has been fixed so that the original response line is returned to\nthe client. (BZ#853128)\n\nEnhancements:\n\n* The configuration directive \"LDAPReferrals\" is now supported in addition\nto the previously introduced \"LDAPChaseReferrals\". (BZ#727342)\n\n* The AJP support module for \"mod_proxy\", \"mod_proxy_ajp\", now supports the\n\"ProxyErrorOverride\" directive. Consequently, it is now possible to\nconfigure customized error pages for web applications running on a backend\nserver accessed via AJP. (BZ#767890)\n\n* The \"%posttrans\" scriptlet which automatically restarts the httpd service\nafter a package upgrade can now be disabled. If the file\n/etc/sysconfig/httpd-disable-posttrans exists, the scriptlet will not\nrestart the daemon. (BZ#833042)\n\n* The output of \"httpd -S\" now includes configured alias names for each\nvirtual host. (BZ#833043)\n\n* New certificate variable names are now exposed by \"mod_ssl\" using the\n\"_DN_userID\" suffix, such as \"SSL_CLIENT_S_DN_userID\", which use the\ncommonly used object identifier (OID) definition of \"userID\", OID\n0.9.2342.19200300.100.1.1. (BZ#840036)\n\nAll users of httpd are advised to upgrade to these updated packages, which\nfix these issues and add these enhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0130",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0130"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0130.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: httpd security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2013-01-08T04:33:40+00:00",
+			"generator": {
+				"date": "2023-10-17T16:01:06+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0130",
+			"initial_release_date": "2013-01-08T04:30:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-01-08T04:33:40+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.3-74.el5.i386",
+								"product": {
+									"name": "mod_ssl-1:2.2.3-74.el5.i386",
+									"product_id": "mod_ssl-1:2.2.3-74.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.3-74.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.i386",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.i386",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.3-74.el5.i386",
+								"product": {
+									"name": "httpd-0:2.2.3-74.el5.i386",
+									"product_id": "httpd-0:2.2.3-74.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.3-74.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.i386",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.i386",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-manual-0:2.2.3-74.el5.i386",
+								"product": {
+									"name": "httpd-manual-0:2.2.3-74.el5.i386",
+									"product_id": "httpd-manual-0:2.2.3-74.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-manual@2.2.3-74.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.3-74.el5.x86_64",
+								"product": {
+									"name": "mod_ssl-1:2.2.3-74.el5.x86_64",
+									"product_id": "mod_ssl-1:2.2.3-74.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.3-74.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.3-74.el5.x86_64",
+								"product": {
+									"name": "httpd-0:2.2.3-74.el5.x86_64",
+									"product_id": "httpd-0:2.2.3-74.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.3-74.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.x86_64",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.x86_64",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-manual-0:2.2.3-74.el5.x86_64",
+								"product": {
+									"name": "httpd-manual-0:2.2.3-74.el5.x86_64",
+									"product_id": "httpd-manual-0:2.2.3-74.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-manual@2.2.3-74.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.3-74.el5.src",
+								"product": {
+									"name": "httpd-0:2.2.3-74.el5.src",
+									"product_id": "httpd-0:2.2.3-74.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.3-74.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.3-74.el5.ppc",
+								"product": {
+									"name": "mod_ssl-1:2.2.3-74.el5.ppc",
+									"product_id": "mod_ssl-1:2.2.3-74.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.3-74.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.3-74.el5.ppc",
+								"product": {
+									"name": "httpd-0:2.2.3-74.el5.ppc",
+									"product_id": "httpd-0:2.2.3-74.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.3-74.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.ppc",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.ppc",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-manual-0:2.2.3-74.el5.ppc",
+								"product": {
+									"name": "httpd-manual-0:2.2.3-74.el5.ppc",
+									"product_id": "httpd-manual-0:2.2.3-74.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-manual@2.2.3-74.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.ppc64",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.ppc64",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.3-74.el5.ia64",
+								"product": {
+									"name": "mod_ssl-1:2.2.3-74.el5.ia64",
+									"product_id": "mod_ssl-1:2.2.3-74.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.3-74.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.ia64",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.ia64",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.3-74.el5.ia64",
+								"product": {
+									"name": "httpd-0:2.2.3-74.el5.ia64",
+									"product_id": "httpd-0:2.2.3-74.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.3-74.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.ia64",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.ia64",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-manual-0:2.2.3-74.el5.ia64",
+								"product": {
+									"name": "httpd-manual-0:2.2.3-74.el5.ia64",
+									"product_id": "httpd-manual-0:2.2.3-74.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-manual@2.2.3-74.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_ssl-1:2.2.3-74.el5.s390x",
+								"product": {
+									"name": "mod_ssl-1:2.2.3-74.el5.s390x",
+									"product_id": "mod_ssl-1:2.2.3-74.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/mod_ssl@2.2.3-74.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.s390x",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.s390x",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-0:2.2.3-74.el5.s390x",
+								"product": {
+									"name": "httpd-0:2.2.3-74.el5.s390x",
+									"product_id": "httpd-0:2.2.3-74.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd@2.2.3-74.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.s390x",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.s390x",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-manual-0:2.2.3-74.el5.s390x",
+								"product": {
+									"name": "httpd-manual-0:2.2.3-74.el5.s390x",
+									"product_id": "httpd-manual-0:2.2.3-74.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-manual@2.2.3-74.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "httpd-debuginfo-0:2.2.3-74.el5.s390",
+								"product": {
+									"name": "httpd-debuginfo-0:2.2.3-74.el5.s390",
+									"product_id": "httpd-debuginfo-0:2.2.3-74.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-debuginfo@2.2.3-74.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "httpd-devel-0:2.2.3-74.el5.s390",
+								"product": {
+									"name": "httpd-devel-0:2.2.3-74.el5.s390",
+									"product_id": "httpd-devel-0:2.2.3-74.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/httpd-devel@2.2.3-74.el5?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-0:2.2.3-74.el5.src"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-0:2.2.3-74.el5.src"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-devel-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-manual-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-manual-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-manual-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-manual-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:httpd-manual-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_ssl-1:2.2.3-74.el5.i386"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_ssl-1:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_ssl-1:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_ssl-1:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_ssl-1:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-0:2.2.3-74.el5.src"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.s390"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-debuginfo-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.ppc64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.s390"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-devel-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-devel-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-devel-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-manual-0:2.2.3-74.el5.i386"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-manual-0:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-manual-0:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-manual-0:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "httpd-manual-0:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:httpd-manual-0:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "httpd-manual-0:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_ssl-1:2.2.3-74.el5.i386"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_ssl-1:2.2.3-74.el5.ia64"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_ssl-1:2.2.3-74.el5.ppc"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_ssl-1:2.2.3-74.el5.s390x"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_ssl-1:2.2.3-74.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+				},
+				"product_reference": "mod_ssl-1:2.2.3-74.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2008-0455",
+			"cwe": {
+				"id": "CWE-79",
+				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+			},
+			"discovery_date": "2012-08-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "850794"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Cross-site scripting (XSS) vulnerability in the mod_negotiation module in the Apache HTTP Server 2.2.6 and earlier in the 2.2.x series, 2.0.61 and earlier in the 2.0.x series, and 1.3.39 and earlier in the 1.3.x series allows remote authenticated users to inject arbitrary web script or HTML by uploading a file with a name containing XSS sequences and a file extension, which leads to injection within a (1) \"406 Not Acceptable\" or (2) \"300 Multiple Choices\" HTTP response when the extension is omitted in a request for the file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-2687 CVE-2008-0455 httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+					"5Client:httpd-0:2.2.3-74.el5.i386",
+					"5Client:httpd-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-0:2.2.3-74.el5.src",
+					"5Client:httpd-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+					"5Server:httpd-0:2.2.3-74.el5.i386",
+					"5Server:httpd-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-0:2.2.3-74.el5.src",
+					"5Server:httpd-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-0455"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#850794",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=850794"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-0455",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-0455"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-0455",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-0455"
+				}
+			],
+			"release_date": "2012-06-13T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Client:httpd-0:2.2.3-74.el5.i386",
+						"5Client:httpd-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-0:2.2.3-74.el5.src",
+						"5Client:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Server:httpd-0:2.2.3-74.el5.i386",
+						"5Server:httpd-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-0:2.2.3-74.el5.src",
+						"5Server:httpd-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0130"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Client:httpd-0:2.2.3-74.el5.i386",
+						"5Client:httpd-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-0:2.2.3-74.el5.src",
+						"5Client:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Server:httpd-0:2.2.3-74.el5.i386",
+						"5Server:httpd-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-0:2.2.3-74.el5.src",
+						"5Server:httpd-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2012-2687 CVE-2008-0455 httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled"
+		},
+		{
+			"cve": "CVE-2008-0456",
+			"discovery_date": "2008-01-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "879292"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "CRLF injection vulnerability in the mod_negotiation module in the Apache HTTP Server 2.2.6 and earlier in the 2.2.x series, 2.0.61 and earlier in the 2.0.x series, and 1.3.39 and earlier in the 1.3.x series allows remote authenticated users to inject arbitrary HTTP headers and conduct HTTP response splitting attacks by uploading a file with a multi-line name containing HTTP header sequences and a file extension, which leads to injection within a (1) \"406 Not Acceptable\" or (2) \"300 Multiple Choices\" HTTP response when the extension is omitted in a request for the file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-0456 httpd: mod_negotiation CRLF injection via untrusted file names in directories with MultiViews enabled",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+					"5Client:httpd-0:2.2.3-74.el5.i386",
+					"5Client:httpd-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-0:2.2.3-74.el5.src",
+					"5Client:httpd-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+					"5Server:httpd-0:2.2.3-74.el5.i386",
+					"5Server:httpd-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-0:2.2.3-74.el5.src",
+					"5Server:httpd-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-0456"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#879292",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=879292"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-0456",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-0456"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-0456",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-0456"
+				}
+			],
+			"release_date": "2008-01-22T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Client:httpd-0:2.2.3-74.el5.i386",
+						"5Client:httpd-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-0:2.2.3-74.el5.src",
+						"5Client:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Server:httpd-0:2.2.3-74.el5.i386",
+						"5Server:httpd-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-0:2.2.3-74.el5.src",
+						"5Server:httpd-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0130"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Client:httpd-0:2.2.3-74.el5.i386",
+						"5Client:httpd-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-0:2.2.3-74.el5.src",
+						"5Client:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Server:httpd-0:2.2.3-74.el5.i386",
+						"5Server:httpd-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-0:2.2.3-74.el5.src",
+						"5Server:httpd-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2008-0456 httpd: mod_negotiation CRLF injection via untrusted file names in directories with MultiViews enabled"
+		},
+		{
+			"cve": "CVE-2012-2687",
+			"cwe": {
+				"id": "CWE-79",
+				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+			},
+			"discovery_date": "2012-08-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "850794"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple cross-site scripting (XSS) vulnerabilities in the make_variant_list function in mod_negotiation.c in the mod_negotiation module in the Apache HTTP Server 2.4.x before 2.4.3, when the MultiViews option is enabled, allow remote attackers to inject arbitrary web script or HTML via a crafted filename that is not properly handled during construction of a variant list.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-2687 CVE-2008-0455 httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+					"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+					"5Client:httpd-0:2.2.3-74.el5.i386",
+					"5Client:httpd-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-0:2.2.3-74.el5.src",
+					"5Client:httpd-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+					"5Server:httpd-0:2.2.3-74.el5.i386",
+					"5Server:httpd-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-0:2.2.3-74.el5.src",
+					"5Server:httpd-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+					"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+					"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+					"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+					"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+					"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+					"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+					"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+					"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+					"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+					"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+					"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+					"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-2687"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#850794",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=850794"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-2687",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-2687"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-2687",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2687"
+				}
+			],
+			"release_date": "2012-06-13T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Client:httpd-0:2.2.3-74.el5.i386",
+						"5Client:httpd-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-0:2.2.3-74.el5.src",
+						"5Client:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Server:httpd-0:2.2.3-74.el5.i386",
+						"5Server:httpd-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-0:2.2.3-74.el5.src",
+						"5Server:httpd-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0130"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.src",
+						"5Client-Workstation:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client-Workstation:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client-Workstation:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Client:httpd-0:2.2.3-74.el5.i386",
+						"5Client:httpd-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-0:2.2.3-74.el5.src",
+						"5Client:httpd-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Client:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Client:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Client:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Client:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Client:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Client:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Client:mod_ssl-1:2.2.3-74.el5.x86_64",
+						"5Server:httpd-0:2.2.3-74.el5.i386",
+						"5Server:httpd-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-0:2.2.3-74.el5.src",
+						"5Server:httpd-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.i386",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-debuginfo-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.i386",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-devel-0:2.2.3-74.el5.ppc64",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390",
+						"5Server:httpd-devel-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-devel-0:2.2.3-74.el5.x86_64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.i386",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ia64",
+						"5Server:httpd-manual-0:2.2.3-74.el5.ppc",
+						"5Server:httpd-manual-0:2.2.3-74.el5.s390x",
+						"5Server:httpd-manual-0:2.2.3-74.el5.x86_64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.i386",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ia64",
+						"5Server:mod_ssl-1:2.2.3-74.el5.ppc",
+						"5Server:mod_ssl-1:2.2.3-74.el5.s390x",
+						"5Server:mod_ssl-1:2.2.3-74.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2012-2687 CVE-2008-0455 httpd: mod_negotiation XSS via untrusted file names in directories with MultiViews enabled"
+		}
+	]
+}

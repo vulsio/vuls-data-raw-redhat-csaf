@@ -1,0 +1,3141 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated sudo package that fixes two security issues, several bugs, and\nadds two enhancements is now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The sudo (superuser do) utility allows system administrators to give\ncertain users the ability to run commands as root.\n\nA flaw was found in the way sudo handled time stamp files. An attacker able\nto run code as a local user and with the ability to control the system\nclock could possibly gain additional privileges by running commands that\nthe victim user was allowed to run via sudo, without knowing the victim's\npassword. (CVE-2013-1775)\n\nIt was found that sudo did not properly validate the controlling terminal\ndevice when the tty_tickets option was enabled in the /etc/sudoers file.\nAn attacker able to run code as a local user could possibly gain additional\nprivileges by running commands that the victim user was allowed to run via\nsudo, without knowing the victim's password. (CVE-2013-2776, CVE-2013-2777)\n\nThis update also fixes the following bugs:\n\n* Previously, sudo did not support netgroup filtering for sources from the\nSystem Security Services Daemon (SSSD). Consequently, SSSD rules were\napplied to all users even when they did not belong to the specified\nnetgroup. With this update, netgroup filtering for SSSD sources has been\nimplemented. As a result, rules with a netgroup specification are applied\nonly to users that are part of the netgroup. (BZ#880150)\n\n* When the sudo utility set up the environment in which it ran a command,\nit reset the value of the RLIMIT_NPROC resource limit to the parent's value\nof this limit if both the soft (current) and hard (maximum) values of\nRLIMIT_NPROC were not limited. An upstream patch has been provided to\naddress this bug and RLIMIT_NPROC can now be set to \"unlimited\".\n(BZ#947276)\n\n* Due to the refactoring of the sudo code by upstream, the SUDO_USER\nvariable that stores the name of the user running the sudo command was not\nlogged to the /var/log/secure file as before. Consequently, user name\n\"root\" was always recorded instead of the real user name. With this update,\nthe previous behavior of sudo has been restored. As a result, the expected\nuser name is now written to /var/log/secure. (BZ#973228)\n\n* Due to an error in a loop condition in sudo's rule listing code, a buffer\noverflow could have occurred in certain cases. This condition has been\nfixed and the buffer overflow no longer occurs. (BZ#994626)\n\nIn addition, this update adds the following enhancements:\n\n* With this update, sudo has been modified to send debug messages about\nnetgroup matching to the debug log. These messages should provide better\nunderstanding of how sudo matches netgroup database records with values\nfrom the running system and what the values are exactly. (BZ#848111)\n\n* With this update, sudo has been modified to accept the ipa_hostname value\nfrom the /etc/sssd/sssd.conf configuration file when matching netgroups.\n(BZ#853542)\n\nAll sudo users are advised to upgrade to this updated package, which\ncontains backported patches to correct these issues and add\nthese enhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:1701",
+				"url": "https://access.redhat.com/errata/RHSA-2013:1701"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_1701.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: sudo security, bug fix and enhancement update",
+		"tracking": {
+			"current_release_date": "2013-11-20T16:52:06+00:00",
+			"generator": {
+				"date": "2023-10-17T15:59:51+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:1701",
+			"initial_release_date": "2013-11-20T16:47:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-11-20T16:52:06+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+									"product_id": "6Server-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+									"product_id": "6Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+									"product_id": "6Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 6)",
+									"product_id": "6Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+									"product_id": "6Workstation-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+									"product_id": "6Client-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+									"product_id": "6ComputeNode",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+									"product_id": "6ComputeNode-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+								"product": {
+									"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+									"product_id": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-debuginfo@1.8.6p3-12.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+								"product": {
+									"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+									"product_id": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-devel@1.8.6p3-12.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-0:1.8.6p3-12.el6.ppc64",
+								"product": {
+									"name": "sudo-0:1.8.6p3-12.el6.ppc64",
+									"product_id": "sudo-0:1.8.6p3-12.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo@1.8.6p3-12.el6?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+								"product": {
+									"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+									"product_id": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-debuginfo@1.8.6p3-12.el6?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+								"product": {
+									"name": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+									"product_id": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-devel@1.8.6p3-12.el6?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+								"product": {
+									"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+									"product_id": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-debuginfo@1.8.6p3-12.el6?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-devel-0:1.8.6p3-12.el6.s390",
+								"product": {
+									"name": "sudo-devel-0:1.8.6p3-12.el6.s390",
+									"product_id": "sudo-devel-0:1.8.6p3-12.el6.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-devel@1.8.6p3-12.el6?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+								"product": {
+									"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+									"product_id": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-debuginfo@1.8.6p3-12.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+								"product": {
+									"name": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+									"product_id": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-devel@1.8.6p3-12.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-0:1.8.6p3-12.el6.s390x",
+								"product": {
+									"name": "sudo-0:1.8.6p3-12.el6.s390x",
+									"product_id": "sudo-0:1.8.6p3-12.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo@1.8.6p3-12.el6?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+								"product": {
+									"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+									"product_id": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-debuginfo@1.8.6p3-12.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-devel-0:1.8.6p3-12.el6.i686",
+								"product": {
+									"name": "sudo-devel-0:1.8.6p3-12.el6.i686",
+									"product_id": "sudo-devel-0:1.8.6p3-12.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-devel@1.8.6p3-12.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-0:1.8.6p3-12.el6.i686",
+								"product": {
+									"name": "sudo-0:1.8.6p3-12.el6.i686",
+									"product_id": "sudo-0:1.8.6p3-12.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo@1.8.6p3-12.el6?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+								"product": {
+									"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+									"product_id": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-debuginfo@1.8.6p3-12.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+								"product": {
+									"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+									"product_id": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo-devel@1.8.6p3-12.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sudo-0:1.8.6p3-12.el6.x86_64",
+								"product": {
+									"name": "sudo-0:1.8.6p3-12.el6.x86_64",
+									"product_id": "sudo-0:1.8.6p3-12.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo@1.8.6p3-12.el6?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sudo-0:1.8.6p3-12.el6.src",
+								"product": {
+									"name": "sudo-0:1.8.6p3-12.el6.src",
+									"product_id": "sudo-0:1.8.6p3-12.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sudo@1.8.6p3-12.el6?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.src as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-0:1.8.6p3-12.el6.src"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.src",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sudo-devel-0:1.8.6p3-12.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				},
+				"product_reference": "sudo-devel-0:1.8.6p3-12.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2013-1775",
+			"discovery_date": "2013-02-27T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "916363"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "sudo 1.6.0 through 1.7.10p6 and sudo 1.8.0 through 1.8.6p6 allows local users or physically proximate attackers to bypass intended time restrictions and retain privileges without re-authenticating by setting the system clock and sudo user timestamp to the epoch.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-1775 sudo: authentication bypass via reset system clock",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-0:1.8.6p3-12.el6.src",
+					"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-0:1.8.6p3-12.el6.src",
+					"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-1775"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#916363",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=916363"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-1775",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-1775"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-1775",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-1775"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.sudo.ws/sudo/alerts/epoch_ticket.html",
+					"url": "http://www.sudo.ws/sudo/alerts/epoch_ticket.html"
+				}
+			],
+			"release_date": "2013-02-27T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-0:1.8.6p3-12.el6.src",
+						"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-0:1.8.6p3-12.el6.src",
+						"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:1701"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-0:1.8.6p3-12.el6.src",
+						"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-0:1.8.6p3-12.el6.src",
+						"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2013-1775 sudo: authentication bypass via reset system clock"
+		},
+		{
+			"cve": "CVE-2013-2776",
+			"discovery_date": "2013-02-27T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "949751"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "sudo 1.3.5 through 1.7.10p5 and 1.8.0 through 1.8.6p6, when running on systems without /proc or the sysctl function with the tty_tickets option enabled, does not properly validate the controlling terminal device, which allows local users with sudo permissions to hijack the authorization of another terminal via vectors related to connecting to the standard input, output, and error file descriptors of another terminal.  NOTE: this is one of three closely-related vulnerabilities that were originally assigned CVE-2013-1776, but they have been SPLIT because of different affected versions.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-2776 sudo: bypass of tty_tickets constraints",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-0:1.8.6p3-12.el6.src",
+					"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-0:1.8.6p3-12.el6.src",
+					"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-2776"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#949751",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=949751"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-2776",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-2776"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-2776",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-2776"
+				}
+			],
+			"release_date": "2013-02-27T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-0:1.8.6p3-12.el6.src",
+						"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-0:1.8.6p3-12.el6.src",
+						"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:1701"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 3.6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-0:1.8.6p3-12.el6.src",
+						"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-0:1.8.6p3-12.el6.src",
+						"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2013-2776 sudo: bypass of tty_tickets constraints"
+		},
+		{
+			"cve": "CVE-2013-2777",
+			"discovery_date": "2013-02-27T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "949753"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "sudo before 1.7.10p5 and 1.8.x before 1.8.6p6, when the tty_tickets option is enabled, does not properly validate the controlling terminal device, which allows local users with sudo permissions to hijack the authorization of another terminal via vectors related to a session without a controlling terminal device and connecting to the standard input, output, and error file descriptors of another terminal.  NOTE: this is one of three closely-related vulnerabilities that were originally assigned CVE-2013-1776, but they have been SPLIT because of different affected versions.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-2777 sudo: bypass of tty_tickets constraints",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-0:1.8.6p3-12.el6.src",
+					"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+					"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-0:1.8.6p3-12.el6.src",
+					"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+					"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+					"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+					"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-2777"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#949753",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=949753"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-2777",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-2777"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-2777",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-2777"
+				}
+			],
+			"release_date": "2013-02-27T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-0:1.8.6p3-12.el6.src",
+						"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-0:1.8.6p3-12.el6.src",
+						"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:1701"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 3.6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Client-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-0:1.8.6p3-12.el6.src",
+						"6Client:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Client:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.src",
+						"6ComputeNode:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6ComputeNode:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Server-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-0:1.8.6p3-12.el6.src",
+						"6Server:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Server:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation-optional:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation-optional:sudo-devel-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.src",
+						"6Workstation:sudo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-debuginfo-0:1.8.6p3-12.el6.x86_64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.i686",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.ppc64",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.s390x",
+						"6Workstation:sudo-devel-0:1.8.6p3-12.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2013-2777 sudo: bypass of tty_tickets constraints"
+		}
+	]
+}

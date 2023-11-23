@@ -1,0 +1,387 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated rhev-hypervisor package that fixes security issues and several\nbugs is now available.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The rhev-hypervisor package provides a Red Hat Enterprise Virtualization\n(RHEV) Hypervisor ISO disk image. The RHEV Hypervisor is a dedicated\nKernel-based Virtual Machine (KVM) hypervisor. It includes everything\nnecessary to run and manage virtual machines: A subset of the Red Hat\nEnterprise Linux operating environment and the Red Hat Enterprise\nVirtualization Agent.\n\nNote: RHEV Hypervisor is only available for the Intel 64 and AMD64\narchitectures with virtualization extensions.\n\nA flaw was found in the Realtek r8169 Ethernet driver in the Linux kernel.\npci_unmap_single() presented a memory leak that could lead to IOMMU space\nexhaustion and a system crash. An attacker on the local network could\ntrigger this flaw by using jumbo frames for large amounts of network\ntraffic. (CVE-2009-3613)\n\nOn x86 platforms, the do_insn_fetch() function did not limit the amount of\ninstruction bytes fetched per instruction. Users in guest operating systems\ncould leverage this flaw to cause large latencies on SMP hosts that could\nlead to a local denial of service on the host operating system. This update\nfixes this issue by imposing the architecturally-defined 15 byte length\nlimit for instructions. (CVE-2009-4031)\n\nThis updated package provides updated components that include fixes for\nsecurity issues; however, these issues have no security impact for RHEV\nHypervisor. These fixes are for kernel issues CVE-2009-2695, CVE-2009-2908,\nCVE-2009-3228, CVE-2009-3286, CVE-2009-3547, CVE-2009-3612, CVE-2009-3620,\nCVE-2009-3621, and CVE-2009-3726; acpid issue CVE-2009-4033; expat issues\nCVE-2009-3560 and CVE-2009-3720; and wget issue CVE-2009-3490.\n\nThis update also fixes the following bugs:\n\n* the scsi_dh_rdac driver was updated to recognize the Sun StorageTek\nFlexline 380. This driver is now also loaded into initrd to handle passive\npaths correctly. Without this initrd change, lots of errors could occur\nduring boot, increasing boot time. (BZ#545909)\n\n* during the firstboot network configuration of the RHEV Hypervisor, it was\nonly possible to specify NTP servers by their IP addresses if the RHEV\nHypervisor system was configured with a static IP address. With this\nupdate, hostnames can also be used to specify NTP servers. (BZ#545923)\n\n* with the default settings, performance problems occurred when using the\nqcow2 image format. This could cause guest operating system installations\nto take hours. With this update, performance patches have been backported\nto resolve this issue. (BZ#520693)\n\n* when using the virtual vm8086 mode, bugs in the emulated hardware task\nswitching implementation may have, in some situations, caused older guest\noperating systems to malfunction. (BZ#532031)\n\n* Windows Server 2003 guests (32-bit) with more than 4GB of memory may have\ncrashed during reboot when using the default RHEV Hypervisor settings.\n(BZ#532043)\n\n* guests continued to run after encountering disk read errors. This could\nhave led to their file systems becoming corrupted (but not the host's),\nnotably in environments that use networked storage. With this update,\nguests will now pause on disk read and write errors. (BZ#537334, BZ#540406)\n\n* the para-virtualized block driver (virtio-blk) silently ignored read\nerrors when accessing disk images. With this update, the driver correctly\nsignals the read error to the guest. (BZ#537334)\n\nUsers of the Red Hat Enterprise Virtualization Hypervisor are advised to\nupgrade to this updated package, which corrects these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:1692",
+				"url": "https://access.redhat.com/errata/RHSA-2009:1692"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "http://redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/Red_Hat_Enterprise_Virtualization_Hypervisor/5.4-2.1/html/RHEV-Hypervisor_Deployment_Guide/",
+				"url": "http://redhat.com/docs/en-US/Red_Hat_Enterprise_Virtualization/Red_Hat_Enterprise_Virtualization_Hypervisor/5.4-2.1/html/RHEV-Hypervisor_Deployment_Guide/"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_1692.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: rhev-hypervisor security and bug fix update",
+		"tracking": {
+			"current_release_date": "2009-12-23T09:05:01+00:00",
+			"generator": {
+				"date": "2023-10-17T15:52:40+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:1692",
+			"initial_release_date": "2009-12-23T14:05:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-12-23T09:05:01+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Virtualization Hypervisor 5",
+								"product": {
+									"name": "Red Hat Enterprise Virtualization Hypervisor 5",
+									"product_id": "5Server-RHEV-Hypervisor-2",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::hypervisor"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+								"product": {
+									"name": "rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+									"product_id": "rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhev-hypervisor-pxe@5.4-2.1.3.el5_4rhev2_1?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+								"product": {
+									"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+									"product_id": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhev-hypervisor@5.4-2.1.3.el5_4rhev2_1?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+								"product": {
+									"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+									"product_id": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhev-hypervisor@5.4-2.1.3.el5_4rhev2_1?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"product_id": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+				},
+				"product_reference": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+				"relates_to_product_reference": "5Server-RHEV-Hypervisor-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"product_id": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src"
+				},
+				"product_reference": "rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+				"relates_to_product_reference": "5Server-RHEV-Hypervisor-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"product_id": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+				},
+				"product_reference": "rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+				"relates_to_product_reference": "5Server-RHEV-Hypervisor-2"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2009-3613",
+			"discovery_date": "2009-10-15T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "529137"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The swiotlb functionality in the r8169 driver in drivers/net/r8169.c in the Linux kernel before 2.6.27.22 allows remote attackers to cause a denial of service (IOMMU space exhaustion and system crash) by using jumbo frames for a large amount of network traffic, as demonstrated by a flood ping.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3613 kernel: flood ping cause out-of-iommu error and panic when mtu larger than 1500",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3613"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#529137",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=529137"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3613",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3613"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3613",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3613"
+				}
+			],
+			"release_date": "2007-11-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1692"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-3613 kernel: flood ping cause out-of-iommu error and panic when mtu larger than 1500"
+		},
+		{
+			"cve": "CVE-2009-4031",
+			"discovery_date": "2009-11-25T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "541160"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The do_insn_fetch function in arch/x86/kvm/emulate.c in the x86 emulator in the KVM subsystem in the Linux kernel before 2.6.32-rc8-next-20091125 tries to interpret instructions that contain too many bytes to be valid, which allows guest OS users to cause a denial of service (increased scheduling latency) on the host OS via unspecified manipulations related to SMP support.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "limit instructions to 15 bytes",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4031"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#541160",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=541160"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4031",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4031"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4031",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4031"
+				}
+			],
+			"release_date": "2009-11-24T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1692"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 2.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.3.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.3.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "limit instructions to 15 bytes"
+		}
+	]
+}

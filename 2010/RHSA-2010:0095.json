@@ -1,0 +1,971 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated rhev-hypervisor package that fixes security issues and several\nbugs is now available.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The rhev-hypervisor package provides a Red Hat Enterprise Virtualization\n(RHEV) Hypervisor ISO disk image. The RHEV Hypervisor is a dedicated\nKernel-based Virtual Machine (KVM) hypervisor. It includes everything\nnecessary to run and manage virtual machines: A subset of the Red Hat\nEnterprise Linux operating environment and the Red Hat Enterprise\nVirtualization Agent.\n\nNote: RHEV Hypervisor is only available for the Intel 64 and AMD64\narchitectures with virtualization extensions.\n\nA flaw was found in the IPv6 Extension Header (EH) handling\nimplementation in the Linux kernel. The skb->dst data structure was not\nproperly validated in the ipv6_hop_jumbo() function. This could possibly\nlead to a remote denial of service. (CVE-2007-4567)\n\nThe Parallels Virtuozzo Containers team reported two flaws in the routing\nimplementation. If an attacker was able to cause a large enough number of\ncollisions in the routing hash table (via specially-crafted packets) for\nthe emergency route flush to trigger, a deadlock could occur. Secondly, if\nthe kernel routing cache was disabled, an uninitialized pointer would be\nleft behind after a route lookup, leading to a kernel panic.\n(CVE-2009-4272)\n\nA flaw was found in each of the following Intel PRO/1000 Linux drivers in\nthe Linux kernel: e1000 and e1000e. A remote attacker using packets larger\nthan the MTU could bypass the existing fragment check, resulting in\npartial, invalid frames being passed to the network stack. These flaws\ncould also possibly be used to trigger a remote denial of service.\n(CVE-2009-4536, CVE-2009-4538)\n\nA flaw was found in the Realtek r8169 Ethernet driver in the Linux kernel.\nReceiving overly-long frames with a certain revision of the network cards\nsupported by this driver could possibly result in a remote denial of\nservice. (CVE-2009-4537)\n\nThe x86 emulator implementation was missing a check for the Current\nPrivilege Level (CPL) and I/O Privilege Level (IOPL). A user in a guest\ncould leverage these flaws to cause a denial of service (guest crash) or\npossibly escalate their privileges within that guest. (CVE-2010-0298,\nCVE-2010-0306)\n\nA flaw was found in the Programmable Interval Timer (PIT) emulation. Access\nto the internal data structure pit_state, which represents the data state\nof the emulated PIT, was not properly validated in the pit_ioport_read()\nfunction. A privileged guest user could use this flaw to crash the host.\n(CVE-2010-0309)\n\nThis updated package provides updated components that include fixes for\nsecurity issues; however, these issues have no security impact for RHEV\nHypervisor. These fixes are for kernel issues CVE-2006-6304, CVE-2009-2910,\nCVE-2009-3080, CVE-2009-3556, CVE-2009-3889, CVE-2009-3939, CVE-2009-4020,\nCVE-2009-4021, CVE-2009-4138, and CVE-2009-4141; ntp issue CVE-2009-3563;\ndbus issue CVE-2009-1189; dnsmasq issues CVE-2009-2957 and CVE-2009-2958;\ngnutls issue CVE-2009-2730; krb5 issue CVE-2009-4212; bind issue \nCVE-2010-0097; gzip issue CVE-2010-0001; openssl issues CVE-2009-2409 and \nCVE-2009-4355; and gcc issue CVE-2009-3736.\n\nThis update also fixes the following bugs:\n\n* on systems with a large number of disk devices, USB storage devices may\nget enumerated after \"/dev/sdz\", for example, \"/dev/sdcd\". This was not\nhandled by the udev rules, resulting in a missing \"/dev/live\" symbolic\nlink, causing installations from USB media to fail. With this update, udev\nrules correctly handle USB storage devices on systems with a large number\nof disk devices, which resolves this issue. (BZ#555083)\n\nAs RHEV Hypervisor is based on KVM, the bug fixes from the KVM update\nRHSA-2010:0088 have been included in this update:\n\nhttps://rhn.redhat.com/errata/RHSA-2010-0088.html\n\nUsers of the Red Hat Enterprise Virtualization Hypervisor are advised to\nupgrade to this updated package, which corrects these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2010:0095",
+				"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://rhn.redhat.com/errata/RHSA-2010-0088.html",
+				"url": "https://rhn.redhat.com/errata/RHSA-2010-0088.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2010/rhsa-2010_0095.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: rhev-hypervisor security and bug fix update",
+		"tracking": {
+			"current_release_date": "2010-02-09T10:23:00Z",
+			"generator": {
+				"date": "2023-06-30T19:52:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2010:0095",
+			"initial_release_date": "2010-02-09T15:23:00Z",
+			"revision_history": [
+				{
+					"date": "2010-02-09T10:23:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Virtualization Hypervisor 5",
+								"product": {
+									"name": "Red Hat Enterprise Virtualization Hypervisor 5",
+									"product_id": "5Server-RHEV-Hypervisor-2",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::hypervisor"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+								"product": {
+									"name": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+									"product_id": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+								"product": {
+									"name": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+									"product_id": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+								"product": {
+									"name": "rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+									"product_id": "rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"product_id": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				},
+				"product_reference": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+				"relates_to_product_reference": "5Server-RHEV-Hypervisor-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"product_id": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src"
+				},
+				"product_reference": "rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+				"relates_to_product_reference": "5Server-RHEV-Hypervisor-2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch as a component of Red Hat Enterprise Virtualization Hypervisor 5",
+					"product_id": "5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				},
+				"product_reference": "rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+				"relates_to_product_reference": "5Server-RHEV-Hypervisor-2"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2007-4567",
+			"cwe": {
+				"id": "CWE-119",
+				"name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+			},
+			"discovery_date": "2009-12-18T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=548641"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "The ipv6_hop_jumbo function in net/ipv6/exthdrs.c in the Linux kernel before 2.6.22 does not properly validate the hop-by-hop IPv6 extended header, which allows remote attackers to cause a denial of service (NULL pointer dereference and kernel panic) via a crafted IPv6 packet.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kernel: ipv6_hop_jumbo remote system crash",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2007-4567",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2007-4567"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2007-4567",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2007-4567"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2007-4567",
+					"url": "https://access.redhat.com/security/cve/CVE-2007-4567"
+				},
+				{
+					"category": "external",
+					"summary": "bz#548641: CVE-2007-4567 kernel: ipv6_hop_jumbo remote system crash",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=548641"
+				}
+			],
+			"release_date": "2007-09-07T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 7.8,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2009-12-18T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2007-4567 kernel: ipv6_hop_jumbo remote system crash"
+		},
+		{
+			"cve": "CVE-2009-4272",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2009-12-08T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=545411"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "A certain Red Hat patch for net/ipv4/route.c in the Linux kernel 2.6.18 on Red Hat Enterprise Linux (RHEL) 5 allows remote attackers to cause a denial of service (deadlock) via crafted packets that force collisions in the IPv4 routing hash table, and trigger a routing \"emergency\" in which a hash chain is too long. NOTE: this is related to an issue in the Linux kernel before 2.6.31, when the kernel routing cache is disabled, involving an uninitialized pointer and a panic.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kernel: emergency route cache flushing leads to node deadlock",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4272",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4272"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4272",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4272"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2009-4272",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4272"
+				},
+				{
+					"category": "external",
+					"summary": "bz#545411: CVE-2009-4272 kernel: emergency route cache flushing leads to node deadlock",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=545411"
+				}
+			],
+			"release_date": "2010-01-19T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 7.8,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2009-12-08T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-4272 kernel: emergency route cache flushing leads to node deadlock"
+		},
+		{
+			"cve": "CVE-2009-4536",
+			"discovery_date": "2009-12-28T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=552126"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "drivers/net/e1000/e1000_main.c in the e1000 driver in the Linux kernel 2.6.32.3 and earlier handles Ethernet frames that exceed the MTU by processing certain trailing payload data as if it were a complete frame, which allows remote attackers to bypass packet filters via a large packet with a crafted payload.  NOTE: this vulnerability exists because of an incorrect fix for CVE-2009-1385.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kernel: e1000 issue reported at 26c3",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4536",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4536"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4536",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4536"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2009-4536",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4536"
+				},
+				{
+					"category": "external",
+					"summary": "bz#552126: CVE-2009-4536 kernel: e1000 issue reported at 26c3",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=552126"
+				}
+			],
+			"release_date": "2009-12-28T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.8,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:A/AC:L/Au:N/C:N/I:P/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2009-12-28T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-4536 kernel: e1000 issue reported at 26c3"
+		},
+		{
+			"cve": "CVE-2009-4537",
+			"cwe": {
+				"id": "CWE-119",
+				"name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+			},
+			"discovery_date": "2009-12-28T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=550907"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "drivers/net/r8169.c in the r8169 driver in the Linux kernel 2.6.32.3 and earlier does not properly check the size of an Ethernet frame that exceeds the MTU, which allows remote attackers to (1) cause a denial of service (temporary network outage) via a packet with a crafted size, in conjunction with certain packets containing A characters and certain packets containing E characters; or (2) cause a denial of service (system crash) via a packet with a crafted size, in conjunction with certain packets containing '\\0' characters, related to the value of the status register and erroneous behavior associated with the RxMaxSize register.  NOTE: this vulnerability exists because of an incorrect fix for CVE-2009-1389.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kernel: r8169 issue reported at 26c3",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4537",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4537"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4537",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4537"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2009-4537",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4537"
+				},
+				{
+					"category": "external",
+					"summary": "bz#550907: CVE-2009-4537 kernel: r8169 issue reported at 26c3",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=550907"
+				}
+			],
+			"release_date": "2009-12-28T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 7.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2009-12-28T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-4537 kernel: r8169 issue reported at 26c3"
+		},
+		{
+			"cve": "CVE-2009-4538",
+			"discovery_date": "2009-12-28T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=551214"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "drivers/net/e1000e/netdev.c in the e1000e driver in the Linux kernel 2.6.32.3 and earlier does not properly check the size of an Ethernet frame that exceeds the MTU, which allows remote attackers to have an unspecified impact via crafted packets, a related issue to CVE-2009-4537.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kernel: e1000e frame fragment issue",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4538",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4538"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4538",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4538"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2009-4538",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4538"
+				},
+				{
+					"category": "external",
+					"summary": "bz#551214: CVE-2009-4538 kernel: e1000e frame fragment issue",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=551214"
+				}
+			],
+			"release_date": "2009-12-28T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2009-12-28T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-4538 kernel: e1000e frame fragment issue"
+		},
+		{
+			"cve": "CVE-2010-0298",
+			"discovery_date": "2010-01-27T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=559091"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "The x86 emulator in KVM 83 does not use the Current Privilege Level (CPL) and I/O Privilege Level (IOPL) in determining the memory access available to CPL3 code, which allows guest OS users to cause a denial of service (guest OS crash) or gain privileges on the guest OS by leveraging access to a (1) IO port or (2) MMIO region, a related issue to CVE-2010-0306.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kvm: emulator privilege escalation",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-0298",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-0298"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-0298",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0298"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2010-0298",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-0298"
+				},
+				{
+					"category": "external",
+					"summary": "bz#559091: CVE-2010-0298 kvm: emulator privilege escalation",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=559091"
+				}
+			],
+			"release_date": "2010-02-09T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.9,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:M/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2010-01-27T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2010-0298 kvm: emulator privilege escalation"
+		},
+		{
+			"cve": "CVE-2010-0306",
+			"discovery_date": "2010-02-01T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=560654"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "The x86 emulator in KVM 83, when a guest is configured for Symmetric Multiprocessing (SMP), does not use the Current Privilege Level (CPL) and I/O Privilege Level (IOPL) to restrict instruction execution, which allows guest OS users to cause a denial of service (guest OS crash) or gain privileges on the guest OS by leveraging access to a (1) IO port or (2) MMIO region, and replacing an instruction in between emulator entry and instruction fetch, a related issue to CVE-2010-0298.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kvm: emulator privilege escalation IOPL/CPL level check",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-0306",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-0306"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-0306",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0306"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2010-0306",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-0306"
+				},
+				{
+					"category": "external",
+					"summary": "bz#560654: CVE-2010-0306 kvm: emulator privilege escalation IOPL/CPL level check",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=560654"
+				}
+			],
+			"release_date": "2010-02-09T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.9,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:M/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2010-02-01T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2010-0306 kvm: emulator privilege escalation IOPL/CPL level check"
+		},
+		{
+			"cve": "CVE-2010-0309",
+			"discovery_date": "2010-02-02T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=560887"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "The pit_ioport_read function in the Programmable Interval Timer (PIT) emulation in i8254.c in KVM 83 does not properly use the pit_state data structure, which allows guest OS users to cause a denial of service (host OS crash or hang) by attempting to read the /dev/port file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "kvm: cat /dev/port in guest cause the host hang",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+					"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-0309",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-0309"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-0309",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0309"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2010-0309",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-0309"
+				},
+				{
+					"category": "external",
+					"summary": "bz#560887: CVE-2010-0309 kvm: cat /dev/port in guest cause the host hang",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=560887"
+				}
+			],
+			"release_date": "2010-01-07T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2010:0095"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.noarch",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-0:5.4-2.1.8.el5_4rhev2_1.src",
+						"5Server-RHEV-Hypervisor-2:rhev-hypervisor-pxe-0:5.4-2.1.8.el5_4rhev2_1.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2010-02-02T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2010-0309 kvm: cat /dev/port in guest cause the host hang"
+		}
+	]
+}

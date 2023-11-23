@@ -1,0 +1,1722 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated Red Hat Enterprise MRG Messaging packages that fix two security\nissues and several bugs are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat Enterprise MRG (Messaging, Realtime and Grid) is a real-time IT\ninfrastructure for enterprise computing. MRG Messaging implements the\nAdvanced Message Queuing Protocol (AMQP) standard, adding persistence\noptions, kernel optimizations, and operating system services.\n\nA flaw was found in the way SSL connections to the MRG Messaging broker\nwere handled. A connection (from a user or client application) to the\nbroker's SSL port would prevent the broker from responding to any other\nconnections on that port, until the first connection's SSL handshake\ncompleted or failed. A remote user could use this flaw to block connections\nfrom legitimate clients. Note that this issue only affected connections to\nthe SSL port. The broker does not listen for SSL connections by default.\n(CVE-2010-3083)\n\nA flaw was found in the way the MRG Messaging broker handled the receipt of\nlarge persistent messages. If a remote, authenticated user sent a very\nlarge persistent message, the broker could exhaust stack memory, causing\nthe broker to crash. (CVE-2010-3701)\n\nThis update also includes a number of MRG Messaging bug fixes, including\nupdated qpidc and rhm packages:\n\n* The Messaging broker failed when first a new durable exchange was\nsupplied by a plug-in, and then the broker was restarted. The startup\nsequence has been reordered so that the plug-in modules are loaded before\nthe store is recovered. With this update, the new exchange is now\nrecognized and recovered successfully and the broker starts up. (BZ#550151)\n\n* qpid-route could not delete an existing route due to a problem with the\nmanagement object for the bridge. With this update, qpid-route follows the\nnormal path. (BZ#560696)\n\n* Previously, clients connecting over SSL needed to use some other username\nto authenticate themselves to have permission granted via ACLs. This update\nadds the option to use the client identity as authenticated by SSL.\n(BZ#601222)\n\n* New brokers did not see a durable exchange even though it existed in a\ncluster. This update checks for any durable exchanges to be replicated when\na new broker is added to the cluster. Now, the exchange is visible on the\nnew broker. (BZ#601230)\n\n* Cluster members occasionally failed when a new member was added to a\ncluster with active consumers, because some of the consumer information was\nnot being replicated to new members joining a cluster. With this update,\nthe missing information is replicated to new members when joining a\ncluster. (BZ#601236)\n\n* Performance decreased when reading messages from a queue sequentially\nwithout taking them off the queue. With this update, the algorithm for\ntraversing through messages has been changed, and the next message is found\nmore quickly, even for large queues. (BZ#611907)\n\n* Wire level protocol violation or segmentation faults occurred when adding\ntags due to possible modification of the message concurrent with its\nencoding. This update clones messages before adding tags to prevent\nconcurrent modification as they are being delivered and encoded.\n(BZ#619919)\n\nAll Red Hat Enterprise MRG users are advised to upgrade to these updated\npackages, which correct these issues. After installing the updated\npackages, the qpidd service must be restarted (\"service qpidd restart\") for\nthis update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2010:0756",
+				"url": "https://access.redhat.com/errata/RHSA-2010:0756"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2010/rhsa-2010_0756.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat Enterprise MRG Messaging security and bug fix update 1.2.2",
+		"tracking": {
+			"current_release_date": "2010-10-07T21:49:47+00:00",
+			"generator": {
+				"date": "2023-10-17T15:56:55+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2010:0756",
+			"initial_release_date": "2010-10-08T01:48:00+00:00",
+			"revision_history": [
+				{
+					"date": "2010-10-07T21:49:47+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat MRG Messaging Base for RHEL 5 Server",
+								"product": {
+									"name": "Red Hat MRG Messaging Base for RHEL 5 Server",
+									"product_id": "5Server-MRG-Messaging-Base-1.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat MRG Messaging for RHEL 5 Server",
+								"product": {
+									"name": "Red Hat MRG Messaging for RHEL 5 Server",
+									"product_id": "5Server-MRG-Messaging-1.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise MRG for RHEL-5"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qpidc-0:0.5.752581-42.el5.src",
+								"product": {
+									"name": "qpidc-0:0.5.752581-42.el5.src",
+									"product_id": "qpidc-0:0.5.752581-42.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc@0.5.752581-42.el5?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhm-0:0.5.3206-36.el5.src",
+								"product": {
+									"name": "rhm-0:0.5.3206-36.el5.src",
+									"product_id": "rhm-0:0.5.3206-36.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhm@0.5.3206-36.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qpidc-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidc-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidc-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-debuginfo@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-ssl@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qmf-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qmf-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qmf-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qmf@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-devel-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-devel-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-devel-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-devel@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-devel-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidc-devel-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidc-devel-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-devel@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-ssl@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qmf-devel-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qmf-devel-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qmf-devel-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qmf-devel@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-rdma@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-perftest@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-cluster@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-xml-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-xml-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-xml-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-xml@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-rdma@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-acl-0:0.5.752581-42.el5.x86_64",
+								"product": {
+									"name": "qpidd-acl-0:0.5.752581-42.el5.x86_64",
+									"product_id": "qpidd-acl-0:0.5.752581-42.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-acl@0.5.752581-42.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+								"product": {
+									"name": "rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+									"product_id": "rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhm-debuginfo@0.5.3206-36.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhm-0:0.5.3206-36.el5.x86_64",
+								"product": {
+									"name": "rhm-0:0.5.3206-36.el5.x86_64",
+									"product_id": "rhm-0:0.5.3206-36.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhm@0.5.3206-36.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qpidc-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidc-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidc-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-debuginfo@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-ssl-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-ssl-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-ssl-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-ssl@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qmf-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qmf-0:0.5.752581-42.el5.i386",
+									"product_id": "qmf-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qmf@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-devel-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-devel-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-devel-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-devel@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-devel-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidc-devel-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidc-devel-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-devel@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-ssl-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidc-ssl-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidc-ssl-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-ssl@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qmf-devel-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qmf-devel-0:0.5.752581-42.el5.i386",
+									"product_id": "qmf-devel-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qmf-devel@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-rdma-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-rdma-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-rdma-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-rdma@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-perftest-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidc-perftest-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidc-perftest-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-perftest@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-cluster-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-cluster-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-cluster-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-cluster@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-xml-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-xml-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-xml-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-xml@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidc-rdma-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidc-rdma-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidc-rdma-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidc-rdma@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qpidd-acl-0:0.5.752581-42.el5.i386",
+								"product": {
+									"name": "qpidd-acl-0:0.5.752581-42.el5.i386",
+									"product_id": "qpidd-acl-0:0.5.752581-42.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qpidd-acl@0.5.752581-42.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhm-debuginfo-0:0.5.3206-36.el5.i386",
+								"product": {
+									"name": "rhm-debuginfo-0:0.5.3206-36.el5.i386",
+									"product_id": "rhm-debuginfo-0:0.5.3206-36.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhm-debuginfo@0.5.3206-36.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhm-0:0.5.3206-36.el5.i386",
+								"product": {
+									"name": "rhm-0:0.5.3206-36.el5.i386",
+									"product_id": "rhm-0:0.5.3206-36.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhm@0.5.3206-36.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qmf-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qmf-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-devel-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qmf-devel-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-devel-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qmf-devel-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-0:0.5.752581-42.el5.src as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src"
+				},
+				"product_reference": "qpidc-0:0.5.752581-42.el5.src",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-debuginfo-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-devel-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-devel-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-devel-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-devel-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-perftest-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-perftest-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-perftest-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-rdma-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-rdma-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-rdma-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-ssl-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-ssl-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-ssl-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-acl-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-acl-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-acl-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-acl-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-cluster-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-cluster-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-cluster-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-devel-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-devel-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-devel-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-devel-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-rdma-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-rdma-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-rdma-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-ssl-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-ssl-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-ssl-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-xml-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-xml-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-xml-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-xml-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhm-0:0.5.3206-36.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386"
+				},
+				"product_reference": "rhm-0:0.5.3206-36.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhm-0:0.5.3206-36.el5.src as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src"
+				},
+				"product_reference": "rhm-0:0.5.3206-36.el5.src",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhm-0:0.5.3206-36.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64"
+				},
+				"product_reference": "rhm-0:0.5.3206-36.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhm-debuginfo-0:0.5.3206-36.el5.i386 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386"
+				},
+				"product_reference": "rhm-debuginfo-0:0.5.3206-36.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhm-debuginfo-0:0.5.3206-36.el5.x86_64 as a component of Red Hat MRG Messaging for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64"
+				},
+				"product_reference": "rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qmf-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qmf-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-devel-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qmf-devel-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qmf-devel-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qmf-devel-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-0:0.5.752581-42.el5.src as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src"
+				},
+				"product_reference": "qpidc-0:0.5.752581-42.el5.src",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-debuginfo-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-devel-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-devel-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-devel-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-devel-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-perftest-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-perftest-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-perftest-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-rdma-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-rdma-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-rdma-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-ssl-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidc-ssl-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidc-ssl-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-acl-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-acl-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-acl-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-acl-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-cluster-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-cluster-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-cluster-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-devel-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-devel-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-devel-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-devel-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-rdma-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-rdma-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-rdma-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-ssl-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-ssl-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-ssl-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-xml-0:0.5.752581-42.el5.i386 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386"
+				},
+				"product_reference": "qpidd-xml-0:0.5.752581-42.el5.i386",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qpidd-xml-0:0.5.752581-42.el5.x86_64 as a component of Red Hat MRG Messaging Base for RHEL 5 Server",
+					"product_id": "5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+				},
+				"product_reference": "qpidd-xml-0:0.5.752581-42.el5.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Messaging-Base-1.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2010-3083",
+			"discovery_date": "2010-05-17T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "632657"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "sys/ssl/SslSocket.cpp in qpidd in Apache Qpid, as used in Red Hat Enterprise MRG before 1.2.2 and other products, when SSL is enabled, allows remote attackers to cause a denial of service (daemon outage) by connecting to the SSL port but not participating in an SSL handshake.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-3083 MRG: SSL connections to MRG broker can be blocked",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src",
+					"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386",
+					"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src",
+					"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386",
+					"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-3083"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#632657",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=632657"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-3083",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-3083"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-3083",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-3083"
+				}
+			],
+			"release_date": "2010-10-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0756"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2010-3083 MRG: SSL connections to MRG broker can be blocked"
+		},
+		{
+			"cve": "CVE-2010-3701",
+			"discovery_date": "2010-09-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "640006"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "lib/MessageStoreImpl.cpp in Red Hat Enterprise MRG before 1.2.2 allows remote authenticated users to cause a denial of service (stack memory exhaustion and broker crash) via a large persistent message.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-3701 MRG: remote authenticated DoS in broker",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src",
+					"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386",
+					"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src",
+					"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64",
+					"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386",
+					"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+					"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-3701"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#640006",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=640006"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-3701",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-3701"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-3701",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-3701"
+				}
+			],
+			"release_date": "2010-09-14T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0756"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:L/Au:S/C:N/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.src",
+						"5Server-MRG-Messaging-1.0:rhm-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.i386",
+						"5Server-MRG-Messaging-1.0:rhm-debuginfo-0:0.5.3206-36.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qmf-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.src",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-debuginfo-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-perftest-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidc-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-acl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-cluster-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-devel-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-rdma-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-ssl-0:0.5.752581-42.el5.x86_64",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.i386",
+						"5Server-MRG-Messaging-Base-1.0:qpidd-xml-0:0.5.752581-42.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2010-3701 MRG: remote authenticated DoS in broker"
+		}
+	]
+}

@@ -1,0 +1,643 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated sysstat package that fixes one security issue, various bugs, and\nadds one enhancement is now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The sysstat package contains a set of utilities which enable system\nmonitoring of disks, network, and other I/O activity.\n\nIt was found that the sysstat initscript created a temporary file in an\ninsecure way. A local attacker could use this flaw to create arbitrary\nfiles via a symbolic link attack. (CVE-2007-3852)\n\nThis update fixes the following bugs:\n\n* On systems under heavy load, the sadc utility would sometimes output the\nfollowing error message if a write() call was unable to write all of the\nrequested input:\n\n\"Cannot write data to system activity file: Success.\"\n\nIn this updated package, the sadc utility tries to write the remaining\ninput, resolving this issue. (BZ#454617)\n\n* On the Itanium architecture, the \"sar -I\" command provided incorrect\ninformation about the interrupt statistics of the system. With this update,\nthe \"sar -I\" command has been disabled for this architecture, preventing\nthis bug. (BZ#468340)\n\n* Previously, the \"iostat -n\" command used invalid data to create\nstatistics for read and write operations. With this update, the data source\nfor these statistics has been fixed, and the iostat utility now returns\ncorrect information. (BZ#484439)\n\n* The \"sar -d\" command used to output invalid data about block devices.\nWith this update, the sar utility recognizes disk registration and disk\noverflow statistics properly, and only correct and relevant data is now\ndisplayed. (BZ#517490)\n\n* Previously, the sar utility set the maximum number of days to be logged\nin one month too high. Consequently, data from a month was appended to\ndata from the preceding month. With this update, the maximum number of days\nhas been set to 25, and data from a month now correctly replaces data from\nthe preceding month. (BZ#578929)\n\n* In previous versions of the iostat utility, the number of NFS mount\npoints was hard-coded. Consequently, various issues occurred while iostat\nwas running and NFS mount points were mounted or unmounted; certain values\nin iostat reports overflowed and some mount points were not reported at\nall. With this update, iostat properly recognizes when an NFS mount point\nmounts or unmounts, fixing these issues. (BZ#675058, BZ#706095, BZ#694767)\n\n* When a device name was longer than 13 characters, the iostat utility\nprinted a redundant new line character, making its output less readable.\nThis bug has been fixed and now, no extra characters are printed if a long\ndevice name occurs in iostat output. (BZ#604637)\n\n* Previously, if kernel interrupt counters overflowed, the sar utility\nprovided confusing output. This bug has been fixed and the sum of\ninterrupts is now reported correctly. (BZ#622557)\n\n* When some processors were disabled on a multi-processor system, the sar\nutility sometimes failed to provide information about the CPU activity.\nWith this update, the uptime of a single processor is used to compute the\nstatistics, rather than the total uptime of all processors, and this bug no\nlonger occurs. (BZ#630559)\n\n* Previously, the mpstat utility wrongly interpreted data about processors\nin the system. Consequently, it reported a processor that did not exist.\nThis bug has been fixed and non-existent CPUs are no longer reported by\nmpstat. (BZ#579409)\n\n* Previously, there was no easy way to enable the collection of statistics\nabout disks and interrupts. Now, the SADC_OPTIONS variable can be used to\nset parameters for the sadc utility, fixing this bug. (BZ#598794)\n\n* The read_uptime() function failed to close its open file upon exit. A\npatch has been provided to fix this bug. (BZ#696672)\n\nThis update also adds the following enhancement:\n\n* With this update, the cifsiostat utility has been added to the sysstat\npackage to provide CIFS (Common Internet File System) mount point I/O\nstatistics. (BZ#591530)\n\nAll sysstat users are advised to upgrade to this updated package, which\ncontains backported patches to correct these issues and add this\nenhancement.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2011:1005",
+				"url": "https://access.redhat.com/errata/RHSA-2011:1005"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2011/rhsa-2011_1005.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: sysstat security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2011-07-21T06:39:28+00:00",
+			"generator": {
+				"date": "2023-10-17T15:55:52+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2011:1005",
+			"initial_release_date": "2011-07-21T09:22:00+00:00",
+			"revision_history": [
+				{
+					"date": "2011-07-21T06:39:28+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sysstat-0:7.0.2-11.el5.src",
+								"product": {
+									"name": "sysstat-0:7.0.2-11.el5.src",
+									"product_id": "sysstat-0:7.0.2-11.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat@7.0.2-11.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sysstat-0:7.0.2-11.el5.x86_64",
+								"product": {
+									"name": "sysstat-0:7.0.2-11.el5.x86_64",
+									"product_id": "sysstat-0:7.0.2-11.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat@7.0.2-11.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+								"product": {
+									"name": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+									"product_id": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat-debuginfo@7.0.2-11.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sysstat-0:7.0.2-11.el5.i386",
+								"product": {
+									"name": "sysstat-0:7.0.2-11.el5.i386",
+									"product_id": "sysstat-0:7.0.2-11.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat@7.0.2-11.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sysstat-debuginfo-0:7.0.2-11.el5.i386",
+								"product": {
+									"name": "sysstat-debuginfo-0:7.0.2-11.el5.i386",
+									"product_id": "sysstat-debuginfo-0:7.0.2-11.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat-debuginfo@7.0.2-11.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sysstat-0:7.0.2-11.el5.ia64",
+								"product": {
+									"name": "sysstat-0:7.0.2-11.el5.ia64",
+									"product_id": "sysstat-0:7.0.2-11.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat@7.0.2-11.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+								"product": {
+									"name": "sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+									"product_id": "sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat-debuginfo@7.0.2-11.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sysstat-0:7.0.2-11.el5.ppc",
+								"product": {
+									"name": "sysstat-0:7.0.2-11.el5.ppc",
+									"product_id": "sysstat-0:7.0.2-11.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat@7.0.2-11.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+								"product": {
+									"name": "sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+									"product_id": "sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat-debuginfo@7.0.2-11.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sysstat-0:7.0.2-11.el5.s390x",
+								"product": {
+									"name": "sysstat-0:7.0.2-11.el5.s390x",
+									"product_id": "sysstat-0:7.0.2-11.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat@7.0.2-11.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+								"product": {
+									"name": "sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+									"product_id": "sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sysstat-debuginfo@7.0.2-11.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-0:7.0.2-11.el5.i386"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-0:7.0.2-11.el5.ia64"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-0:7.0.2-11.el5.ppc"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-0:7.0.2-11.el5.s390x"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-0:7.0.2-11.el5.src"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-0:7.0.2-11.el5.x86_64"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-debuginfo-0:7.0.2-11.el5.i386"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-debuginfo-0:7.0.2-11.el5.ia64"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-debuginfo-0:7.0.2-11.el5.ppc"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-debuginfo-0:7.0.2-11.el5.s390x"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:sysstat-debuginfo-0:7.0.2-11.el5.x86_64"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-0:7.0.2-11.el5.i386"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-0:7.0.2-11.el5.ia64"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-0:7.0.2-11.el5.ppc"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-0:7.0.2-11.el5.s390x"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-0:7.0.2-11.el5.src"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-0:7.0.2-11.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-0:7.0.2-11.el5.x86_64"
+				},
+				"product_reference": "sysstat-0:7.0.2-11.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-debuginfo-0:7.0.2-11.el5.i386"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-debuginfo-0:7.0.2-11.el5.ia64"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-debuginfo-0:7.0.2-11.el5.ppc"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-debuginfo-0:7.0.2-11.el5.s390x"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:sysstat-debuginfo-0:7.0.2-11.el5.x86_64"
+				},
+				"product_reference": "sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2007-3852",
+			"cwe": {
+				"id": "CWE-377",
+				"name": "Insecure Temporary File"
+			},
+			"discovery_date": "2007-08-03T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "251200"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The init script (sysstat.in) in sysstat 5.1.2 up to 7.1.6 creates /tmp/sysstat.run insecurely, which allows local users to execute arbitrary code.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2007-3852 sysstat insecure temporary file usage",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of sysstat as shipped with Red Hat Enterprise Linux 4. This issue has been addressed in Red Hat Enterprise Linux 5 via RHSA-2011:1005 advisory.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client:sysstat-0:7.0.2-11.el5.i386",
+					"5Client:sysstat-0:7.0.2-11.el5.ia64",
+					"5Client:sysstat-0:7.0.2-11.el5.ppc",
+					"5Client:sysstat-0:7.0.2-11.el5.s390x",
+					"5Client:sysstat-0:7.0.2-11.el5.src",
+					"5Client:sysstat-0:7.0.2-11.el5.x86_64",
+					"5Client:sysstat-debuginfo-0:7.0.2-11.el5.i386",
+					"5Client:sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+					"5Client:sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+					"5Client:sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+					"5Client:sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+					"5Server:sysstat-0:7.0.2-11.el5.i386",
+					"5Server:sysstat-0:7.0.2-11.el5.ia64",
+					"5Server:sysstat-0:7.0.2-11.el5.ppc",
+					"5Server:sysstat-0:7.0.2-11.el5.s390x",
+					"5Server:sysstat-0:7.0.2-11.el5.src",
+					"5Server:sysstat-0:7.0.2-11.el5.x86_64",
+					"5Server:sysstat-debuginfo-0:7.0.2-11.el5.i386",
+					"5Server:sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+					"5Server:sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+					"5Server:sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+					"5Server:sysstat-debuginfo-0:7.0.2-11.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2007-3852"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#251200",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=251200"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2007-3852",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2007-3852"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2007-3852",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2007-3852"
+				}
+			],
+			"release_date": "2007-08-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/kb/docs/DOC-11259",
+					"product_ids": [
+						"5Client:sysstat-0:7.0.2-11.el5.i386",
+						"5Client:sysstat-0:7.0.2-11.el5.ia64",
+						"5Client:sysstat-0:7.0.2-11.el5.ppc",
+						"5Client:sysstat-0:7.0.2-11.el5.s390x",
+						"5Client:sysstat-0:7.0.2-11.el5.src",
+						"5Client:sysstat-0:7.0.2-11.el5.x86_64",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.i386",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+						"5Server:sysstat-0:7.0.2-11.el5.i386",
+						"5Server:sysstat-0:7.0.2-11.el5.ia64",
+						"5Server:sysstat-0:7.0.2-11.el5.ppc",
+						"5Server:sysstat-0:7.0.2-11.el5.s390x",
+						"5Server:sysstat-0:7.0.2-11.el5.src",
+						"5Server:sysstat-0:7.0.2-11.el5.x86_64",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.i386",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:1005"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client:sysstat-0:7.0.2-11.el5.i386",
+						"5Client:sysstat-0:7.0.2-11.el5.ia64",
+						"5Client:sysstat-0:7.0.2-11.el5.ppc",
+						"5Client:sysstat-0:7.0.2-11.el5.s390x",
+						"5Client:sysstat-0:7.0.2-11.el5.src",
+						"5Client:sysstat-0:7.0.2-11.el5.x86_64",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.i386",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+						"5Client:sysstat-debuginfo-0:7.0.2-11.el5.x86_64",
+						"5Server:sysstat-0:7.0.2-11.el5.i386",
+						"5Server:sysstat-0:7.0.2-11.el5.ia64",
+						"5Server:sysstat-0:7.0.2-11.el5.ppc",
+						"5Server:sysstat-0:7.0.2-11.el5.s390x",
+						"5Server:sysstat-0:7.0.2-11.el5.src",
+						"5Server:sysstat-0:7.0.2-11.el5.x86_64",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.i386",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.ia64",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.ppc",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.s390x",
+						"5Server:sysstat-debuginfo-0:7.0.2-11.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2007-3852 sysstat insecure temporary file usage"
+		}
+	]
+}

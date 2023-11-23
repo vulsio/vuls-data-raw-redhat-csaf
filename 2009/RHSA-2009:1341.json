@@ -1,0 +1,1179 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated cman packages that fix several security issues, various bugs, and\nadd enhancements are now available for Red Hat Enterprise Linux 5.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The Cluster Manager (cman) utility provides services for managing a Linux\ncluster.\n\nMultiple insecure temporary file use flaws were found in fence_apc_snmp and\nccs_tool. A local attacker could use these flaws to overwrite an arbitrary\nfile writable by a victim running those utilities (typically root) with\nthe output of the utilities via a symbolic link attack. (CVE-2008-4579,\nCVE-2008-6552)\n\nBug fixes:\n\n* a buffer could overflow if cluster.conf had more than 52 entries per\nblock inside the <cman> block. The limit is now 1024.\n\n* the output of the group_tool dump subcommands were NULL padded.\n\n* using device=\"\" instead of label=\"\" no longer causes qdiskd to\nincorrectly exit.\n\n* the IPMI fencing agent has been modified to time out after 10 seconds. It\nis also now possible to specify a different timeout value with the '-t'\noption.\n\n* the IPMI fencing agent now allows punctuation in passwords.\n\n* quickly starting and stopping the cman service no longer causes the\ncluster membership to become inconsistent across the cluster.\n\n* an issue with lock syncing caused 'receive_own from' errors to be logged\nto '/var/log/messages'.\n\n* an issue which caused gfs_controld to segfault when mounting hundreds of\nfile systems has been fixed.\n\n* the LPAR fencing agent now properly reports status when an LPAR is in\nOpen Firmware mode.\n\n* the LPAR fencing agent now works properly with systems using the\nIntegrated Virtualization Manager (IVM).\n\n* the APC SNMP fencing agent now properly recognizes outletStatusOn and\noutletStatusOff return codes from the SNMP agent.\n\n* the WTI fencing agent can now connect to fencing devices with no\npassword.\n\n* the rps-10 fencing agent now properly performs a reboot when run with no\noptions.\n\n* the IPMI fencing agent now supports different cipher types with the '-C'\noption.\n\n* qdisk now properly scans devices and partitions.\n\n* cman now checks to see if a new node has state to prevent killing the\nfirst node during cluster setup.\n\n* 'service qdiskd start' now works properly.\n\n* the McData fence agent now works properly with the McData Sphereon 4500\nFabric Switch.\n\n* the Egenera fence agent can now specify an SSH login name.\n\n* the APC fence agent now works with non-admin accounts when using the\n3.5.x firmware.\n\n* fence_xvmd now tries two methods to reboot a virtual machine.\n\n* connections to OpenAIS are now allowed from unprivileged CPG clients with\nthe user and group of 'ais'.\n\n* groupd no longer allows the default fence domain to be '0', which\npreviously caused rgmanager to hang. Now, rgmanager no longer hangs.\n\n* the RSA fence agent now supports SSH enabled RSA II devices.\n\n* the DRAC fence agent now works with the Integrated Dell Remote Access\nController (iDRAC) on Dell PowerEdge M600 blade servers.\n\n* fixed a memory leak in cman.\n\n* qdisk now displays a warning if more than one label is found with the\nsame name.\n\n* the DRAC5 fencing agent now shows proper usage instructions for the '-D'\noption.\n\n* cman no longer uses the wrong node name when getnameinfo() fails.\n\n* the SCSI fence agent now verifies that sg_persist is installed.\n\n* the DRAC5 fencing agent now properly handles modulename.\n\n* QDisk now logs warning messages if it appears its I/O to shared storage\nis hung.\n\n* fence_apc no longer fails with a pexpect exception.\n\n* removing a node from the cluster using 'cman_tool leave remove' now\nproperly reduces the expected_votes and quorum.\n\n* a semaphore leak in cman has been fixed.\n\n* 'cman_tool nodes -F name' no longer segfaults when a node is out of\nmembership.\n\nEnhancements:\n\n* support for: ePowerSwitch 8+ and LPAR/HMC v3 devices, Cisco MDS 9124 and\nMDS 9134 SAN switches, the virsh fencing agent, and broadcast communication\nwith cman.\n\n* fence_scsi limitations added to fence_scsi man page.\n\nUsers of cman are advised to upgrade to these updated packages, which\nresolve these issues and add these enhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:1341",
+				"url": "https://access.redhat.com/errata/RHSA-2009:1341"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_1341.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: cman security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2009-09-01T06:43:16+00:00",
+			"generator": {
+				"date": "2023-10-17T15:51:26+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:1341",
+			"initial_release_date": "2009-09-02T08:00:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-09-01T06:43:16+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-0:2.0.115-1.el5.src",
+								"product": {
+									"name": "cman-0:2.0.115-1.el5.src",
+									"product_id": "cman-0:2.0.115-1.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman@2.0.115-1.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-0:2.0.115-1.el5.x86_64",
+								"product": {
+									"name": "cman-0:2.0.115-1.el5.x86_64",
+									"product_id": "cman-0:2.0.115-1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman@2.0.115-1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.x86_64",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.x86_64",
+									"product_id": "cman-devel-0:2.0.115-1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.x86_64",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.x86_64",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.i386",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.i386",
+									"product_id": "cman-devel-0:2.0.115-1.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.i386",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.i386",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-0:2.0.115-1.el5.i386",
+								"product": {
+									"name": "cman-0:2.0.115-1.el5.i386",
+									"product_id": "cman-0:2.0.115-1.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman@2.0.115-1.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-0:2.0.115-1.el5.ia64",
+								"product": {
+									"name": "cman-0:2.0.115-1.el5.ia64",
+									"product_id": "cman-0:2.0.115-1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman@2.0.115-1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.ia64",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.ia64",
+									"product_id": "cman-devel-0:2.0.115-1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.ia64",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.ia64",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-0:2.0.115-1.el5.ppc",
+								"product": {
+									"name": "cman-0:2.0.115-1.el5.ppc",
+									"product_id": "cman-0:2.0.115-1.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman@2.0.115-1.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.ppc",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.ppc",
+									"product_id": "cman-devel-0:2.0.115-1.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.ppc",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.ppc",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.ppc64",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.ppc64",
+									"product_id": "cman-devel-0:2.0.115-1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.ppc64",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.ppc64",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-0:2.0.115-1.el5.s390x",
+								"product": {
+									"name": "cman-0:2.0.115-1.el5.s390x",
+									"product_id": "cman-0:2.0.115-1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman@2.0.115-1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.s390x",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.s390x",
+									"product_id": "cman-devel-0:2.0.115-1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.s390x",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.s390x",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "cman-devel-0:2.0.115-1.el5.s390",
+								"product": {
+									"name": "cman-devel-0:2.0.115-1.el5.s390",
+									"product_id": "cman-devel-0:2.0.115-1.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-devel@2.0.115-1.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "cman-debuginfo-0:2.0.115-1.el5.s390",
+								"product": {
+									"name": "cman-debuginfo-0:2.0.115-1.el5.s390",
+									"product_id": "cman-debuginfo-0:2.0.115-1.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/cman-debuginfo@2.0.115-1.el5?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-0:2.0.115-1.el5.i386"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-0:2.0.115-1.el5.ia64"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-0:2.0.115-1.el5.ppc"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-0:2.0.115-1.el5.s390x"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-0:2.0.115-1.el5.src"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-0:2.0.115-1.el5.x86_64"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-0:2.0.115-1.el5.i386"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-0:2.0.115-1.el5.ia64"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-0:2.0.115-1.el5.ppc"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-0:2.0.115-1.el5.s390x"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-0:2.0.115-1.el5.src"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-0:2.0.115-1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-0:2.0.115-1.el5.x86_64"
+				},
+				"product_reference": "cman-0:2.0.115-1.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.i386"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.ia64"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.ppc"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.s390"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.s390x"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-debuginfo-0:2.0.115-1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64"
+				},
+				"product_reference": "cman-debuginfo-0:2.0.115-1.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.i386"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.ia64"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.ppc"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.ppc64"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.s390"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.s390x"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "cman-devel-0:2.0.115-1.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+				},
+				"product_reference": "cman-devel-0:2.0.115-1.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2008-4579",
+			"cwe": {
+				"id": "CWE-377",
+				"name": "Insecure Temporary File"
+			},
+			"discovery_date": "2008-10-08T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "467386"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The (1) fence_apc and (2) fence_apc_snmp programs, as used in (a) fence 2.02.00-r1 and possibly (b) cman, when running in verbose mode, allows local users to append to arbitrary files via a symlink attack on the apclog temporary file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-4579 cman/fence: insecure temporary file usage in the apc fence agents",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:cman-0:2.0.115-1.el5.i386",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.ia64",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.ppc",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.s390x",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.src",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.x86_64",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64",
+					"5Server:cman-0:2.0.115-1.el5.i386",
+					"5Server:cman-0:2.0.115-1.el5.ia64",
+					"5Server:cman-0:2.0.115-1.el5.ppc",
+					"5Server:cman-0:2.0.115-1.el5.s390x",
+					"5Server:cman-0:2.0.115-1.el5.src",
+					"5Server:cman-0:2.0.115-1.el5.x86_64",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.i386",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.ia64",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.s390",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.s390x",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+					"5Server:cman-devel-0:2.0.115-1.el5.i386",
+					"5Server:cman-devel-0:2.0.115-1.el5.ia64",
+					"5Server:cman-devel-0:2.0.115-1.el5.ppc",
+					"5Server:cman-devel-0:2.0.115-1.el5.ppc64",
+					"5Server:cman-devel-0:2.0.115-1.el5.s390",
+					"5Server:cman-devel-0:2.0.115-1.el5.s390x",
+					"5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-4579"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#467386",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=467386"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-4579",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-4579"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-4579",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-4579"
+				}
+			],
+			"release_date": "2008-10-08T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:cman-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.src",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-0:2.0.115-1.el5.i386",
+						"5Server:cman-0:2.0.115-1.el5.ia64",
+						"5Server:cman-0:2.0.115-1.el5.ppc",
+						"5Server:cman-0:2.0.115-1.el5.s390x",
+						"5Server:cman-0:2.0.115-1.el5.src",
+						"5Server:cman-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-devel-0:2.0.115-1.el5.i386",
+						"5Server:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1341"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.5,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:S/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:cman-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.src",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-0:2.0.115-1.el5.i386",
+						"5Server:cman-0:2.0.115-1.el5.ia64",
+						"5Server:cman-0:2.0.115-1.el5.ppc",
+						"5Server:cman-0:2.0.115-1.el5.s390x",
+						"5Server:cman-0:2.0.115-1.el5.src",
+						"5Server:cman-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-devel-0:2.0.115-1.el5.i386",
+						"5Server:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2008-4579 cman/fence: insecure temporary file usage in the apc fence agents"
+		},
+		{
+			"cve": "CVE-2008-6552",
+			"cwe": {
+				"id": "CWE-377",
+				"name": "Insecure Temporary File"
+			},
+			"discovery_date": "2008-10-31T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "519436"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat Cluster Project 2.x allows local users to modify or overwrite arbitrary files via symlink attacks on files in /tmp, involving unspecified components in Resource Group Manager (aka rgmanager) before 2.03.09-1, gfs2-utils before 2.03.09-1, and CMAN - The Cluster Manager before 2.03.09-1 on Fedora 9.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-6552 cman, gfs2-utils, rgmanager: multiple insecure temporary file use issues",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:cman-0:2.0.115-1.el5.i386",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.ia64",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.ppc",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.s390x",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.src",
+					"5Client-Workstation:cman-0:2.0.115-1.el5.x86_64",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x",
+					"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x",
+					"5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64",
+					"5Server:cman-0:2.0.115-1.el5.i386",
+					"5Server:cman-0:2.0.115-1.el5.ia64",
+					"5Server:cman-0:2.0.115-1.el5.ppc",
+					"5Server:cman-0:2.0.115-1.el5.s390x",
+					"5Server:cman-0:2.0.115-1.el5.src",
+					"5Server:cman-0:2.0.115-1.el5.x86_64",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.i386",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.ia64",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.s390",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.s390x",
+					"5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+					"5Server:cman-devel-0:2.0.115-1.el5.i386",
+					"5Server:cman-devel-0:2.0.115-1.el5.ia64",
+					"5Server:cman-devel-0:2.0.115-1.el5.ppc",
+					"5Server:cman-devel-0:2.0.115-1.el5.ppc64",
+					"5Server:cman-devel-0:2.0.115-1.el5.s390",
+					"5Server:cman-devel-0:2.0.115-1.el5.s390x",
+					"5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-6552"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#519436",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=519436"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-6552",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-6552"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-6552",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-6552"
+				}
+			],
+			"release_date": "2008-10-31T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:cman-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.src",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-0:2.0.115-1.el5.i386",
+						"5Server:cman-0:2.0.115-1.el5.ia64",
+						"5Server:cman-0:2.0.115-1.el5.ppc",
+						"5Server:cman-0:2.0.115-1.el5.s390x",
+						"5Server:cman-0:2.0.115-1.el5.src",
+						"5Server:cman-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-devel-0:2.0.115-1.el5.i386",
+						"5Server:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1341"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 5.4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:P/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:cman-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.src",
+						"5Client-Workstation:cman-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.i386",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Client-Workstation:cman-devel-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-0:2.0.115-1.el5.i386",
+						"5Server:cman-0:2.0.115-1.el5.ia64",
+						"5Server:cman-0:2.0.115-1.el5.ppc",
+						"5Server:cman-0:2.0.115-1.el5.s390x",
+						"5Server:cman-0:2.0.115-1.el5.src",
+						"5Server:cman-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.i386",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ia64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.s390x",
+						"5Server:cman-debuginfo-0:2.0.115-1.el5.x86_64",
+						"5Server:cman-devel-0:2.0.115-1.el5.i386",
+						"5Server:cman-devel-0:2.0.115-1.el5.ia64",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc",
+						"5Server:cman-devel-0:2.0.115-1.el5.ppc64",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390",
+						"5Server:cman-devel-0:2.0.115-1.el5.s390x",
+						"5Server:cman-devel-0:2.0.115-1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2008-6552 cman, gfs2-utils, rgmanager: multiple insecure temporary file use issues"
+		}
+	]
+}

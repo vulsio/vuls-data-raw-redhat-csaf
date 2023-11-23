@@ -1,0 +1,3840 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated rsyslog packages that fix one security issue, multiple bugs, and\nadd two enhancements are now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The rsyslog packages provide an enhanced, multi-threaded syslog daemon.\n\nA numeric truncation error, leading to a heap-based buffer overflow, was\nfound in the way the rsyslog imfile module processed text files containing\nlong lines. An attacker could use this flaw to crash the rsyslogd daemon\nor, possibly, execute arbitrary code with the privileges of rsyslogd, if\nthey are able to cause a long line to be written to a log file that\nrsyslogd monitors with imfile. The imfile module is not enabled by default.\n(CVE-2011-4623)\n\nBug fixes:\n\n* Several variables were incorrectly deinitialized with Transport Layer\nSecurity (TLS) transport and keys in PKCS#8 format. The rsyslogd daemon\naborted with a segmentation fault when keys in this format were provided.\nNow, the variables are correctly deinitialized. (BZ#727380)\n\n* Previously, the imgssapi plug-in initialization was incomplete. As a\nresult, the rsyslogd daemon aborted when configured to provide a GSSAPI\nlistener. Now, the plug-in is correctly initialized. (BZ#756664)\n\n* The fully qualified domain name (FQDN) for the localhost used in messages\nwas the first alias found. This did not always produce the expected result\non multihomed hosts. With this update, the algorithm uses the alias that\ncorresponds to the hostname. (BZ#767527)\n\n* The gtls module leaked a file descriptor every time it was loaded due to\nan error in the GnuTLS library. No new files or network connections could\nbe opened when the limit for the file descriptor count was reached. This\nupdate modifies the gtls module so that it is not unloaded during the\nprocess lifetime. (BZ#803550)\n\n* rsyslog could not override the hostname to set an alternative hostname\nfor locally generated messages. Now, the local hostname can be overridden.\n(BZ#805424)\n\n* The rsyslogd init script did not pass the lock file path to the 'status'\naction. As a result, the lock file was ignored and a wrong exit code was\nreturned. This update modifies the init script to pass the lock file to\nthe 'status' action. Now, the correct exit code is returned. (BZ#807608)\n\n* Data could be incorrectly deinitialized when rsyslogd was supplied with\nmalformed spool files. The rsyslogd daemon could be aborted with a\nsegmentation fault. This update modifies the underlying code to correctly\ndeinitialize the data. (BZ#813079)\n\n* Previously, deinitialization of non-existent data could, in certain error\ncases, occur. As a result, rsyslogd could abort with a segmentation fault\nwhen rsyslog was configured to use a disk assisted queue without specifying\na spool file. With this update, the error cases are handled gracefully.\n(BZ#813084)\n\n* The manual page wrongly stated that the '-d' option to turn on debugging\ncaused the daemon to run in the foreground, which was misleading as the\ncurrent behavior is to run in the background. Now, the manual page reflects\nthe correct behavior. (BZ#820311)\n\n* rsyslog attempted to write debugging messages to standard output even\nwhen run in the background. This resulted in the debugging information\nbeing written to some other output. This was corrected and the debug\nmessages are no longer written to standard output when run in the\nbackground. (BZ#820996)\n\n* The string buffer to hold the distinguished name (DN) of a certificate\nwas too small. DNs with more than 128 characters were not displayed. This\nupdate enlarges the buffer to process longer DNs. (BZ#822118)\n\nEnhancements:\n\n* Support for rate limiting and multi-line message capability. Now,\nrsyslogd can limit the number of messages it accepts through a UNIX socket.\n(BZ#672182)\n\n* The addition of the \"/etc/rsyslog.d/\" configuration directory to supply\nsyslog configuration files. (BZ#740420)\n\nAll users of rsyslog are advised to upgrade to these updated packages,\nwhich upgrade rsyslog to version 5.8.10 and correct these issues and add\nthese enhancements. After installing this update, the rsyslog daemon will\nbe restarted automatically.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:0796",
+				"url": "https://access.redhat.com/errata/RHSA-2012:0796"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_0796.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: rsyslog security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2012-06-19T15:29:32+00:00",
+			"generator": {
+				"date": "2023-10-17T15:59:13+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:0796",
+			"initial_release_date": "2012-06-19T15:22:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-06-19T15:29:32+00:00",
+					"number": "4",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "4"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+									"product_id": "6Workstation-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 6)",
+									"product_id": "6Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+									"product_id": "6Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+									"product_id": "6Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+									"product_id": "6ComputeNode-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+									"product_id": "6ComputeNode",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+									"product_id": "6Server-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+									"product_id": "6Client-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-debuginfo@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-snmp@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gssapi@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-pgsql@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-mysql@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-relp@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gnutls@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-0:5.8.10-2.el6.x86_64",
+								"product": {
+									"name": "rsyslog-0:5.8.10-2.el6.x86_64",
+									"product_id": "rsyslog-0:5.8.10-2.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog@5.8.10-2.el6?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-debuginfo@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-snmp@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gssapi@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-pgsql@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-mysql@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-relp-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-relp-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-relp-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-relp@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gnutls@5.8.10-2.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-0:5.8.10-2.el6.i686",
+								"product": {
+									"name": "rsyslog-0:5.8.10-2.el6.i686",
+									"product_id": "rsyslog-0:5.8.10-2.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog@5.8.10-2.el6?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rsyslog-0:5.8.10-2.el6.src",
+								"product": {
+									"name": "rsyslog-0:5.8.10-2.el6.src",
+									"product_id": "rsyslog-0:5.8.10-2.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog@5.8.10-2.el6?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-debuginfo@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gssapi@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-pgsql@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-mysql@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-relp@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gnutls@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+								"product": {
+									"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+									"product_id": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-snmp@5.8.10-2.el6?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-debuginfo@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gssapi@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-pgsql@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-mysql@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-relp@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-gnutls@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+								"product": {
+									"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+									"product_id": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rsyslog-snmp@5.8.10-2.el6?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.src as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-0:5.8.10-2.el6.src"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.src",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-mysql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-mysql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-mysql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-mysql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-mysql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-relp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-relp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-relp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-relp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-relp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-relp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-snmp-0:5.8.10-2.el6.i686"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-snmp-0:5.8.10-2.el6.ppc64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.s390x as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-snmp-0:5.8.10-2.el6.s390x"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.s390x",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rsyslog-snmp-0:5.8.10-2.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				},
+				"product_reference": "rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-4623",
+			"discovery_date": "2011-12-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "769822"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Integer overflow in the rsCStrExtendBuf function in runtime/stringbuf.c in the imfile module in rsyslog 4.x before 4.6.6, 5.x before 5.7.4, and 6.x before 6.1.4 allows local users to cause a denial of service (daemon hang) via a large file, which triggers a heap-based buffer overflow.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-4623 rsyslog: DoS due integer signedness error while extending rsyslog counted string buffer",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:rsyslog-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-0:5.8.10-2.el6.src",
+					"6Client-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-0:5.8.10-2.el6.src",
+					"6Client:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6Client:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6Client:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6Client:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6Client:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.src",
+					"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-0:5.8.10-2.el6.src",
+					"6ComputeNode:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-0:5.8.10-2.el6.src",
+					"6Server-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-0:5.8.10-2.el6.src",
+					"6Server:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6Server:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6Server:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6Server:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6Server:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-0:5.8.10-2.el6.src",
+					"6Workstation-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-0:5.8.10-2.el6.src",
+					"6Workstation:rsyslog-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-relp-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-relp-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+					"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.i686",
+					"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+					"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+					"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4623"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#769822",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=769822"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4623",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4623"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4623",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4623"
+				}
+			],
+			"release_date": "2011-02-09T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-0:5.8.10-2.el6.src",
+						"6Client:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.src",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-0:5.8.10-2.el6.src",
+						"6Server:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.src",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:0796"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.4,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:A/AC:M/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6Client-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Client-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-0:5.8.10-2.el6.src",
+						"6Client:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Client:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6ComputeNode-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.src",
+						"6ComputeNode:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6ComputeNode:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6Server-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Server-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-0:5.8.10-2.el6.src",
+						"6Server:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Server:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.src",
+						"6Workstation-optional:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Workstation-optional:rsyslog-snmp-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.src",
+						"6Workstation:rsyslog-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-debuginfo-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-gnutls-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-gssapi-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-mysql-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-pgsql-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-relp-0:5.8.10-2.el6.x86_64",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.i686",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.ppc64",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.s390x",
+						"6Workstation:rsyslog-snmp-0:5.8.10-2.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4623 rsyslog: DoS due integer signedness error while extending rsyslog counted string buffer"
+		}
+	]
+}

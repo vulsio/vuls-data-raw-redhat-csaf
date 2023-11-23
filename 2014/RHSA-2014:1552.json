@@ -1,0 +1,1947 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openssh packages that fix two security issues, several bugs, and\nadd various enhancements are now available for Red Hat Enterprise Linux 6.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "OpenSSH is OpenBSD's SSH (Secure Shell) protocol implementation.\nThese packages include the core files necessary for both the OpenSSH client\nand server.\n\nIt was discovered that OpenSSH clients did not correctly verify DNS SSHFP\nrecords. A malicious server could use this flaw to force a connecting\nclient to skip the DNS SSHFP record check and require the user to perform\nmanual host verification of the DNS SSHFP record. (CVE-2014-2653)\n\nIt was found that OpenSSH did not properly handle certain AcceptEnv\nparameter values with wildcard characters. A remote attacker could use this\nflaw to bypass intended environment variable restrictions. (CVE-2014-2532)\n\nThis update also fixes the following bugs:\n\n* Based on the SP800-131A information security standard, the generation of\na digital signature using the Digital Signature Algorithm (DSA) with the\nkey size of 1024 bits and RSA with the key size of less than 2048 bits is\ndisallowed after the year 2013. After this update, ssh-keygen no longer\ngenerates keys with less than 2048 bits in FIPS mode. However, the sshd\nservice accepts keys of size 1024 bits as well as larger keys for\ncompatibility reasons. (BZ#993580)\n\n* Previously, the openssh utility incorrectly set the oom_adj value to -17\nfor all of its children processes. This behavior was incorrect because the\nchildren processes were supposed to have this value set to 0. This update\napplies a patch to fix this bug and oom_adj is now properly set to 0 for\nall children processes as expected. (BZ#1010429)\n\n* Previously, if the sshd service failed to verify the checksum of an\ninstalled FIPS module using the fipscheck library, the information about\nthis failure was only provided at the standard error output of sshd. As a\nconsequence, the user could not notice this message and be uninformed when\na system had not been properly configured for FIPS mode. To fix this bug,\nthis behavior has been changed and sshd now sends such messages via the\nsyslog service. (BZ#1020803)\n\n* When keys provided by the pkcs11 library were removed from the ssh agent\nusing the \"ssh-add -e\" command, the user was prompted to enter a PIN.\nWith this update, a patch has been applied to allow the user to remove the\nkeys provided by pkcs11 without the PIN. (BZ#1042519)\n\nIn addition, this update adds the following enhancements:\n\n* With this update, ControlPersist has been added to OpenSSH. The option in\nconjunction with the ControlMaster configuration directive specifies that\nthe master connection remains open in the background after the initial\nclient connection has been closed. (BZ#953088)\n\n* When the sshd daemon is configured to force the internal SFTP session,\nand the user attempts to use a connection other than SFTP, the appropriate\nmessage is logged to the /var/log/secure file. (BZ#997377)\n\n* Support for Elliptic Curve Cryptography modes for key exchange (ECDH) and\nhost user keys (ECDSA) as specified by RFC5656 has been added to the\nopenssh packages. However, they are not enabled by default and the user has\nto enable them manually. For more information on how to configure ECDSA and\nECDH with OpenSSH, see: https://access.redhat.com/solutions/711953\n(BZ#1028335)\n\nAll openssh users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2014:1552",
+				"url": "https://access.redhat.com/errata/RHSA-2014:1552"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/solutions/711953",
+				"url": "https://access.redhat.com/solutions/711953"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2014/rhsa-2014_1552.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openssh security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2014-10-13T21:21:00Z",
+			"generator": {
+				"date": "2023-06-30T20:51:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2014:1552",
+			"initial_release_date": "2014-10-13T21:21:00Z",
+			"revision_history": [
+				{
+					"date": "2014-10-13T21:21:00Z",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 6)",
+									"product_id": "6Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+									"product_id": "6Client-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node (v. 6)",
+									"product_id": "6ComputeNode",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+									"product_id": "6ComputeNode-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 6)",
+									"product_id": "6Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+									"product_id": "6Server-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+									"product_id": "6Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+									"product_id": "6Workstation-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-0:5.3p1-104.el6.s390x",
+								"product": {
+									"name": "openssh-0:5.3p1-104.el6.s390x",
+									"product_id": "openssh-0:5.3p1-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-askpass-0:5.3p1-104.el6.s390x",
+								"product": {
+									"name": "openssh-askpass-0:5.3p1-104.el6.s390x",
+									"product_id": "openssh-askpass-0:5.3p1-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-clients-0:5.3p1-104.el6.s390x",
+								"product": {
+									"name": "openssh-clients-0:5.3p1-104.el6.s390x",
+									"product_id": "openssh-clients-0:5.3p1-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-debuginfo-0:5.3p1-104.el6.s390x",
+								"product": {
+									"name": "openssh-debuginfo-0:5.3p1-104.el6.s390x",
+									"product_id": "openssh-debuginfo-0:5.3p1-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-ldap-0:5.3p1-104.el6.s390x",
+								"product": {
+									"name": "openssh-ldap-0:5.3p1-104.el6.s390x",
+									"product_id": "openssh-ldap-0:5.3p1-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-server-0:5.3p1-104.el6.s390x",
+								"product": {
+									"name": "openssh-server-0:5.3p1-104.el6.s390x",
+									"product_id": "openssh-server-0:5.3p1-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+								"product": {
+									"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+									"product_id": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-debuginfo-0:5.3p1-104.el6.s390",
+								"product": {
+									"name": "openssh-debuginfo-0:5.3p1-104.el6.s390",
+									"product_id": "openssh-debuginfo-0:5.3p1-104.el6.s390",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+								"product": {
+									"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+									"product_id": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc",
+								"product": {
+									"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc",
+									"product_id": "openssh-debuginfo-0:5.3p1-104.el6.ppc",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+								"product": {
+									"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+									"product_id": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-0:5.3p1-104.el6.ppc64",
+								"product": {
+									"name": "openssh-0:5.3p1-104.el6.ppc64",
+									"product_id": "openssh-0:5.3p1-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-askpass-0:5.3p1-104.el6.ppc64",
+								"product": {
+									"name": "openssh-askpass-0:5.3p1-104.el6.ppc64",
+									"product_id": "openssh-askpass-0:5.3p1-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-clients-0:5.3p1-104.el6.ppc64",
+								"product": {
+									"name": "openssh-clients-0:5.3p1-104.el6.ppc64",
+									"product_id": "openssh-clients-0:5.3p1-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+								"product": {
+									"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+									"product_id": "openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-ldap-0:5.3p1-104.el6.ppc64",
+								"product": {
+									"name": "openssh-ldap-0:5.3p1-104.el6.ppc64",
+									"product_id": "openssh-ldap-0:5.3p1-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-server-0:5.3p1-104.el6.ppc64",
+								"product": {
+									"name": "openssh-server-0:5.3p1-104.el6.ppc64",
+									"product_id": "openssh-server-0:5.3p1-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+								"product": {
+									"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+									"product_id": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-0:5.3p1-104.el6.x86_64",
+								"product": {
+									"name": "openssh-0:5.3p1-104.el6.x86_64",
+									"product_id": "openssh-0:5.3p1-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+								"product": {
+									"name": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+									"product_id": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-clients-0:5.3p1-104.el6.x86_64",
+								"product": {
+									"name": "openssh-clients-0:5.3p1-104.el6.x86_64",
+									"product_id": "openssh-clients-0:5.3p1-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+								"product": {
+									"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+									"product_id": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+								"product": {
+									"name": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+									"product_id": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-server-0:5.3p1-104.el6.x86_64",
+								"product": {
+									"name": "openssh-server-0:5.3p1-104.el6.x86_64",
+									"product_id": "openssh-server-0:5.3p1-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+								"product": {
+									"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+									"product_id": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-0:5.3p1-104.el6.i686",
+								"product": {
+									"name": "openssh-0:5.3p1-104.el6.i686",
+									"product_id": "openssh-0:5.3p1-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-askpass-0:5.3p1-104.el6.i686",
+								"product": {
+									"name": "openssh-askpass-0:5.3p1-104.el6.i686",
+									"product_id": "openssh-askpass-0:5.3p1-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-clients-0:5.3p1-104.el6.i686",
+								"product": {
+									"name": "openssh-clients-0:5.3p1-104.el6.i686",
+									"product_id": "openssh-clients-0:5.3p1-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+								"product": {
+									"name": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+									"product_id": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-ldap-0:5.3p1-104.el6.i686",
+								"product": {
+									"name": "openssh-ldap-0:5.3p1-104.el6.i686",
+									"product_id": "openssh-ldap-0:5.3p1-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openssh-server-0:5.3p1-104.el6.i686",
+								"product": {
+									"name": "openssh-server-0:5.3p1-104.el6.i686",
+									"product_id": "openssh-server-0:5.3p1-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+								"product": {
+									"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+									"product_id": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openssh-0:5.3p1-104.el6.src",
+								"product": {
+									"name": "openssh-0:5.3p1-104.el6.src",
+									"product_id": "openssh-0:5.3p1-104.el6.src",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.src as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-0:5.3p1-104.el6.src"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.src",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-askpass-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-askpass-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-clients-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-clients-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-server-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 6)",
+					"product_id": "6Client:openssh-server-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+				"relates_to_product_reference": "6Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.src as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:openssh-0:5.3p1-104.el6.src"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.src",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:openssh-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node (v. 6)",
+					"product_id": "6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.src as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-0:5.3p1-104.el6.src"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.src",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-askpass-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-askpass-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-askpass-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-askpass-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-clients-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-clients-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-clients-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-clients-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-server-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-server-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-server-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server:openssh-server-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.ppc",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.s390 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.s390",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390x as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+				"relates_to_product_reference": "6Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.src as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-0:5.3p1-104.el6.src"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.src",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-askpass-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-askpass-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-askpass-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-clients-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-clients-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-clients-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-server-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-server-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-server-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-debuginfo-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openssh-ldap-0:5.3p1-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64"
+				},
+				"product_reference": "openssh-ldap-0:5.3p1-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+				"relates_to_product_reference": "6Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64"
+				},
+				"product_reference": "pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+				"relates_to_product_reference": "6Workstation-optional"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2014-2532",
+			"cwe": {
+				"id": "CWE-138",
+				"name": "Improper Neutralization of Special Elements"
+			},
+			"discovery_date": "2014-03-18T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1077843"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "It was found that OpenSSH did not properly handle certain AcceptEnv parameter values with wildcard characters. A remote attacker could use this flaw to bypass intended environment variable restrictions.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "openssh: AcceptEnv environment restriction bypass flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+					"6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6Client:openssh-0:5.3p1-104.el6.i686",
+					"6Client:openssh-0:5.3p1-104.el6.src",
+					"6Client:openssh-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-askpass-0:5.3p1-104.el6.i686",
+					"6Client:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-clients-0:5.3p1-104.el6.i686",
+					"6Client:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-server-0:5.3p1-104.el6.i686",
+					"6Client:openssh-server-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6ComputeNode:openssh-0:5.3p1-104.el6.src",
+					"6ComputeNode:openssh-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6Server:openssh-0:5.3p1-104.el6.i686",
+					"6Server:openssh-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-0:5.3p1-104.el6.src",
+					"6Server:openssh-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.i686",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-clients-0:5.3p1-104.el6.i686",
+					"6Server:openssh-clients-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-clients-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-server-0:5.3p1-104.el6.i686",
+					"6Server:openssh-server-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-server-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-server-0:5.3p1-104.el6.x86_64",
+					"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+					"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6Workstation:openssh-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-0:5.3p1-104.el6.src",
+					"6Workstation:openssh-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-askpass-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-clients-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-server-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-2532",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-2532"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-2532",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-2532"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2014-2532",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-2532"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1077843: CVE-2014-2532 openssh: AcceptEnv environment restriction bypass flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1077843"
+				}
+			],
+			"release_date": "2014-03-15T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Client:openssh-0:5.3p1-104.el6.i686",
+						"6Client:openssh-0:5.3p1-104.el6.src",
+						"6Client:openssh-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Client:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-server-0:5.3p1-104.el6.i686",
+						"6Client:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.src",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Server:openssh-0:5.3p1-104.el6.i686",
+						"6Server:openssh-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-0:5.3p1-104.el6.src",
+						"6Server:openssh-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Server:openssh-clients-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-server-0:5.3p1-104.el6.i686",
+						"6Server:openssh-server-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-server-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Workstation:openssh-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-0:5.3p1-104.el6.src",
+						"6Workstation:openssh-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2014:1552"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:S/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Client:openssh-0:5.3p1-104.el6.i686",
+						"6Client:openssh-0:5.3p1-104.el6.src",
+						"6Client:openssh-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Client:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-server-0:5.3p1-104.el6.i686",
+						"6Client:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.src",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Server:openssh-0:5.3p1-104.el6.i686",
+						"6Server:openssh-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-0:5.3p1-104.el6.src",
+						"6Server:openssh-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Server:openssh-clients-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-server-0:5.3p1-104.el6.i686",
+						"6Server:openssh-server-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-server-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Workstation:openssh-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-0:5.3p1-104.el6.src",
+						"6Workstation:openssh-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2014-03-18T00:00:00Z",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2014-2532 openssh: AcceptEnv environment restriction bypass flaw"
+		},
+		{
+			"cve": "CVE-2014-2653",
+			"cwe": {
+				"id": "CWE-287",
+				"name": "Improper Authentication"
+			},
+			"discovery_date": "2014-03-26T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1081338"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "It was discovered that OpenSSH clients did not correctly verify DNS SSHFP records. A malicious server could use this flaw to force a connecting client to skip the DNS SSHFP record check and require the user to perform manual host verification of the DNS SSHFP record.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "openssh: failure to check DNS SSHFP records in certain scenarios",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+					"6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6Client:openssh-0:5.3p1-104.el6.i686",
+					"6Client:openssh-0:5.3p1-104.el6.src",
+					"6Client:openssh-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-askpass-0:5.3p1-104.el6.i686",
+					"6Client:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-clients-0:5.3p1-104.el6.i686",
+					"6Client:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Client:openssh-server-0:5.3p1-104.el6.i686",
+					"6Client:openssh-server-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6ComputeNode:openssh-0:5.3p1-104.el6.src",
+					"6ComputeNode:openssh-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+					"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x",
+					"6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+					"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6Server:openssh-0:5.3p1-104.el6.i686",
+					"6Server:openssh-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-0:5.3p1-104.el6.src",
+					"6Server:openssh-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.i686",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-clients-0:5.3p1-104.el6.i686",
+					"6Server:openssh-clients-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-clients-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Server:openssh-server-0:5.3p1-104.el6.i686",
+					"6Server:openssh-server-0:5.3p1-104.el6.ppc64",
+					"6Server:openssh-server-0:5.3p1-104.el6.s390x",
+					"6Server:openssh-server-0:5.3p1-104.el6.x86_64",
+					"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+					"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+					"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+					"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+					"6Workstation:openssh-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-0:5.3p1-104.el6.src",
+					"6Workstation:openssh-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-askpass-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-clients-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+					"6Workstation:openssh-server-0:5.3p1-104.el6.i686",
+					"6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-2653",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-2653"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-2653",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-2653"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2014-2653",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-2653"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1081338: CVE-2014-2653 openssh: failure to check DNS SSHFP records in certain scenarios",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1081338"
+				}
+			],
+			"release_date": "2014-03-24T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to use the\nRed Hat Network to apply this update are available at\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Client:openssh-0:5.3p1-104.el6.i686",
+						"6Client:openssh-0:5.3p1-104.el6.src",
+						"6Client:openssh-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Client:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-server-0:5.3p1-104.el6.i686",
+						"6Client:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.src",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Server:openssh-0:5.3p1-104.el6.i686",
+						"6Server:openssh-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-0:5.3p1-104.el6.src",
+						"6Server:openssh-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Server:openssh-clients-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-server-0:5.3p1-104.el6.i686",
+						"6Server:openssh-server-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-server-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Workstation:openssh-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-0:5.3p1-104.el6.src",
+						"6Workstation:openssh-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2014:1552"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Client-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Client-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Client:openssh-0:5.3p1-104.el6.i686",
+						"6Client:openssh-0:5.3p1-104.el6.src",
+						"6Client:openssh-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Client:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Client:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Client:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Client:openssh-server-0:5.3p1-104.el6.i686",
+						"6Client:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6ComputeNode-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6ComputeNode-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.src",
+						"6ComputeNode:openssh-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6ComputeNode:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.ppc64",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.s390x",
+						"6Server-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.ppc64",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.s390x",
+						"6Server-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Server:openssh-0:5.3p1-104.el6.i686",
+						"6Server:openssh-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-0:5.3p1-104.el6.src",
+						"6Server:openssh-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Server:openssh-clients-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-clients-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Server:openssh-server-0:5.3p1-104.el6.i686",
+						"6Server:openssh-server-0:5.3p1-104.el6.ppc64",
+						"6Server:openssh-server-0:5.3p1-104.el6.s390x",
+						"6Server:openssh-server-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.i686",
+						"6Workstation-optional:openssh-ldap-0:5.3p1-104.el6.x86_64",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.i686",
+						"6Workstation-optional:pam_ssh_agent_auth-0:0.9.3-104.el6.x86_64",
+						"6Workstation:openssh-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-0:5.3p1-104.el6.src",
+						"6Workstation:openssh-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-askpass-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-clients-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-debuginfo-0:5.3p1-104.el6.x86_64",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.i686",
+						"6Workstation:openssh-server-0:5.3p1-104.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2014-03-26T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2014-2653 openssh: failure to check DNS SSHFP records in certain scenarios"
+		}
+	]
+}

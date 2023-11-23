@@ -1,0 +1,1086 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated nss_ldap package that fixes a security issue and several bugs is\nnow available.\n\nThis update has been rated as having low security impact by the Red Hat\nSecurity Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The nss_ldap package contains the nss_ldap and pam_ldap modules. The\nnss_ldap module is a plug-in which allows applications to retrieve\ninformation about users and groups from a directory server. The pam_ldap\nmodule allows PAM-aware applications to use a directory server to verify\nuser passwords.\n\nA race condition was discovered in nss_ldap, which affected certain\napplications that make LDAP connections, such as Dovecot. This could cause\nnss_ldap to answer a request for information about one user with the\ninformation about a different user. (CVE-2007-5794)\n\nAs well, this updated package fixes the following bugs:\n\n* in certain situations, on Itanium(R) architectures, when an application\nperformed an LDAP lookup for a highly populated group, for example,\ncontaining more than 150 members, the application crashed, or may have\ncaused a segmentation fault. As well, this issue may have caused commands,\nsuch as \"ls\", to return a \"ber_free_buf: Assertion\" error.\n\n* when an application enumerated members of a netgroup, the nss_ldap\nmodule returned a successful status result and the netgroup name, even\nwhen the netgroup did not exist. This behavior was not consistent with\nother modules. In this updated package, nss_ldap no longer returns a\nsuccessful status when the netgroup does not exist.\n\n* in master and slave server environments, with systems that were\nconfigured to use a read-only directory server, if user log in attempts\nwere denied because their passwords had expired, and users attempted to\nimmediately change their passwords, the replication server returned an LDAP\nreferral, instructing the pam_ldap module to resissue its request to a\ndifferent server; however, the pam_ldap module failed to do so. In these\nsituations, an error such as the following occurred:\n\nLDAP password information update failed: Can't contact LDAP server\nInsufficient 'write' privilege to the 'userPassword' attribute of entry\n[entry]\n\nIn this updated package, password changes are allowed when binding against\na slave server, which resolves this issue.\n\n* when a system used a directory server for naming information, and\n\"nss_initgroups_ignoreusers root\" was configured in \"/etc/ldap.conf\",\ndbus-daemon-1 would hang. Running the \"service messagebus start\" command\ndid not start the service, and it did not fail, which would stop the boot\nprocess if it was not cancelled.\n\nAs well, this updated package upgrades nss_ldap to the version as shipped\nwith Red Hat Enterprise Linux 5.\n\nUsers of nss_ldap are advised to upgrade to this updated package, which\nresolves these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2008:0715",
+				"url": "https://access.redhat.com/errata/RHSA-2008:0715"
+			},
+			{
+				"category": "external",
+				"summary": "http://www.redhat.com/security/updates/classification/#low",
+				"url": "http://www.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2008/rhsa-2008_0715.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: nss_ldap security and bug fix update",
+		"tracking": {
+			"current_release_date": "2008-07-24T12:57:16+00:00",
+			"generator": {
+				"date": "2023-10-17T15:49:37+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2008:0715",
+			"initial_release_date": "2008-07-24T16:53:00+00:00",
+			"revision_history": [
+				{
+					"date": "2008-07-24T12:57:16+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux ES version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux ES version 4",
+									"product_id": "4ES",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux WS version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux WS version 4",
+									"product_id": "4WS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux AS version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux AS version 4",
+									"product_id": "4AS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop version 4",
+									"product_id": "4Desktop",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.ia64",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.ia64",
+									"product_id": "nss_ldap-0:253-5.el4.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.i386",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.i386",
+									"product_id": "nss_ldap-0:253-5.el4.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.i386",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.i386",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.src",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.src",
+									"product_id": "nss_ldap-0:253-5.el4.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.x86_64",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.x86_64",
+									"product_id": "nss_ldap-0:253-5.el4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.ppc64",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.ppc64",
+									"product_id": "nss_ldap-0:253-5.el4.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.ppc",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.ppc",
+									"product_id": "nss_ldap-0:253-5.el4.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.s390",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.s390",
+									"product_id": "nss_ldap-0:253-5.el4.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.s390",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.s390",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nss_ldap-0:253-5.el4.s390x",
+								"product": {
+									"name": "nss_ldap-0:253-5.el4.s390x",
+									"product_id": "nss_ldap-0:253-5.el4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap@253-5.el4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+								"product": {
+									"name": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+									"product_id": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nss_ldap-debuginfo@253-5.el4?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.i386",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.src as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.src"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.src",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.i386",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nss_ldap-debuginfo-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.i386",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.src as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.src"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.src",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.i386",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nss_ldap-debuginfo-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.i386",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.src as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.src"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.src",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.i386",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nss_ldap-debuginfo-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.i386",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.src as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.src"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.src",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.i386 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.i386"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.i386",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ia64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.ia64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ia64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.ppc"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.ppc64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.ppc64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.ppc64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.s390"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.s390x as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.s390x"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.s390x",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nss_ldap-debuginfo-0:253-5.el4.x86_64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nss_ldap-debuginfo-0:253-5.el4.x86_64"
+				},
+				"product_reference": "nss_ldap-debuginfo-0:253-5.el4.x86_64",
+				"relates_to_product_reference": "4WS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2007-5794",
+			"discovery_date": "2005-04-09T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "367461"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Race condition in nss_ldap, when used in applications that are linked against the pthread library and fork after a call to nss_ldap, might send user data to the wrong process because of improper handling of the LDAP connection. NOTE: this issue was originally reported for Dovecot with the wrong mailboxes being returned, but other applications might also be affected.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2007-5794 nss_ldap randomly replying with wrong user's data",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"4AS:nss_ldap-0:253-5.el4.i386",
+					"4AS:nss_ldap-0:253-5.el4.ia64",
+					"4AS:nss_ldap-0:253-5.el4.ppc",
+					"4AS:nss_ldap-0:253-5.el4.ppc64",
+					"4AS:nss_ldap-0:253-5.el4.s390",
+					"4AS:nss_ldap-0:253-5.el4.s390x",
+					"4AS:nss_ldap-0:253-5.el4.src",
+					"4AS:nss_ldap-0:253-5.el4.x86_64",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.i386",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.ia64",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.ppc",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.s390",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.s390x",
+					"4AS:nss_ldap-debuginfo-0:253-5.el4.x86_64",
+					"4Desktop:nss_ldap-0:253-5.el4.i386",
+					"4Desktop:nss_ldap-0:253-5.el4.ia64",
+					"4Desktop:nss_ldap-0:253-5.el4.ppc",
+					"4Desktop:nss_ldap-0:253-5.el4.ppc64",
+					"4Desktop:nss_ldap-0:253-5.el4.s390",
+					"4Desktop:nss_ldap-0:253-5.el4.s390x",
+					"4Desktop:nss_ldap-0:253-5.el4.src",
+					"4Desktop:nss_ldap-0:253-5.el4.x86_64",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.i386",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.ia64",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.ppc",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.s390",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.s390x",
+					"4Desktop:nss_ldap-debuginfo-0:253-5.el4.x86_64",
+					"4ES:nss_ldap-0:253-5.el4.i386",
+					"4ES:nss_ldap-0:253-5.el4.ia64",
+					"4ES:nss_ldap-0:253-5.el4.ppc",
+					"4ES:nss_ldap-0:253-5.el4.ppc64",
+					"4ES:nss_ldap-0:253-5.el4.s390",
+					"4ES:nss_ldap-0:253-5.el4.s390x",
+					"4ES:nss_ldap-0:253-5.el4.src",
+					"4ES:nss_ldap-0:253-5.el4.x86_64",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.i386",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.ia64",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.ppc",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.s390",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.s390x",
+					"4ES:nss_ldap-debuginfo-0:253-5.el4.x86_64",
+					"4WS:nss_ldap-0:253-5.el4.i386",
+					"4WS:nss_ldap-0:253-5.el4.ia64",
+					"4WS:nss_ldap-0:253-5.el4.ppc",
+					"4WS:nss_ldap-0:253-5.el4.ppc64",
+					"4WS:nss_ldap-0:253-5.el4.s390",
+					"4WS:nss_ldap-0:253-5.el4.s390x",
+					"4WS:nss_ldap-0:253-5.el4.src",
+					"4WS:nss_ldap-0:253-5.el4.x86_64",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.i386",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.ia64",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.ppc",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.s390",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.s390x",
+					"4WS:nss_ldap-debuginfo-0:253-5.el4.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2007-5794"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#367461",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=367461"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2007-5794",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2007-5794"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2007-5794",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2007-5794"
+				}
+			],
+			"release_date": "2005-04-09T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/FAQ_58_10188",
+					"product_ids": [
+						"4AS:nss_ldap-0:253-5.el4.i386",
+						"4AS:nss_ldap-0:253-5.el4.ia64",
+						"4AS:nss_ldap-0:253-5.el4.ppc",
+						"4AS:nss_ldap-0:253-5.el4.ppc64",
+						"4AS:nss_ldap-0:253-5.el4.s390",
+						"4AS:nss_ldap-0:253-5.el4.s390x",
+						"4AS:nss_ldap-0:253-5.el4.src",
+						"4AS:nss_ldap-0:253-5.el4.x86_64",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.i386",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.ia64",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.ppc",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.s390",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.s390x",
+						"4AS:nss_ldap-debuginfo-0:253-5.el4.x86_64",
+						"4Desktop:nss_ldap-0:253-5.el4.i386",
+						"4Desktop:nss_ldap-0:253-5.el4.ia64",
+						"4Desktop:nss_ldap-0:253-5.el4.ppc",
+						"4Desktop:nss_ldap-0:253-5.el4.ppc64",
+						"4Desktop:nss_ldap-0:253-5.el4.s390",
+						"4Desktop:nss_ldap-0:253-5.el4.s390x",
+						"4Desktop:nss_ldap-0:253-5.el4.src",
+						"4Desktop:nss_ldap-0:253-5.el4.x86_64",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.i386",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.ia64",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.ppc",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.s390",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.s390x",
+						"4Desktop:nss_ldap-debuginfo-0:253-5.el4.x86_64",
+						"4ES:nss_ldap-0:253-5.el4.i386",
+						"4ES:nss_ldap-0:253-5.el4.ia64",
+						"4ES:nss_ldap-0:253-5.el4.ppc",
+						"4ES:nss_ldap-0:253-5.el4.ppc64",
+						"4ES:nss_ldap-0:253-5.el4.s390",
+						"4ES:nss_ldap-0:253-5.el4.s390x",
+						"4ES:nss_ldap-0:253-5.el4.src",
+						"4ES:nss_ldap-0:253-5.el4.x86_64",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.i386",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.ia64",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.ppc",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.s390",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.s390x",
+						"4ES:nss_ldap-debuginfo-0:253-5.el4.x86_64",
+						"4WS:nss_ldap-0:253-5.el4.i386",
+						"4WS:nss_ldap-0:253-5.el4.ia64",
+						"4WS:nss_ldap-0:253-5.el4.ppc",
+						"4WS:nss_ldap-0:253-5.el4.ppc64",
+						"4WS:nss_ldap-0:253-5.el4.s390",
+						"4WS:nss_ldap-0:253-5.el4.s390x",
+						"4WS:nss_ldap-0:253-5.el4.src",
+						"4WS:nss_ldap-0:253-5.el4.x86_64",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.i386",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.ia64",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.ppc",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.ppc64",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.s390",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.s390x",
+						"4WS:nss_ldap-debuginfo-0:253-5.el4.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2008:0715"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2007-5794 nss_ldap randomly replying with wrong user's data"
+		}
+	]
+}

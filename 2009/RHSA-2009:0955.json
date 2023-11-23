@@ -1,0 +1,970 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated nfs-utils package that fixes a security issue and multiple bugs\nis now available for Red Hat Enterprise Linux 4.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The nfs-utils package provides a daemon for the kernel NFS server and\nrelated tools, which provides a much higher level of performance than the\ntraditional Linux NFS server used by most users.\n\nA flaw was found in the nfs-utils package provided by RHBA-2008:0742. The\nnfs-utils package was missing TCP wrappers support, which could result in\nan administrator believing they had access restrictions enabled when they\ndid not. (CVE-2008-1376)\n\nThis update also includes the following bug fixes:\n\n* the \"nfsstat\" command now displays correct statistics. In previous\nversions, performing more than 2^31 RPC calls could cause the \"nfsstat\"\ncommand to incorrectly display the number of calls as \"negative\". This was\nbecause \"nfsstat\" printed statistics from /proc/net/rpc/* files as signed\nintegers; with this version of nfs-utils, \"nfsstat\" now reads and prints\nthese statistics as unsigned integers. (BZ#404831)\n\n* imapd upcalls now support zero-length reads and perform extra bounds\nchecking in gssd and svcgssd. This fixes a bug in previous versions that\ncould cause the rpc.imapd daemon to hang when communicating with the\nkernel, which would halt any ID translation services. (BZ#448710)\n\n* tcp_wrappers supported in nfs-utils now allows proper application of\nhosts access rules defined in /etc/hosts.allow and /etc/hosts.deny. (BZ#494585)\n\n* the nfs init script did not check whether SECURE_NFS was set to \"yes\"\nbefore starting, stopping, or querying rpc.svcgssd. On systems where\nSECURE_NFS was not set to \"yes\", the nfs init script could not start the\nrpc.svcgssd daemon at the \"service nfs start\" command because the rpcsvcssd\ninit script would check the status of SECURE_NFS before starting the\ndaemon. However, at the \"service nfs stop\" or \"service nfs restart\"\ncommands, nfs init script would attempt to stop rpc.svcgssd and then report\na failure because the daemon was not running in the first place. These\nerror messages may have misled end-users into believing that there was a\ngenuine problem with their NFS configuration. This version of nfs-utils\ncontains a fix backported from Red Hat Enterprise Linux 5. nfs-utils now\nchecks the status of SECURE_NFS before the nfs init script attempts to\nstart, query or stop rpc.svcgssd and therefore, the irrelevant error\nmessages seen previously will not appear. (BZ#470423)\n\n* the nfs init script is now fully compliant with Linux Standard Base Core\nspecifications. This update fixes a bug that prevented \"/etc/init.d/nfs\nstart\" from exiting properly if NFS was already running. (BZ#474570)\n\n* /var/lib/nfs/statd/sm is now created with the proper user and group\nwhenever rpc.statd is called. In previous versions, some thread stack\nconditions could incorrectly prevent rpc.statd from creating the\n/var/lib/nfs/statd/sm file, which could cause \"service nfslock start\" to\nfail. (BZ#479376)\n\nAll users of nfs-utils should upgrade to this updated package, which\nresolves these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:0955",
+				"url": "https://access.redhat.com/errata/RHSA-2009:0955"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_0955.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: nfs-utils security and bug fix update",
+		"tracking": {
+			"current_release_date": "2009-05-18T09:24:03+00:00",
+			"generator": {
+				"date": "2023-10-17T15:50:58+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:0955",
+			"initial_release_date": "2009-05-18T13:24:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-05-18T09:24:03+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux ES version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux ES version 4",
+									"product_id": "4ES",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::es"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux WS version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux WS version 4",
+									"product_id": "4WS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::ws"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux AS version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux AS version 4",
+									"product_id": "4AS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::as"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop version 4",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop version 4",
+									"product_id": "4Desktop",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:4::desktop"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.ia64",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.ia64",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+								"product": {
+									"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+									"product_id": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.6-93.EL4?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.src",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.src",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+								"product": {
+									"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+									"product_id": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.6-93.EL4?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.i386",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.i386",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+								"product": {
+									"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+									"product_id": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.6-93.EL4?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.ppc",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.ppc",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+								"product": {
+									"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+									"product_id": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.6-93.EL4?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.s390x",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.s390x",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+								"product": {
+									"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+									"product_id": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.6-93.EL4?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "nfs-utils-0:1.0.6-93.EL4.s390",
+								"product": {
+									"name": "nfs-utils-0:1.0.6-93.EL4.s390",
+									"product_id": "nfs-utils-0:1.0.6-93.EL4.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils@1.0.6-93.EL4?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+								"product": {
+									"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+									"product_id": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/nfs-utils-debuginfo@1.0.6-93.EL4?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.src as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.src"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.src",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux AS version 4",
+					"product_id": "4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4AS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.src as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.src"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.src",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux Desktop version 4",
+					"product_id": "4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4Desktop"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.src as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.src"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.src",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux ES version 4",
+					"product_id": "4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4ES"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.src as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.src"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.src",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+				"relates_to_product_reference": "4WS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64 as a component of Red Hat Enterprise Linux WS version 4",
+					"product_id": "4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64"
+				},
+				"product_reference": "nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+				"relates_to_product_reference": "4WS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2008-1376",
+			"discovery_date": "2008-04-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "440114"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A certain Red Hat build script for nfs-utils before 1.0.9-35z.el5_2 on Red Hat Enterprise Linux (RHEL) 5 omits TCP wrappers support, which might allow remote attackers to bypass intended access restrictions.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-1376 nfs-utils: missing tcp_wrappers support",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"4AS:nfs-utils-0:1.0.6-93.EL4.i386",
+					"4AS:nfs-utils-0:1.0.6-93.EL4.ia64",
+					"4AS:nfs-utils-0:1.0.6-93.EL4.ppc",
+					"4AS:nfs-utils-0:1.0.6-93.EL4.s390",
+					"4AS:nfs-utils-0:1.0.6-93.EL4.s390x",
+					"4AS:nfs-utils-0:1.0.6-93.EL4.src",
+					"4AS:nfs-utils-0:1.0.6-93.EL4.x86_64",
+					"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+					"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+					"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+					"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+					"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+					"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.i386",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.ia64",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.ppc",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.s390",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.s390x",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.src",
+					"4Desktop:nfs-utils-0:1.0.6-93.EL4.x86_64",
+					"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+					"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+					"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+					"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+					"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+					"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.i386",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.ia64",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.ppc",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.s390",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.s390x",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.src",
+					"4ES:nfs-utils-0:1.0.6-93.EL4.x86_64",
+					"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+					"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+					"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+					"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+					"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+					"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.i386",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.ia64",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.ppc",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.s390",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.s390x",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.src",
+					"4WS:nfs-utils-0:1.0.6-93.EL4.x86_64",
+					"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+					"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+					"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+					"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+					"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+					"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-1376"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#440114",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=440114"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-1376",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-1376"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-1376",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-1376"
+				}
+			],
+			"release_date": "2008-07-31T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"4AS:nfs-utils-0:1.0.6-93.EL4.i386",
+						"4AS:nfs-utils-0:1.0.6-93.EL4.ia64",
+						"4AS:nfs-utils-0:1.0.6-93.EL4.ppc",
+						"4AS:nfs-utils-0:1.0.6-93.EL4.s390",
+						"4AS:nfs-utils-0:1.0.6-93.EL4.s390x",
+						"4AS:nfs-utils-0:1.0.6-93.EL4.src",
+						"4AS:nfs-utils-0:1.0.6-93.EL4.x86_64",
+						"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+						"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+						"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+						"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+						"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+						"4AS:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.i386",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.ia64",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.ppc",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.s390",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.s390x",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.src",
+						"4Desktop:nfs-utils-0:1.0.6-93.EL4.x86_64",
+						"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+						"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+						"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+						"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+						"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+						"4Desktop:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.i386",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.ia64",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.ppc",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.s390",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.s390x",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.src",
+						"4ES:nfs-utils-0:1.0.6-93.EL4.x86_64",
+						"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+						"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+						"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+						"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+						"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+						"4ES:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.i386",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.ia64",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.ppc",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.s390",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.s390x",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.src",
+						"4WS:nfs-utils-0:1.0.6-93.EL4.x86_64",
+						"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.i386",
+						"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ia64",
+						"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.ppc",
+						"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390",
+						"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.s390x",
+						"4WS:nfs-utils-debuginfo-0:1.0.6-93.EL4.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:0955"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2008-1376 nfs-utils: missing tcp_wrappers support"
+		}
+	]
+}

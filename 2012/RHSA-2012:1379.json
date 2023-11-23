@@ -1,0 +1,387 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openstack-swift packages that fix one security issue are now\navailable for Red Hat OpenStack Essex.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. A Common Vulnerability Scoring System (CVSS)\nbase score, which gives a detailed severity rating, is available from the\nCVE link in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "OpenStack Swift (http://swift.openstack.org) is a highly available,\ndistributed, eventually consistent object/blob store.\n\nIt was found that OpenStack Swift used the Python pickle module in an\ninsecure way to serialize and deserialize data from memcached. As\nmemcached does not have authentication, an attacker on the local network,\nor possibly an unprivileged user in a virtual machine hosted on OpenStack,\ncould use this flaw to inject specially-crafted data that would lead to\narbitrary code execution. (CVE-2012-4406)\n\nRed Hat would like to thank Sebastian Krahmer of the SUSE Security Team for\nreporting this issue.\n\nNote: The fix for CVE-2012-4406 is not enabled by default, and requires\nmanual action on the affected Proxy nodes. This update adds a\n\"memcache_serialization_support\" option. It is configured in\n\"/etc/swift/proxy-server.conf\" and is set to \"0\" by default. This default\nsetting is vulnerable to CVE-2012-4406.\n\nTo enable the fix, this option must be changed; however, the required\nchanges can have a temporary, large performance impact. The following\ninstructions aim to minimize performance issues:\n\n1) Install the updated openstack-swift packages.\n\n2) In \"/etc/swift/proxy-server.conf\", set the\n\"memcache_serialization_support\" option in the memcache/[filter:cache]\nsection to \"1\". (The default value, \"0\", leaves you vulnerable to\nCVE-2012-4406.) When set to \"1\", the JSON (JavaScript Object Notation)\nformat is used but pickle is still supported. This configuration is still\nvulnerable, but new data will be stored in JSON format.\n\n3) After setting the option to \"1\", run \"service openstack-swift-proxy\nrestart\".\n\n4) After 24 hours, set the \"memcache_serialization_support\" option in\n\"/etc/swift/proxy-server.conf\" to \"2\". \"2\" is the secure option: only JSON\nis used.\n\n5) After setting the option to \"2\", run \"service openstack-swift-proxy\nrestart\".\n\nIf \"memcache_serialization_support\" is set directly from \"0\" to \"2\", all\ndata in memcached will be flushed and re-created. This can lead to a\ntemporary, large performance impact.\n\nAll users of openstack-swift are advised to upgrade to these updated\npackages, which correct this issue.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:1379",
+				"url": "https://access.redhat.com/errata/RHSA-2012:1379"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_1379.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openstack-swift security update",
+		"tracking": {
+			"current_release_date": "2012-10-16T17:44:31+00:00",
+			"generator": {
+				"date": "2023-10-17T15:58:42+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:1379",
+			"initial_release_date": "2012-10-16T17:44:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-10-16T17:44:31+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHOS Essex Release",
+								"product": {
+									"name": "RHOS Essex Release",
+									"product_id": "6Server-Essex",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openstack:1::el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenStack Platform"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-swift-account-0:1.4.8-5.el6.noarch",
+								"product": {
+									"name": "openstack-swift-account-0:1.4.8-5.el6.noarch",
+									"product_id": "openstack-swift-account-0:1.4.8-5.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift-account@1.4.8-5.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-swift-proxy-0:1.4.8-5.el6.noarch",
+								"product": {
+									"name": "openstack-swift-proxy-0:1.4.8-5.el6.noarch",
+									"product_id": "openstack-swift-proxy-0:1.4.8-5.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift-proxy@1.4.8-5.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-swift-0:1.4.8-5.el6.noarch",
+								"product": {
+									"name": "openstack-swift-0:1.4.8-5.el6.noarch",
+									"product_id": "openstack-swift-0:1.4.8-5.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift@1.4.8-5.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-swift-object-0:1.4.8-5.el6.noarch",
+								"product": {
+									"name": "openstack-swift-object-0:1.4.8-5.el6.noarch",
+									"product_id": "openstack-swift-object-0:1.4.8-5.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift-object@1.4.8-5.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-swift-container-0:1.4.8-5.el6.noarch",
+								"product": {
+									"name": "openstack-swift-container-0:1.4.8-5.el6.noarch",
+									"product_id": "openstack-swift-container-0:1.4.8-5.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift-container@1.4.8-5.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-swift-doc-0:1.4.8-5.el6.noarch",
+								"product": {
+									"name": "openstack-swift-doc-0:1.4.8-5.el6.noarch",
+									"product_id": "openstack-swift-doc-0:1.4.8-5.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift-doc@1.4.8-5.el6?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-swift-0:1.4.8-5.el6.src",
+								"product": {
+									"name": "openstack-swift-0:1.4.8-5.el6.src",
+									"product_id": "openstack-swift-0:1.4.8-5.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-swift@1.4.8-5.el6?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-0:1.4.8-5.el6.noarch as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-0:1.4.8-5.el6.noarch"
+				},
+				"product_reference": "openstack-swift-0:1.4.8-5.el6.noarch",
+				"relates_to_product_reference": "6Server-Essex"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-0:1.4.8-5.el6.src as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-0:1.4.8-5.el6.src"
+				},
+				"product_reference": "openstack-swift-0:1.4.8-5.el6.src",
+				"relates_to_product_reference": "6Server-Essex"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-account-0:1.4.8-5.el6.noarch as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-account-0:1.4.8-5.el6.noarch"
+				},
+				"product_reference": "openstack-swift-account-0:1.4.8-5.el6.noarch",
+				"relates_to_product_reference": "6Server-Essex"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-container-0:1.4.8-5.el6.noarch as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-container-0:1.4.8-5.el6.noarch"
+				},
+				"product_reference": "openstack-swift-container-0:1.4.8-5.el6.noarch",
+				"relates_to_product_reference": "6Server-Essex"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-doc-0:1.4.8-5.el6.noarch as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-doc-0:1.4.8-5.el6.noarch"
+				},
+				"product_reference": "openstack-swift-doc-0:1.4.8-5.el6.noarch",
+				"relates_to_product_reference": "6Server-Essex"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-object-0:1.4.8-5.el6.noarch as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-object-0:1.4.8-5.el6.noarch"
+				},
+				"product_reference": "openstack-swift-object-0:1.4.8-5.el6.noarch",
+				"relates_to_product_reference": "6Server-Essex"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-swift-proxy-0:1.4.8-5.el6.noarch as a component of RHOS Essex Release",
+					"product_id": "6Server-Essex:openstack-swift-proxy-0:1.4.8-5.el6.noarch"
+				},
+				"product_reference": "openstack-swift-proxy-0:1.4.8-5.el6.noarch",
+				"relates_to_product_reference": "6Server-Essex"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Sebastian Krahmer"
+					],
+					"organization": "SUSE Security Team"
+				}
+			],
+			"cve": "CVE-2012-4406",
+			"cwe": {
+				"id": "CWE-502",
+				"name": "Deserialization of Untrusted Data"
+			},
+			"discovery_date": "2012-09-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "854757"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "OpenStack Object Storage (swift) before 1.7.0 uses the loads function in the pickle Python module unsafely when storing and loading metadata in memcached, which allows remote attackers to execute arbitrary code via a crafted pickle object.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "insecure use of python pickle()",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-Essex:openstack-swift-0:1.4.8-5.el6.noarch",
+					"6Server-Essex:openstack-swift-0:1.4.8-5.el6.src",
+					"6Server-Essex:openstack-swift-account-0:1.4.8-5.el6.noarch",
+					"6Server-Essex:openstack-swift-container-0:1.4.8-5.el6.noarch",
+					"6Server-Essex:openstack-swift-doc-0:1.4.8-5.el6.noarch",
+					"6Server-Essex:openstack-swift-object-0:1.4.8-5.el6.noarch",
+					"6Server-Essex:openstack-swift-proxy-0:1.4.8-5.el6.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-4406"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#854757",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=854757"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-4406",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-4406"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-4406",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-4406"
+				}
+			],
+			"release_date": "2012-05-30T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Server-Essex:openstack-swift-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-0:1.4.8-5.el6.src",
+						"6Server-Essex:openstack-swift-account-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-container-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-doc-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-object-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-proxy-0:1.4.8-5.el6.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1379"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 7.5,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-Essex:openstack-swift-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-0:1.4.8-5.el6.src",
+						"6Server-Essex:openstack-swift-account-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-container-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-doc-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-object-0:1.4.8-5.el6.noarch",
+						"6Server-Essex:openstack-swift-proxy-0:1.4.8-5.el6.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "insecure use of python pickle()"
+		}
+	]
+}

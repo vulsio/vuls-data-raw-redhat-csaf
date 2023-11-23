@@ -1,0 +1,646 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An updated autofs package that fixes one security issue, several bugs, and\nadds one enhancement is now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The autofs utility controls the operation of the automount daemon. The\nautomount daemon automatically mounts and unmounts file systems.\n\nA bug fix included in RHBA-2012:0264 introduced a denial of service flaw in\nautofs. When using autofs with LDAP, a local user could use this flaw to\ncrash autofs, preventing future mount requests from being processed until\nthe autofs service was restarted. Note: This flaw did not impact existing\nmounts (except for preventing mount expiration). (CVE-2012-2697)\n\nRed Hat would like to thank Ray Rocker for reporting this issue.\n\nThis update also fixes the following bugs:\n\n* The autofs init script sometimes timed out waiting for the automount\ndaemon to exit and returned a shutdown failure if the daemon failed to exit\nin time. To resolve this problem, the amount of time that the init script\nwaits for the daemon has been increased to allow for cases where servers\nare slow to respond or there are many active mounts. (BZ#585058)\n\n* Due to an omission when backporting a change, autofs attempted to\ndownload the entire LDAP map at startup. This mistake has now been\ncorrected. (BZ#767428)\n\n* A function to check the validity of a mount location was meant to check\nonly for a small subset of map location errors. A recent modification in\nerror reporting inverted a logic test in this validating function.\nConsequently, the scope of the test was widened, which caused the automount\ndaemon to report false positive failures. With this update, the faulty\nlogic test has been corrected and false positive failures no longer occur.\n(BZ#798448)\n\n* When there were many attempts to access invalid or non-existent keys, the\nautomount daemon used excessive CPU resources. As a consequence, systems\nsometimes became unresponsive. The code has been improved so that automount\nchecks for invalid keys earlier in the process which has eliminated a\nsignificant amount of the processing overhead. (BZ#847101)\n\n* The auto.master(5) man page did not document the \"-t, --timeout\" option\nin the FORMAT options section. This update adds this information to the man\npage. (BZ#859890)\n\nThis update also adds the following enhancement:\n\n* Previously, it was not possible to configure separate timeout values for\nindividual direct map entries in the autofs master map. This update adds\nthis functionality. (BZ#690404)\n\nAll users of autofs are advised to upgrade to this updated package, which\ncontains backported patches to correct these issues and add this\nenhancement.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0132",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0132"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "external",
+				"summary": "https://rhn.redhat.com/errata/RHBA-2012-0264.html",
+				"url": "https://rhn.redhat.com/errata/RHBA-2012-0264.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0132.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: autofs security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2013-01-08T04:45:34+00:00",
+			"generator": {
+				"date": "2023-10-17T15:58:23+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0132",
+			"initial_release_date": "2013-01-08T04:36:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-01-08T04:45:34+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+								"product": {
+									"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+									"product_id": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs-debuginfo@5.0.1-0.rc2.177.el5?arch=i386&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "autofs-1:5.0.1-0.rc2.177.el5.i386",
+								"product": {
+									"name": "autofs-1:5.0.1-0.rc2.177.el5.i386",
+									"product_id": "autofs-1:5.0.1-0.rc2.177.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs@5.0.1-0.rc2.177.el5?arch=i386&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+								"product": {
+									"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+									"product_id": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs-debuginfo@5.0.1-0.rc2.177.el5?arch=s390x&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "autofs-1:5.0.1-0.rc2.177.el5.s390x",
+								"product": {
+									"name": "autofs-1:5.0.1-0.rc2.177.el5.s390x",
+									"product_id": "autofs-1:5.0.1-0.rc2.177.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs@5.0.1-0.rc2.177.el5?arch=s390x&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+								"product": {
+									"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+									"product_id": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs-debuginfo@5.0.1-0.rc2.177.el5?arch=x86_64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+								"product": {
+									"name": "autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+									"product_id": "autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs@5.0.1-0.rc2.177.el5?arch=x86_64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+								"product": {
+									"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+									"product_id": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs-debuginfo@5.0.1-0.rc2.177.el5?arch=ppc&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "autofs-1:5.0.1-0.rc2.177.el5.ppc",
+								"product": {
+									"name": "autofs-1:5.0.1-0.rc2.177.el5.ppc",
+									"product_id": "autofs-1:5.0.1-0.rc2.177.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs@5.0.1-0.rc2.177.el5?arch=ppc&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+								"product": {
+									"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+									"product_id": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs-debuginfo@5.0.1-0.rc2.177.el5?arch=ia64&epoch=1"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "autofs-1:5.0.1-0.rc2.177.el5.ia64",
+								"product": {
+									"name": "autofs-1:5.0.1-0.rc2.177.el5.ia64",
+									"product_id": "autofs-1:5.0.1-0.rc2.177.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs@5.0.1-0.rc2.177.el5?arch=ia64&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "autofs-1:5.0.1-0.rc2.177.el5.src",
+								"product": {
+									"name": "autofs-1:5.0.1-0.rc2.177.el5.src",
+									"product_id": "autofs-1:5.0.1-0.rc2.177.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/autofs@5.0.1-0.rc2.177.el5?arch=src&epoch=1"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-1:5.0.1-0.rc2.177.el5.i386"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-1:5.0.1-0.rc2.177.el5.ia64"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-1:5.0.1-0.rc2.177.el5.ppc"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-1:5.0.1-0.rc2.177.el5.s390x"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-1:5.0.1-0.rc2.177.el5.src"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-1:5.0.1-0.rc2.177.el5.x86_64"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-1:5.0.1-0.rc2.177.el5.i386"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-1:5.0.1-0.rc2.177.el5.ia64"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-1:5.0.1-0.rc2.177.el5.ppc"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-1:5.0.1-0.rc2.177.el5.s390x"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-1:5.0.1-0.rc2.177.el5.src"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-1:5.0.1-0.rc2.177.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-1:5.0.1-0.rc2.177.el5.x86_64"
+				},
+				"product_reference": "autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64"
+				},
+				"product_reference": "autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Ray Rocker"
+					]
+				}
+			],
+			"cve": "CVE-2012-2697",
+			"discovery_date": "2012-06-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "831772"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Unspecified vulnerability in autofs, as used in Red Hat Enterprise Linux (RHEL) 5, allows local users to cause a denial of service (autofs crash and delayed mounts) or prevent \"mount expiration\" via unspecified vectors related to \"using an LDAP-based automount map.\"",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "denial of service when using an LDAP-based automount map",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client:autofs-1:5.0.1-0.rc2.177.el5.i386",
+					"5Client:autofs-1:5.0.1-0.rc2.177.el5.ia64",
+					"5Client:autofs-1:5.0.1-0.rc2.177.el5.ppc",
+					"5Client:autofs-1:5.0.1-0.rc2.177.el5.s390x",
+					"5Client:autofs-1:5.0.1-0.rc2.177.el5.src",
+					"5Client:autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+					"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+					"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+					"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+					"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+					"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+					"5Server:autofs-1:5.0.1-0.rc2.177.el5.i386",
+					"5Server:autofs-1:5.0.1-0.rc2.177.el5.ia64",
+					"5Server:autofs-1:5.0.1-0.rc2.177.el5.ppc",
+					"5Server:autofs-1:5.0.1-0.rc2.177.el5.s390x",
+					"5Server:autofs-1:5.0.1-0.rc2.177.el5.src",
+					"5Server:autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+					"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+					"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+					"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+					"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+					"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-2697"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#831772",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=831772"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-2697",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-2697"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-2697",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2697"
+				}
+			],
+			"release_date": "2013-01-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.i386",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.src",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.i386",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.src",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0132"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 1.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.i386",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.src",
+						"5Client:autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Client:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.i386",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.src",
+						"5Server:autofs-1:5.0.1-0.rc2.177.el5.x86_64",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.i386",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ia64",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.ppc",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.s390x",
+						"5Server:autofs-debuginfo-1:5.0.1-0.rc2.177.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "denial of service when using an LDAP-based automount map"
+		}
+	]
+}

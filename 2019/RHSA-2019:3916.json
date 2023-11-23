@@ -1,0 +1,371 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for machine-os-content-container is now available for Red Hat OpenShift Container Platform 4.2.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat OpenShift Container Platform is Red Hat's cloud computing Kubernetes application platform solution designed for on-premise or private cloud deployments.\n\nThis is a text-only advisory for the machine-os-content container image, which includes RPM packages for Red Hat Enterprise Linux CoreOS.\n\nSecurity Fix(es):\n\n* A flaw was found in the way Intel CPUs handled inconsistency between virtual to physical memory address translations in the CPU's local cache and the system software's Paging structure entries. A privileged guest user can exploit this flaw to induce a hardware Machine Check Error (MCE) on the host processor, resulting in a severe DoS scenario by halting the processor. System software like the OS OR Virtual Machine Monitor (VMM) use the virtual memory system for storing program instructions and data in memory. The virtual memory system uses Paging structures like Page Tables and Page Directories to manage system memory. The processor's Memory Management Unit (MMU) uses Paging structure entries to translate a program's virtual memory addresses to physical memory addresses. The processor stores these address translations into its local cache buffer, called the Translation Lookaside Buffer (TLB). TLB has two parts, one for instructions and the other for data addresses. System software can modify its Paging structure entries to change address mappings or certain attributes like page size, etc. Upon such Paging structure alterations in memory, system software must invalidate the corresponding address translations in the processor's TLB cache. Before this TLB invalidation takes place, however, a privileged guest user could trigger an instruction fetch operation, which could use an already cached, but now invalid, virtual to physical address translation from Instruction TLB (ITLB). This would access an invalid physical memory address, resulting in halting the processor due to the MCE on Page Size Change. (CVE-2018-12207)\n\n* A flaw was found in the way sudo implemented running commands with an arbitrary user ID. If a sudoers entry is written to allow users to run a command as any user except root, this flaw can be used by an attacker to bypass that restriction. (CVE-2019-14287)\n\nFor more details about the security issue(s), including the impact, a CVSS score, acknowledgments, and other related information, refer to the CVE page(s) listed in the References section.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2019:3916",
+				"url": "https://access.redhat.com/errata/RHSA-2019:3916"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/vulnerabilities/ifu-page-mce",
+				"url": "https://access.redhat.com/security/vulnerabilities/ifu-page-mce"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2019/rhsa-2019_3916.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: OpenShift Container Platform 4.2.5 machine-os-content-container security update",
+		"tracking": {
+			"current_release_date": "2019-11-19T15:56:26+00:00",
+			"generator": {
+				"date": "2023-10-17T16:34:12+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2019:3916",
+			"initial_release_date": "2019-11-19T15:56:26+00:00",
+			"revision_history": [
+				{
+					"date": "2019-11-19T15:56:26+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Platform 4",
+								"product": {
+									"name": "Red Hat OpenShift Container Platform 4",
+									"product_id": "Red Hat OpenShift Container Platform 4",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift:4.2"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenShift Enterprise"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Intel"
+					]
+				},
+				{
+					"names": [
+						"Deepak Gupta"
+					],
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2018-12207",
+			"cwe": {
+				"id": "CWE-226",
+				"name": "Sensitive Information in Resource Not Removed Before Reuse"
+			},
+			"discovery_date": "2018-11-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1646768"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the way Intel CPUs handle inconsistency between, virtual to physical memory address translations in CPU's local cache and system software's Paging structure entries. A privileged guest user may use this flaw to induce a hardware Machine Check Error on the host processor, resulting in a severe DoS scenario by halting the processor.\r\n\r\nSystem software like OS OR Virtual Machine Monitor (VMM) use virtual memory system for storing program instructions and data in memory.  Virtual Memory system uses Paging structures like Page Tables and Page Directories to manage system memory. The processor's Memory Management Unit (MMU) uses Paging structure entries to translate program's  virtual memory addresses to physical memory addresses. The processor stores these address translations into its local cache buffer called - Translation Lookaside Buffer (TLB).  TLB has two parts, one for instructions and other for data addresses.\r\n\r\nSystem software can modify its Paging structure entries to change address mappings OR certain attributes like page size etc. Upon such Paging structure alterations in memory, system software must invalidate the corresponding address translations in the processor's TLB cache. But before this TLB invalidation takes place, a privileged guest user may trigger an instruction fetch operation, which could use an already cached, but now invalid, virtual to physical address translation from Instruction TLB (ITLB). Thus accessing an invalid physical memory address and resulting in halting the processor due to the Machine Check Error (MCE) on Page Size Change.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Machine Check Error on Page Size Change (IFU)",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat OpenShift Container Platform 4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2018-12207"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1646768",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1646768"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2018-12207",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2018-12207"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2018-12207",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2018-12207"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html",
+					"url": "https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00210.html"
+				}
+			],
+			"release_date": "2019-11-12T18:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "See the following documentation, which will be updated shortly for release 4.2.5, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html",
+					"product_ids": [
+						"Red Hat OpenShift Container Platform 4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2019:3916"
+				},
+				{
+					"category": "workaround",
+					"details": "For mitigation related information, please refer to the Red Hat vulnerability article: https://access.redhat.com/security/vulnerabilities/ifu-page-mce .",
+					"product_ids": [
+						"Red Hat OpenShift Container Platform 4"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "HIGH",
+						"baseScore": 6.5,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "LOW",
+						"scope": "CHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H",
+						"version": "3.0"
+					},
+					"products": [
+						"Red Hat OpenShift Container Platform 4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "Machine Check Error on Page Size Change (IFU)"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"the Sudo project"
+					]
+				},
+				{
+					"names": [
+						"Joe Vennix"
+					],
+					"organization": "Apple Information Security",
+					"summary": "Acknowledged by upstream."
+				}
+			],
+			"cve": "CVE-2019-14287",
+			"cwe": {
+				"id": "CWE-267",
+				"name": "Privilege Defined With Unsafe Actions"
+			},
+			"discovery_date": "2019-10-10T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1760531"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the way sudo implemented running commands with arbitrary user ID. If a sudoers entry is written to allow the attacker to run a command as any user except root, this flaw can be used by the attacker to bypass that restriction.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Privilege escalation via 'Runas' specification with 'ALL' keyword",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This flaw only affects specific, non-default configurations of sudo, in which sudoers configuration entry allows a user to run a command as any user except root, for example:\n\nsomeuser myhost = (ALL, !root) /usr/bin/somecommand\n\nThis configuration allows user \"someuser\" to run somecommand as any other user except root. However, this flaw also allows someuser to run somecommand as root by specifying the target user using the numeric id of -1. Only the specified command can be run, this flaw does NOT allow user to run other commands that those specified in the sudoers configuration.\n\nAny other configurations of sudo (including configurations that allow user to run commands as any user including root and configurations that allow user to run command as a specific other user)  are NOT affected by this flaw.\n\nRed Hat Virtualization Hypervisor includes an affected version of sudo, however the default configuration is not vulnerable to this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat OpenShift Container Platform 4"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2019-14287"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1760531",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1760531"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2019-14287",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2019-14287"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2019-14287",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2019-14287"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.sudo.ws/alerts/minus_1_uid.html",
+					"url": "https://www.sudo.ws/alerts/minus_1_uid.html"
+				}
+			],
+			"release_date": "2019-10-14T15:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "See the following documentation, which will be updated shortly for release 4.2.5, for important instructions on how to upgrade your cluster and fully apply this asynchronous errata update:\n\nhttps://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html",
+					"product_ids": [
+						"Red Hat OpenShift Container Platform 4"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2019:3916"
+				},
+				{
+					"category": "workaround",
+					"details": "This vulnerability only affects configurations of sudo that have a runas user list that includes an exclusion of root.  The most simple example is:\n\n~~~\nsomeuser ALL=(ALL, !root) /usr/bin/somecommand\n~~~\n\nThe exclusion is specified using an excalamation mark (!).  In this example, the \"root\" user is specified by name.  The root user may also be identified in other ways, such as by user id:\n\n~~~\nsomeuser ALL=(ALL, !#0) /usr/bin/somecommand\n~~~\n\nor by reference to a runas alias:\n\n~~~\nRunas_Alias MYGROUP = root, adminuser\nsomeuser ALL=(ALL, !MYGROUP) /usr/bin/somecommand\n~~~\n\nTo ensure your sudoers configuration is not affected by this vulnerability, we recommend examining each sudoers entry that includes the `!` character in the runas specification, to ensure that the root user is not among the exclusions.  These can be found in the /etc/sudoers file or files under /etc/sudoers.d.",
+					"product_ids": [
+						"Red Hat OpenShift Container Platform 4"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+						"version": "3.0"
+					},
+					"products": [
+						"Red Hat OpenShift Container Platform 4"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "Privilege escalation via 'Runas' specification with 'ALL' keyword"
+		}
+	]
+}

@@ -1,0 +1,2506 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel packages that fix multiple security issues and several bugs\nare now available for Red Hat Enterprise Linux 5.4 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nSecurity fixes:\n\n* a race condition was found in the mac80211 implementation, a framework\nused for writing drivers for wireless devices. An attacker could trigger\nthis flaw by sending a Delete Block ACK (DELBA) packet to a target system,\nresulting in a remote denial of service. Note: This issue only affected\nusers on 802.11n networks, and that also use the iwlagn driver with Intel\nwireless hardware. (CVE-2009-4027, Important)\n\n* a use-after-free flaw was found in the tcp_rcv_state_process() function\nin the Linux kernel TCP/IP protocol suite implementation. If a system using\nIPv6 had the IPV6_RECVPKTINFO option set on a listening socket, a remote\nattacker could send an IPv6 packet to that system, causing a kernel panic\n(denial of service). (CVE-2010-1188, Important)\n\n* a flaw was found in the gfs2_lock() implementation. The GFS2 locking code\ncould skip the lock operation for files that have the S_ISGID bit\n(set-group-ID on execution) in their mode set. A local, unprivileged user\non a system that has a GFS2 file system mounted could use this flaw to\ncause a kernel panic (denial of service). (CVE-2010-0727, Moderate)\n\n* a divide-by-zero flaw was found in the ext4 file system code. A local\nattacker could use this flaw to cause a denial of service by mounting a\nspecially-crafted ext4 file system. (CVE-2009-4307, Low)\n\nBug fixes:\n\n* if a program that calls posix_fadvise() were compiled on x86, and then\nrun on a 64-bit system, that program could experience various problems,\nincluding performance issues and the call to posix_fadvise() failing,\ncausing the program to not run as expected or even abort. With this update,\nwhen such programs attempt to call posix_fadvise() on 64-bit systems,\nsys32_fadvise64() is called instead, which resolves this issue. This update\nalso fixes other 32-bit system calls that were mistakenly called on 64-bit\nsystems (including systems running the kernel-xen kernel). (BZ#569597)\n\n* on some systems able to set a P-State limit via the BIOS, it was not\npossible to set the limit to a higher frequency if the system was rebooted\nwhile a low limit was set:\n\"/sys/devices/system/cpu/cpu[x]/cpufreq/scaling_max_freq\" would retain the\nlow limit in these situations. With this update, limits are correctly set,\neven after being changed after a system reboot. (BZ#569727)\n\n* certain Intel ICH hardware (using the e1000e driver) has an NFS filtering\ncapability that did not work as expected, causing memory corruption, which\ncould lead to kernel panics, or other unexpected behavior. In a reported\ncase, a panic occurred when running NFS connection tests. This update\nresolves this issue by disabling the filtering capability. (BZ#569797)\n\n* if \"open(/proc/[PID]/[xxxx])\" was called at the same time the process was\nexiting, the call would fail with an EINVAL error (an incorrect error for\nthis situation). With this update, the correct error, ENOENT, is returned\nin this situation. (BZ#571362)\n\n* multiqueue is used for transmitting data, but a single queue transmit\nON/OFF scheme was used. This led to a race condition on systems with the\nbnx2x driver in situations where one queue became full, but not stopped,\nand the other queue enabled transmission. With this update, only a single\nqueue is used. (BZ#576951)\n\n* the \"/proc/sys/vm/mmap_min_addr\" tunable helps prevent unprivileged\nusers from creating new memory mappings below the minimum address. The\nsysctl value for mmap_min_addr could be changed by a process or user that\nhas an effective user ID (euid) of 0, even if the process or user does not\nhave the CAP_SYS_RAWIO capability. This update adds a capability check for\nthe CAP_SYS_RAWIO capability before allowing the mmap_min_addr value to be\nchanged. (BZ#577206)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2010:0380",
+				"url": "https://access.redhat.com/errata/RHSA-2010:0380"
+			},
+			{
+				"category": "external",
+				"summary": "http://www.redhat.com/security/updates/classification/#important",
+				"url": "http://www.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2010/rhsa-2010_0380.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel security and bug fix update",
+		"tracking": {
+			"current_release_date": "2010-04-27T08:46:01+00:00",
+			"generator": {
+				"date": "2023-10-17T15:52:50+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2010:0380",
+			"initial_release_date": "2010-04-27T12:46:00+00:00",
+			"revision_history": [
+				{
+					"date": "2010-04-27T08:46:01+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux EUS (v. 5.4 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux EUS (v. 5.4 server)",
+									"product_id": "5Server-5.4.Z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_eus:5.4"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-PAE-devel@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-devel@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-debug-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-PAE-debuginfo@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-PAE@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-debuginfo@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-xen-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-xen-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-164.17.1.el5.i686",
+								"product": {
+									"name": "kernel-0:2.6.18-164.17.1.el5.i686",
+									"product_id": "kernel-0:2.6.18-164.17.1.el5.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-164.17.1.el5?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-164.17.1.el5.i386",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-164.17.1.el5.i386",
+									"product_id": "kernel-headers-0:2.6.18-164.17.1.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-164.17.1.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-devel@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-debuginfo@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-164.17.1.el5.ia64",
+								"product": {
+									"name": "kernel-0:2.6.18-164.17.1.el5.ia64",
+									"product_id": "kernel-0:2.6.18-164.17.1.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-164.17.1.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-devel@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-debuginfo@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+								"product": {
+									"name": "kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+									"product_id": "kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump@2.6.18-164.17.1.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+									"product_id": "kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-164.17.1.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-devel@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-debuginfo@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+								"product": {
+									"name": "kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+									"product_id": "kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump@2.6.18-164.17.1.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-devel@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen-debuginfo@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-xen@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-164.17.1.el5.x86_64",
+								"product": {
+									"name": "kernel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_id": "kernel-0:2.6.18-164.17.1.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-164.17.1.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+								"product": {
+									"name": "kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+									"product_id": "kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-doc@2.6.18-164.17.1.el5?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.18-164.17.1.el5.src",
+								"product": {
+									"name": "kernel-0:2.6.18-164.17.1.el5.src",
+									"product_id": "kernel-0:2.6.18-164.17.1.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.18-164.17.1.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-164.17.1.el5.src as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src"
+				},
+				"product_reference": "kernel-0:2.6.18-164.17.1.el5.src",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-PAE-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-doc-0:2.6.18-164.17.1.el5.noarch as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch"
+				},
+				"product_reference": "kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-164.17.1.el5.i386 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-164.17.1.el5.i386",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-164.17.1.el5.ppc as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64"
+				},
+				"product_reference": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x"
+				},
+				"product_reference": "kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-xen-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.i686 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686"
+				},
+				"product_reference": "kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64"
+				},
+				"product_reference": "kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64 as a component of Red Hat Enterprise Linux EUS (v. 5.4 server)",
+					"product_id": "5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+				},
+				"product_reference": "kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64",
+				"relates_to_product_reference": "5Server-5.4.Z"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2009-4027",
+			"cwe": {
+				"id": "CWE-617",
+				"name": "Reachable Assertion"
+			},
+			"discovery_date": "2009-11-25T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "541149"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Race condition in the mac80211 subsystem in the Linux kernel before 2.6.32-rc8-next-20091201 allows remote attackers to cause a denial of service (system crash) via a Delete Block ACK (aka DELBA) packet that triggers a certain state change in the absence of an aggregation session.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-4026 CVE-2009-4027 kernel: mac80211: fix spurious delBA handling",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of the Linux kernel as shipped with Red Hat Enterprise Linux 3 and 4 as they do not have support for the mac80211 framework.\n\nIt did not affect the version of the Linux kernel as shipped with Red Hat Enterprise MRG as they do not include the upstream patch that introduced this vulnerability.\n\nA future update will address this flaw in Red Hat Enterprise Linux 5.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4027"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#541149",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=541149"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4027",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4027"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4027",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4027"
+				}
+			],
+			"release_date": "2009-11-30T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 7.8,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-4026 CVE-2009-4027 kernel: mac80211: fix spurious delBA handling"
+		},
+		{
+			"cve": "CVE-2009-4307",
+			"discovery_date": "2009-12-14T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "547251"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The ext4_fill_flex_info function in fs/ext4/super.c in the Linux kernel before 2.6.32-git6 allows user-assisted remote attackers to cause a denial of service (divide-by-zero error and panic) via a malformed ext4 filesystem containing a super block with a large FLEX_BG group size (aka s_log_groups_per_flex value).",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-4307 kernel: ext4: avoid divide by zero when trying to mount a corrupted file system",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Linux kernel packages as shipped with Red Hat Enterprise Linux 3, 4 and Red Hat Enterprise MRG do not include support for EXT4, and therefore are not affected by this issue.\n\nA future kernel update for Red Hat Enterprise Linux 5 will address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4307"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#547251",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=547251"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4307",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4307"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4307",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4307"
+				}
+			],
+			"release_date": "2009-11-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2009-4307 kernel: ext4: avoid divide by zero when trying to mount a corrupted file system"
+		},
+		{
+			"cve": "CVE-2010-0727",
+			"discovery_date": "2010-03-08T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "570863"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The gfs2_lock function in the Linux kernel before 2.6.34-rc1-next-20100312, and the gfs_lock function in the Linux kernel on Red Hat Enterprise Linux (RHEL) 5 and 6, does not properly remove POSIX locks on files that are setgid without group-execute permission, which allows local users to cause a denial of service (BUG and system crash) by locking a file on a (1) GFS or (2) GFS2 filesystem, and then changing this file's permissions.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-0727 kernel: bug in GFS/GFS2 locking code leads to dos",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the version of Linux kernel as shipped with Red Hat Enterprise MRG, as it did not include support for the GFS and GFS2 file systems.\n\nFor the GFS issue, it was addressed in Red Hat Enterprise Linux 3 in the gfs package, 4 in the GFS-kernel package, and 5 in the gfs-kmod package, via RHSA-2010:9493, RHSA-2010:9494, RHSA-2010:0291 respectively.\n\nFor the GFS2 issue, it was addressed in Red Hat Enterprise Linux 5 in the kernel package via RHSA-2010:0178.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-0727"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#570863",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=570863"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-0727",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-0727"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-0727",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0727"
+				}
+			],
+			"release_date": "2010-03-11T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2010-0727 kernel: bug in GFS/GFS2 locking code leads to dos"
+		},
+		{
+			"cve": "CVE-2010-1188",
+			"cwe": {
+				"id": "CWE-119",
+				"name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+			},
+			"discovery_date": "2010-03-29T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "577711"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Use-after-free vulnerability in net/ipv4/tcp_input.c in the Linux kernel 2.6 before 2.6.20, when IPV6_RECVPKTINFO is set on a listening socket, allows remote attackers to cause a denial of service (kernel panic) via a SYN packet while the socket is in a listening (TCP_LISTEN) state, which is not properly handled and causes the skb structure to be freed.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-1188 kernel: ipv6: skb is unexpectedly freed",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the version of the Linux kernel as shipped with Red Hat Enterprise MRG, as it was fixed since version v2.6.20-rc6.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+					"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+					"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+					"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-1188"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#577711",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=577711"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-1188",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-1188"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-1188",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-1188"
+				}
+			],
+			"release_date": "2007-01-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2010:0380"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 7.8,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.src",
+						"5Server-5.4.Z:kernel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-PAE-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-PAE-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debug-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-debuginfo-common-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-devel-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-doc-0:2.6.18-164.17.1.el5.noarch",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.i386",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-headers-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-debuginfo-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.ppc64",
+						"5Server-5.4.Z:kernel-kdump-devel-0:2.6.18-164.17.1.el5.s390x",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-debuginfo-0:2.6.18-164.17.1.el5.x86_64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.i686",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.ia64",
+						"5Server-5.4.Z:kernel-xen-devel-0:2.6.18-164.17.1.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2010-1188 kernel: ipv6: skb is unexpectedly freed"
+		}
+	]
+}

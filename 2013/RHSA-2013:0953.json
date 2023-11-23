@@ -1,0 +1,445 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Red Hat JBoss Portal 5.2.2 roll up patch 1, which fixes multiple security\nissues and various bugs, is now available from the Red Hat Customer Portal.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat JBoss Portal is the open source implementation of the Java EE suite\nof services and Portal services running atop Red Hat JBoss Enterprise\nApplication Platform.\n\nJBoss Web Services leaked side-channel data when distributing symmetric\nkeys (for XML encryption), allowing a remote attacker to recover the entire\nplain text form of a symmetric key. (CVE-2011-2487)\n\nSpring framework could possibly evaluate Expression Language (EL)\nexpressions twice, allowing a remote attacker to execute arbitrary code in\nthe context of the application server, or to obtain sensitive information\nfrom the server. (CVE-2011-2730)\n\nNote: Manual action is required to apply the fix for CVE-2011-2730. If your\nsystem has deployed applications which use Spring framework, the context\nparameter \"springJspExpressionSupport\" must be set to \"false\" to mitigate\nCVE-2011-2730, for example, in the application's web.xml file. This will\nprevent the double-evaluation of EL expressions that leads to the flaw.\nRed Hat JBoss Portal will deploy an application using Spring framework if\nJOSSO (Java Open Single Sign-On) is configured.\n\nXML encryption backwards compatibility attacks were found against various\nframeworks, including Apache CXF. An attacker could force a server to use\ninsecure, legacy cryptosystems, even when secure cryptosystems were enabled\non endpoints. By forcing the use of legacy cryptosystems, flaws such as\nCVE-2011-1096 and CVE-2011-2487 would be exposed, allowing plain text to be\nrecovered from cryptograms and symmetric keys. This issue only affected\nthe JBoss Web Services Native (jbossws-native) stack as Red Hat JBoss\nPortal does not use JBoss Web Services CXF (jbossws-cxf). (CVE-2012-5575)\n\nFor jbossws-native, the fix for CVE-2012-5575 is implemented by two new\nconfiguration parameters in the 'encryption' element. This element can be a\nchild of 'requires' in both client and server wsse configuration\ndescriptors (set on a per-application basis via the application's\njboss-wsse-server.xml and jboss-wsse-client.xml files). The new attributes\nare 'algorithms' and 'keyWrapAlgorithms'. These attributes should contain a\nblank space or comma separated list of algorithm IDs that are allowed for\nthe encrypted incoming message, both for encryption and private key\nwrapping. For backwards compatibility, no algorithm checks are performed by\ndefault for empty lists or missing attributes.\n\nFor example (do not include the line break in your configuration):\n\nencryption algorithms=\"aes-192-gcm aes-256-gcm\"\nkeyWrapAlgorithms=\"rsa_oaep\"\n\nSpecifies that incoming messages are required to be encrypted, and that the\nonly permitted encryption algorithms are AES-192 and 256 in GCM mode, and\nRSA-OAEP only for key wrapping.\n\nBefore performing any decryption, the jbossws-native stack will verify that\neach algorithm specified in the incoming messages is included in the\nallowed algorithms lists from these new encryption element attributes. The\nalgorithm values to be used for 'algorithms' and 'keyWrapAlgorithms' are\nthe same as for 'algorithm' and 'keyWrapAlgorithm' in the 'encrypt'\nelement.\n\nRed Hat would like to thank Juraj Somorovsky of Ruhr-University Bochum\nfor reporting CVE-2011-2487, and Tibor Jager, Kenneth G. Paterson and Juraj\nSomorovsky of Ruhr-University Bochum for reporting CVE-2012-5575.\n\nWarning: Before applying this update, back up all applications deployed on\nRed Hat JBoss Portal, along with all customized configuration files, and\nany databases and database settings.\n\nAll users of Red Hat JBoss Portal 5.2.2 as provided from the Red Hat\nCustomer Portal are advised to apply this roll up patch.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0953",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0953"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jbportal&downloadType=securityPatches&version=5.2.2",
+				"url": "https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=jbportal&downloadType=securityPatches&version=5.2.2"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0953.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat JBoss Portal 5.2.2 security update",
+		"tracking": {
+			"current_release_date": "2013-06-18T14:48:45+00:00",
+			"generator": {
+				"date": "2023-10-17T16:01:46+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0953",
+			"initial_release_date": "2013-06-18T14:41:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-06-18T14:48:45+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat JBoss Portal 5.2",
+								"product": {
+									"name": "Red Hat JBoss Portal 5.2",
+									"product_id": "Red Hat JBoss Portal 5.2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:jboss_enterprise_portal_platform:5.2.2"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat JBoss Middleware"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Juraj Somorovsky"
+					],
+					"organization": "Ruhr-University Bochum"
+				}
+			],
+			"cve": "CVE-2011-2487",
+			"cwe": {
+				"id": "CWE-327",
+				"name": "Use of a Broken or Risky Cryptographic Algorithm"
+			},
+			"discovery_date": "2011-06-11T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "713539"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in JBoss web services where the services used a weak symmetric encryption protocol, PKCS#1 v1.5. An attacker could use this weakness in chosen-ciphertext attacks to recover the symmetric key and conduct further attacks.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Prone to Bleichenbacher attack against to be distributed symmetric key",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This flaw affects Apache CXF (WSS4J) and jbossws-native as shipped with various JBoss products. It does not affect JBoss Enterprise Application Platform 6 and JBoss Application Server 7.1.1 and above. These products include WSS4J 1.6.5, which incorporates a fix for this flaw. On affected products, this flaw can be mitigated by using the RSA-OAEP key wrap algorithm, instead of the default RSA-v1.5 algorithm. To use RSA-OAEP, edit the jboss-ws-security configuration file and add the property keyWrapAlgorithm=\"rsa_oaep\" to the encrypt element.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Portal 5.2"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-2487"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#713539",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=713539"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-2487",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-2487"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-2487",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-2487"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.nds.ruhr-uni-bochum.de/research/publications/breaking-xml-encryption-pkcs15/",
+					"url": "https://www.nds.ruhr-uni-bochum.de/research/publications/breaking-xml-encryption-pkcs15/"
+				}
+			],
+			"release_date": "2012-09-04T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on Red Hat JBoss Portal, along with all customized\nconfiguration files, and any databases and database settings.\n\nNote that it is recommended to halt the Red Hat JBoss Portal server by\nstopping the JBoss Application Server process before installing this\nupdate, and then after installing the update, restart the Red Hat JBoss\nPortal server by starting the JBoss Application Server process.",
+					"product_ids": [
+						"Red Hat JBoss Portal 5.2"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0953"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 7.8,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:C/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Portal 5.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "Prone to Bleichenbacher attack against to be distributed symmetric key"
+		},
+		{
+			"cve": "CVE-2011-2730",
+			"discovery_date": "2011-09-11T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "737608"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "VMware SpringSource Spring Framework before 2.5.6.SEC03, 2.5.7.SR023, and 3.x before 3.0.6, when a container supports Expression Language (EL), evaluates EL expressions in tags twice, which allows remote attackers to obtain sensitive information via a (1) name attribute in a (a) spring:hasBindErrors tag; (2) path attribute in a (b) spring:bind or (c) spring:nestedpath tag; (3) arguments, (4) code, (5) text, (6) var, (7) scope, or (8) message attribute in a (d) spring:message or (e) spring:theme tag; or (9) var, (10) scope, or (11) value attribute in a (f) spring:transform tag, aka \"Expression Language Injection.\"",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2011-2730 Spring Framework: Information (internal server information, classpath, local working directories, session IDs) disclosure",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This flaw was originally reported as resulting in information disclosure only, and was therefore assessed as having low security impact. On this basis, it was planned that future updates to JBoss products may address this flaw. New research [0] has now shown that this flaw can lead to remote code execution. The security impact has been re-assessed as important, and Red Hat is now working on patches for all affected products.\n\n[0] http://danamodio.com/application-security/discoveries/spring-remote-code-with-expression-language-injection/",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Portal 5.2"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-2730"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#737608",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=737608"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-2730",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-2730"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-2730",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-2730"
+				}
+			],
+			"release_date": "2011-09-09T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on Red Hat JBoss Portal, along with all customized\nconfiguration files, and any databases and database settings.\n\nNote that it is recommended to halt the Red Hat JBoss Portal server by\nstopping the JBoss Application Server process before installing this\nupdate, and then after installing the update, restart the Red Hat JBoss\nPortal server by starting the JBoss Application Server process.",
+					"product_ids": [
+						"Red Hat JBoss Portal 5.2"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0953"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 6.4,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Portal 5.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2011-2730 Spring Framework: Information (internal server information, classpath, local working directories, session IDs) disclosure"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Tibor Jager",
+						"Kenneth G. Paterson",
+						"Juraj Somorovsky"
+					],
+					"organization": "Ruhr-University Bochum"
+				}
+			],
+			"cve": "CVE-2012-5575",
+			"cwe": {
+				"id": "CWE-327",
+				"name": "Use of a Broken or Risky Cryptographic Algorithm"
+			},
+			"discovery_date": "2012-11-15T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "880443"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Apache CXF 2.5.x before 2.5.10, 2.6.x before CXF 2.6.7, and 2.7.x before CXF 2.7.4 does not verify that a specified cryptographic algorithm is allowed by the WS-SecurityPolicy AlgorithmSuite definition before decrypting, which allows remote attackers to force CXF to use weaker cryptographic algorithms than intended and makes it easier to decrypt communications, aka \"XML Encryption backwards compatibility attack.\"",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-5575 jbossws-native, jbossws-cxf, apache-cxf: XML encryption backwards compatibility attacks",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Portal 5.2"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-5575"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#880443",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=880443"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-5575",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-5575"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-5575",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-5575"
+				},
+				{
+					"category": "external",
+					"summary": "http://cxf.apache.org/cve-2012-5575.html",
+					"url": "http://cxf.apache.org/cve-2012-5575.html"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.nds.ruhr-uni-bochum.de/research/publications/backwards-compatibility/",
+					"url": "http://www.nds.ruhr-uni-bochum.de/research/publications/backwards-compatibility/"
+				}
+			],
+			"release_date": "2013-03-08T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "The References section of this erratum contains a download link (you must\nlog in to download the update). Before applying the update, back up all\napplications deployed on Red Hat JBoss Portal, along with all customized\nconfiguration files, and any databases and database settings.\n\nNote that it is recommended to halt the Red Hat JBoss Portal server by\nstopping the JBoss Application Server process before installing this\nupdate, and then after installing the update, restart the Red Hat JBoss\nPortal server by starting the JBoss Application Server process.",
+					"product_ids": [
+						"Red Hat JBoss Portal 5.2"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0953"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 7.8,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:N/C:C/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat JBoss Portal 5.2"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2012-5575 jbossws-native, jbossws-cxf, apache-cxf: XML encryption backwards compatibility attacks"
+		}
+	]
+}

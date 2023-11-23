@@ -1,0 +1,2845 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel-rt packages that fix several security issues, multiple bugs,\nand add enhancements are now available for Red Hat Enterprise MRG 1.1.\n\nThis update has been rated as having important security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\nSecurity fixes:\n\n* the ADDR_COMPAT_LAYOUT and MMAP_PAGE_ZERO flags were not cleared when a\nsetuid or setgid program was executed. A local, unprivileged user could use\nthis flaw to bypass the mmap_min_addr protection mechanism and perform a\nNULL pointer dereference attack, or bypass the Address Space Layout\nRandomization (ASLR) security feature. (CVE-2009-1895, Important)\n\n* a system with SELinux enforced was more permissive in allowing local\nusers in the unconfined_t domain to map low memory areas even if the\nmmap_min_addr restriction was enabled. This could aid in the local\nexploitation of NULL pointer dereference bugs. (CVE-2009-2695, Important)\n\n* missing initialization flaws were found in getname() implementations in\nnumerous network protocol implementations in the Linux kernel. Certain\ndata structures in these getname() implementations were not initialized\nproperly before being copied to user-space. These flaws could lead to an\ninformation leak. (CVE-2009-3002, Important)\n\n* a NULL pointer dereference flaw was found in each of the following\nfunctions in the Linux kernel: pipe_read_open(), pipe_write_open(), and\npipe_rdwr_open(). When the mutex lock is not held, the i_pipe pointer could\nbe released by other processes before it is used to update the pipe's\nreader and writer counters. This could lead to a local denial of service or\nprivilege escalation. (CVE-2009-3547, Important)\n\n* a flaw was found in the Realtek r8169 Ethernet driver in the Linux\nkernel. pci_unmap_single() presented a memory leak that could lead to IOMMU\nspace exhaustion and a system crash. An attacker on the local network could\nabuse this flaw by using jumbo frames for large amounts of network traffic.\n(CVE-2009-3613, Important)\n\n* NULL pointer dereference flaws were found in the r128 driver in the\nLinux kernel. Checks to test if the Concurrent Command Engine state was\ninitialized were missing in private IOCTL functions. An attacker could use\nthese flaws to cause a local denial of service or escalate their\nprivileges. (CVE-2009-3620, Important)\n\n* Kees Cook and Steve Beattie discovered a race condition in the /proc\ncode in the Linux kernel. This could lead to information in the\n\"/proc/[pid]/maps\" and \"/proc/[pid]/smaps\" files being leaked to users (who\nwould otherwise not have access to this information) during ELF loading.\nThis could help a local attacker bypass the ASLR security feature.\n(CVE-2009-2691, Moderate)\n\n* a NULL pointer dereference flaw was found in the md driver in the Linux\nkernel. If the suspend_lo or suspend_hi file in \"/sys/\" is modified when\nthe disk array is inactive, it could lead to a local denial of service or\nprivilege escalation. By default, only root can write to these two files.\n(CVE-2009-2849, Moderate)\n\n* an information leak was found in the Linux kernel. On AMD64 systems,\n32-bit processes could access and read certain 64-bit registers by\ntemporarily switching themselves to 64-bit mode. (CVE-2009-2910, Moderate)\n\n* padding data in several core network structures was not initialized\nproperly before being sent to user-space, possibly leading to information\nleaks. (CVE-2009-3228, CVE-2009-3612, Moderate)\n\n* the unix_stream_connect() function in the Linux kernel did not check if a\nUNIX domain socket was in the shutdown state. This could lead to a\ndeadlock. A local, unprivileged user could use this flaw to cause a denial\nof service. (CVE-2009-3621, Moderate)\n\nThese updated packages also include bug fixes and enhancements. Users are\ndirected to the Realtime Security Update Release Notes for version 1.1 for\ninformation on these changes, which will be available shortly from: \n\nhttp://www.redhat.com/docs/en-US/Red_Hat_Enterprise_MRG/\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues and add enhancements. The system must be\nrebooted for this update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:1540",
+				"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+			},
+			{
+				"category": "external",
+				"summary": "http://www.redhat.com/security/updates/classification/#important",
+				"url": "http://www.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "http://kbase.redhat.com/faq/docs/DOC-18042",
+				"url": "http://kbase.redhat.com/faq/docs/DOC-18042"
+			},
+			{
+				"category": "external",
+				"summary": "http://kbase.redhat.com/faq/docs/DOC-17866",
+				"url": "http://kbase.redhat.com/faq/docs/DOC-17866"
+			},
+			{
+				"category": "external",
+				"summary": "http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_MRG/",
+				"url": "http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_MRG/"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_1540.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2009-11-03T13:21:07+00:00",
+			"generator": {
+				"date": "2023-10-17T15:50:58+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:1540",
+			"initial_release_date": "2009-11-03T18:21:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-11-03T13:21:07+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "MRG Realtime for RHEL 5 Server",
+								"product": {
+									"name": "MRG Realtime for RHEL 5 Server",
+									"product_id": "5Server-MRG-Realtime-1.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_mrg:1::el5"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise MRG for RHEL-5"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-devel@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-devel@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-devel@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-devel@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-debuginfo@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-debuginfo@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo-common@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+								"product": {
+									"name": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_id": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-debuginfo@2.6.24.7-137.el5rt?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-devel@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-devel@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-devel@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-devel@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-vanilla-debuginfo@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-debuginfo@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo-common@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_id": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-debuginfo@2.6.24.7-137.el5rt?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+								"product": {
+									"name": "kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+									"product_id": "kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-doc@2.6.24.7-137.el5rt?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:2.6.24.7-137.el5rt.src",
+								"product": {
+									"name": "kernel-rt-0:2.6.24.7-137.el5rt.src",
+									"product_id": "kernel-rt-0:2.6.24.7-137.el5rt.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@2.6.24.7-137.el5rt?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:2.6.24.7-137.el5rt.src as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src"
+				},
+				"product_reference": "kernel-rt-0:2.6.24.7-137.el5rt.src",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-devel-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch"
+				},
+				"product_reference": "kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686"
+				},
+				"product_reference": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64 as a component of MRG Realtime for RHEL 5 Server",
+					"product_id": "5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				},
+				"product_reference": "kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64",
+				"relates_to_product_reference": "5Server-MRG-Realtime-1.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2009-1895",
+			"discovery_date": "2009-06-30T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "511171"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The personality subsystem in the Linux kernel before 2.6.31-rc3 has a PER_CLEAR_ON_SETID setting that does not clear the ADDR_COMPAT_LAYOUT and MMAP_PAGE_ZERO flags when executing a setuid or setgid program, which makes it easier for local users to leverage the details of memory usage to (1) conduct NULL pointer dereference attacks, (2) bypass the mmap_min_addr protection mechanism, or (3) defeat address space layout randomization (ASLR).",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-1895 kernel: personality: fix PER_CLEAR_ON_SETID",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-1895"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#511171",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=511171"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-1895",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-1895"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-1895",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1895"
+				}
+			],
+			"release_date": "2009-06-26T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-1895 kernel: personality: fix PER_CLEAR_ON_SETID"
+		},
+		{
+			"cve": "CVE-2009-2691",
+			"discovery_date": "2009-08-07T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "516171"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The mm_for_maps function in fs/proc/base.c in the Linux kernel 2.6.30.4 and earlier allows local users to read (1) maps and (2) smaps files under proc/ via vectors related to ELF loading, a setuid process, and a race condition.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-2691 kernel: /proc/$pid/maps visible during initial setuid ELF loading",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "We currently have no plans to fix this flaw in Red Hat Enterprise Linux 3, 4, and 5 as it is not possible to trigger the information leak if the suid_dumpable tunable is set to zero (which is the default).",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-2691"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#516171",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=516171"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-2691",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-2691"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-2691",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-2691"
+				}
+			],
+			"release_date": "2009-07-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-2691 kernel: /proc/$pid/maps visible during initial setuid ELF loading"
+		},
+		{
+			"cve": "CVE-2009-2695",
+			"discovery_date": "2009-08-17T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "517830"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The Linux kernel before 2.6.31-rc7 does not properly prevent mmap operations that target page zero and other low memory addresses, which allows local users to gain privileges by exploiting NULL pointer dereference vulnerabilities, related to (1) the default configuration of the allow_unconfined_mmap_low boolean in SELinux on Red Hat Enterprise Linux (RHEL) 5, (2) an error that causes allow_unconfined_mmap_low to be ignored in the unconfined_t domain, (3) lack of a requirement for the CAP_SYS_RAWIO capability for these mmap operations, and (4) interaction between the mmap_min_addr protection mechanism and certain application programs.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-2695 kernel: SELinux and mmap_min_addr",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-2695"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#517830",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=517830"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-2695",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-2695"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-2695",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-2695"
+				}
+			],
+			"release_date": "2009-07-31T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-2695 kernel: SELinux and mmap_min_addr"
+		},
+		{
+			"cve": "CVE-2009-2849",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2009-08-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "518132"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The md driver (drivers/md/md.c) in the Linux kernel before 2.6.30.2 might allow local users to cause a denial of service (NULL pointer dereference) via vectors related to \"suspend_* sysfs attributes\" and the (1) suspend_lo_store or (2) suspend_hi_store functions.  NOTE: this is only a vulnerability when sysfs is writable by an attacker.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-2849 kernel: md: NULL pointer deref when accessing suspend_* sysfs attributes",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The flaw was introduced in kernel version 2.6.17-rc1. The Linux kernel as shipped with Red Hat Enterprise Linux 3, and 4 are not affected by this issue.\n\nA future kernel update for Red Hat Enterprise Linux 5 will address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-2849"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#518132",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=518132"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-2849",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-2849"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-2849",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-2849"
+				}
+			],
+			"release_date": "2009-07-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.2,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:H/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-2849 kernel: md: NULL pointer deref when accessing suspend_* sysfs attributes"
+		},
+		{
+			"cve": "CVE-2009-2910",
+			"discovery_date": "2009-10-01T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "526788"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "arch/x86/ia32/ia32entry.S in the Linux kernel before 2.6.31.4 on the x86_64 platform does not clear certain kernel registers before a return to user mode, which allows local users to read register values from an earlier process by switching an ia32 process to 64-bit mode.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-2910 kernel: x86_64 32 bit process register leak",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is not planned to be fixed in Red Hat Enterprise Linux 3, due to this product being in Production 3 of its maintenance life-cycle, where only qualified security errata of important and critical impact are addressed.\n\nFor further information about Errata Support Policy, visit: https://access.redhat.com/support/policy/updates/errata/",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-2910"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#526788",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=526788"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-2910",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-2910"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-2910",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-2910"
+				}
+			],
+			"release_date": "2009-10-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-2910 kernel: x86_64 32 bit process register leak"
+		},
+		{
+			"cve": "CVE-2009-3002",
+			"discovery_date": "2009-08-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "519305"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The Linux kernel before 2.6.31-rc7 does not initialize certain data structures within getname functions, which allows local users to read the contents of some kernel memory locations by calling getsockname on (1) an AF_APPLETALK socket, related to the atalk_getname function in net/appletalk/ddp.c; (2) an AF_IRDA socket, related to the irda_getname function in net/irda/af_irda.c; (3) an AF_ECONET socket, related to the econet_getname function in net/econet/af_econet.c; (4) an AF_NETROM socket, related to the nr_getname function in net/netrom/af_netrom.c; (5) an AF_ROSE socket, related to the rose_getname function in net/rose/af_rose.c; or (6) a raw CAN socket, related to the raw_getname function in net/can/raw.c.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3001, CVE-2009-3002 kernel: numerous getname() infoleaks",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "CVE-2009-3002 describes a collection of similar information leaks that affect numerous networking protocols.\n\nThe Linux kernel as shipped with Red Hat Enterprise Linux 4 and 5 did not enable support for the AppleTalk DDP protocol, and therefore were not affected by issue (1).\n\nThe Linux kernel as shipped with Red Hat Enterprise Linux 4, 5 and Red Hat Enterprise MRG did not enable support for IrDA sockets, and therefore were not affected by issue (2).\n\nThe Linux kernel as shipped with Red Hat Enterprise Linux 3, 4, 5, and Red Hat Enterprise MRG did not enable support for the Acorn Econet and AUN protocols, and therefore were not affected by issue (3).\n\nThe Linux kernel as shipped with Red Hat Enterprise Linux 4, 5, and Red Hat Enterprise MRG did not enable support for the NET/ROM and ROSE protocols, and therefore were not affected by issues (4) and (5).\n\nThe raw_getname() leak was introduced in the Linux kernel version 2.6.25-rc1. The Linux kernel as shipped with Red Hat Enterprise Linux 3, 4, 5, and Red Hat Enterprise MRG therefore were not affected by issue (6).",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3002"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#519305",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=519305"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3002",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3002"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3002",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3002"
+				}
+			],
+			"release_date": "2009-08-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-3001, CVE-2009-3002 kernel: numerous getname() infoleaks"
+		},
+		{
+			"cve": "CVE-2009-3228",
+			"cwe": {
+				"id": "CWE-401",
+				"name": "Missing Release of Memory after Effective Lifetime"
+			},
+			"discovery_date": "2009-09-03T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "520990"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The tc_fill_tclass function in net/sched/sch_api.c in the tc subsystem in the Linux kernel 2.4.x before 2.4.37.6 and 2.6.x before 2.6.31-rc9 does not initialize certain (1) tcm__pad1 and (2) tcm__pad2 structure members, which might allow local users to obtain sensitive information from kernel memory via unspecified vectors.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3228 kernel: tc: uninitialised kernel memory leak",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3228"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#520990",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=520990"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3228",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3228"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3228",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3228"
+				}
+			],
+			"release_date": "2009-09-02T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-3228 kernel: tc: uninitialised kernel memory leak"
+		},
+		{
+			"cve": "CVE-2009-3547",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2009-10-23T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "530490"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple race conditions in fs/pipe.c in the Linux kernel before 2.6.32-rc6 allow local users to cause a denial of service (NULL pointer dereference and system crash) or gain privileges by attempting to open an anonymous pipe via a /proc/*/fd/ pathname.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3547 kernel: fs: pipe.c null pointer dereference",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3547"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#530490",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=530490"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3547",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3547"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3547",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3547"
+				}
+			],
+			"release_date": "2009-10-14T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 7.2,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:L/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-3547 kernel: fs: pipe.c null pointer dereference"
+		},
+		{
+			"cve": "CVE-2009-3612",
+			"discovery_date": "2009-10-14T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "528868"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The tcf_fill_node function in net/sched/cls_api.c in the netlink subsystem in the Linux kernel 2.6.x before 2.6.32-rc5, and 2.4.37.6 and earlier, does not initialize a certain tcm__pad2 structure member, which might allow local users to obtain sensitive information from kernel memory via unspecified vectors. NOTE: this issue exists because of an incomplete fix for CVE-2005-4881.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "tcf_fill_node() infoleak due to typo in 9ef1d4c7",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is not planned to be fixed in Red Hat Enterprise Linux 3 due to this product being in Production 3 of its maintenance life-cycle, where only qualified security errata of important or critical impact are addressed.\n\nFor further information about the Errata Support Policy, visit: https://access.redhat.com/support/policy/updates/errata/",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3612"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#528868",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=528868"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3612",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3612"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3612",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3612"
+				}
+			],
+			"release_date": "2009-10-08T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "tcf_fill_node() infoleak due to typo in 9ef1d4c7"
+		},
+		{
+			"cve": "CVE-2009-3613",
+			"discovery_date": "2009-10-15T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "529137"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The swiotlb functionality in the r8169 driver in drivers/net/r8169.c in the Linux kernel before 2.6.27.22 allows remote attackers to cause a denial of service (IOMMU space exhaustion and system crash) by using jumbo frames for a large amount of network traffic, as demonstrated by a flood ping.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3613 kernel: flood ping cause out-of-iommu error and panic when mtu larger than 1500",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3613"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#529137",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=529137"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3613",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3613"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3613",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3613"
+				}
+			],
+			"release_date": "2007-11-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2009-3613 kernel: flood ping cause out-of-iommu error and panic when mtu larger than 1500"
+		},
+		{
+			"cve": "CVE-2009-3620",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2009-10-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "529597"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The ATI Rage 128 (aka r128) driver in the Linux kernel before 2.6.31-git11 does not properly verify Concurrent Command Engine (CCE) state initialization, which allows local users to cause a denial of service (NULL pointer dereference and system crash) or possibly gain privileges via unspecified ioctl calls.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3620 kernel: r128 IOCTL NULL pointer dereferences when CCE state is uninitialised",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3620"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#529597",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=529597"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3620",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3620"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3620",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3620"
+				}
+			],
+			"release_date": "2009-08-30T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-3620 kernel: r128 IOCTL NULL pointer dereferences when CCE state is uninitialised"
+		},
+		{
+			"cve": "CVE-2009-3621",
+			"discovery_date": "2009-10-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "529626"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "net/unix/af_unix.c in the Linux kernel 2.6.31.4 and earlier allows local users to cause a denial of service (system hang) by creating an abstract-namespace AF_UNIX listening socket, performing a shutdown operation on this socket, and then performing a series of connect operations to this socket.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-3621 kernel: AF_UNIX: Fix deadlock on connecting to shutdown socket",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is not planned to be fixed in Red Hat Enterprise Linux 3, due to this product being in Production 3 of its maintenance life-cycle, where only qualified security errata of important or critical impact are addressed.\n\nFor further information about Errata Support Policy, visit: https://access.redhat.com/support/policy/updates/errata/",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+					"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+					"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-3621"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#529626",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=529626"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-3621",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-3621"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-3621",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3621"
+				}
+			],
+			"release_date": "2009-10-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure that all previously-released\nerrata relevant to your system have been applied.\n\nThis update is available via Red Hat Network.  Details on how to use\nthe Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:1540"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.src",
+						"5Server-MRG-Realtime-1.0:kernel-rt-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debug-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-debuginfo-common-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-doc-0:2.6.24.7-137.el5rt.noarch",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-trace-devel-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-debuginfo-0:2.6.24.7-137.el5rt.x86_64",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.i686",
+						"5Server-MRG-Realtime-1.0:kernel-rt-vanilla-devel-0:2.6.24.7-137.el5rt.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2009-3621 kernel: AF_UNIX: Fix deadlock on connecting to shutdown socket"
+		}
+	]
+}

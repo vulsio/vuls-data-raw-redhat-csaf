@@ -1,0 +1,710 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated images that fix one security issue and several bugs are now available for Red Hat OpenShift Container Storage 4.6.5 on Red Hat Enterprise Linux 8 from Red Hat Container Registry.\n\nRed Hat Product Security has rated this update as having a security impact of Moderate. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat OpenShift Container Storage is software-defined storage integrated with and optimized for the Red Hat OpenShift Container Platform. Red Hat OpenShift Container Storage is a highly scalable, production-grade persistent storage for stateful applications running in the Red Hat OpenShift Container Platform. In addition to persistent storage, Red Hat OpenShift Container Storage provisions a multicloud data management service\nwith an S3 compatible API.\n\nSecurity Fix(es):\n\n* NooBaa: noobaa-operator leaking RPC AuthToken into log files (CVE-2021-3528)\n\nFor more details about the security issue(s), including the impact, a CVSS score, and other related information, refer to the CVE page(s) listed in the References section.\n\nBug Fix(es):\n\n* Currently, a newly restored PVC cannot be mounted if some of the OpenShift Container Platform nodes are running on a version of Red Hat Enterprise Linux which is less than 8.2, and the snapshot from which the PVC was restored is deleted. \nWorkaround: Do not delete the snapshot from which the PVC was restored until the restored PVC is deleted. (BZ#1962483)\n\n* Previously, the default backingstore was not created on AWS S3 when OpenShift Container Storage was deployed, due to incorrect identification of AWS S3. With this update, the default backingstore gets created when OpenShift Container Storage is deployed on AWS S3. (BZ#1927307)\n\n* Previously, log messages were printed to the endpoint pod log even if the debug option was not set. With this update, the log messages are printed to the endpoint pod log only when the debug option is set. (BZ#1938106)\n\n* Previously, the PVCs could not be provisioned as the `rook-ceph-mds` did not register the pod IP on the monitor servers, and hence every mount on the filesystem timed out, resulting in CephFS volume provisioning failure. With this update, an argument `--public-addr=podIP` is added to the MDS pod when the host network is not enabled, and hence the CephFS volume provisioning does not fail. (BZ#1949558)\n\n* Previously, OpenShift Container Storage 4.2 clusters were not updated with the correct cache value, and hence MDSs in standby-replay might report an oversized cache, as rook did not apply the `mds_cache_memory_limit` argument during upgrades. With this update, the `mds_cache_memory_limit` argument is applied during upgrades and the mds daemon operates normally. (BZ#1951348)\n\n* Previously, the coredumps were not generated in the correct location as rook was setting the config option `log_file` to an empty string since logging happened on stdout and not on the files, and hence Ceph read the value of the `log_file` to build the dump path. With this update, rook does not set the `log_file` and keeps Ceph's internal default, and hence the coredumps are generated in the correct location and are accessible under `/var/log/ceph/`. (BZ#1938049)\n\n* Previously, Ceph became inaccessible, as the mons lose quorum if a mon pod was drained while another mon was failing over. With this update, voluntary mon drains are prevented while a mon is failing over, and hence Ceph does not become inaccessible. (BZ#1946573)\n\n* Previously, the mon quorum was at risk, as the operator could erroneously remove the new mon if the operator was restarted during a mon failover. With this update, the operator completes the same mon failover after the operator is restarted, and hence the mon quorum is more reliable in the node drains and mon failover scenarios. (BZ#1959983)\n\nAll users of Red Hat OpenShift Container Storage are advised to pull these\nnew images from the Red Hat Container Registry.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2021:2479",
+				"url": "https://access.redhat.com/errata/RHSA-2021:2479"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2021/rhsa-2021_2479.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: Red Hat OpenShift Container Storage 4.6.5 security and bug fix update",
+		"tracking": {
+			"current_release_date": "2021-06-17T15:46:37+00:00",
+			"generator": {
+				"date": "2023-10-17T17:16:15+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2021:2479",
+			"initial_release_date": "2021-06-17T15:46:37+00:00",
+			"revision_history": [
+				{
+					"date": "2021-06-17T15:46:37+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+								"product": {
+									"name": "Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+									"product_id": "8Base-RH-OCS-4.6",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openshift_container_storage:4.6::el8"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenShift Container Storage"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le",
+								"product": {
+									"name": "ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le",
+									"product_id": "ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35?arch=ppc64le&repository_url=registry.redhat.io/ocs4/cephcsi-rhel8&tag=4.6-75.ce3f8de.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le",
+								"product": {
+									"name": "ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le",
+									"product_id": "ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204?arch=ppc64le&repository_url=registry.redhat.io/ocs4/mcg-core-rhel8&tag=5.6.0-54.93205f1.5.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le",
+								"product": {
+									"name": "ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le",
+									"product_id": "ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a?arch=ppc64le&repository_url=registry.redhat.io/ocs4/mcg-rhel8-operator&tag=5.6.0-57.43b2f28.5.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le",
+								"product": {
+									"name": "ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le",
+									"product_id": "ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551?arch=ppc64le&repository_url=registry.redhat.io/ocs4/ocs-must-gather-rhel8&tag=4.6-90.8bee60f.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le",
+								"product": {
+									"name": "ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le",
+									"product_id": "ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11?arch=ppc64le&repository_url=registry.redhat.io/ocs4/ocs-operator-bundle&tag=4.6.5-3"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le",
+								"product": {
+									"name": "ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le",
+									"product_id": "ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0?arch=ppc64le&repository_url=registry.redhat.io/ocs4/ocs-rhel8-operator&tag=4.6-90.8bee60f.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le",
+								"product": {
+									"name": "ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le",
+									"product_id": "ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:oci/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f?arch=ppc64le&repository_url=registry.redhat.io/ocs4/rook-ceph-rhel8-operator&tag=4.6-100.9bbe471.release_4.6"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64le"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64",
+								"product": {
+									"name": "ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64",
+									"product_id": "ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81?arch=amd64&repository_url=registry.redhat.io/ocs4/cephcsi-rhel8&tag=4.6-75.ce3f8de.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64",
+								"product": {
+									"name": "ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64",
+									"product_id": "ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762?arch=amd64&repository_url=registry.redhat.io/ocs4/mcg-core-rhel8&tag=5.6.0-54.93205f1.5.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+								"product": {
+									"name": "ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+									"product_id": "ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504?arch=amd64&repository_url=registry.redhat.io/ocs4/mcg-rhel8-operator&tag=5.6.0-57.43b2f28.5.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64",
+								"product": {
+									"name": "ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64",
+									"product_id": "ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4?arch=amd64&repository_url=registry.redhat.io/ocs4/ocs-must-gather-rhel8&tag=4.6-90.8bee60f.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64",
+								"product": {
+									"name": "ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64",
+									"product_id": "ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728?arch=amd64&repository_url=registry.redhat.io/ocs4/ocs-operator-bundle&tag=4.6.5-3"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64",
+								"product": {
+									"name": "ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64",
+									"product_id": "ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb?arch=amd64&repository_url=registry.redhat.io/ocs4/ocs-rhel8-operator&tag=4.6-90.8bee60f.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64",
+								"product": {
+									"name": "ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64",
+									"product_id": "ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64",
+									"product_identification_helper": {
+										"purl": "pkg:oci/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1?arch=amd64&repository_url=registry.redhat.io/ocs4/rook-ceph-rhel8-operator&tag=4.6-100.9bbe471.release_4.6"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "amd64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x",
+								"product": {
+									"name": "ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x",
+									"product_id": "ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75?arch=s390x&repository_url=registry.redhat.io/ocs4/cephcsi-rhel8&tag=4.6-75.ce3f8de.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x",
+								"product": {
+									"name": "ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x",
+									"product_id": "ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e?arch=s390x&repository_url=registry.redhat.io/ocs4/mcg-core-rhel8&tag=5.6.0-54.93205f1.5.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+								"product": {
+									"name": "ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+									"product_id": "ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc?arch=s390x&repository_url=registry.redhat.io/ocs4/mcg-rhel8-operator&tag=5.6.0-57.43b2f28.5.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x",
+								"product": {
+									"name": "ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x",
+									"product_id": "ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6?arch=s390x&repository_url=registry.redhat.io/ocs4/ocs-must-gather-rhel8&tag=4.6-90.8bee60f.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x",
+								"product": {
+									"name": "ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x",
+									"product_id": "ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d?arch=s390x&repository_url=registry.redhat.io/ocs4/ocs-operator-bundle&tag=4.6.5-3"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x",
+								"product": {
+									"name": "ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x",
+									"product_id": "ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1?arch=s390x&repository_url=registry.redhat.io/ocs4/ocs-rhel8-operator&tag=4.6-90.8bee60f.release_4.6"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x",
+								"product": {
+									"name": "ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x",
+									"product_id": "ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x",
+									"product_identification_helper": {
+										"purl": "pkg:oci/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3?arch=s390x&repository_url=registry.redhat.io/ocs4/rook-ceph-rhel8-operator&tag=4.6-100.9bbe471.release_4.6"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64"
+				},
+				"product_reference": "ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le"
+				},
+				"product_reference": "ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x"
+				},
+				"product_reference": "ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64"
+				},
+				"product_reference": "ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x"
+				},
+				"product_reference": "ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le"
+				},
+				"product_reference": "ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64"
+				},
+				"product_reference": "ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x"
+				},
+				"product_reference": "ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le"
+				},
+				"product_reference": "ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x"
+				},
+				"product_reference": "ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64"
+				},
+				"product_reference": "ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le"
+				},
+				"product_reference": "ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le"
+				},
+				"product_reference": "ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64"
+				},
+				"product_reference": "ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x"
+				},
+				"product_reference": "ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64"
+				},
+				"product_reference": "ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x"
+				},
+				"product_reference": "ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le"
+				},
+				"product_reference": "ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le"
+				},
+				"product_reference": "ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x"
+				},
+				"product_reference": "ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64 as a component of Red Hat OpenShift Container Storage 4.6 on RHEL-8",
+					"product_id": "8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64"
+				},
+				"product_reference": "ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64",
+				"relates_to_product_reference": "8Base-RH-OCS-4.6"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Martin Bukatovic"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2021-3528",
+			"cwe": {
+				"id": "CWE-532",
+				"name": "Insertion of Sensitive Information into Log File"
+			},
+			"discovery_date": "2021-03-10T00:00:00+00:00",
+			"flags": [
+				{
+					"label": "vulnerable_code_not_present",
+					"product_ids": [
+						"8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64",
+						"8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le",
+						"8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x",
+						"8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64",
+						"8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x",
+						"8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le",
+						"8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x",
+						"8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64",
+						"8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le",
+						"8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le",
+						"8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64",
+						"8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x",
+						"8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64",
+						"8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x",
+						"8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le",
+						"8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le",
+						"8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x",
+						"8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64"
+					]
+				}
+			],
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1955601"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in NooBaa, where internal RPC AuthTokens between the noobaa operator and the noobaa core are leaked into log files.  An attacker with access to the log files could use this AuthToken to gain additional access into noobaa deployment and can read/modify system configuration.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2021-3528 NooBaa: noobaa-operator leaking RPC AuthToken into log files",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+					"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+					"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le"
+				],
+				"known_not_affected": [
+					"8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:1fc36db2751d61e6d9b906f12209c48def3ecc4cca1f07dabfd0c79298819e81_amd64",
+					"8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:2174818de86b60ffccd58a6b4ea1af8e9b68f46a5099cffb5278fa1fb14f6f35_ppc64le",
+					"8Base-RH-OCS-4.6:ocs4/cephcsi-rhel8@sha256:e775d9a6471d92695ccaddb868699fef9651ef8d8a54620ca27c73fe17716b75_s390x",
+					"8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:21d8f83204ee23ae3a7efe5b0520e83db2c1119de3cb906716fcbc9a43f51762_amd64",
+					"8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:a3124c535ac5addb4ed7b17b510cdce59041471086bd47711cdfc4085729507e_s390x",
+					"8Base-RH-OCS-4.6:ocs4/mcg-core-rhel8@sha256:c2b6c175a2eefa010c11a3c0abdd8ddfa673106973485e36dfc83ea6b7954204_ppc64le",
+					"8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:02bd45989cc8326600c2e3a4dd8dbafbba7f964c15f3c9988a46351524f4c4d6_s390x",
+					"8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:382e0c32f1b53ed43e2fbcfd0d9b20a0d77166a28f24c51369800c8b7961d6c4_amd64",
+					"8Base-RH-OCS-4.6:ocs4/ocs-must-gather-rhel8@sha256:443f1318115d926003477cae8563275ba604c4f8fb87aa1247c6666735744551_ppc64le",
+					"8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:1f0abcb86785a7ab0007db4ba140e44dcd7ccb6d5e2684c545f07f416e978a11_ppc64le",
+					"8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:25786b7bb21c9885e4dc497f455f35d5e36c862e35f9ec8ab1bd4867f756b728_amd64",
+					"8Base-RH-OCS-4.6:ocs4/ocs-operator-bundle@sha256:48ade0f263833a9c36b54a4bc65f7c7da2d41ab585a55af52fb84e1a4e26c81d_s390x",
+					"8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:4aaddd2099467cab00e20c98d1c52595ae7626faaf835420342efda7127463fb_amd64",
+					"8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:79de62cc9409ae3cc47831dd5f6b834845709b8e7b20df7f2d045cd985fcf5d1_s390x",
+					"8Base-RH-OCS-4.6:ocs4/ocs-rhel8-operator@sha256:f4b02f523598a5e39eb5d3bb600e459cd3f09e0fbcdfb35b6708cf49492bd2f0_ppc64le",
+					"8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:0db20cbd3bf72e2a84095c95c722b0fa421bbf8f406703b3ad610e06dee9fc5f_ppc64le",
+					"8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:3e5c482045def4a497b63e2d6f00def776283141a3580a11c0fd355aa56151a3_s390x",
+					"8Base-RH-OCS-4.6:ocs4/rook-ceph-rhel8-operator@sha256:4be2192a13696c8e5a91e5973d9aea8af0c81d91fcdd153160569e7e5721eca1_amd64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2021-3528"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1955601",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1955601"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2021-3528",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2021-3528"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2021-3528",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2021-3528"
+				}
+			],
+			"release_date": "2021-03-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+						"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+						"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2021:2479"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 8.8,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:089ce4ca020e305f84ca58fa4e8635e96c4ba209090eba838ab7824c6af7f504_amd64",
+						"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:67065201cf0f64bb1f901ba5ee373f1f660a14331e26b2eab8c2784b6a90f1fc_s390x",
+						"8Base-RH-OCS-4.6:ocs4/mcg-rhel8-operator@sha256:72f5bc639ec35104c17f31400c2b7a652ad74030895283a4b28cffae7808128a_ppc64le"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2021-3528 NooBaa: noobaa-operator leaking RPC AuthToken into log files"
+		}
+	]
+}

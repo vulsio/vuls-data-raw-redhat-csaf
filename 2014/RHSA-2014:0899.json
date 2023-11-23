@@ -1,0 +1,798 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openstack-neutron packages that fix two security issues, several bugs, and add various enhancements are now available for Red Hat Enterprise Linux OpenStack Platform 4.0.\n\nThe Red Hat Security Response Team has rated this update as having Moderate security impact. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The openstack-neutron packages provide Openstack Networking (neutron), the virtual network service.\n\nOpenStack Networking (neutron) is a pluggable, scalable, and API-driven system that provisions networking services to virtual machines. Its main function is to manage connectivity to and from virtual machines.\n\nIt was discovered that an authenticated user could add a security group rule with an invalid CIDR causing the openvswitch-agent process to fail and prevent further rules from being applied. (CVE-2014-0187)\n\nIt was discovered that an authenticated user could add an IPv6 private subnet to an L3 router causing L3-agent to break in a way that prevents further IPv4 addresses from being attached. Removal of the faulty network can only be done directly at the database level. Only Neutron setups using IPv6 and L3-agent are affected by this issue. (CVE-2014-4167)\n\nThis update also fixes several bugs and adds enhancements:\n\n* Previously, running 'cloud-init' resulted in each instance sending requests to the metadata agent, which in turn queried Networking server.\nConsequently, booting multiple concurrent instances resulted in metadata agent queries producing heavy load for 'neutron-server'.\nThis update addresses this issue by implementing a short lifetime cache for the metadata agent. Metadata agent now only queries Networking when data is not present in its cache, with the result of decreased load on Networking server during 'cloud-init' within instances. (BZ#1101494).\n\n* With this update, Networking (neutron) packages now update the '/etc/sudoers.d/neutron' file. Consequently, any local changes have been relocated to the '/etc/sudoers.d/neutron.rpmsave' file, and will need to be merged back manually.\nTo avoid the need for manual updates in future, please apply local changes in a separate 'sudoers.d' file. (BZ#1115406)\n\n* Previously, Networking would fail to reliably communicate with Qpid. This behavior was due to an incorrect message subject set in the Qpid layer used by Networking.\nThis update addresses this issue by setting a correct subject when sending a Qpid message. As a result, Networking now works reliably with the new Qpid server. (BZ#1108549)\n\nAll openstack-neutron users are advised to upgrade to these updated packages, which correct these issues and add these enhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2014:0899",
+				"url": "https://access.redhat.com/errata/RHSA-2014:0899"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2014/rhsa-2014_0899.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openstack-neutron security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2014-07-17T04:28:02+00:00",
+			"generator": {
+				"date": "2023-10-17T16:13:06+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2014:0899",
+			"initial_release_date": "2014-07-17T04:28:01+00:00",
+			"revision_history": [
+				{
+					"date": "2014-07-17T04:28:02+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+								"product": {
+									"name": "Red Hat Enterprise Linux OpenStack Platform 4.0",
+									"product_id": "6Server-RHOS-4.0",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openstack:4::el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenStack Platform"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-bigswitch@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-ryu@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-ml2@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-metering-agent@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-vpn-agent@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-brocade@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-mellanox@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-plumgrid@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-linuxbridge@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-openvswitch@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-metaplugin@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-neutron-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "python-neutron-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "python-neutron-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-neutron@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-nec@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-hyperv@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-nicira@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-midonet@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+								"product": {
+									"name": "openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+									"product_id": "openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron-cisco@2013.2.3-14.el6ost?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-neutron-0:2013.2.3-14.el6ost.src",
+								"product": {
+									"name": "openstack-neutron-0:2013.2.3-14.el6ost.src",
+									"product_id": "openstack-neutron-0:2013.2.3-14.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-neutron@2013.2.3-14.el6ost?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-0:2013.2.3-14.el6ost.src as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src"
+				},
+				"product_reference": "openstack-neutron-0:2013.2.3-14.el6ost.src",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-neutron-0:2013.2.3-14.el6ost.noarch as a component of Red Hat Enterprise Linux OpenStack Platform 4.0",
+					"product_id": "6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+				},
+				"product_reference": "python-neutron-0:2013.2.3-14.el6ost.noarch",
+				"relates_to_product_reference": "6Server-RHOS-4.0"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2014-0187",
+			"discovery_date": "2014-04-22T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1090132"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The openvswitch-agent process in OpenStack Neutron 2013.1 before 2013.2.4 and 2014.1 before 2014.1.1 allows remote authenticated users to bypass security group restrictions via an invalid CIDR in a security group rule, which prevents further rules from being applied.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-0187 openstack-neutron: security groups bypass through invalid CIDR",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src",
+					"6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-0187"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1090132",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1090132"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-0187",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-0187"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-0187",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-0187"
+				}
+			],
+			"release_date": "2014-04-22T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src",
+						"6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:0899"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:L/Au:S/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src",
+						"6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2014-0187 openstack-neutron: security groups bypass through invalid CIDR"
+		},
+		{
+			"cve": "CVE-2014-4167",
+			"discovery_date": "2014-06-16T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1110139"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The L3-agent in OpenStack Neutron before 2013.2.4, 2014.x before 2014.1.2, and Juno before Juno-2 allows remote authenticated users to cause a denial of service (IPv4 address attachment outage) by attaching an IPv6 private subnet to a L3 router.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-4167 openstack-neutron: L3-agent denial of service through IPv6 subnet",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src",
+					"6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+					"6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-4167"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1110139",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1110139"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-4167",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-4167"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-4167",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-4167"
+				}
+			],
+			"release_date": "2014-04-17T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/site/articles/11258",
+					"product_ids": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src",
+						"6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2014:0899"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:L/Au:S/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-0:2013.2.3-14.el6ost.src",
+						"6Server-RHOS-4.0:openstack-neutron-bigswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-brocade-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-cisco-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-hyperv-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-linuxbridge-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-mellanox-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metaplugin-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-metering-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-midonet-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ml2-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nec-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-nicira-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-openvswitch-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-plumgrid-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-ryu-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:openstack-neutron-vpn-agent-0:2013.2.3-14.el6ost.noarch",
+						"6Server-RHOS-4.0:python-neutron-0:2013.2.3-14.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2014-4167 openstack-neutron: L3-agent denial of service through IPv6 subnet"
+		}
+	]
+}

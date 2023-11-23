@@ -1,0 +1,831 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "CloudForms System Engine 1.1.2 is now available.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat CloudForms is an on-premise hybrid cloud\nInfrastructure-as-a-Service (IaaS) product that lets you create and manage\nprivate and public clouds. It provides self-service computing resources to\nusers in a managed, governed, and secure way. CloudForms System Engine can\nbe used to configure new systems, subscribe to updates, and maintain\ninstallations in distributed environments.\n\nIt was found that the\n\"/usr/share/katello/script/katello-generate-passphrase\" utility, which is\nrun during the installation and configuration process, set world-readable\npermissions on the \"/etc/katello/secure/passphrase\" file. A local attacker\ncould use this flaw to obtain the passphrase for Katello, giving them\naccess to information they would otherwise not have access to.\n(CVE-2012-5561)\n\nNote: After installing this update, ensure the\n\"/etc/katello/secure/passphrase\" file is owned by the root user and group\nand mode 0750 permissions. Sites should also consider re-creating the\nKatello passphrase as this issue exposed it to local users.\n\nOne task the katello-configure utility performs is creating an RPM to be\ninstalled on client machines that need to connect to the Katello server. It\nwas found that this RPM set world-readable and writable permissions on the\npem file (containing the Certificate Authority certificate) used for\ntrusting the Katello server. An attacker could use this flaw to perform a\nman-in-the-middle attack, allowing them to manage (such as installing and\nremoving software) Katello client systems. (CVE-2012-6116)\n\nThe CVE-2012-5561 issue was discovered by Aaron Weitekamp of the Red Hat\nCloud Quality Engineering team, and CVE-2012-6116 was discovered by Dominic\nCleal and James Laska of Red Hat.\n\nThis update also fixes the following bugs:\n\n* The CloudForms System Engine command line tool incorrectly parsed\nlocales, which caused the following error:\n\n\"translation missing: de.activerecord.errors.messages.record_invalid\"\n\nThis update replaces the controller for setting the locale. The translation\nerror no longer appears. (BZ#896251)\n\n* Certain locales did not properly escape certain UI content for new role\ncreation. This broke the Save button for some locales. This update corrects\nthe escape behavior for localized UI content. The Save button now works\nfor new role creation. (BZ#896252)\n\n* A missing icon stopped users from deleting recent or saved searches. This\nupdate adds the icon and users can now delete recent or saved searches.\n(BZ#896253)\n\n* A performance issue in the Candlepin 0.7.8 component caused subscription\nresponsiveness to decrease as the number of systems subscribed to\nCloudForms System Engine increases. This erratum updates to Candlepin\n0.7.19, which corrects the performance issues. (BZ#896261)\n\n* CloudForms System Engine would not fetch Extended Update Service (EUS)\nentitlements. This blocked the user from seeing and enabling EUS\nrepositories. This update revises the manifest upload and deletion code,\nwhich also corrects the behavior for fetching entitlements. System Engine\nnow fetches EUS entitlements. (BZ#896265)\n\n* Issues with menu widths caused the localized UI to not render certain\nmenu items. This update corrects the style for the System Engine UI. The\nWeb UI now renders the menu items correctly. (BZ#903702)\n\nRefer to the CloudForms 1.1.2 Release Notes for further information about\nthis release. The Release Notes will be available shortly from\nhttps://access.redhat.com/knowledge/docs/\n\nTo upgrade, follow the upgrade instructions in the CloudForms Installation\nGuide, section \"4.1. Upgrading CloudForms System Engine\":\n\nhttps://access.redhat.com/knowledge/docs/en-US/CloudForms/1.1/html/Installation_Guide/index.html\n\nUsers of CloudForms System Engine are advised to upgrade to these updated\npackages.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0547",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0547"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/knowledge/docs/",
+				"url": "https://access.redhat.com/knowledge/docs/"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/knowledge/docs/en-US/CloudForms/1.1/html/Installation_Guide/index.html",
+				"url": "https://access.redhat.com/knowledge/docs/en-US/CloudForms/1.1/html/Installation_Guide/index.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0547.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: CloudForms System Engine 1.1.2 update",
+		"tracking": {
+			"current_release_date": "2013-02-21T19:01:10+00:00",
+			"generator": {
+				"date": "2023-10-17T16:01:26+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0547",
+			"initial_release_date": "2013-02-21T18:55:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-02-21T19:01:10+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "CloudForms System Engine for RHEL 6 Server",
+								"product": {
+									"name": "CloudForms System Engine for RHEL 6 Server",
+									"product_id": "6Server-SystemEngine",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:cloudforms_systemengine:1::el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat CloudForms"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "katello-configure-0:1.1.9-13.el6cf.noarch",
+								"product": {
+									"name": "katello-configure-0:1.1.9-13.el6cf.noarch",
+									"product_id": "katello-configure-0:1.1.9-13.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-configure@1.1.9-13.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-cli-0:1.1.8-14.el6cf.noarch",
+								"product": {
+									"name": "katello-cli-0:1.1.8-14.el6cf.noarch",
+									"product_id": "katello-cli-0:1.1.8-14.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-cli@1.1.8-14.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-cli-common-0:1.1.8-14.el6cf.noarch",
+								"product": {
+									"name": "katello-cli-common-0:1.1.8-14.el6cf.noarch",
+									"product_id": "katello-cli-common-0:1.1.8-14.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-cli-common@1.1.8-14.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "candlepin-devel-0:0.7.19-3.el6cf.noarch",
+								"product": {
+									"name": "candlepin-devel-0:0.7.19-3.el6cf.noarch",
+									"product_id": "candlepin-devel-0:0.7.19-3.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/candlepin-devel@0.7.19-3.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+								"product": {
+									"name": "candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+									"product_id": "candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/candlepin-tomcat6@0.7.19-3.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "candlepin-0:0.7.19-3.el6cf.noarch",
+								"product": {
+									"name": "candlepin-0:0.7.19-3.el6cf.noarch",
+									"product_id": "candlepin-0:0.7.19-3.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/candlepin@0.7.19-3.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+								"product": {
+									"name": "candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+									"product_id": "candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/candlepin-selinux@0.7.19-3.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-selinux-0:1.1.1-5.el6cf.noarch",
+								"product": {
+									"name": "katello-selinux-0:1.1.1-5.el6cf.noarch",
+									"product_id": "katello-selinux-0:1.1.1-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-selinux@1.1.1-5.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-0:1.1.12.2-5.el6cf.noarch",
+								"product": {
+									"name": "katello-0:1.1.12.2-5.el6cf.noarch",
+									"product_id": "katello-0:1.1.12.2-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello@1.1.12.2-5.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+								"product": {
+									"name": "katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+									"product_id": "katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-api-docs@1.1.12.2-5.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-common-0:1.1.12.2-5.el6cf.noarch",
+								"product": {
+									"name": "katello-common-0:1.1.12.2-5.el6cf.noarch",
+									"product_id": "katello-common-0:1.1.12.2-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-common@1.1.12.2-5.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+								"product": {
+									"name": "katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+									"product_id": "katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-glue-candlepin@1.1.12.2-5.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+								"product": {
+									"name": "katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+									"product_id": "katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-glue-pulp@1.1.12.2-5.el6cf?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-all-0:1.1.12.2-5.el6cf.noarch",
+								"product": {
+									"name": "katello-all-0:1.1.12.2-5.el6cf.noarch",
+									"product_id": "katello-all-0:1.1.12.2-5.el6cf.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-all@1.1.12.2-5.el6cf?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "katello-configure-0:1.1.9-13.el6cf.src",
+								"product": {
+									"name": "katello-configure-0:1.1.9-13.el6cf.src",
+									"product_id": "katello-configure-0:1.1.9-13.el6cf.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-configure@1.1.9-13.el6cf?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-cli-0:1.1.8-14.el6cf.src",
+								"product": {
+									"name": "katello-cli-0:1.1.8-14.el6cf.src",
+									"product_id": "katello-cli-0:1.1.8-14.el6cf.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-cli@1.1.8-14.el6cf?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "candlepin-0:0.7.19-3.el6cf.src",
+								"product": {
+									"name": "candlepin-0:0.7.19-3.el6cf.src",
+									"product_id": "candlepin-0:0.7.19-3.el6cf.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/candlepin@0.7.19-3.el6cf?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-selinux-0:1.1.1-5.el6cf.src",
+								"product": {
+									"name": "katello-selinux-0:1.1.1-5.el6cf.src",
+									"product_id": "katello-selinux-0:1.1.1-5.el6cf.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello-selinux@1.1.1-5.el6cf?arch=src"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "katello-0:1.1.12.2-5.el6cf.src",
+								"product": {
+									"name": "katello-0:1.1.12.2-5.el6cf.src",
+									"product_id": "katello-0:1.1.12.2-5.el6cf.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/katello@1.1.12.2-5.el6cf?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "candlepin-0:0.7.19-3.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch"
+				},
+				"product_reference": "candlepin-0:0.7.19-3.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "candlepin-0:0.7.19-3.el6cf.src as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src"
+				},
+				"product_reference": "candlepin-0:0.7.19-3.el6cf.src",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "candlepin-devel-0:0.7.19-3.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch"
+				},
+				"product_reference": "candlepin-devel-0:0.7.19-3.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "candlepin-selinux-0:0.7.19-3.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch"
+				},
+				"product_reference": "candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "candlepin-tomcat6-0:0.7.19-3.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch"
+				},
+				"product_reference": "candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-0:1.1.12.2-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch"
+				},
+				"product_reference": "katello-0:1.1.12.2-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-0:1.1.12.2-5.el6cf.src as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src"
+				},
+				"product_reference": "katello-0:1.1.12.2-5.el6cf.src",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-all-0:1.1.12.2-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch"
+				},
+				"product_reference": "katello-all-0:1.1.12.2-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-api-docs-0:1.1.12.2-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch"
+				},
+				"product_reference": "katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-cli-0:1.1.8-14.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch"
+				},
+				"product_reference": "katello-cli-0:1.1.8-14.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-cli-0:1.1.8-14.el6cf.src as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src"
+				},
+				"product_reference": "katello-cli-0:1.1.8-14.el6cf.src",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-cli-common-0:1.1.8-14.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch"
+				},
+				"product_reference": "katello-cli-common-0:1.1.8-14.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-common-0:1.1.12.2-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch"
+				},
+				"product_reference": "katello-common-0:1.1.12.2-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-configure-0:1.1.9-13.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch"
+				},
+				"product_reference": "katello-configure-0:1.1.9-13.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-configure-0:1.1.9-13.el6cf.src as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src"
+				},
+				"product_reference": "katello-configure-0:1.1.9-13.el6cf.src",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch"
+				},
+				"product_reference": "katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch"
+				},
+				"product_reference": "katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-selinux-0:1.1.1-5.el6cf.noarch as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch"
+				},
+				"product_reference": "katello-selinux-0:1.1.1-5.el6cf.noarch",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "katello-selinux-0:1.1.1-5.el6cf.src as a component of CloudForms System Engine for RHEL 6 Server",
+					"product_id": "6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+				},
+				"product_reference": "katello-selinux-0:1.1.1-5.el6cf.src",
+				"relates_to_product_reference": "6Server-SystemEngine"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Aaron Weitekamp"
+					],
+					"organization": "Red Hat Cloud Quality Engineering team",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2012-5561",
+			"discovery_date": "2012-11-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "879094"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "script/katello-generate-passphrase in Katello 1.1 uses world-readable permissions for /etc/katello/secure/passphrase, which allows local users to obtain the passphrase by reading the file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "/etc/katello/secure/passphrase is world readable",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src",
+					"6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src",
+					"6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch",
+					"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src",
+					"6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch",
+					"6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch",
+					"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src",
+					"6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-5561"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#879094",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=879094"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-5561",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-5561"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-5561",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-5561"
+				}
+			],
+			"release_date": "2013-01-03T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src",
+						"6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src",
+						"6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src",
+						"6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src",
+						"6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0547"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src",
+						"6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src",
+						"6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src",
+						"6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src",
+						"6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "/etc/katello/secure/passphrase is world readable"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Dominic Cleal"
+					]
+				},
+				{
+					"names": [
+						"James Laska"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2012-6116",
+			"discovery_date": "2012-11-16T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "906207"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "modules/certs/manifests/config.pp in katello-configure before 1.3.3.pulpv2 in Katello uses weak permissions (666) for the Candlepin bootstrap RPM, which allows local users to modify the Candlepin CA certificate by writing to this file.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "bootstrap RPM deploys CA certificate file with mode 666",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src",
+					"6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+					"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src",
+					"6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch",
+					"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src",
+					"6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch",
+					"6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch",
+					"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src",
+					"6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch",
+					"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-6116"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#906207",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=906207"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-6116",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-6116"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-6116",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-6116"
+				}
+			],
+			"release_date": "2013-02-21T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src",
+						"6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src",
+						"6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src",
+						"6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src",
+						"6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0547"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:L/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-0:0.7.19-3.el6cf.src",
+						"6Server-SystemEngine:candlepin-devel-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-selinux-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:candlepin-tomcat6-0:0.7.19-3.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-0:1.1.12.2-5.el6cf.src",
+						"6Server-SystemEngine:katello-all-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-api-docs-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-cli-0:1.1.8-14.el6cf.src",
+						"6Server-SystemEngine:katello-cli-common-0:1.1.8-14.el6cf.noarch",
+						"6Server-SystemEngine:katello-common-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.noarch",
+						"6Server-SystemEngine:katello-configure-0:1.1.9-13.el6cf.src",
+						"6Server-SystemEngine:katello-glue-candlepin-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-glue-pulp-0:1.1.12.2-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.noarch",
+						"6Server-SystemEngine:katello-selinux-0:1.1.1-5.el6cf.src"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "bootstrap RPM deploys CA certificate file with mode 666"
+		}
+	]
+}

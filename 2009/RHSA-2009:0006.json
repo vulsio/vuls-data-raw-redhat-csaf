@@ -1,0 +1,573 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated pkisetup, rhpki-common, rhpki-ca, rhpki-kra, rhpki-ocsp, rhpki-tks,\nand rhpki-tps (and rhpki-util for Solaris 9) packages that fix various\nsecurity issues and several bugs are now available for Red Hat Certificate\nSystem 7.2.\n\nThis update has been rated as having moderate security impact by the Red\nHat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat Certificate System is an enterprise software system designed to\nmanage enterprise public key infrastructure (PKI) deployments.\n\nIt was discovered that Red Hat Certificate System used insecure default\nfile permissions on certain configuration files (for example,\npassword.conf) that may contain authentication credentials. These \ncredentials should only be accessible to administrative and service users. \nA local user could use this flaw to read Red Hat Certificate System \nconfiguration files containing sensitive information. (CVE-2008-2367)\n\nIt was discovered that Red Hat Certificate System stored plain text\npasswords in multiple debug log files with insufficient access restrictions\n(such as the UserDirEnrollment log and RA wizard installer log). A local\nuser could use this flaw to extract plain text passwords from the Red Hat\nCertificate System debug log files. (CVE-2008-2368)\n\nThese updated packages fix the following bugs:\n\n* Due to a regression, signing a certificate revocation list (CRL) with\napproximately 150,000 records may have taken up to five minutes. In these\nupdated packages, signing such CRLs takes approximately twenty seconds.\n\n* Because Certificate System servers could not handle Online Certificate \nStatus Protocol (OCSP) requests in the GET method, OCSP GET requests \nresulted in a 404 error. The bug for handling GET requests may have also \ncaused a system to use 100% CPU. This has been resolved. Additionally, \nOCSP requests are now logged to the debug log file.\n\n* It was possible for a CRL update to run at the same time as a certificate\nstatus update. Now, CRL updating locks out the certificate status update\nthread.\n\n* Inefficient LDAP search methods caused LDAP searches for 100,000 or \nmore revoked certificates to take twenty minutes or longer during CRL \ngeneration. The LDAP search method has been modified to greatly improve \nLDAP search times.\n\n* The default OCSP verification path has changed since Red Hat Certificate\nSystem 7.1. These updated packages add support for certificates that use\nthe old AuthorityInfoAccess (AIA) URL.\n\n* An OCSP client submitting an OCSP request via the GET method may have \ncaused a NullPointerException.\n\n* If an agent automatically approved a certificate signing request (CSR),\nusing AgentCertAuth, the resultant certificate contained blank \nsubjectAltName extension fields. A manual enrollment by the same agent \nproduced a certificate with the correct number of subjectAltNames and no \nblank entries. With this update, automated enrollments through \nAgentCertAuth do not have blank fields in issued certificates.\n\nAll users of Red Hat Certificate System 7.2 should upgrade to these updated\npackages, which resolve these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2009:0006",
+				"url": "https://access.redhat.com/errata/RHSA-2009:0006"
+			},
+			{
+				"category": "external",
+				"summary": "http://www.redhat.com/security/updates/classification/#moderate",
+				"url": "http://www.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2009/rhsa-2009_0006.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: rhpki security and bug fix update",
+		"tracking": {
+			"current_release_date": "2009-01-15T04:50:42+00:00",
+			"generator": {
+				"date": "2023-10-17T15:50:37+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2009:0006",
+			"initial_release_date": "2009-01-15T09:50:00+00:00",
+			"revision_history": [
+				{
+					"date": "2009-01-15T04:50:42+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Certificate System 7.2 for 4ES",
+								"product": {
+									"name": "Red Hat Certificate System 7.2 for 4ES",
+									"product_id": "4ES-CERT-7.2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:certificate_system:7.2"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Certificate System 7.2 for 4AS",
+								"product": {
+									"name": "Red Hat Certificate System 7.2 for 4AS",
+									"product_id": "4AS-CERT-7.2",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:certificate_system:7.2"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Certificate System"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhpki-kra-0:7.2.0-5.noarch",
+								"product": {
+									"name": "rhpki-kra-0:7.2.0-5.noarch",
+									"product_id": "rhpki-kra-0:7.2.0-5.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-kra@7.2.0-5?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhpki-ocsp-0:7.2.0-5.noarch",
+								"product": {
+									"name": "rhpki-ocsp-0:7.2.0-5.noarch",
+									"product_id": "rhpki-ocsp-0:7.2.0-5.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-ocsp@7.2.0-5?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhpki-tks-0:7.2.0-5.noarch",
+								"product": {
+									"name": "rhpki-tks-0:7.2.0-5.noarch",
+									"product_id": "rhpki-tks-0:7.2.0-5.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-tks@7.2.0-5?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhpki-ca-0:7.2.0-6.noarch",
+								"product": {
+									"name": "rhpki-ca-0:7.2.0-6.noarch",
+									"product_id": "rhpki-ca-0:7.2.0-6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-ca@7.2.0-6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "pkisetup-0:7.2.0-7.noarch",
+								"product": {
+									"name": "pkisetup-0:7.2.0-7.noarch",
+									"product_id": "pkisetup-0:7.2.0-7.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/pkisetup@7.2.0-7?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "rhpki-common-0:7.2.0-16.noarch",
+								"product": {
+									"name": "rhpki-common-0:7.2.0-16.noarch",
+									"product_id": "rhpki-common-0:7.2.0-16.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-common@7.2.0-16?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhpki-tps-0:7.2.0-8.x86_64",
+								"product": {
+									"name": "rhpki-tps-0:7.2.0-8.x86_64",
+									"product_id": "rhpki-tps-0:7.2.0-8.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-tps@7.2.0-8?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "rhpki-tps-0:7.2.0-8.i386",
+								"product": {
+									"name": "rhpki-tps-0:7.2.0-8.i386",
+									"product_id": "rhpki-tps-0:7.2.0-8.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/rhpki-tps@7.2.0-8?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pkisetup-0:7.2.0-7.noarch as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:pkisetup-0:7.2.0-7.noarch"
+				},
+				"product_reference": "pkisetup-0:7.2.0-7.noarch",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-ca-0:7.2.0-6.noarch as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch"
+				},
+				"product_reference": "rhpki-ca-0:7.2.0-6.noarch",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-common-0:7.2.0-16.noarch as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-common-0:7.2.0-16.noarch"
+				},
+				"product_reference": "rhpki-common-0:7.2.0-16.noarch",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-kra-0:7.2.0-5.noarch as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch"
+				},
+				"product_reference": "rhpki-kra-0:7.2.0-5.noarch",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-ocsp-0:7.2.0-5.noarch as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch"
+				},
+				"product_reference": "rhpki-ocsp-0:7.2.0-5.noarch",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-tks-0:7.2.0-5.noarch as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch"
+				},
+				"product_reference": "rhpki-tks-0:7.2.0-5.noarch",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-tps-0:7.2.0-8.i386 as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.i386"
+				},
+				"product_reference": "rhpki-tps-0:7.2.0-8.i386",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-tps-0:7.2.0-8.x86_64 as a component of Red Hat Certificate System 7.2 for 4AS",
+					"product_id": "4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64"
+				},
+				"product_reference": "rhpki-tps-0:7.2.0-8.x86_64",
+				"relates_to_product_reference": "4AS-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "pkisetup-0:7.2.0-7.noarch as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:pkisetup-0:7.2.0-7.noarch"
+				},
+				"product_reference": "pkisetup-0:7.2.0-7.noarch",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-ca-0:7.2.0-6.noarch as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch"
+				},
+				"product_reference": "rhpki-ca-0:7.2.0-6.noarch",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-common-0:7.2.0-16.noarch as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-common-0:7.2.0-16.noarch"
+				},
+				"product_reference": "rhpki-common-0:7.2.0-16.noarch",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-kra-0:7.2.0-5.noarch as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch"
+				},
+				"product_reference": "rhpki-kra-0:7.2.0-5.noarch",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-ocsp-0:7.2.0-5.noarch as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch"
+				},
+				"product_reference": "rhpki-ocsp-0:7.2.0-5.noarch",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-tks-0:7.2.0-5.noarch as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch"
+				},
+				"product_reference": "rhpki-tks-0:7.2.0-5.noarch",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-tps-0:7.2.0-8.i386 as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.i386"
+				},
+				"product_reference": "rhpki-tps-0:7.2.0-8.i386",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "rhpki-tps-0:7.2.0-8.x86_64 as a component of Red Hat Certificate System 7.2 for 4ES",
+					"product_id": "4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64"
+				},
+				"product_reference": "rhpki-tps-0:7.2.0-8.x86_64",
+				"relates_to_product_reference": "4ES-CERT-7.2"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2008-2367",
+			"discovery_date": "2007-07-27T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "451998"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat Certificate System 7.2 uses world-readable permissions for password.conf and unspecified other configuration files, which allows local users to discover passwords by reading these files.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-2367 Certificate System: insecure config file permissions",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"4AS-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+					"4AS-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+					"4AS-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+					"4AS-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+					"4AS-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+					"4AS-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+					"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+					"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64",
+					"4ES-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+					"4ES-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+					"4ES-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+					"4ES-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+					"4ES-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+					"4ES-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+					"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+					"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-2367"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#451998",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=451998"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-2367",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-2367"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-2367",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-2367"
+				}
+			],
+			"release_date": "2009-01-15T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Users running Red Hat Certificate System on Red Hat Enterprise Linux:\n\nBefore applying this update, make sure that all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use the Red\nHat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nUsers running Red Hat Certificate System on Sun Solaris:\n\nUpdated Solaris packages in .pkg format are available in the Red Hat\nCertificate System Solaris channels on the Red Hat Network. These packages\nshould be installed/upgraded using Solaris native package management tools.\n\nRefer to the Red Hat Certificate System Administration Guide for\ninstallation instructions:\nhttp://www.redhat.com/docs/manuals/cert-system/",
+					"product_ids": [
+						"4AS-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+						"4AS-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+						"4AS-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+						"4AS-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+						"4AS-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+						"4AS-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+						"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+						"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64",
+						"4ES-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+						"4ES-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+						"4ES-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+						"4ES-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+						"4ES-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+						"4ES-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+						"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+						"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:0006"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2008-2367 Certificate System: insecure config file permissions"
+		},
+		{
+			"cve": "CVE-2008-2368",
+			"discovery_date": "2007-01-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "452000"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Red Hat Certificate System 7.2 stores passwords in cleartext in the UserDirEnrollment log, the RA wizard installer log, and unspecified other debug log files, and uses weak permissions for these files, which allows local users to discover passwords by reading the files.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-2368 Certificate System: plain text passwords stored in debug log",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"4AS-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+					"4AS-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+					"4AS-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+					"4AS-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+					"4AS-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+					"4AS-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+					"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+					"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64",
+					"4ES-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+					"4ES-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+					"4ES-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+					"4ES-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+					"4ES-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+					"4ES-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+					"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+					"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-2368"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#452000",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=452000"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-2368",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-2368"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-2368",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-2368"
+				}
+			],
+			"release_date": "2009-01-15T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Users running Red Hat Certificate System on Red Hat Enterprise Linux:\n\nBefore applying this update, make sure that all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network. Details on how to use the Red\nHat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259\n\nUsers running Red Hat Certificate System on Sun Solaris:\n\nUpdated Solaris packages in .pkg format are available in the Red Hat\nCertificate System Solaris channels on the Red Hat Network. These packages\nshould be installed/upgraded using Solaris native package management tools.\n\nRefer to the Red Hat Certificate System Administration Guide for\ninstallation instructions:\nhttp://www.redhat.com/docs/manuals/cert-system/",
+					"product_ids": [
+						"4AS-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+						"4AS-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+						"4AS-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+						"4AS-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+						"4AS-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+						"4AS-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+						"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+						"4AS-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64",
+						"4ES-CERT-7.2:pkisetup-0:7.2.0-7.noarch",
+						"4ES-CERT-7.2:rhpki-ca-0:7.2.0-6.noarch",
+						"4ES-CERT-7.2:rhpki-common-0:7.2.0-16.noarch",
+						"4ES-CERT-7.2:rhpki-kra-0:7.2.0-5.noarch",
+						"4ES-CERT-7.2:rhpki-ocsp-0:7.2.0-5.noarch",
+						"4ES-CERT-7.2:rhpki-tks-0:7.2.0-5.noarch",
+						"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.i386",
+						"4ES-CERT-7.2:rhpki-tps-0:7.2.0-8.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2009:0006"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2008-2368 Certificate System: plain text passwords stored in debug log"
+		}
+	]
+}

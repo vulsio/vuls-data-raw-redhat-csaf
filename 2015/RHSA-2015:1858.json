@@ -1,0 +1,211 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated mod_proxy_fcgi and ceph packages that fix one security issue and\nseveral bugs are now available for CentOS 6.\n\nRed Hat Product Security has rated this update as having Low security\nimpact. A Common Vulnerability Scoring System (CVSS) base score, which\ngives a detailed severity rating, is available from the CVE link in the\nReferences section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Red Hat Ceph Storage is a massively scalable, open, software-defined\nstorage platform that combines the most stable version of the Ceph storage\nsystem with a Ceph management platform, deployment tools, and support\nservices.\n\nThe mod_proxy_fcgi package provides a proxy module for the Apache 2.2 HTTP\nserver.\n\nA buffer overflow flaw was found in mod_proxy_fcgi's handle_headers()\nfunction. A malicious FastCGI server that httpd is configured to connect to\ncould send a carefully crafted response that would cause an httpd child\nprocess handling the request to crash. (CVE-2014-3583)\n\nThis update also fixes the following bugs:\n\n* The RADOS gateway (RGW) can now properly decode the slash characters\n(\"/\") in clients' upload IDs. (BZ#1183182)\n\n* The RGW's object attribute updates could race with other object updates\noperations, which led to inconsistent object states, such as incomplete\nobject deletions. RGW now handles attribute updates correctly. (BZ#1206963)\n\n* Recreating a previously existing bucket in RGW did not remove the bucket\ninstance metadata object and created a redundant object in the RGW pool.\nThe redundant objects are no longer generated. (BZ#1212524)\n\n* The Content-Length header is now correctly created when creating a\ncontainer using the Swift API. (BZ#1213988)\n\n* RGW did not properly cache users' keystone tokens and validated all\nkeystone tokens for every Swift operation. RGW now caches tokens correctly,\nso that the token validation occurs only when necessary. (BZ#1213999)\n\n* Modifying a user's Access Control List (ACL) permissions for an object in\nRGW inappropriately caused the user to become the owner of the object.\nThis update fixes this bug. (BZ#1214051)\n\n* RGW could fail to update the bucket attributes during a Swift API \"POST\"\noperation. RGW now correctly updates the bucket attributes. (BZ#1214058)\n\n* RGW no longer terminated unexpectedly when using keystone authentication\nto copy an object. (BZ#1214061)\n\n* An attempt to download an object greater than 512 KB using a range header\nfailed when using the Swift API. Objects can now be downloaded as expected.\n(BZ#1214854)\n\n* When using OpenStack's Cinder RADOS Block Device (RBD) back-end driver\nwith Ceph administration socket enabled, Ceph could leak file descriptors\nand eventually consume the maximum number of allowed opened files.\nThis behavior caused Cinder's RBD connections to fail. Now, Ceph closes the\nadministration socket appropriately. (BZ#1220496)\n\n* When a part of a multi-part object was resent, the object became broken\ndue a discrepancy between the object size when listing the object and when\nstating the object. Now, multi-part objects no longer become broken in such\na case. (BZ#1222091)\n\n* When the number of placement groups (PGs) in a pool was increased, Ceph\ndid not send watch or notify operations correctly. Consequently, the librbd\nlibrary presented inconsistent RBD snapshot data. Now, Ceph correctly\nre-sends operations. (BZ#1245785)\n\n* When reopening log files, Object Storage Devices (OSDs) could write data\nto the incorrect file descriptor. Consequently, log entries were lost, or\nwere written to a file descriptor, which was opened by the filestore.\nThe latter case could cause data corruption. This bug has been fixed.\n(BZ#1247752)\n\nAll mod_proxy_fcgi and ceph users are advised to upgrade to these updated\npackages, which correct these issues.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2015:1858",
+				"url": "https://access.redhat.com/errata/RHSA-2015:1858"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/articles/1560193",
+				"url": "https://access.redhat.com/articles/1560193"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/articles/1372203",
+				"url": "https://access.redhat.com/articles/1372203"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhsa-2015_1858.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: mod_proxy_fcgi and ceph security and bug fix update",
+		"tracking": {
+			"current_release_date": "2016-02-02T22:02:00Z",
+			"generator": {
+				"date": "2023-06-30T21:19:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2015:1858",
+			"initial_release_date": "2015-10-01T21:00:00Z",
+			"revision_history": [
+				{
+					"date": "2016-02-02T22:02:00Z",
+					"number": "3",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "3"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"category": "product_family",
+						"name": "Red Hat Ceph Storage",
+						"product": {
+							"name": "Red Hat Ceph Storage",
+							"product_id": "Red Hat Ceph Storage"
+						}
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2014-3583",
+			"cwe": {
+				"id": "CWE-125",
+				"name": "Out-of-bounds Read"
+			},
+			"discovery_date": "2014-10-12T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1163555"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "A buffer overflow flaw was found in mod_proxy_fcgi's handle_headers() function. A malicious FastCGI server that httpd is configured to connect to could send a carefully crafted response that would cause an httpd child process handling the request to crash.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "httpd: mod_proxy_fcgi handle_headers() buffer over read",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Ceph Storage"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-3583",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-3583"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-3583",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-3583"
+				},
+				{
+					"category": "external",
+					"summary": "http://httpd.apache.org/security/vulnerabilities_24.html",
+					"url": "http://httpd.apache.org/security/vulnerabilities_24.html"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2014-3583",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-3583"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1163555: CVE-2014-3583 httpd: mod_proxy_fcgi handle_headers() buffer over read",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1163555"
+				}
+			],
+			"release_date": "2014-10-12T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nRefer to the following Knowledge Base article for a download link and\nsigning information:\n\nhttps://access.redhat.com/articles/1560193",
+					"product_ids": [
+						"Red Hat Ceph Storage"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2015:1858"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 2.6,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:H/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"Red Hat Ceph Storage"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2014-10-12T00:00:00Z",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2014-3583 httpd: mod_proxy_fcgi handle_headers() buffer over read"
+		}
+	]
+}

@@ -1,0 +1,915 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel packages that fix a number of security issues as well as\nother bugs are now available for Red Hat Enterprise Linux 2.1 (32 bit\narchitectures)\n\nThis security advisory has been rated as having important security impact\nby the Red Hat Security Response Team.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The Linux kernel handles the basic functions of the operating system. \n\nThese new kernel packages contain fixes for the security issues described\nbelow:\n\n- a flaw in network IGMP processing that a allowed a remote user on the\nlocal network to cause a denial of service (disabling of multicast reports)\nif the system is running multicast applications (CVE-2002-2185, moderate) \n\n- a race condition that allowed local users to read the environment\nvariables of another process (CVE-2004-1058, low)\n\n- a flaw in the open_exec function of execve that allowed a local user to\nread setuid ELF binaries that should otherwise be protected by standard\npermissions. (CVE-2004-1073, moderate).  Red Hat originally reported this\nflaw as being fixed by RHSA-2004:504, but a patch for this issue was\nmissing from that update.\n\n- a flaw in the coda module that allowed a local user to cause a denial of\nservice (crash) or possibly gain privileges (CVE-2005-0124, moderate)\n\n- a potential leak of kernel data from ext2 file system handling\n(CVE-2005-0400, low) \n\n- flaws in ISO-9660 file system handling that allowed the mounting of\nan invalid image on a CD-ROM to cause a denial of service (crash)\nor potentially execute arbitrary code (CVE-2005-0815, moderate) \n\n- a flaw in gzip/zlib handling internal to the kernel that may allow a\nlocal user to cause a denial of service (crash) (CVE-2005-2458, low) \n\n- a flaw in procfs handling during unloading of modules that allowed a\nlocal user to cause a denial of service or potentially gain privileges\n(CVE-2005-2709, moderate) \n\n- a flaw in IPv6 network UDP port hash table lookups that allowed a local\nuser to cause a denial of service (hang) (CVE-2005-2973, important) \n\n- a network buffer info leak using the orinoco driver that allowed a remote\nuser to possibly view uninitialized data (CVE-2005-3180, important) \n\n- a flaw in IPv4 network TCP and UDP netfilter handling that allowed a\nlocal user to cause a denial of service (crash) (CVE-2005-3275, important) \n\n- a flaw in the IPv6 flowlabel code that allowed a local user to cause a\ndenial of service (crash) (CVE-2005-3806, important) \n\nThe following bugs were also addressed: \n\n- Handle set_brk() errors in binfmt_elf/aout\n\n- Correct error handling in shmem_ioctl\n\n- Correct scsi error return\n\n- Fix netdump time keeping bug\n\n- Fix netdump link-down freeze\n\n- Fix FAT fs deadlock\n\nAll Red Hat Enterprise Linux 2.1 users are advised to upgrade their kernels\nto the packages associated with their machine architectures and\nconfigurations as listed in this erratum.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2006:0191",
+				"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2006/rhsa-2006_0191.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel security update",
+		"tracking": {
+			"current_release_date": "2006-02-01T00:00:00Z",
+			"generator": {
+				"date": "2023-06-30T19:23:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHSA-2006:0191",
+			"initial_release_date": "2006-02-01T17:57:00Z",
+			"revision_history": [
+				{
+					"date": "2006-02-01T00:00:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux",
+						"product": {
+							"name": "Red Hat Enterprise Linux",
+							"product_id": "Red Hat Enterprise Linux"
+						}
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2002-2185",
+			"discovery_date": "2005-12-02T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1616930"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The Internet Group Management Protocol (IGMP) allows local users to cause a denial of service via an IGMP membership report to a target's Ethernet address instead of the Multicast group address, which causes the target to stop sending reports to the router and effectively disconnect the group from the network.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2002-2185",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2002-2185"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2002-2185",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2002-2185"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2002-2185",
+					"url": "https://access.redhat.com/security/cve/CVE-2002-2185"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1616930: CVE-2002-2185 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1616930"
+				}
+			],
+			"release_date": "2002-06-25T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-12-02T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2002-2185 security flaw"
+		},
+		{
+			"cve": "CVE-2004-1058",
+			"discovery_date": "",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617360"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Race condition in Linux kernel 2.6 allows local users to read the environment variables of another process that is still spawning via /proc/.../cmdline.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2004-1058",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2004-1058"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2004-1058",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2004-1058"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2004-1058",
+					"url": "https://access.redhat.com/security/cve/CVE-2004-1058"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617360: CVE-2004-1058 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617360"
+				}
+			],
+			"release_date": "2004-08-23T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2004-1058 security flaw"
+		},
+		{
+			"cve": "CVE-2004-1073",
+			"discovery_date": "",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617366"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The open_exec function in the execve functionality (exec.c) in Linux kernel 2.4.x up to 2.4.27, and 2.6.x up to 2.6.8, allows local users to read non-readable ELF binaries by using the interpreter (PT_INTERP) functionality.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2004-1073",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2004-1073"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2004-1073",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2004-1073"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2004-1073",
+					"url": "https://access.redhat.com/security/cve/CVE-2004-1073"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617366: CVE-2004-1073 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617366"
+				}
+			],
+			"release_date": "2004-11-10T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2004-1073 security flaw"
+		},
+		{
+			"cve": "CVE-2005-0124",
+			"discovery_date": "2005-01-10T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617464"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The coda_pioctl function in the coda functionality (pioctl.c) for Linux kernel 2.6.9 and 2.4.x before 2.4.29 may allow local users to cause a denial of service (crash) or execute arbitrary code via negative vi.in_size or vi.out_size values, which may trigger a buffer overflow.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-0124",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-0124"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-0124",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-0124"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-0124",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-0124"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617464: CVE-2005-0124 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617464"
+				}
+			],
+			"release_date": "2005-01-10T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-01-10T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2005-0124 security flaw"
+		},
+		{
+			"cve": "CVE-2005-0400",
+			"discovery_date": "2005-03-21T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617518"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The ext2_make_empty function call in the Linux kernel before 2.6.11.6 does not properly initialize memory when creating a block for a new directory entry, which allows local users to obtain potentially sensitive information by reading the block.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-0400",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-0400"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-0400",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-0400"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-0400",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-0400"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617518: CVE-2005-0400 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617518"
+				}
+			],
+			"release_date": "2005-03-21T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-03-21T00:00:00Z",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2005-0400 security flaw"
+		},
+		{
+			"cve": "CVE-2005-0815",
+			"discovery_date": "2005-03-17T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617584"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple \"range checking flaws\" in the ISO9660 filesystem handler in Linux 2.6.11 and earlier may allow attackers to cause a denial of service or corrupt memory via a crafted filesystem.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-0815",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-0815"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-0815",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-0815"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-0815",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-0815"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617584: CVE-2005-0815 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617584"
+				}
+			],
+			"release_date": "2005-03-17T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-03-17T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2005-0815 security flaw"
+		},
+		{
+			"cve": "CVE-2005-2458",
+			"discovery_date": "2005-08-03T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617720"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "inflate.c in the zlib routines in the Linux kernel before 2.6.12.5 allows remote attackers to cause a denial of service (kernel crash) via a compressed file with \"improper tables\".",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-2458",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-2458"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-2458",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-2458"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-2458",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-2458"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617720: CVE-2005-2458 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617720"
+				}
+			],
+			"release_date": "1999-06-25T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-08-03T00:00:00Z",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2005-2458 security flaw"
+		},
+		{
+			"cve": "CVE-2005-2709",
+			"discovery_date": "2005-09-19T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617751"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The sysctl functionality (sysctl.c) in Linux kernel before 2.6.14.1 allows local users to cause a denial of service (kernel oops) and possibly execute code by opening an interface file in /proc/sys/net/ipv4/conf/, waiting until the interface is unregistered, then obtaining and modifying function pointers in memory that was used for the ctl_table.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-2709",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-2709"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-2709",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-2709"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-2709",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-2709"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617751: CVE-2005-2709 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617751"
+				}
+			],
+			"release_date": "2005-11-08T14:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-09-19T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2005-2709 security flaw"
+		},
+		{
+			"cve": "CVE-2005-2973",
+			"discovery_date": "2005-10-14T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617770"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The udp_v6_get_port function in udp.c in Linux 2.6 before 2.6.14-rc5, when running IPv6, allows local users to cause a denial of service (infinite loop and crash).",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-2973",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-2973"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-2973",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-2973"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-2973",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-2973"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617770: CVE-2005-2973 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617770"
+				}
+			],
+			"release_date": "2005-10-04T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-10-14T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2005-2973 security flaw"
+		},
+		{
+			"cve": "CVE-2005-3180",
+			"discovery_date": "2005-10-04T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617790"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The Orinoco driver (orinoco.c) in Linux kernel 2.6.13 and earlier does not properly clear memory from a previously used packet whose length is increased, which allows remote attackers to obtain sensitive information.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-3180",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-3180"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-3180",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-3180"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-3180",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-3180"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617790: CVE-2005-3180 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617790"
+				}
+			],
+			"release_date": "2005-10-04T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-10-04T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2005-3180 security flaw"
+		},
+		{
+			"cve": "CVE-2005-3275",
+			"discovery_date": "2005-07-22T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617812"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The NAT code (1) ip_nat_proto_tcp.c and (2) ip_nat_proto_udp.c in Linux kernel 2.6 before 2.6.13 and 2.4 before 2.4.32-rc1 incorrectly declares a variable to be static, which allows remote attackers to cause a denial of service (memory corruption) by causing two packets for the same protocol to be NATed at the same time, which leads to memory corruption.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-3275",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-3275"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-3275",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-3275"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-3275",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-3275"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617812: CVE-2005-3275 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617812"
+				}
+			],
+			"release_date": "2005-07-22T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-07-22T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2005-3275 security flaw"
+		},
+		{
+			"cve": "CVE-2005-3806",
+			"discovery_date": "2005-11-24T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1617840"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The IPv6 flow label handling code (ip6_flowlabel.c) in Linux kernels 2.4 up to 2.4.32 and 2.6 before 2.6.14 modifies the wrong variable in certain circumstances, which allows local users to corrupt kernel memory or cause a denial of service (crash) by triggering a free of non-allocated memory.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "security flaw",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat Enterprise Linux"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2005-3806",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2005-3806"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2005-3806",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2005-3806"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2005-3806",
+					"url": "https://access.redhat.com/security/cve/CVE-2005-3806"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1617840: CVE-2005-3806 security flaw",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1617840"
+				}
+			],
+			"release_date": "2005-10-25T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nThis update is available via Red Hat Network.  To use Red Hat Network,\nlaunch the Red Hat Update Agent with the following command:\n\nup2date\n\nThis will start an interactive process that will result in the appropriate\nRPMs being upgraded on your system.",
+					"product_ids": [
+						"Red Hat Enterprise Linux"
+					],
+					"url": "https://access.redhat.com/errata/RHSA-2006:0191"
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2005-11-24T00:00:00Z",
+					"details": "Important"
+				}
+			],
+			"title": "CVE-2005-3806 security flaw"
+		}
+	]
+}

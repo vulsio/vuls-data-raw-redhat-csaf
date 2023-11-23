@@ -1,0 +1,662 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated openstack-nova packages that fix two security issues, several bugs,\nand add an enhancement are now available for Red Hat OpenStack Folsom.\n\nThe Red Hat Security Response Team has rated this update as having moderate\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The openstack-nova packages provide OpenStack Compute (code name Nova),\nwhich provides services for provisioning, managing, and using virtual\nmachine instances.\n\nA denial of service flaw was found in the Extensible Markup Language (XML)\nparser used by Nova. A remote attacker could use this flaw to send a\nspecially-crafted request to a Nova API, causing Nova to consume an\nexcessive amount of CPU and memory. (CVE-2013-1664)\n\nA flaw was found in the XML parser used by Nova. If a remote attacker\nsent a specially-crafted request to a Nova API, it could cause Nova to\nconnect to external entities, causing a large amount of system load, or\nallow an attacker to read files on the Nova server that are accessible to\nthe user running Nova. (CVE-2013-1665)\n\nThis update also fixes several bugs. The following are noteworthy changes:\n\n* In single node, all-in-one environments where all services (such as\nNova, Glance, and Keystone) are installed and run on a single system, after\na host reboot, some instances may have automatically started again, but\nsoon after, automatically shut down. \"Instance shutdown by itself. Calling\nthe stop API\" messages were logged to Nova logs (in \"/var/log/nova/\") in\nthese cases. (BZ#890512)\n\n* In environments using Quantum, after creating a network with two\nsubnets, removing an IP address (using \"nova remove-fixed-ip\"), and then\nadding a fixed address (using \"nova add-fixed-ip\"), resulted in the\nvirtual machine having two IP addresses. (BZ#908373)\n\n* Prior to this update, after converting a downloaded image to raw, the\noriginal, downloaded image (a large .part file) was not removed. After\ninstalling this update, the following three options must be configured in\n\"/etc/nova/nova.conf\" to correctly resolve this issue:\n\nremove_unused_base_images=true\nremove_unused_resized_minimum_age_seconds=60\nremove_unused_original_minimum_age_seconds=60\n\n(BZ#911103)\n\nAdditionally, this update adds the following enhancement:\n\n* The RHSA-2013:0658 openstack-cinder update implemented a Cinder driver\nthat allows Red Hat Storage to be used as a back-end for Cinder volumes.\nThis update adds a libvirt connector to Nova, which is a requirement for\nusing the new Cinder driver. Note that you must manually install the\nglusterfs and glusterfs-fuse packages on the Nova nodes.\n\nAdditionally, when running Security-Enhanced Linux (SELinux) in Enforcing\nmode, the latest selinux-policy packages provided by RHBA-2013:0618 must be\ninstalled, otherwise denials will be logged when attempting to mount Red\nHat Storage volumes. (BZ#912384)\n\nAll users of openstack-nova are advised to upgrade to these updated\npackages, which correct these issues and add this enhancement. After\ninstalling the updated packages, the Nova running services will be\nrestarted automatically.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0657",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0657"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "external",
+				"summary": "https://rhn.redhat.com/errata/RHSA-2013-0658.html",
+				"url": "https://rhn.redhat.com/errata/RHSA-2013-0658.html"
+			},
+			{
+				"category": "external",
+				"summary": "https://rhn.redhat.com/errata/RHBA-2013-0618.html",
+				"url": "https://rhn.redhat.com/errata/RHBA-2013-0618.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0657.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: openstack-nova security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2013-03-21T18:12:14+00:00",
+			"generator": {
+				"date": "2023-10-17T16:03:28+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0657",
+			"initial_release_date": "2013-03-21T18:08:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-03-21T18:12:14+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "OpenStack Folsom",
+								"product": {
+									"name": "OpenStack Folsom",
+									"product_id": "6Server-Folsom",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:openstack:2::el6"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat OpenStack Platform"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-common@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-console@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-network@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-nova-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "python-nova-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "python-nova-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-nova@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-objectstore@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-doc@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-volume@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-cert@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-api@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-compute@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+								"product": {
+									"name": "openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+									"product_id": "openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova-scheduler@2012.2.3-4.el6ost?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "openstack-nova-0:2012.2.3-4.el6ost.src",
+								"product": {
+									"name": "openstack-nova-0:2012.2.3-4.el6ost.src",
+									"product_id": "openstack-nova-0:2012.2.3-4.el6ost.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/openstack-nova@2012.2.3-4.el6ost?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-0:2012.2.3-4.el6ost.src as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src"
+				},
+				"product_reference": "openstack-nova-0:2012.2.3-4.el6ost.src",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-api-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-cert-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-common-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-compute-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-console-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-doc-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-network-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "openstack-nova-volume-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-nova-0:2012.2.3-4.el6ost.noarch as a component of OpenStack Folsom",
+					"product_id": "6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+				},
+				"product_reference": "python-nova-0:2012.2.3-4.el6ost.noarch",
+				"relates_to_product_reference": "6Server-Folsom"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2013-1664",
+			"discovery_date": "2013-02-18T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "913808"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The XML libraries for Python 3.4, 3.3, 3.2, 3.1, 2.7, and 2.6, as used in OpenStack Keystone Essex, Folsom, and Grizzly; Compute (Nova) Essex and Folsom; Cinder Folsom; Django; and possibly other products allow remote attackers to cause a denial of service (resource consumption and crash) via an XML Entity Expansion (XEE) attack.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-1664 Python xml bindings: Internal entity expansion in Python XML libraries inflicts DoS vulnerabilities",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of python as shipped with Red Hat Enterprise Linux 5, 6 and 7. Red Hat Product Security has rated this issue as having Moderate security impact. This issue is not currently planned to be addressed in future updates.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src",
+					"6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-1664"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#913808",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=913808"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-1664",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-1664"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-1664",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-1664"
+				}
+			],
+			"release_date": "2013-02-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src",
+						"6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0657"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src",
+						"6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2013-1664 Python xml bindings: Internal entity expansion in Python XML libraries inflicts DoS vulnerabilities"
+		},
+		{
+			"cve": "CVE-2013-1665",
+			"discovery_date": "2013-02-18T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "912982"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The XML libraries for Python 3.4, 3.3, 3.2, 3.1, 2.7, and 2.6, as used in OpenStack Keystone Essex and Folsom, Django, and possibly other products allow remote attackers to read arbitrary files via an XML external entity declaration in conjunction with an entity reference, aka an XML External Entity (XXE) attack.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2013-1665 Python xml bindings: External entity expansion in Python XML libraries inflicts potential security flaws and DoS vulnerabilities",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of python as shipped with Red Hat Enterprise Linux 5, 6 and 7. Red Hat Product Security has rated this issue as having Moderate security impact. This issue is not currently planned to be addressed in future updates.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src",
+					"6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+					"6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-1665"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#912982",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=912982"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-1665",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-1665"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-1665",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-1665"
+				}
+			],
+			"release_date": "2013-02-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src",
+						"6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0657"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.8,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:P/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-0:2012.2.3-4.el6ost.src",
+						"6Server-Folsom:openstack-nova-api-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-cert-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-common-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-compute-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-console-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-doc-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-network-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-objectstore-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-scheduler-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:openstack-nova-volume-0:2012.2.3-4.el6ost.noarch",
+						"6Server-Folsom:python-nova-0:2012.2.3-4.el6ost.noarch"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2013-1665 Python xml bindings: External entity expansion in Python XML libraries inflicts potential security flaws and DoS vulnerabilities"
+		}
+	]
+}

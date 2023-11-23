@@ -1,0 +1,4053 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated python packages that fix multiple security issues, several bugs,\nand add two enhancements are now available for Red Hat Enterprise Linux 5.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. Common Vulnerability Scoring System (CVSS) base scores,\nwhich give detailed severity ratings, are available for each vulnerability\nfrom the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "Python is an interpreted, interactive, object-oriented programming\nlanguage.\n\nIt was found that many applications embedding the Python interpreter did\nnot specify a valid full path to the script or application when calling the\nPySys_SetArgv API function, which could result in the addition of the\ncurrent working directory to the module search path (sys.path). A local\nattacker able to trick a victim into running such an application in an\nattacker-controlled directory could use this flaw to execute code with the\nvictim's privileges. This update adds the PySys_SetArgvEx API. Developers\ncan modify their applications to use this new API, which sets sys.argv\nwithout modifying sys.path. (CVE-2008-5983)\n\nMultiple flaws were found in the Python rgbimg module. If an application\nwritten in Python was using the rgbimg module and loaded a\nspecially-crafted SGI image file, it could cause the application to crash\nor, possibly, execute arbitrary code with the privileges of the user\nrunning the application. (CVE-2009-4134, CVE-2010-1449, CVE-2010-1450)\n\nMultiple flaws were found in the Python audioop module. Supplying certain\ninputs could cause the audioop module to crash or, possibly, execute\narbitrary code. (CVE-2010-1634, CVE-2010-2089)\n\nThis update also fixes the following bugs:\n\n* When starting a child process from the subprocess module in Python 2.4,\nthe parent process could leak file descriptors if an error occurred. This\nupdate resolves the issue. (BZ#609017)\n\n* Prior to Python 2.7, programs that used \"ulimit -n\" to enable\ncommunication with large numbers of subprocesses could still monitor only\n1024 file descriptors at a time, which caused an exception:\n\n  ValueError: filedescriptor out of range in select()\n\nThis was due to the subprocess module using the \"select\" system call. The\nmodule now uses the \"poll\" system call, removing this limitation.\n(BZ#609020)\n\n* Prior to Python 2.5, the tarfile module failed to unpack tar files if the\npath was longer than 100 characters. This update backports the tarfile\nmodule from Python 2.5 and the issue no longer occurs. (BZ#263401)\n\n* The email module incorrectly implemented the logic for obtaining\nattachment file names: the get_filename() fallback for using the deprecated\n\"name\" parameter of the \"Content-Type\" header erroneously used the\n\"Content-Disposition\" header. This update backports a fix from Python 2.6,\nwhich resolves this issue. (BZ#644147)\n\n* Prior to version 2.5, Python's optimized memory allocator never released\nmemory back to the system. The memory usage of a long-running Python\nprocess would resemble a \"high-water mark\". This update backports a fix\nfrom Python 2.5a1, which frees unused arenas, and adds a non-standard\nsys._debugmallocstats() function, which prints diagnostic information to\nstderr. Finally, when running under Valgrind, the optimized allocator is\ndeactivated, to allow more convenient debugging of Python memory usage\nissues. (BZ#569093)\n\n* The urllib and urllib2 modules ignored the no_proxy variable, which could\nlead to programs such as \"yum\" erroneously accessing a proxy server for\nURLs covered by a \"no_proxy\" exclusion. This update backports fixes of\nurllib and urllib2, which respect the \"no_proxy\" variable, which fixes\nthese issues. (BZ#549372)\n\nAs well, this update adds the following enhancements:\n\n* This update introduces a new python-libs package, subsuming the majority\nof the content of the core python package. This makes both 32-bit and\n64-bit Python libraries available on PowerPC systems. (BZ#625372)\n\n* The python-libs.i386 package is now available for 64-bit Itanium with the\n32-bit Itanium compatibility mode. (BZ#644761)\n\nAll Python users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2011:0027",
+				"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2011/rhsa-2011_0027.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: python security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2011-01-13T05:58:29+00:00",
+			"generator": {
+				"date": "2023-10-17T15:56:04+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2011:0027",
+			"initial_release_date": "2011-01-13T10:55:00+00:00",
+			"revision_history": [
+				{
+					"date": "2011-01-13T05:58:29+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+									"product_id": "5Client-Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client_workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-0:2.4.3-43.el5.src",
+								"product": {
+									"name": "python-0:2.4.3-43.el5.src",
+									"product_id": "python-0:2.4.3-43.el5.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python@2.4.3-43.el5?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.x86_64",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.x86_64",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.x86_64",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.x86_64",
+									"product_id": "python-devel-0:2.4.3-43.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-0:2.4.3-43.el5.x86_64",
+								"product": {
+									"name": "python-0:2.4.3-43.el5.x86_64",
+									"product_id": "python-0:2.4.3-43.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python@2.4.3-43.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "tkinter-0:2.4.3-43.el5.x86_64",
+								"product": {
+									"name": "tkinter-0:2.4.3-43.el5.x86_64",
+									"product_id": "tkinter-0:2.4.3-43.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/tkinter@2.4.3-43.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-tools-0:2.4.3-43.el5.x86_64",
+								"product": {
+									"name": "python-tools-0:2.4.3-43.el5.x86_64",
+									"product_id": "python-tools-0:2.4.3-43.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-tools@2.4.3-43.el5?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-libs-0:2.4.3-43.el5.x86_64",
+								"product": {
+									"name": "python-libs-0:2.4.3-43.el5.x86_64",
+									"product_id": "python-libs-0:2.4.3-43.el5.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-libs@2.4.3-43.el5?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.i386",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.i386",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.i386",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.i386",
+									"product_id": "python-devel-0:2.4.3-43.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-0:2.4.3-43.el5.i386",
+								"product": {
+									"name": "python-0:2.4.3-43.el5.i386",
+									"product_id": "python-0:2.4.3-43.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python@2.4.3-43.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "tkinter-0:2.4.3-43.el5.i386",
+								"product": {
+									"name": "tkinter-0:2.4.3-43.el5.i386",
+									"product_id": "tkinter-0:2.4.3-43.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/tkinter@2.4.3-43.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-tools-0:2.4.3-43.el5.i386",
+								"product": {
+									"name": "python-tools-0:2.4.3-43.el5.i386",
+									"product_id": "python-tools-0:2.4.3-43.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-tools@2.4.3-43.el5?arch=i386"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-libs-0:2.4.3-43.el5.i386",
+								"product": {
+									"name": "python-libs-0:2.4.3-43.el5.i386",
+									"product_id": "python-libs-0:2.4.3-43.el5.i386",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-libs@2.4.3-43.el5?arch=i386"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-0:2.4.3-43.el5.ia64",
+								"product": {
+									"name": "python-0:2.4.3-43.el5.ia64",
+									"product_id": "python-0:2.4.3-43.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python@2.4.3-43.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "tkinter-0:2.4.3-43.el5.ia64",
+								"product": {
+									"name": "tkinter-0:2.4.3-43.el5.ia64",
+									"product_id": "tkinter-0:2.4.3-43.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/tkinter@2.4.3-43.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.ia64",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.ia64",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-tools-0:2.4.3-43.el5.ia64",
+								"product": {
+									"name": "python-tools-0:2.4.3-43.el5.ia64",
+									"product_id": "python-tools-0:2.4.3-43.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-tools@2.4.3-43.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-libs-0:2.4.3-43.el5.ia64",
+								"product": {
+									"name": "python-libs-0:2.4.3-43.el5.ia64",
+									"product_id": "python-libs-0:2.4.3-43.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-libs@2.4.3-43.el5?arch=ia64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.ia64",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.ia64",
+									"product_id": "python-devel-0:2.4.3-43.el5.ia64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=ia64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-0:2.4.3-43.el5.ppc",
+								"product": {
+									"name": "python-0:2.4.3-43.el5.ppc",
+									"product_id": "python-0:2.4.3-43.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python@2.4.3-43.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "tkinter-0:2.4.3-43.el5.ppc",
+								"product": {
+									"name": "tkinter-0:2.4.3-43.el5.ppc",
+									"product_id": "tkinter-0:2.4.3-43.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/tkinter@2.4.3-43.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.ppc",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.ppc",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-tools-0:2.4.3-43.el5.ppc",
+								"product": {
+									"name": "python-tools-0:2.4.3-43.el5.ppc",
+									"product_id": "python-tools-0:2.4.3-43.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-tools@2.4.3-43.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-libs-0:2.4.3-43.el5.ppc",
+								"product": {
+									"name": "python-libs-0:2.4.3-43.el5.ppc",
+									"product_id": "python-libs-0:2.4.3-43.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-libs@2.4.3-43.el5?arch=ppc"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.ppc",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.ppc",
+									"product_id": "python-devel-0:2.4.3-43.el5.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=ppc"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.ppc64",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.ppc64",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-libs-0:2.4.3-43.el5.ppc64",
+								"product": {
+									"name": "python-libs-0:2.4.3-43.el5.ppc64",
+									"product_id": "python-libs-0:2.4.3-43.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-libs@2.4.3-43.el5?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.ppc64",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.ppc64",
+									"product_id": "python-devel-0:2.4.3-43.el5.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-0:2.4.3-43.el5.s390x",
+								"product": {
+									"name": "python-0:2.4.3-43.el5.s390x",
+									"product_id": "python-0:2.4.3-43.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python@2.4.3-43.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "tkinter-0:2.4.3-43.el5.s390x",
+								"product": {
+									"name": "tkinter-0:2.4.3-43.el5.s390x",
+									"product_id": "tkinter-0:2.4.3-43.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/tkinter@2.4.3-43.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.s390x",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.s390x",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-tools-0:2.4.3-43.el5.s390x",
+								"product": {
+									"name": "python-tools-0:2.4.3-43.el5.s390x",
+									"product_id": "python-tools-0:2.4.3-43.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-tools@2.4.3-43.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-libs-0:2.4.3-43.el5.s390x",
+								"product": {
+									"name": "python-libs-0:2.4.3-43.el5.s390x",
+									"product_id": "python-libs-0:2.4.3-43.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-libs@2.4.3-43.el5?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.s390x",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.s390x",
+									"product_id": "python-devel-0:2.4.3-43.el5.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python-debuginfo-0:2.4.3-43.el5.s390",
+								"product": {
+									"name": "python-debuginfo-0:2.4.3-43.el5.s390",
+									"product_id": "python-debuginfo-0:2.4.3-43.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-debuginfo@2.4.3-43.el5?arch=s390"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python-devel-0:2.4.3-43.el5.s390",
+								"product": {
+									"name": "python-devel-0:2.4.3-43.el5.s390",
+									"product_id": "python-devel-0:2.4.3-43.el5.s390",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python-devel@2.4.3-43.el5?arch=s390"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.src as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-0:2.4.3-43.el5.src"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.src",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.s390 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.s390"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.s390",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-libs-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-tools-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:tkinter-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop Workstation (v. 5 client)",
+					"product_id": "5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client-Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-0:2.4.3-43.el5.src"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.s390"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-debuginfo-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.s390 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.s390"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.s390",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-devel-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-libs-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-libs-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-libs-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-libs-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-libs-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-libs-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-tools-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-tools-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-tools-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-tools-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:python-tools-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:tkinter-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:tkinter-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:tkinter-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:tkinter-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:tkinter-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-0:2.4.3-43.el5.src"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.s390"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-debuginfo-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-debuginfo-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-debuginfo-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.s390 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.s390"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.s390",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-devel-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-devel-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-devel-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-libs-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-libs-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-libs-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.ppc64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-libs-0:2.4.3-43.el5.ppc64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.ppc64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-libs-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-libs-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-libs-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-libs-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-tools-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-tools-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-tools-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-tools-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python-tools-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:python-tools-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "python-tools-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:tkinter-0:2.4.3-43.el5.i386"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:tkinter-0:2.4.3-43.el5.ia64"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:tkinter-0:2.4.3-43.el5.ppc"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:tkinter-0:2.4.3-43.el5.s390x"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "tkinter-0:2.4.3-43.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				},
+				"product_reference": "tkinter-0:2.4.3-43.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2008-5983",
+			"discovery_date": "2008-11-03T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "482814"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Untrusted search path vulnerability in the PySys_SetArgv API function in Python 2.6 and earlier, and possibly later versions, prepends an empty string to sys.path when the argv[0] argument does not contain a path separator, which might allow local users to execute arbitrary code via a Trojan horse Python file in the current working directory.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2008-5983 python: untrusted python modules search path",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-0:2.4.3-43.el5.src",
+					"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Client:python-0:2.4.3-43.el5.i386",
+					"5Client:python-0:2.4.3-43.el5.ia64",
+					"5Client:python-0:2.4.3-43.el5.ppc",
+					"5Client:python-0:2.4.3-43.el5.s390x",
+					"5Client:python-0:2.4.3-43.el5.src",
+					"5Client:python-0:2.4.3-43.el5.x86_64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client:python-devel-0:2.4.3-43.el5.i386",
+					"5Client:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client:python-devel-0:2.4.3-43.el5.s390",
+					"5Client:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client:python-libs-0:2.4.3-43.el5.i386",
+					"5Client:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client:python-tools-0:2.4.3-43.el5.i386",
+					"5Client:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client:tkinter-0:2.4.3-43.el5.i386",
+					"5Client:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Server:python-0:2.4.3-43.el5.i386",
+					"5Server:python-0:2.4.3-43.el5.ia64",
+					"5Server:python-0:2.4.3-43.el5.ppc",
+					"5Server:python-0:2.4.3-43.el5.s390x",
+					"5Server:python-0:2.4.3-43.el5.src",
+					"5Server:python-0:2.4.3-43.el5.x86_64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Server:python-devel-0:2.4.3-43.el5.i386",
+					"5Server:python-devel-0:2.4.3-43.el5.ia64",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Server:python-devel-0:2.4.3-43.el5.s390",
+					"5Server:python-devel-0:2.4.3-43.el5.s390x",
+					"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Server:python-libs-0:2.4.3-43.el5.i386",
+					"5Server:python-libs-0:2.4.3-43.el5.ia64",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Server:python-libs-0:2.4.3-43.el5.s390x",
+					"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Server:python-tools-0:2.4.3-43.el5.i386",
+					"5Server:python-tools-0:2.4.3-43.el5.ia64",
+					"5Server:python-tools-0:2.4.3-43.el5.ppc",
+					"5Server:python-tools-0:2.4.3-43.el5.s390x",
+					"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Server:tkinter-0:2.4.3-43.el5.i386",
+					"5Server:tkinter-0:2.4.3-43.el5.ia64",
+					"5Server:tkinter-0:2.4.3-43.el5.ppc",
+					"5Server:tkinter-0:2.4.3-43.el5.s390x",
+					"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2008-5983"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#482814",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=482814"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2008-5983",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2008-5983"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2008-5983",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2008-5983"
+				}
+			],
+			"release_date": "2008-08-06T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 3.7,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2008-5983 python: untrusted python modules search path"
+		},
+		{
+			"cve": "CVE-2009-4134",
+			"discovery_date": "2009-11-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "541698"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Buffer underflow in the rgbimg module in Python 2.5 allows remote attackers to cause a denial of service (application crash) via a large ZSIZE value in a black-and-white (aka B/W) RGB image that triggers an invalid pointer dereference.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-4134 CVE-2010-1449 CVE-2010-1450 python: rgbimg: multiple security issues",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Red Hat Security Response Team has rated this issue as having low security\nimpact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-0:2.4.3-43.el5.src",
+					"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Client:python-0:2.4.3-43.el5.i386",
+					"5Client:python-0:2.4.3-43.el5.ia64",
+					"5Client:python-0:2.4.3-43.el5.ppc",
+					"5Client:python-0:2.4.3-43.el5.s390x",
+					"5Client:python-0:2.4.3-43.el5.src",
+					"5Client:python-0:2.4.3-43.el5.x86_64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client:python-devel-0:2.4.3-43.el5.i386",
+					"5Client:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client:python-devel-0:2.4.3-43.el5.s390",
+					"5Client:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client:python-libs-0:2.4.3-43.el5.i386",
+					"5Client:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client:python-tools-0:2.4.3-43.el5.i386",
+					"5Client:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client:tkinter-0:2.4.3-43.el5.i386",
+					"5Client:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Server:python-0:2.4.3-43.el5.i386",
+					"5Server:python-0:2.4.3-43.el5.ia64",
+					"5Server:python-0:2.4.3-43.el5.ppc",
+					"5Server:python-0:2.4.3-43.el5.s390x",
+					"5Server:python-0:2.4.3-43.el5.src",
+					"5Server:python-0:2.4.3-43.el5.x86_64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Server:python-devel-0:2.4.3-43.el5.i386",
+					"5Server:python-devel-0:2.4.3-43.el5.ia64",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Server:python-devel-0:2.4.3-43.el5.s390",
+					"5Server:python-devel-0:2.4.3-43.el5.s390x",
+					"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Server:python-libs-0:2.4.3-43.el5.i386",
+					"5Server:python-libs-0:2.4.3-43.el5.ia64",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Server:python-libs-0:2.4.3-43.el5.s390x",
+					"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Server:python-tools-0:2.4.3-43.el5.i386",
+					"5Server:python-tools-0:2.4.3-43.el5.ia64",
+					"5Server:python-tools-0:2.4.3-43.el5.ppc",
+					"5Server:python-tools-0:2.4.3-43.el5.s390x",
+					"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Server:tkinter-0:2.4.3-43.el5.i386",
+					"5Server:tkinter-0:2.4.3-43.el5.ia64",
+					"5Server:tkinter-0:2.4.3-43.el5.ppc",
+					"5Server:tkinter-0:2.4.3-43.el5.s390x",
+					"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2009-4134"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#541698",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=541698"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2009-4134",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2009-4134"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2009-4134",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2009-4134"
+				}
+			],
+			"release_date": "2010-05-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2009-4134 CVE-2010-1449 CVE-2010-1450 python: rgbimg: multiple security issues"
+		},
+		{
+			"cve": "CVE-2010-1449",
+			"discovery_date": "2009-11-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "541698"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Integer overflow in rgbimgmodule.c in the rgbimg module in Python 2.5 allows remote attackers to have an unspecified impact via a large image that triggers a buffer overflow. NOTE: this vulnerability exists because of an incomplete fix for CVE-2008-3143.12.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-4134 CVE-2010-1449 CVE-2010-1450 python: rgbimg: multiple security issues",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Red Hat Security Response Team has rated this issue as having low security\nimpact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-0:2.4.3-43.el5.src",
+					"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Client:python-0:2.4.3-43.el5.i386",
+					"5Client:python-0:2.4.3-43.el5.ia64",
+					"5Client:python-0:2.4.3-43.el5.ppc",
+					"5Client:python-0:2.4.3-43.el5.s390x",
+					"5Client:python-0:2.4.3-43.el5.src",
+					"5Client:python-0:2.4.3-43.el5.x86_64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client:python-devel-0:2.4.3-43.el5.i386",
+					"5Client:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client:python-devel-0:2.4.3-43.el5.s390",
+					"5Client:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client:python-libs-0:2.4.3-43.el5.i386",
+					"5Client:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client:python-tools-0:2.4.3-43.el5.i386",
+					"5Client:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client:tkinter-0:2.4.3-43.el5.i386",
+					"5Client:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Server:python-0:2.4.3-43.el5.i386",
+					"5Server:python-0:2.4.3-43.el5.ia64",
+					"5Server:python-0:2.4.3-43.el5.ppc",
+					"5Server:python-0:2.4.3-43.el5.s390x",
+					"5Server:python-0:2.4.3-43.el5.src",
+					"5Server:python-0:2.4.3-43.el5.x86_64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Server:python-devel-0:2.4.3-43.el5.i386",
+					"5Server:python-devel-0:2.4.3-43.el5.ia64",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Server:python-devel-0:2.4.3-43.el5.s390",
+					"5Server:python-devel-0:2.4.3-43.el5.s390x",
+					"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Server:python-libs-0:2.4.3-43.el5.i386",
+					"5Server:python-libs-0:2.4.3-43.el5.ia64",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Server:python-libs-0:2.4.3-43.el5.s390x",
+					"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Server:python-tools-0:2.4.3-43.el5.i386",
+					"5Server:python-tools-0:2.4.3-43.el5.ia64",
+					"5Server:python-tools-0:2.4.3-43.el5.ppc",
+					"5Server:python-tools-0:2.4.3-43.el5.s390x",
+					"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Server:tkinter-0:2.4.3-43.el5.i386",
+					"5Server:tkinter-0:2.4.3-43.el5.ia64",
+					"5Server:tkinter-0:2.4.3-43.el5.ppc",
+					"5Server:tkinter-0:2.4.3-43.el5.s390x",
+					"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-1449"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#541698",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=541698"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-1449",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-1449"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-1449",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-1449"
+				}
+			],
+			"release_date": "2010-05-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2009-4134 CVE-2010-1449 CVE-2010-1450 python: rgbimg: multiple security issues"
+		},
+		{
+			"cve": "CVE-2010-1450",
+			"discovery_date": "2009-11-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "541698"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple buffer overflows in the RLE decoder in the rgbimg module in Python 2.5 allow remote attackers to have an unspecified impact via an image file containing crafted data that triggers improper processing within the (1) longimagedata or (2) expandrow function.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2009-4134 CVE-2010-1449 CVE-2010-1450 python: rgbimg: multiple security issues",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Red Hat Security Response Team has rated this issue as having low security\nimpact, a future update may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-0:2.4.3-43.el5.src",
+					"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Client:python-0:2.4.3-43.el5.i386",
+					"5Client:python-0:2.4.3-43.el5.ia64",
+					"5Client:python-0:2.4.3-43.el5.ppc",
+					"5Client:python-0:2.4.3-43.el5.s390x",
+					"5Client:python-0:2.4.3-43.el5.src",
+					"5Client:python-0:2.4.3-43.el5.x86_64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client:python-devel-0:2.4.3-43.el5.i386",
+					"5Client:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client:python-devel-0:2.4.3-43.el5.s390",
+					"5Client:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client:python-libs-0:2.4.3-43.el5.i386",
+					"5Client:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client:python-tools-0:2.4.3-43.el5.i386",
+					"5Client:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client:tkinter-0:2.4.3-43.el5.i386",
+					"5Client:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Server:python-0:2.4.3-43.el5.i386",
+					"5Server:python-0:2.4.3-43.el5.ia64",
+					"5Server:python-0:2.4.3-43.el5.ppc",
+					"5Server:python-0:2.4.3-43.el5.s390x",
+					"5Server:python-0:2.4.3-43.el5.src",
+					"5Server:python-0:2.4.3-43.el5.x86_64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Server:python-devel-0:2.4.3-43.el5.i386",
+					"5Server:python-devel-0:2.4.3-43.el5.ia64",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Server:python-devel-0:2.4.3-43.el5.s390",
+					"5Server:python-devel-0:2.4.3-43.el5.s390x",
+					"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Server:python-libs-0:2.4.3-43.el5.i386",
+					"5Server:python-libs-0:2.4.3-43.el5.ia64",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Server:python-libs-0:2.4.3-43.el5.s390x",
+					"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Server:python-tools-0:2.4.3-43.el5.i386",
+					"5Server:python-tools-0:2.4.3-43.el5.ia64",
+					"5Server:python-tools-0:2.4.3-43.el5.ppc",
+					"5Server:python-tools-0:2.4.3-43.el5.s390x",
+					"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Server:tkinter-0:2.4.3-43.el5.i386",
+					"5Server:tkinter-0:2.4.3-43.el5.ia64",
+					"5Server:tkinter-0:2.4.3-43.el5.ppc",
+					"5Server:tkinter-0:2.4.3-43.el5.s390x",
+					"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-1450"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#541698",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=541698"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-1450",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-1450"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-1450",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-1450"
+				}
+			],
+			"release_date": "2010-05-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2009-4134 CVE-2010-1449 CVE-2010-1450 python: rgbimg: multiple security issues"
+		},
+		{
+			"cve": "CVE-2010-1634",
+			"cwe": {
+				"id": "CWE-190",
+				"name": "Integer Overflow or Wraparound"
+			},
+			"discovery_date": "2009-11-26T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "590690"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Multiple integer overflows in audioop.c in the audioop module in Python 2.6, 2.7, 3.1, and 3.2 allow context-dependent attackers to cause a denial of service (application crash) via a large fragment, as demonstrated by a call to audioop.lin2lin with a long string in the first argument, leading to a buffer overflow. NOTE: this vulnerability exists because of an incorrect fix for CVE-2008-3143.5.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-1634 python: audioop: incorrect integer overflow checks",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-0:2.4.3-43.el5.src",
+					"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Client:python-0:2.4.3-43.el5.i386",
+					"5Client:python-0:2.4.3-43.el5.ia64",
+					"5Client:python-0:2.4.3-43.el5.ppc",
+					"5Client:python-0:2.4.3-43.el5.s390x",
+					"5Client:python-0:2.4.3-43.el5.src",
+					"5Client:python-0:2.4.3-43.el5.x86_64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client:python-devel-0:2.4.3-43.el5.i386",
+					"5Client:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client:python-devel-0:2.4.3-43.el5.s390",
+					"5Client:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client:python-libs-0:2.4.3-43.el5.i386",
+					"5Client:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client:python-tools-0:2.4.3-43.el5.i386",
+					"5Client:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client:tkinter-0:2.4.3-43.el5.i386",
+					"5Client:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Server:python-0:2.4.3-43.el5.i386",
+					"5Server:python-0:2.4.3-43.el5.ia64",
+					"5Server:python-0:2.4.3-43.el5.ppc",
+					"5Server:python-0:2.4.3-43.el5.s390x",
+					"5Server:python-0:2.4.3-43.el5.src",
+					"5Server:python-0:2.4.3-43.el5.x86_64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Server:python-devel-0:2.4.3-43.el5.i386",
+					"5Server:python-devel-0:2.4.3-43.el5.ia64",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Server:python-devel-0:2.4.3-43.el5.s390",
+					"5Server:python-devel-0:2.4.3-43.el5.s390x",
+					"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Server:python-libs-0:2.4.3-43.el5.i386",
+					"5Server:python-libs-0:2.4.3-43.el5.ia64",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Server:python-libs-0:2.4.3-43.el5.s390x",
+					"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Server:python-tools-0:2.4.3-43.el5.i386",
+					"5Server:python-tools-0:2.4.3-43.el5.ia64",
+					"5Server:python-tools-0:2.4.3-43.el5.ppc",
+					"5Server:python-tools-0:2.4.3-43.el5.s390x",
+					"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Server:tkinter-0:2.4.3-43.el5.i386",
+					"5Server:tkinter-0:2.4.3-43.el5.ia64",
+					"5Server:tkinter-0:2.4.3-43.el5.ppc",
+					"5Server:tkinter-0:2.4.3-43.el5.s390x",
+					"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-1634"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#590690",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=590690"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-1634",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-1634"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-1634",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-1634"
+				}
+			],
+			"release_date": "2010-05-10T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 5.1,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2010-1634 python: audioop: incorrect integer overflow checks"
+		},
+		{
+			"cve": "CVE-2010-2089",
+			"discovery_date": "2010-05-27T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "598197"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The audioop module in Python 2.7 and 3.2 does not verify the relationships between size arguments and byte string lengths, which allows context-dependent attackers to cause a denial of service (memory corruption and application crash) via crafted arguments, as demonstrated by a call to audioop.reverse with a one-byte string, a different vulnerability than CVE-2010-1634.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2010-2089 Python: Memory corruption in audioop module",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-0:2.4.3-43.el5.src",
+					"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Client:python-0:2.4.3-43.el5.i386",
+					"5Client:python-0:2.4.3-43.el5.ia64",
+					"5Client:python-0:2.4.3-43.el5.ppc",
+					"5Client:python-0:2.4.3-43.el5.s390x",
+					"5Client:python-0:2.4.3-43.el5.src",
+					"5Client:python-0:2.4.3-43.el5.x86_64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Client:python-devel-0:2.4.3-43.el5.i386",
+					"5Client:python-devel-0:2.4.3-43.el5.ia64",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc",
+					"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Client:python-devel-0:2.4.3-43.el5.s390",
+					"5Client:python-devel-0:2.4.3-43.el5.s390x",
+					"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Client:python-libs-0:2.4.3-43.el5.i386",
+					"5Client:python-libs-0:2.4.3-43.el5.ia64",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc",
+					"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Client:python-libs-0:2.4.3-43.el5.s390x",
+					"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Client:python-tools-0:2.4.3-43.el5.i386",
+					"5Client:python-tools-0:2.4.3-43.el5.ia64",
+					"5Client:python-tools-0:2.4.3-43.el5.ppc",
+					"5Client:python-tools-0:2.4.3-43.el5.s390x",
+					"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Client:tkinter-0:2.4.3-43.el5.i386",
+					"5Client:tkinter-0:2.4.3-43.el5.ia64",
+					"5Client:tkinter-0:2.4.3-43.el5.ppc",
+					"5Client:tkinter-0:2.4.3-43.el5.s390x",
+					"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+					"5Server:python-0:2.4.3-43.el5.i386",
+					"5Server:python-0:2.4.3-43.el5.ia64",
+					"5Server:python-0:2.4.3-43.el5.ppc",
+					"5Server:python-0:2.4.3-43.el5.s390x",
+					"5Server:python-0:2.4.3-43.el5.src",
+					"5Server:python-0:2.4.3-43.el5.x86_64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+					"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+					"5Server:python-devel-0:2.4.3-43.el5.i386",
+					"5Server:python-devel-0:2.4.3-43.el5.ia64",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc",
+					"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+					"5Server:python-devel-0:2.4.3-43.el5.s390",
+					"5Server:python-devel-0:2.4.3-43.el5.s390x",
+					"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+					"5Server:python-libs-0:2.4.3-43.el5.i386",
+					"5Server:python-libs-0:2.4.3-43.el5.ia64",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc",
+					"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+					"5Server:python-libs-0:2.4.3-43.el5.s390x",
+					"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+					"5Server:python-tools-0:2.4.3-43.el5.i386",
+					"5Server:python-tools-0:2.4.3-43.el5.ia64",
+					"5Server:python-tools-0:2.4.3-43.el5.ppc",
+					"5Server:python-tools-0:2.4.3-43.el5.s390x",
+					"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+					"5Server:tkinter-0:2.4.3-43.el5.i386",
+					"5Server:tkinter-0:2.4.3-43.el5.ia64",
+					"5Server:tkinter-0:2.4.3-43.el5.ppc",
+					"5Server:tkinter-0:2.4.3-43.el5.s390x",
+					"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2010-2089"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#598197",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=598197"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2010-2089",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2010-2089"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2010-2089",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2010-2089"
+				}
+			],
+			"release_date": "2010-01-11T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttp://kbase.redhat.com/faq/docs/DOC-11259",
+					"product_ids": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2011:0027"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client-Workstation:python-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-0:2.4.3-43.el5.src",
+						"5Client-Workstation:python-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.i386",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client-Workstation:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Client:python-0:2.4.3-43.el5.i386",
+						"5Client:python-0:2.4.3-43.el5.ia64",
+						"5Client:python-0:2.4.3-43.el5.ppc",
+						"5Client:python-0:2.4.3-43.el5.s390x",
+						"5Client:python-0:2.4.3-43.el5.src",
+						"5Client:python-0:2.4.3-43.el5.x86_64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Client:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Client:python-devel-0:2.4.3-43.el5.i386",
+						"5Client:python-devel-0:2.4.3-43.el5.ia64",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc",
+						"5Client:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Client:python-devel-0:2.4.3-43.el5.s390",
+						"5Client:python-devel-0:2.4.3-43.el5.s390x",
+						"5Client:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Client:python-libs-0:2.4.3-43.el5.i386",
+						"5Client:python-libs-0:2.4.3-43.el5.ia64",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc",
+						"5Client:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Client:python-libs-0:2.4.3-43.el5.s390x",
+						"5Client:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Client:python-tools-0:2.4.3-43.el5.i386",
+						"5Client:python-tools-0:2.4.3-43.el5.ia64",
+						"5Client:python-tools-0:2.4.3-43.el5.ppc",
+						"5Client:python-tools-0:2.4.3-43.el5.s390x",
+						"5Client:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Client:tkinter-0:2.4.3-43.el5.i386",
+						"5Client:tkinter-0:2.4.3-43.el5.ia64",
+						"5Client:tkinter-0:2.4.3-43.el5.ppc",
+						"5Client:tkinter-0:2.4.3-43.el5.s390x",
+						"5Client:tkinter-0:2.4.3-43.el5.x86_64",
+						"5Server:python-0:2.4.3-43.el5.i386",
+						"5Server:python-0:2.4.3-43.el5.ia64",
+						"5Server:python-0:2.4.3-43.el5.ppc",
+						"5Server:python-0:2.4.3-43.el5.s390x",
+						"5Server:python-0:2.4.3-43.el5.src",
+						"5Server:python-0:2.4.3-43.el5.x86_64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.i386",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ia64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.ppc64",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.s390x",
+						"5Server:python-debuginfo-0:2.4.3-43.el5.x86_64",
+						"5Server:python-devel-0:2.4.3-43.el5.i386",
+						"5Server:python-devel-0:2.4.3-43.el5.ia64",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc",
+						"5Server:python-devel-0:2.4.3-43.el5.ppc64",
+						"5Server:python-devel-0:2.4.3-43.el5.s390",
+						"5Server:python-devel-0:2.4.3-43.el5.s390x",
+						"5Server:python-devel-0:2.4.3-43.el5.x86_64",
+						"5Server:python-libs-0:2.4.3-43.el5.i386",
+						"5Server:python-libs-0:2.4.3-43.el5.ia64",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc",
+						"5Server:python-libs-0:2.4.3-43.el5.ppc64",
+						"5Server:python-libs-0:2.4.3-43.el5.s390x",
+						"5Server:python-libs-0:2.4.3-43.el5.x86_64",
+						"5Server:python-tools-0:2.4.3-43.el5.i386",
+						"5Server:python-tools-0:2.4.3-43.el5.ia64",
+						"5Server:python-tools-0:2.4.3-43.el5.ppc",
+						"5Server:python-tools-0:2.4.3-43.el5.s390x",
+						"5Server:python-tools-0:2.4.3-43.el5.x86_64",
+						"5Server:tkinter-0:2.4.3-43.el5.i386",
+						"5Server:tkinter-0:2.4.3-43.el5.ia64",
+						"5Server:tkinter-0:2.4.3-43.el5.ppc",
+						"5Server:tkinter-0:2.4.3-43.el5.s390x",
+						"5Server:tkinter-0:2.4.3-43.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2010-2089 Python: Memory corruption in audioop module"
+		}
+	]
+}

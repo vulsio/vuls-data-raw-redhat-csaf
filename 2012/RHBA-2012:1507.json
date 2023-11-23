@@ -1,0 +1,357 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated sanlock packages that fix various bugs and add various enhancements are now available for Red Hat Enterprise Virtualization.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The sanlock package provides a shared storage lock manager. Hosts with shared access to a block device or file can use sanlock to synchronize their activities. VDSM and libvirt use sanlock to synchronize access to virtual machine images.\n\nThis updated package fixes the following bugs:\n\n* The init script was not creating a /var/lock/subsys file, which caused the killall init script to not shut down the daemon. (BZ#841991)\n\n* The wdmd init script was not loading the softdog module when no other watchdog module was loaded, causing the wdmd and sanlock daemons to fail startup. (BZ#840955)\n\n* The sanlock daemon was assuming that the uid and gid options were defined, which caused it to segfault during startup if the daemon was started without the uid/gid options. (BZ#841992)\n\n* The add_lockspace api was difficult to use from an application where multiple threads could be adding the same lockspace. These changes make it possible for the threads to coordinate the lockspace operations. (BZ#841994)\n\n* The sanlock inquire api was always returning an lver of 0 in the state string, rather than the real lver. This would cause anything to fail that\ntried to acquire a lease with an inquired version, like suspend/resume or migrate. (BZ#841995)\n\n* This enhancement allows a program to be run against registered processes to suspend them and release their leases as an alternative to sanlock killing them directly. (BZ#840953)\n\n* The sanlock daemon was running as the root uid, and depending on supplementary groups to allow file access on nfs. Some nfs servers do not recognize the groups and refuse access, so the sanlock daemon is changed to run as the sanlock uid, and use the root helper process to kill registered processes. (BZ#842764)\n\n* The sanlock log file and daemon pid files did not have the correct permissions. (BZ#849181)\n\n* The watchdog would not fire at the correct time if the wdmd process was\nkilled near the firing time, or killed and restarted near the firing time.\nThe time until the watchdog fired was also not being correctly calculated\nby sanlock. (BZ#849183)\n\n* The sanlock and wdmd daemons maintained a constant connection even when it was not needed.  This prevented them from each being restarted independently for upgrade. (BZ#849184)\n\n* The paxos code was doing some unnecessary host_id checks when the same host re-acquired a lease after it was uncleanly shut down previously. (BZ#849186)\n\nAll users of sanlock are advised to upgrade to these updated packages, which fix these bugs and add these enhancements.\n\nFor users of Red Hat Enterprise Virtualization Hypervisor these bug fixes and enhancements are included in advisory RHSA-2012:1505:\n\n  https://rhn.redhat.com/errata/RHBA-2012-1505.html",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHBA-2012:1507",
+				"url": "https://access.redhat.com/errata/RHBA-2012:1507"
+			},
+			{
+				"category": "external",
+				"summary": "https://rhn.redhat.com/errata/RHBA-2012-1505.html",
+				"url": "https://rhn.redhat.com/errata/RHBA-2012-1505.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhba-2012_1507.json"
+			}
+		],
+		"title": "Red Hat Bug Fix Advisory: sanlock bug fix and enhancement update",
+		"tracking": {
+			"current_release_date": "2012-12-04T18:06:47+00:00",
+			"generator": {
+				"date": "2023-10-17T15:59:11+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHBA-2012:1507",
+			"initial_release_date": "2012-12-04T00:00:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-12-04T18:06:47+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "RHEV Agents (vdsm)",
+								"product": {
+									"name": "RHEV Agents (vdsm)",
+									"product_id": "6Server-RHEV-Agents",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:enterprise_linux:6::hypervisor"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Virtualization"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sanlock-python-0:2.3-4.el6_3.x86_64",
+								"product": {
+									"name": "sanlock-python-0:2.3-4.el6_3.x86_64",
+									"product_id": "sanlock-python-0:2.3-4.el6_3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sanlock-python@2.3-4.el6_3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sanlock-lib-0:2.3-4.el6_3.x86_64",
+								"product": {
+									"name": "sanlock-lib-0:2.3-4.el6_3.x86_64",
+									"product_id": "sanlock-lib-0:2.3-4.el6_3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sanlock-lib@2.3-4.el6_3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sanlock-0:2.3-4.el6_3.x86_64",
+								"product": {
+									"name": "sanlock-0:2.3-4.el6_3.x86_64",
+									"product_id": "sanlock-0:2.3-4.el6_3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sanlock@2.3-4.el6_3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sanlock-devel-0:2.3-4.el6_3.x86_64",
+								"product": {
+									"name": "sanlock-devel-0:2.3-4.el6_3.x86_64",
+									"product_id": "sanlock-devel-0:2.3-4.el6_3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sanlock-devel@2.3-4.el6_3?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+								"product": {
+									"name": "sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+									"product_id": "sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sanlock-debuginfo@2.3-4.el6_3?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "sanlock-0:2.3-4.el6_3.src",
+								"product": {
+									"name": "sanlock-0:2.3-4.el6_3.src",
+									"product_id": "sanlock-0:2.3-4.el6_3.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/sanlock@2.3-4.el6_3?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sanlock-0:2.3-4.el6_3.src as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.src"
+				},
+				"product_reference": "sanlock-0:2.3-4.el6_3.src",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sanlock-0:2.3-4.el6_3.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.x86_64"
+				},
+				"product_reference": "sanlock-0:2.3-4.el6_3.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sanlock-debuginfo-0:2.3-4.el6_3.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:sanlock-debuginfo-0:2.3-4.el6_3.x86_64"
+				},
+				"product_reference": "sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sanlock-devel-0:2.3-4.el6_3.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:sanlock-devel-0:2.3-4.el6_3.x86_64"
+				},
+				"product_reference": "sanlock-devel-0:2.3-4.el6_3.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sanlock-lib-0:2.3-4.el6_3.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:sanlock-lib-0:2.3-4.el6_3.x86_64"
+				},
+				"product_reference": "sanlock-lib-0:2.3-4.el6_3.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "sanlock-python-0:2.3-4.el6_3.x86_64 as a component of RHEV Agents (vdsm)",
+					"product_id": "6Server-RHEV-Agents:sanlock-python-0:2.3-4.el6_3.x86_64"
+				},
+				"product_reference": "sanlock-python-0:2.3-4.el6_3.x86_64",
+				"relates_to_product_reference": "6Server-RHEV-Agents"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2012-5638",
+			"discovery_date": "2012-12-13T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "887010"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The setup_logging function in log.h in SANLock uses world-writable permissions for /var/log/sanlock.log, which allows local users to overwrite the file content or bypass intended disk-quota restrictions via standard filesystem write operations.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "sanlock world writable /var/log/sanlock.log",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.src",
+					"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.x86_64",
+					"6Server-RHEV-Agents:sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+					"6Server-RHEV-Agents:sanlock-devel-0:2.3-4.el6_3.x86_64",
+					"6Server-RHEV-Agents:sanlock-lib-0:2.3-4.el6_3.x86_64",
+					"6Server-RHEV-Agents:sanlock-python-0:2.3-4.el6_3.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-5638"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#887010",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=887010"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-5638",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-5638"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-5638",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-5638"
+				}
+			],
+			"release_date": "2012-08-22T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.src",
+						"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-devel-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-lib-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-python-0:2.3-4.el6_3.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHBA-2012:1507"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 2.1,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.src",
+						"6Server-RHEV-Agents:sanlock-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-debuginfo-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-devel-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-lib-0:2.3-4.el6_3.x86_64",
+						"6Server-RHEV-Agents:sanlock-python-0:2.3-4.el6_3.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "sanlock world writable /var/log/sanlock.log"
+		}
+	]
+}

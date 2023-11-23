@@ -1,0 +1,533 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated mod_nss packages that fix multiple bugs are now available for Red Hat Enterprise Linux 5.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The mod_nss module provides strong cryptography for the Apache HTTP Server via the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols, using the Network Security Services (NSS) security library.\n\nThis update fixes the following bugs:\n\n* The previous release had an incorrect post-install script. Consequently, when upgrading \"mod_nss\" from version 1.0.3 to 1.0.8, the group and file permissions were incorrectly set. The HTTP server (httpd) did not start and the following error message was displayed:\n\n    [error] NSS_Initialize failed. Certificate database: /etc/httpd/alias.\n    [error] SSL Library Error: -8038 SEC_ERROR_NOT_INITIALIZED\n\nThis update improves the post-install script to set file permissions and ownership correctly. As a result, all child processes of the Apache HTTP Server can enable SSL and now httpd starts as expected in the scenario described. (BZ#669963)\n\n* With the release of \"mod_nss\" version 1.0.8 there was no lock mechanism to control sequential httpd process access to the \"nss_pcache\" process. This sometimes resulted in multiple requests being interpreted as a single request by \"nss_pcache\" and a single result returned. The calling process sometimes experienced a timeout error or a failure with the error message:\n\n    [error] Unable to read from pin store\n\nWith this update the code has been improved and multiple requests to the \"nss_pcache\" process are processed sequentially without the errors described. (BZ#677698)\n\n* Due to a regression, the \"mod_proxy\" module no longer worked when configured to support reverse proxy operation. The following error was logged:\n\n    [error] SSL Proxy: I don't have the name of the host we're supposed to connect to so I can't verify that we are connecting to who we think we should be. Giving up.\n\nA new patch has been applied and the \"mod_proxy\" module now works correctly to support SSL reverse proxy. (BZ#692868)\n\n* Previously, a static array containing the arguments for launching the \"nss_pcache\" command overflowed the array size by one. This could lead to a variety of problems including unexpected termination. This bug has been fixed, and \"mod_nss\" now uses a properly sized static array when launching \"nss_pcache\". (BZ#714255)\n\n* Due to an incorrect use of the memcpy() function in the \"mod_nss\" module, running the Apache HTTP Server with this module enabled could cause some requests to fail with the following message written to the error_log file:\n\n    request failed: error reading the headers\n\nThis update applies a patch to ensure that the memcpy() function is now used in accordance with the current specification, and using the \"mod_nss\" module no longer causes HTTP requests to fail. (BZ#749401)\n\n* Prior to this update, client certificates were only retrieved during the initial SSL handshake if the NSSVerifyClient option was set to \"require\" or \"optional\". Also, the FakeBasicAuth option only retrieved Common Name rather than the entire certificate subject. Consequently, it was possible to spoof an identity using that option. This bug has been fixed, the FakeBasicAuth option is now prefixed with \"/\" and is thus compatible with OpenSSL. Certificates are now retrieved on all subsequent requests beyond the first one. (BZ#749402).\n\n* When the NSS library was not initialized and \"mod_nss\" tried to clear its SSL cache on start-up, \"mod_nss\" terminated unexpectedly when the NSS library was built with debugging enabled. With this update, \"mod_nss\" does not try to clear the SSL cache in the described scenario, thus preventing this bug. (BZ#749405, BZ#784548)\n\n* The \"Requires: %{_libdir}/libnssckbi.so\" directive has been added to the spec file to make \"libnssckbi.so\" a runtime dependency. This is to prevent symbolic links failing. (BZ#749406)\n\nAll users of mod_nss are advised to upgrade to these updated packages, which fix these bugs.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHBA-2013:0009",
+				"url": "https://access.redhat.com/errata/RHBA-2013:0009"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhba-2013_0009.json"
+			}
+		],
+		"title": "Red Hat Bug Fix Advisory: mod_nss bug fix update",
+		"tracking": {
+			"current_release_date": "2018-04-06T14:05:00Z",
+			"generator": {
+				"date": "2023-06-30T21:07:00Z",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.18.0"
+				}
+			},
+			"id": "RHBA-2013:0009",
+			"initial_release_date": "2013-01-07T10:30:00Z",
+			"revision_history": [
+				{
+					"date": "2018-04-06T14:05:00Z",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop (v. 5 client)",
+									"product_id": "5Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux (v. 5 server)",
+								"product": {
+									"name": "Red Hat Enterprise Linux (v. 5 server)",
+									"product_id": "5Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:5::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_nss-0:1.0.8-7.el5.src",
+								"product": {
+									"name": "mod_nss-0:1.0.8-7.el5.src",
+									"product_id": "mod_nss-0:1.0.8-7.el5.src",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_nss-0:1.0.8-7.el5.x86_64",
+								"product": {
+									"name": "mod_nss-0:1.0.8-7.el5.x86_64",
+									"product_id": "mod_nss-0:1.0.8-7.el5.x86_64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+								"product": {
+									"name": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+									"product_id": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_nss-0:1.0.8-7.el5.i386",
+								"product": {
+									"name": "mod_nss-0:1.0.8-7.el5.i386",
+									"product_id": "mod_nss-0:1.0.8-7.el5.i386",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+								"product": {
+									"name": "mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+									"product_id": "mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i386"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_nss-0:1.0.8-7.el5.ppc",
+								"product": {
+									"name": "mod_nss-0:1.0.8-7.el5.ppc",
+									"product_id": "mod_nss-0:1.0.8-7.el5.ppc",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+								"product": {
+									"name": "mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+									"product_id": "mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_nss-0:1.0.8-7.el5.ia64",
+								"product": {
+									"name": "mod_nss-0:1.0.8-7.el5.ia64",
+									"product_id": "mod_nss-0:1.0.8-7.el5.ia64",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+								"product": {
+									"name": "mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+									"product_id": "mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ia64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "mod_nss-0:1.0.8-7.el5.s390x",
+								"product": {
+									"name": "mod_nss-0:1.0.8-7.el5.s390x",
+									"product_id": "mod_nss-0:1.0.8-7.el5.s390x",
+									"product_identification_helper": {}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+								"product": {
+									"name": "mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+									"product_id": "mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+									"product_identification_helper": {}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_nss-0:1.0.8-7.el5.i386"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.src as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_nss-0:1.0.8-7.el5.src"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.src",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_nss-0:1.0.8-7.el5.x86_64"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.i386 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_nss-debuginfo-0:1.0.8-7.el5.i386"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64 as a component of Red Hat Enterprise Linux Desktop (v. 5 client)",
+					"product_id": "5Client:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+				"relates_to_product_reference": "5Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-0:1.0.8-7.el5.i386"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-0:1.0.8-7.el5.ia64"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-0:1.0.8-7.el5.ppc"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-0:1.0.8-7.el5.s390x"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.src as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-0:1.0.8-7.el5.src"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.src",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-0:1.0.8-7.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-0:1.0.8-7.el5.x86_64"
+				},
+				"product_reference": "mod_nss-0:1.0.8-7.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.i386 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-debuginfo-0:1.0.8-7.el5.i386"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.ia64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ia64"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.ppc as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ppc"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.s390x as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-debuginfo-0:1.0.8-7.el5.s390x"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+				"relates_to_product_reference": "5Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64 as a component of Red Hat Enterprise Linux (v. 5 server)",
+					"product_id": "5Server:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64"
+				},
+				"product_reference": "mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+				"relates_to_product_reference": "5Server"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2011-4973",
+			"discovery_date": "2012-02-29T00:00:00Z",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla",
+					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1017197"
+				}
+			],
+			"notes": [
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				},
+				{
+					"category": "description",
+					"text": "Authentication bypass vulnerability in mod_nss 1.0.8 allows remote attackers to assume the identity of a valid user by using their certificate and entering 'password' as the password.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "mod_nss: FakeBasicAuth authentication bypass",
+					"title": "Vulnerability summary"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"5Client:mod_nss-0:1.0.8-7.el5.i386",
+					"5Client:mod_nss-0:1.0.8-7.el5.src",
+					"5Client:mod_nss-0:1.0.8-7.el5.x86_64",
+					"5Client:mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+					"5Client:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+					"5Server:mod_nss-0:1.0.8-7.el5.i386",
+					"5Server:mod_nss-0:1.0.8-7.el5.ia64",
+					"5Server:mod_nss-0:1.0.8-7.el5.ppc",
+					"5Server:mod_nss-0:1.0.8-7.el5.s390x",
+					"5Server:mod_nss-0:1.0.8-7.el5.src",
+					"5Server:mod_nss-0:1.0.8-7.el5.x86_64",
+					"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+					"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+					"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+					"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+					"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4973",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4973"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4973",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4973"
+				},
+				{
+					"category": "external",
+					"summary": "CVE-2011-4973",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4973"
+				},
+				{
+					"category": "external",
+					"summary": "bz#1017197: CVE-2011-4973 mod_nss: FakeBasicAuth authentication bypass",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1017197"
+				}
+			],
+			"release_date": "2011-05-04T00:00:00Z",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"5Client:mod_nss-0:1.0.8-7.el5.i386",
+						"5Client:mod_nss-0:1.0.8-7.el5.src",
+						"5Client:mod_nss-0:1.0.8-7.el5.x86_64",
+						"5Client:mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+						"5Client:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+						"5Server:mod_nss-0:1.0.8-7.el5.i386",
+						"5Server:mod_nss-0:1.0.8-7.el5.ia64",
+						"5Server:mod_nss-0:1.0.8-7.el5.ppc",
+						"5Server:mod_nss-0:1.0.8-7.el5.s390x",
+						"5Server:mod_nss-0:1.0.8-7.el5.src",
+						"5Server:mod_nss-0:1.0.8-7.el5.x86_64",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64"
+					],
+					"url": "https://access.redhat.com/errata/RHBA-2013:0009"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 4,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"5Client:mod_nss-0:1.0.8-7.el5.i386",
+						"5Client:mod_nss-0:1.0.8-7.el5.src",
+						"5Client:mod_nss-0:1.0.8-7.el5.x86_64",
+						"5Client:mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+						"5Client:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64",
+						"5Server:mod_nss-0:1.0.8-7.el5.i386",
+						"5Server:mod_nss-0:1.0.8-7.el5.ia64",
+						"5Server:mod_nss-0:1.0.8-7.el5.ppc",
+						"5Server:mod_nss-0:1.0.8-7.el5.s390x",
+						"5Server:mod_nss-0:1.0.8-7.el5.src",
+						"5Server:mod_nss-0:1.0.8-7.el5.x86_64",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.i386",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ia64",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.ppc",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.s390x",
+						"5Server:mod_nss-debuginfo-0:1.0.8-7.el5.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"date": "2012-02-29T00:00:00Z",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2011-4973 mod_nss: FakeBasicAuth authentication bypass"
+		}
+	]
+}

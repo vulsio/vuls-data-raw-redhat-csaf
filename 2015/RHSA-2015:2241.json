@@ -1,0 +1,1403 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Moderate"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated chrony packages that fix three security issues, several bugs, and\nadd various enhancements are now available for Red Hat Enterprise Linux 7.\n\nRed Hat Product Security has rated this update as having Moderate security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The chrony suite, chronyd and chronyc, is an advanced implementation of the\nNetwork Time Protocol (NTP), specially designed to support systems with\nintermittent connections. It can synchronize the system clock with NTP\nservers, hardware reference clocks, and manual input. It can also operate\nas an NTPv4 (RFC 5905) server or peer to provide a time service to other\ncomputers in the network.\n\nAn out-of-bounds write flaw was found in the way chrony stored certain\naddresses when configuring NTP or cmdmon access. An attacker that has the\ncommand key and is allowed to access cmdmon (only localhost is allowed by\ndefault) could use this flaw to crash chronyd or, possibly, execute\narbitrary code with the privileges of the chronyd process. (CVE-2015-1821)\n\nAn uninitialized pointer use flaw was found when allocating memory to save\nunacknowledged replies to authenticated command requests. An attacker that\nhas the command key and is allowed to access cmdmon (only localhost is\nallowed by default) could use this flaw to crash chronyd or, possibly,\nexecute arbitrary code with the privileges of the chronyd process.\n(CVE-2015-1822)\n\nA denial of service flaw was found in the way chrony hosts that were\npeering with each other authenticated themselves before updating their\ninternal state variables. An attacker could send packets to one peer host,\nwhich could cascade to other peers, and stop the synchronization process\namong the reached peers. (CVE-2015-1853)\n\nThese issues were discovered by Miroslav Lichvár of Red Hat.\n\nThe chrony packages have been upgraded to upstream version 2.1.1, which\nprovides a number of bug fixes and enhancements over the previous version.\nNotable enhancements include:\n\n* Updated to NTP version 4 (RFC 5905)\n\n* Added pool directive to specify pool of NTP servers\n\n* Added leapsecmode directive to select how to correct clock for leap\nsecond\n\n* Added smoothtime directive to smooth served time and enable leap smear\n\n* Added asynchronous name resolving with POSIX threads\n\n* Ready for year 2036 (next NTP era)\n\n* Improved clock control\n\n* Networking code reworked to open separate client sockets for each NTP\nserver\n\n(BZ#1117882)\n\nThis update also fixes the following bug:\n\n* The chronyd service previously assumed that network interfaces specified\nwith the \"bindaddress\" directive were ready when the service was started.\nThis could cause chronyd to fail to bind an NTP server socket to the\ninterface if the interface was not ready. With this update, chronyd uses\nthe IP_FREEBIND socket option, enabling it to bind to an interface later,\nnot only when the service starts. (BZ#1169353)\n\nIn addition, this update adds the following enhancement:\n\n* The chronyd service now supports four modes of handling leap seconds,\nconfigured using the \"leapsecmode\" option. The clock can be either stepped\nby the kernel (the default \"system\" mode), stepped by chronyd (\"step\"\nmode), slowly adjusted by slewing (\"slew\" mode), or the leap second can be\nignored and corrected later in normal operation (\"ignore\" mode). If you\nselect slewing, the correction will always start at 00:00:00 UTC and will\nbe applied at a rate specified in the \"maxslewrate\" option. (BZ#1206504)\n\nAll chrony users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2015:2241",
+				"url": "https://access.redhat.com/errata/RHSA-2015:2241"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#moderate",
+				"url": "https://access.redhat.com/security/updates/classification/#moderate"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhsa-2015_2241.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: chrony security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2015-11-19T03:59:36+00:00",
+			"generator": {
+				"date": "2023-10-17T16:14:14+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2015:2241",
+			"initial_release_date": "2015-11-19T03:59:36+00:00",
+			"revision_history": [
+				{
+					"date": "2015-11-19T03:59:36+00:00",
+					"number": "3",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "3"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 7)",
+									"product_id": "7Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Client (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Client (v. 7)",
+									"product_id": "7Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+									"product_id": "7Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux ComputeNode (v. 7)",
+									"product_id": "7ComputeNode",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+								"product": {
+									"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+									"product_id": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony-debuginfo@2.1.1-1.el7?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "chrony-0:2.1.1-1.el7.ppc64",
+								"product": {
+									"name": "chrony-0:2.1.1-1.el7.ppc64",
+									"product_id": "chrony-0:2.1.1-1.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony@2.1.1-1.el7?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "chrony-0:2.1.1-1.el7.x86_64",
+								"product": {
+									"name": "chrony-0:2.1.1-1.el7.x86_64",
+									"product_id": "chrony-0:2.1.1-1.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony@2.1.1-1.el7?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+								"product": {
+									"name": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+									"product_id": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony-debuginfo@2.1.1-1.el7?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+								"product": {
+									"name": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+									"product_id": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony-debuginfo@2.1.1-1.el7?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "chrony-0:2.1.1-1.el7.aarch64",
+								"product": {
+									"name": "chrony-0:2.1.1-1.el7.aarch64",
+									"product_id": "chrony-0:2.1.1-1.el7.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony@2.1.1-1.el7?arch=aarch64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "aarch64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+								"product": {
+									"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+									"product_id": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony-debuginfo@2.1.1-1.el7?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "chrony-0:2.1.1-1.el7.ppc64le",
+								"product": {
+									"name": "chrony-0:2.1.1-1.el7.ppc64le",
+									"product_id": "chrony-0:2.1.1-1.el7.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony@2.1.1-1.el7?arch=ppc64le"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64le"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "chrony-0:2.1.1-1.el7.src",
+								"product": {
+									"name": "chrony-0:2.1.1-1.el7.src",
+									"product_id": "chrony-0:2.1.1-1.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony@2.1.1-1.el7?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+								"product": {
+									"name": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+									"product_id": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony-debuginfo@2.1.1-1.el7?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "chrony-0:2.1.1-1.el7.s390x",
+								"product": {
+									"name": "chrony-0:2.1.1-1.el7.s390x",
+									"product_id": "chrony-0:2.1.1-1.el7.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/chrony@2.1.1-1.el7?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.src as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-0:2.1.1-1.el7.src"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.src",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.src as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-0:2.1.1-1.el7.src"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.src",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode (v. 7)",
+					"product_id": "7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.src as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-0:2.1.1-1.el7.src"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.src",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.src as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-0:2.1.1-1.el7.src"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.src",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.aarch64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.s390x as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.s390x",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "chrony-debuginfo-0:2.1.1-1.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				},
+				"product_reference": "chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Miroslav Lichvár"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2015-1821",
+			"cwe": {
+				"id": "CWE-787",
+				"name": "Out-of-bounds Write"
+			},
+			"discovery_date": "2015-03-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1209631"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An out-of-bounds write flaw was found in the way Chrony stored certain addresses when configuring NTP or cmdmon access. An attacker that has the command key and is allowed to access cmdmon (only localhost is allowed by default) could use this flaw to crash chronyd or, possibly, execute arbitrary code with the privileges of the chronyd process.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Heap out of bound write in address filter",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client:chrony-0:2.1.1-1.el7.aarch64",
+					"7Client:chrony-0:2.1.1-1.el7.ppc64",
+					"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Client:chrony-0:2.1.1-1.el7.s390x",
+					"7Client:chrony-0:2.1.1-1.el7.src",
+					"7Client:chrony-0:2.1.1-1.el7.x86_64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7Server:chrony-0:2.1.1-1.el7.aarch64",
+					"7Server:chrony-0:2.1.1-1.el7.ppc64",
+					"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Server:chrony-0:2.1.1-1.el7.s390x",
+					"7Server:chrony-0:2.1.1-1.el7.src",
+					"7Server:chrony-0:2.1.1-1.el7.x86_64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+					"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+					"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+					"7Workstation:chrony-0:2.1.1-1.el7.src",
+					"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-1821"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1209631",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1209631"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-1821",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-1821"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-1821",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1821"
+				}
+			],
+			"release_date": "2015-04-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client:chrony-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-0:2.1.1-1.el7.src",
+						"7Client:chrony-0:2.1.1-1.el7.x86_64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-0:2.1.1-1.el7.src",
+						"7Server:chrony-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-0:2.1.1-1.el7.src",
+						"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:2241"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client:chrony-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-0:2.1.1-1.el7.src",
+						"7Client:chrony-0:2.1.1-1.el7.x86_64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-0:2.1.1-1.el7.src",
+						"7Server:chrony-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-0:2.1.1-1.el7.src",
+						"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "Heap out of bound write in address filter"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Miroslav Lichvár"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2015-1822",
+			"cwe": {
+				"id": "CWE-456",
+				"name": "Missing Initialization of a Variable"
+			},
+			"discovery_date": "2015-03-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1209632"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An uninitialized pointer use flaw was found when allocating memory to save unacknowledged replies to authenticated command requests. An attacker that has the command key and is allowed to access cmdmon (only localhost is allowed by default) could use this flaw to crash chronyd or, possibly, execute arbitrary code with the privileges of the chronyd process.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "uninitialized pointer in cmdmon reply slots",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client:chrony-0:2.1.1-1.el7.aarch64",
+					"7Client:chrony-0:2.1.1-1.el7.ppc64",
+					"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Client:chrony-0:2.1.1-1.el7.s390x",
+					"7Client:chrony-0:2.1.1-1.el7.src",
+					"7Client:chrony-0:2.1.1-1.el7.x86_64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7Server:chrony-0:2.1.1-1.el7.aarch64",
+					"7Server:chrony-0:2.1.1-1.el7.ppc64",
+					"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Server:chrony-0:2.1.1-1.el7.s390x",
+					"7Server:chrony-0:2.1.1-1.el7.src",
+					"7Server:chrony-0:2.1.1-1.el7.x86_64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+					"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+					"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+					"7Workstation:chrony-0:2.1.1-1.el7.src",
+					"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-1822"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1209632",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1209632"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-1822",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-1822"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-1822",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1822"
+				}
+			],
+			"release_date": "2015-04-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client:chrony-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-0:2.1.1-1.el7.src",
+						"7Client:chrony-0:2.1.1-1.el7.x86_64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-0:2.1.1-1.el7.src",
+						"7Server:chrony-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-0:2.1.1-1.el7.src",
+						"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:2241"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:N/AC:M/Au:S/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client:chrony-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-0:2.1.1-1.el7.src",
+						"7Client:chrony-0:2.1.1-1.el7.x86_64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-0:2.1.1-1.el7.src",
+						"7Server:chrony-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-0:2.1.1-1.el7.src",
+						"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "uninitialized pointer in cmdmon reply slots"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Miroslav Lichvár"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2015-1853",
+			"cwe": {
+				"id": "CWE-345",
+				"name": "Insufficient Verification of Data Authenticity"
+			},
+			"discovery_date": "2015-03-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1209572"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A denial of service flaw was found in the way chrony hosts that were peering with each other authenticated themselves before updating their internal state variables. An attacker could send packets to one peer host, which could cascade to other peers, and stop the synchronization process among the reached peers.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "authentication doesn't protect symmetric associations against DoS attacks",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client:chrony-0:2.1.1-1.el7.aarch64",
+					"7Client:chrony-0:2.1.1-1.el7.ppc64",
+					"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Client:chrony-0:2.1.1-1.el7.s390x",
+					"7Client:chrony-0:2.1.1-1.el7.src",
+					"7Client:chrony-0:2.1.1-1.el7.x86_64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+					"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7Server:chrony-0:2.1.1-1.el7.aarch64",
+					"7Server:chrony-0:2.1.1-1.el7.ppc64",
+					"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Server:chrony-0:2.1.1-1.el7.s390x",
+					"7Server:chrony-0:2.1.1-1.el7.src",
+					"7Server:chrony-0:2.1.1-1.el7.x86_64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+					"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+					"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+					"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+					"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+					"7Workstation:chrony-0:2.1.1-1.el7.src",
+					"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+					"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-1853"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1209572",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1209572"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-1853",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-1853"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-1853",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1853"
+				}
+			],
+			"release_date": "2015-04-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client:chrony-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-0:2.1.1-1.el7.src",
+						"7Client:chrony-0:2.1.1-1.el7.x86_64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-0:2.1.1-1.el7.src",
+						"7Server:chrony-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-0:2.1.1-1.el7.src",
+						"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:2241"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.3,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client:chrony-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-0:2.1.1-1.el7.src",
+						"7Client:chrony-0:2.1.1-1.el7.x86_64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Client:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.src",
+						"7ComputeNode:chrony-0:2.1.1-1.el7.x86_64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7ComputeNode:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-0:2.1.1-1.el7.src",
+						"7Server:chrony-0:2.1.1-1.el7.x86_64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Server:chrony-debuginfo-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-0:2.1.1-1.el7.src",
+						"7Workstation:chrony-0:2.1.1-1.el7.x86_64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.aarch64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.ppc64le",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.s390x",
+						"7Workstation:chrony-debuginfo-0:2.1.1-1.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "authentication doesn't protect symmetric associations against DoS attacks"
+		}
+	]
+}

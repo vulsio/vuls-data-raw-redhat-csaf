@@ -1,0 +1,2300 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel packages that fix various security issues and three bugs are\nnow available for Red Hat Enterprise Linux 6.1 Extended Update Support.\n\nThe Red Hat Security Response Team has rated this update as having\nimportant security impact. Common Vulnerability Scoring System (CVSS) base\nscores, which give detailed severity ratings, are available for each\nvulnerability from the CVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel packages contain the Linux kernel, the core of any Linux\noperating system.\n\nThis update fixes the following security issues:\n\n* A local, unprivileged user could use an integer overflow flaw in\ndrm_mode_dirtyfb_ioctl() to cause a denial of service or escalate their\nprivileges. (CVE-2012-0044, Important)\n\n* It was found that the kvm_vm_ioctl_assign_device() function in the KVM\n(Kernel-based Virtual Machine) subsystem of a Linux kernel did not check if\nthe user requesting device assignment was privileged or not. A local,\nunprivileged user on the host could assign unused PCI devices, or even\ndevices that were in use and whose resources were not properly claimed by\nthe respective drivers, which could result in the host crashing.\n(CVE-2011-4347, Moderate)\n\n* A flaw was found in the way the Linux kernel's XFS file system\nimplementation handled on-disk Access Control Lists (ACLs). A local,\nunprivileged user could use this flaw to cause a denial of service or\nescalate their privileges by mounting a specially-crafted disk.\n(CVE-2012-0038, Moderate)\n\n* It was found that the Linux kernel's register set (regset) common\ninfrastructure implementation did not check if the required get and set\nhandlers were initialized. A local, unprivileged user could use this flaw\nto cause a denial of service by performing a register set operation with a\nptrace() PTRACE_SETREGSET or PTRACE_GETREGSET request. (CVE-2012-1097,\nModerate)\n\n* A race condition was found in the Linux kernel's memory management\nsubsystem in the way pmd_none_or_clear_bad(), when called with mmap_sem in\nread mode, and Transparent Huge Pages (THP) page faults interacted. A\nprivileged user in a KVM guest with the ballooning functionality enabled\ncould potentially use this flaw to crash the host. A local, unprivileged\nuser could use this flaw to crash the system. (CVE-2012-1179, Moderate)\n\nRed Hat would like to thank Chen Haogang for reporting CVE-2012-0044; Sasha\nLevin for reporting CVE-2011-4347; Wang Xi for reporting CVE-2012-0038; and\nH. Peter Anvin for reporting CVE-2012-1097.\n\nThis update also fixes the following bugs:\n\n* When a RoCE (RDMA over Converged Ethernet) adapter with active RoCE\ncommunications was taken down suddenly (either by adapter failure or the\nintentional shutdown of the interface), the ongoing RoCE communications\ncould cause the kernel to panic and render the machine unusable. A patch\nhas been provided to protect the kernel in this situation and to pass an\nerror up to the application still using the interface after it has been\ntaken down instead. (BZ#799944)\n\n* The fix for Red Hat Bugzilla bug 713494, released via RHSA-2011:0928,\nintroduced a regression. Attempting to change the state of certain\nfeatures, such as GRO (Generic Receive Offload) or TSO (TCP segment\noffloading), for a 10 Gigabit Ethernet card that is being used in a\nvirtual LAN (VLAN) resulted in a kernel panic. (BZ#816974)\n\n* If a new file was created on a Network File System version 4 (NFSv4)\nshare, the ownership was set to nfsnobody (-2) until it was possible to\nupcall to the idmapper. As a consequence, subsequent file system operations\ncould incorrectly use \"-2\" for the user and group IDs for the given file,\ncausing certain operations to fail. In reported cases, this issue also\ncaused \"Viminfo file is not writable\" errors for users running Vim with\nfiles on an NFSv4 share. (BZ#820960)\n\nUsers should upgrade to these updated packages, which contain backported\npatches to correct these issues. The system must be rebooted for this\nupdate to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2012:1042",
+				"url": "https://access.redhat.com/errata/RHSA-2012:1042"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://rhn.redhat.com/errata/RHSA-2011-0928.html",
+				"url": "https://rhn.redhat.com/errata/RHSA-2011-0928.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2012/rhsa-2012_1042.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel security and bug fix update",
+		"tracking": {
+			"current_release_date": "2012-06-26T18:40:37+00:00",
+			"generator": {
+				"date": "2023-10-17T15:54:24+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2012:1042",
+			"initial_release_date": "2012-06-26T18:32:00+00:00",
+			"revision_history": [
+				{
+					"date": "2012-06-26T18:40:37+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server EUS (v. 6.1)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server EUS (v. 6.1)",
+									"product_id": "6Server-6.1.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:rhel_eus:6.1"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-devel@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-kdump-debuginfo@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf-debuginfo@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "perf-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "perf-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common-s390x@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+									"product_id": "kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.32-131.29.1.el6?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf-debuginfo@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "perf-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "perf-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common-i686@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-devel-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-debug-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-131.29.1.el6.i686",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-131.29.1.el6.i686",
+									"product_id": "kernel-headers-0:2.6.32-131.29.1.el6.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.32-131.29.1.el6?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-bootwrapper@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf-debuginfo@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "perf-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "perf-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common-ppc64@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+									"product_id": "kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.32-131.29.1.el6?arch=ppc64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-devel@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debuginfo-common-x86_64@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug-debuginfo@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf-debuginfo@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "perf-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "perf-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "perf-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/perf@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-devel@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-debug@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+								"product": {
+									"name": "kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+									"product_id": "kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-headers@2.6.32-131.29.1.el6?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-0:2.6.32-131.29.1.el6.src",
+								"product": {
+									"name": "kernel-0:2.6.32-131.29.1.el6.src",
+									"product_id": "kernel-0:2.6.32-131.29.1.el6.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel@2.6.32-131.29.1.el6?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+								"product": {
+									"name": "kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+									"product_id": "kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-doc@2.6.32-131.29.1.el6?arch=noarch"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+								"product": {
+									"name": "kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+									"product_id": "kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-firmware@2.6.32-131.29.1.el6?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-131.29.1.el6.src as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src"
+				},
+				"product_reference": "kernel-0:2.6.32-131.29.1.el6.src",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-devel-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-doc-0:2.6.32-131.29.1.el6.noarch as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch"
+				},
+				"product_reference": "kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-firmware-0:2.6.32-131.29.1.el6.noarch as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch"
+				},
+				"product_reference": "kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-headers-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "perf-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "perf-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "perf-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "perf-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.i686 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.s390x as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64 as a component of Red Hat Enterprise Linux Server EUS (v. 6.1)",
+					"product_id": "6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				},
+				"product_reference": "perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+				"relates_to_product_reference": "6Server-6.1.EUS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Sasha Levin"
+					]
+				}
+			],
+			"cve": "CVE-2011-4347",
+			"discovery_date": "2011-11-20T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "756084"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The kvm_vm_ioctl_assign_device function in virt/kvm/assigned-dev.c in the KVM subsystem in the Linux kernel before 3.1.10 does not verify permission to access PCI configuration space and BAR resources, which allows host OS users to assign PCI devices and cause a denial of service (host OS crash) via a KVM_ASSIGN_PCI_DEVICE operation.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "device assignment DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of Linux kernel as shipped with Red Hat Enterprise Linux 4 and Red Hat Enterprise MRG as they did not provide support for the KVM subsystem. This has been addressed in Red Hat Enterprise Linux 6 via https://rhn.redhat.com/errata/RHSA-2012-0350.html. A future kvm update in Red Hat Enterprise 5 may address this flaw.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2011-4347"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#756084",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=756084"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2011-4347",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2011-4347"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2011-4347",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2011-4347"
+				}
+			],
+			"release_date": "2011-11-20T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1042"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:H/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "device assignment DoS"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Wang Xi"
+					]
+				}
+			],
+			"cve": "CVE-2012-0038",
+			"discovery_date": "2012-01-11T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "773280"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Integer overflow in the xfs_acl_from_disk function in fs/xfs/xfs_acl.c in the Linux kernel before 3.1.9 allows local users to cause a denial of service (panic) via a filesystem with a malformed ACL, leading to a heap-based buffer overflow.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "xfs heap overflow",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the Linux kernel as shipped with Red Hat Enterprise Linux 4 as it did not have support for the XFS file system. It did not affect the Linux kernel as shipped with Red Hat Enterprise Linux 5 as it did not backport the upstream commit ef14f0c1 that introduced the vulnerability. This has been addressed in Red Hat Enterprise Linux 6 and Red Hat Enterprise MRG via https://rhn.redhat.com/errata/RHSA-2012-0350.html, and https://rhn.redhat.com/errata/RHSA-2012-0333.html.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-0038"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#773280",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=773280"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-0038",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-0038"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-0038",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0038"
+				}
+			],
+			"release_date": "2011-12-16T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1042"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.2,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:H/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "xfs heap overflow"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Chen Haogang"
+					]
+				}
+			],
+			"cve": "CVE-2012-0044",
+			"cwe": {
+				"id": "CWE-190",
+				"name": "Integer Overflow or Wraparound"
+			},
+			"discovery_date": "2012-01-10T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "772894"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "Integer overflow in the drm_mode_dirtyfb_ioctl function in drivers/gpu/drm/drm_crtc.c in the Direct Rendering Manager (DRM) subsystem in the Linux kernel before 3.1.5 allows local users to gain privileges or cause a denial of service (memory corruption) via a crafted ioctl call.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "integer overflow in drm_mode_dirtyfb_ioctl()",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the versions of Linux kernel as shipped with Red Hat Enterprise Linux 4 and 5 as they did not backport commit 884840aa that introduced this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-0044"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#772894",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=772894"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-0044",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-0044"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-0044",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0044"
+				}
+			],
+			"release_date": "2011-11-23T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1042"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.9,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:M/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "integer overflow in drm_mode_dirtyfb_ioctl()"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"H. Peter Anvin"
+					]
+				}
+			],
+			"cve": "CVE-2012-1097",
+			"discovery_date": "2012-03-02T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "799209"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The regset (aka register set) feature in the Linux kernel before 3.2.10 does not properly handle the absence of .get and .set methods, which allows local users to cause a denial of service (NULL pointer dereference) or possibly have unspecified other impact via a (1) PTRACE_GETREGSET or (2) PTRACE_SETREGSET ptrace call.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "Prevent null pointer reference on readonly regsets",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the Linux kernel as shipped with Red Hat Enterprise Linux 5 as it did not backport upstream commits 4206d3aa and 5bde4d18.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-1097"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#799209",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=799209"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-1097",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-1097"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-1097",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-1097"
+				}
+			],
+			"release_date": "2012-03-03T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1042"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "Prevent null pointer reference on readonly regsets"
+		},
+		{
+			"cve": "CVE-2012-1179",
+			"discovery_date": "2012-03-12T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "803793"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The Linux kernel before 3.3.1, when KVM is used, allows guest OS users to cause a denial of service (host OS crash) by leveraging administrative access to the guest OS, related to the pmd_none_or_clear_bad function and page faults for huge pages.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2012-1179 kernel: thp:__split_huge_page() mapcount != page_mapcount BUG_ON()",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+					"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+					"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2012-1179"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#803793",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=803793"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2012-1179",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2012-1179"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2012-1179",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2012-1179"
+				}
+			],
+			"release_date": "2012-03-15T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258\n\nTo install kernel packages manually, use \"rpm -ivh [package]\". Do not\nuse \"rpm -Uvh\" as that will remove the running kernel binaries from\nyour system. You may use \"rpm -e\" to remove old kernels after\ndetermining that the new kernel functions properly on your system.",
+					"product_ids": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					],
+					"restart_required": {
+						"category": "machine"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2012:1042"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 5.2,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:M/Au:S/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.src",
+						"6Server-6.1.EUS:kernel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-bootwrapper-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debug-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-i686-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-debuginfo-common-ppc64-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-debuginfo-common-s390x-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-debuginfo-common-x86_64-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-devel-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-doc-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-firmware-0:2.6.32-131.29.1.el6.noarch",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-headers-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:kernel-kdump-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:kernel-kdump-devel-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-0:2.6.32-131.29.1.el6.x86_64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.i686",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.ppc64",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.s390x",
+						"6Server-6.1.EUS:perf-debuginfo-0:2.6.32-131.29.1.el6.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2012-1179 kernel: thp:__split_huge_page() mapcount != page_mapcount BUG_ON()"
+		}
+	]
+}

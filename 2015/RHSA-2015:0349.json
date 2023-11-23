@@ -1,0 +1,3799 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated qemu-kvm packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "KVM (Kernel-based Virtual Machine) is a full virtualization solution for Linux on AMD64 and Intel 64 systems. The qemu-kvm packages provide the user-space component for running virtual machines using KVM.\n\nIt was found that the Cirrus blit region checks were insufficient. A privileged guest user could use this flaw to write outside of VRAM-allocated buffer boundaries in the host's QEMU process address space with attacker-provided data. (CVE-2014-8106)\n\nAn uninitialized data structure use flaw was found in the way the set_pixel_format() function sanitized the value of bits_per_pixel. An attacker able to access a guest's VNC console could use this flaw to crash the guest. (CVE-2014-7815)\n\nIt was found that certain values that were read when loading RAM during migration were not validated. A user able to alter the savevm data (either on the disk or over the wire during migration) could use either of these flaws to corrupt QEMU process memory on the (destination) host, which could potentially result in arbitrary code execution on the host with the privileges of the QEMU process. (CVE-2014-7840)\n\nA NULL pointer dereference flaw was found in the way QEMU handled UDP packets with a source port and address of 0 when QEMU's user networking was in use. A local guest user could use this flaw to crash the guest. (CVE-2014-3640)\n\nRed Hat would like to thank James Spadaro of Cisco for reporting CVE-2014-7815, and Xavier Mehrenberger and Stephane Duverger of Airbus for reporting CVE-2014-3640. The CVE-2014-8106 issue was found by Paolo Bonzini of Red Hat, and the CVE-2014-7840 issue was discovered by Michael S. Tsirkin of Red Hat.\n\nBug fixes:\n\n* The KVM utility executed demanding routing update system calls every time it performed an MSI vector mask/unmask operation. Consequently, guests running legacy systems such as Red Hat Enterprise Linux 5 could, under certain circumstances, experience significant slowdown. Now, the routing system calls during mask/unmask operations are skipped, and the performance of legacy guests is now more consistent. (BZ#1098976)\n\n* Due to a bug in the Internet Small Computer System Interface (iSCSI) driver, a qemu-kvm process terminated unexpectedly with a segmentation fault when the \"write same\" command was executed in guest mode under the iSCSI protocol. This update fixes the bug, and the \"write same\" command now functions in guest mode under iSCSI as intended. (BZ#1083413)\n\n* The QEMU command interface did not properly handle resizing of cache memory during guest migration, causing QEMU to terminate unexpectedly with a segmentation fault. This update fixes the related code, and QEMU no longer crashes in the described situation. (BZ#1066338)\n\nEnhancements:\n\n* The maximum number of supported virtual CPUs (vCPUs) in a KVM guest has been increased to 240. This increases the number of virtual processing units that the user can assign to the guest, and therefore improves its performance potential. (BZ#1134408)\n\n* Support for the 5th Generation Intel Core processors has been added to the QEMU hypervisor, the KVM kernel code, and the libvirt API. This allows KVM guests to use the following instructions and features: ADCX, ADOX, RDSFEED, PREFETCHW, and supervisor mode access prevention (SMAP). (BZ#1116117)\n\n* The \"dump-guest-memory\" command now supports crash dump compression. This makes it possible for users who cannot use the \"virsh dump\" command to require less hard disk space for guest crash dumps. In addition, saving a compressed guest crash dump frequently takes less time than saving a non-compressed one. (BZ#1157798)\n\n* This update introduces support for flight recorder tracing, which uses SystemTap to automatically capture qemu-kvm data while the guest machine is running. For detailed instructions on how to configure and use flight recorder tracing, see the Virtualization Deployment and Administration Guide, linked to in the References section below. (BZ#1088112)",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2015:0349",
+				"url": "https://access.redhat.com/errata/RHSA-2015:0349"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Virtualization_Deployment_and_Administration_Guide/index.html",
+				"url": "https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Virtualization_Deployment_and_Administration_Guide/index.html"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhsa-2015_0349.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: qemu-kvm security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2015-03-05T07:27:34+00:00",
+			"generator": {
+				"date": "2023-10-17T16:09:02+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2015:0349",
+			"initial_release_date": "2015-03-05T07:27:34+00:00",
+			"revision_history": [
+				{
+					"date": "2015-03-05T07:27:34+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 7)",
+									"product_id": "7Workstation",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Client Optional (v. 7)",
+									"product_id": "7Client-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+									"product_id": "7ComputeNode-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional (v. 7)",
+									"product_id": "7Server-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Client (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Client (v. 7)",
+									"product_id": "7Client",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation Optional (v. 7)",
+									"product_id": "7Workstation-optional",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 7)",
+									"product_id": "7Server",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:7::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-img-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "qemu-img-10:1.5.3-86.el7.x86_64",
+									"product_id": "qemu-img-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-img@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+									"product_id": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-common@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+									"product_id": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+									"product_id": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-debuginfo@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "libcacard-10:1.5.3-86.el7.x86_64",
+									"product_id": "libcacard-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+									"product_id": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-tools@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+									"product_id": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard-devel@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+								"product": {
+									"name": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+									"product_id": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard-tools@1.5.3-86.el7?arch=x86_64&epoch=10"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+								"product": {
+									"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+									"product_id": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-debuginfo@1.5.3-86.el7?arch=i686&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-10:1.5.3-86.el7.i686",
+								"product": {
+									"name": "libcacard-10:1.5.3-86.el7.i686",
+									"product_id": "libcacard-10:1.5.3-86.el7.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard@1.5.3-86.el7?arch=i686&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-devel-10:1.5.3-86.el7.i686",
+								"product": {
+									"name": "libcacard-devel-10:1.5.3-86.el7.i686",
+									"product_id": "libcacard-devel-10:1.5.3-86.el7.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard-devel@1.5.3-86.el7?arch=i686&epoch=10"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-10:1.5.3-86.el7.src",
+								"product": {
+									"name": "qemu-kvm-10:1.5.3-86.el7.src",
+									"product_id": "qemu-kvm-10:1.5.3-86.el7.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm@1.5.3-86.el7?arch=src&epoch=10"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+								"product": {
+									"name": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+									"product_id": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard-devel@1.5.3-86.el7?arch=ppc64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+								"product": {
+									"name": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+									"product_id": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard-tools@1.5.3-86.el7?arch=ppc64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+								"product": {
+									"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+									"product_id": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-debuginfo@1.5.3-86.el7?arch=ppc64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-10:1.5.3-86.el7.ppc64",
+								"product": {
+									"name": "libcacard-10:1.5.3-86.el7.ppc64",
+									"product_id": "libcacard-10:1.5.3-86.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard@1.5.3-86.el7?arch=ppc64&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-img-10:1.5.3-86.el7.ppc64",
+								"product": {
+									"name": "qemu-img-10:1.5.3-86.el7.ppc64",
+									"product_id": "qemu-img-10:1.5.3-86.el7.ppc64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-img@1.5.3-86.el7?arch=ppc64&epoch=10"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "libcacard-devel-10:1.5.3-86.el7.ppc",
+								"product": {
+									"name": "libcacard-devel-10:1.5.3-86.el7.ppc",
+									"product_id": "libcacard-devel-10:1.5.3-86.el7.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard-devel@1.5.3-86.el7?arch=ppc&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+								"product": {
+									"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+									"product_id": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/qemu-kvm-debuginfo@1.5.3-86.el7?arch=ppc&epoch=10"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "libcacard-10:1.5.3-86.el7.ppc",
+								"product": {
+									"name": "libcacard-10:1.5.3-86.el7.ppc",
+									"product_id": "libcacard-10:1.5.3-86.el7.ppc",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/libcacard@1.5.3-86.el7?arch=ppc&epoch=10"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client Optional (v. 7)",
+					"product_id": "7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Client (v. 7)",
+					"product_id": "7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Client"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux ComputeNode Optional (v. 7)",
+					"product_id": "7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7ComputeNode-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 7)",
+					"product_id": "7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Server (v. 7)",
+					"product_id": "7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Server"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 7)",
+					"product_id": "7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation-optional"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-devel-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-devel-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-devel-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "libcacard-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "libcacard-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-img-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-img-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-img-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-img-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.src as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-10:1.5.3-86.el7.src"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.src",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-common-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 7)",
+					"product_id": "7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				},
+				"product_reference": "qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+				"relates_to_product_reference": "7Workstation"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Xavier Mehrenberger"
+					]
+				},
+				{
+					"names": [
+						"Stephane Duverger"
+					],
+					"organization": "Airbus"
+				}
+			],
+			"cve": "CVE-2014-3640",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
+			"discovery_date": "2014-09-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1144818"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A NULL pointer dereference flaw was found in the way QEMU handled UDP packets with a source port and address of 0 when QEMU's user networking was in use. A local guest user could use this flaw to crash the guest.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "NULL pointer deref in sosendto()",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the kvm package as shipped with Red Hat Enterprise\nLinux 5.\n\nRed Hat Product Security has rated this issue as having Low security impact.\nFuture qemu-kvm updates for Red Hat Enterprise Linux 6 and 7 may address this\nissue. For additional information, refer to the Issue Severity\nClassification: https://access.redhat.com/security/updates/classification/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-3640"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1144818",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1144818"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-3640",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-3640"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-3640",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-3640"
+				}
+			],
+			"release_date": "2014-09-17T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.4,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:S/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "NULL pointer deref in sosendto()"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"James Spadaro"
+					],
+					"organization": "Cisco"
+				}
+			],
+			"cve": "CVE-2014-7815",
+			"discovery_date": "2014-10-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1157641"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An uninitialized data structure use flaw was found in the way the set_pixel_format() function sanitized the value of bits_per_pixel. An attacker able to access a guest's VNC console could use this flaw to crash the guest.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "insufficient bits_per_pixel from the client sanitization",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue did not affect the kvm package as shipped with Red Hat Enterprise\nLinux 5. Future qemu-kvm updates for Red Hat Enterprise Linux 6 and 7 may address this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-7815"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1157641",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1157641"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-7815",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-7815"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-7815",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-7815"
+				}
+			],
+			"release_date": "2014-10-27T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 5.2,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:A/AC:M/Au:S/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "insufficient bits_per_pixel from the client sanitization"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Michael S. Tsirkin"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2014-7840",
+			"cwe": {
+				"id": "CWE-122",
+				"name": "Heap-based Buffer Overflow"
+			},
+			"discovery_date": "2014-11-11T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1163075"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that certain values that were read when loading RAM during migration were not validated. A user able to alter the savevm data (either on the disk or over the wire during migration) could use either of these flaws to corrupt QEMU process memory on the (destination) host, which could potentially result in arbitrary code execution on the host with the privileges of the QEMU process.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "insufficient parameter validation during ram load",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-7840"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1163075",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1163075"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-7840",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-7840"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-7840",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-7840"
+				}
+			],
+			"release_date": "2014-11-12T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 3.7,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:H/Au:N/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "insufficient parameter validation during ram load"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Paolo Bonzini"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2014-8106",
+			"cwe": {
+				"id": "CWE-119",
+				"name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+			},
+			"discovery_date": "2014-11-13T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1169454"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the Cirrus blit region checks were insufficient. A privileged guest user could use this flaw to write outside of VRAM-allocated buffer boundaries in the host's QEMU process address space with attacker-provided data.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "insufficient blit region checks",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the qemu-kvm packages as shipped with Red Hat Enterprise Linux 6, a future update may address this flaw.\n\nThis issue affects the kvm packages as shipped with Red Hat Enterprise Linux 5. Red Hat Enterprise Linux 5 is now in Production 3 Phase of the support and maintenance life cycle. This issue is currently planned to be addressed in future updates. For additional information, refer to the Red Hat Enterprise Linux Life Cycle: https://access.redhat.com/support/policy/updates/errata/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+					"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+					"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+					"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+					"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-8106"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1169454",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1169454"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-8106",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-8106"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-8106",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-8106"
+				}
+			],
+			"release_date": "2014-12-04T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "All qemu-kvm users are advised to upgrade to these updated packages, which\ncontain backported patches to correct these issues and add these\nenhancements. After installing this update, shut down all running virtual\nmachines. Once all virtual machines have shut down, start them again for\nthis update to take effect.\n\nBefore applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:0349"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "ADJACENT_NETWORK",
+						"authentication": "SINGLE",
+						"availabilityImpact": "PARTIAL",
+						"baseScore": 4.9,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:A/AC:M/Au:S/C:P/I:P/A:P",
+						"version": "2.0"
+					},
+					"products": [
+						"7Client-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Client:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Client:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Client:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Client:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7ComputeNode-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7ComputeNode-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7ComputeNode-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Server:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Server:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Server:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Server:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation-optional:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation-optional:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation-optional:qemu-kvm-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.i686",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-devel-10:1.5.3-86.el7.x86_64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.ppc64",
+						"7Workstation:libcacard-tools-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-img-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.src",
+						"7Workstation:qemu-kvm-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-common-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.i686",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.ppc64",
+						"7Workstation:qemu-kvm-debuginfo-10:1.5.3-86.el7.x86_64",
+						"7Workstation:qemu-kvm-tools-10:1.5.3-86.el7.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "insufficient blit region checks"
+		}
+	]
+}

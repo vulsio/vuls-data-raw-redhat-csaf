@@ -1,0 +1,1031 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Low"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated 389-ds-base packages that fix one security issue and several bugs\nare now available for Red Hat Enterprise Linux 6.\n\nThe Red Hat Security Response Team has rated this update as having low\nsecurity impact. A Common Vulnerability Scoring System (CVSS) base score,\nwhich gives a detailed severity rating, is available from the CVE link in\nthe References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The 389 Directory Server is an LDAPv3 compliant server. The base packages\ninclude the Lightweight Directory Access Protocol (LDAP) server and\ncommand-line utilities for server administration.\n \nIt was found that the 389 Directory Server did not properly restrict access\nto entries when the \"nsslapd-allow-anonymous-access\" configuration setting\nwas set to \"rootdse\". An anonymous user could connect to the LDAP database\nand, if the search scope is set to BASE, obtain access to information\noutside of the rootDSE. (CVE-2013-1897)\n\nThis issue was discovered by Martin Kosek of Red Hat.\n\nThis update also fixes the following bugs:\n\n* Previously, the schema-reload plug-in was not thread-safe. Consequently,\nexecuting the schema-reload.pl script under heavy load could have caused\nthe ns-slapd process to terminate unexpectedly with a segmentation fault.\nCurrently, the schema-reload plug-in is re-designed so that it is\nthread-safe, and the schema-reload.pl script can be executed along with\nother LDAP operations. (BZ#929107)\n\n* An out of scope problem for a local variable, in some cases, caused the\nmodrdn operation to terminate unexpectedly with a segmentation fault. This\nupdate declares the local variable at the proper place of the function so\nit does not go out of scope, and the modrdn operation no longer crashes.\n(BZ#929111)\n\n* A task manually constructed an exact value to be removed from the\nconfiguration if the \"replica-force-cleaning\" option was used.\nConsequently, the task configuration was not cleaned up, and every time the\nserver was restarted, the task behaved in the described manner. This update\nsearches the configuration for the exact value to delete, instead of\nmanually building the value, and the task does not restart when the server\nis restarted. (BZ#929114)\n\n* Previously, a NULL pointer dereference could have occurred when\nattempting to get effective rights on an entry that did not exist, leading\nto an unexpected termination due to a segmentation fault. This update\nchecks for NULL entry pointers and returns the appropriate error. Now,\nattempts to get effective rights on an entry that does not exist no longer\ncauses crashes, and the server returns the appropriate error message.\n(BZ#929115)\n\n* A problem in the lock timing in the DNA plug-in caused a deadlock if the\nDNA operation was executed with other plug-ins. This update moves the\nrelease timing of the problematic lock, and the DNA plug-in does not cause\nthe deadlock. (BZ#929196)\n\nAll 389-ds-base users are advised to upgrade to these updated packages,\nwhich contain backported patches to correct these issues. After installing\nthis update, the 389 server service will be restarted automatically.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2013:0742",
+				"url": "https://access.redhat.com/errata/RHSA-2013:0742"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#low",
+				"url": "https://access.redhat.com/security/updates/classification/#low"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2013/rhsa-2013_0742.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: 389-ds-base security and bug fix update",
+		"tracking": {
+			"current_release_date": "2013-04-15T18:21:56+00:00",
+			"generator": {
+				"date": "2023-10-17T16:03:28+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2013:0742",
+			"initial_release_date": "2013-04-15T17:47:00+00:00",
+			"revision_history": [
+				{
+					"date": "2013-04-15T18:21:56+00:00",
+					"number": "2",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "2"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server Optional (v. 6)",
+									"product_id": "6Server-optional-6.4.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation (v. 6)",
+									"product_id": "6Workstation-6.4.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Desktop Optional (v. 6)",
+									"product_id": "6Client-optional-6.4.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::client"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+									"product_id": "6ComputeNode-optional-6.4.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::computenode"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Workstation Optional (v. 6)",
+									"product_id": "6Workstation-optional-6.4.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::workstation"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Server (v. 6)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Server (v. 6)",
+									"product_id": "6Server-6.4.z",
+									"product_identification_helper": {
+										"cpe": "cpe:/o:redhat:enterprise_linux:6::server"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+								"product": {
+									"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+									"product_id": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base-devel@1.2.11.15-14.el6_4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+								"product": {
+									"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+									"product_id": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base-debuginfo@1.2.11.15-14.el6_4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+								"product": {
+									"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+									"product_id": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base-libs@1.2.11.15-14.el6_4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+								"product": {
+									"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+									"product_id": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base@1.2.11.15-14.el6_4?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+								"product": {
+									"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+									"product_id": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base-devel@1.2.11.15-14.el6_4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+								"product": {
+									"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+									"product_id": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base-debuginfo@1.2.11.15-14.el6_4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+								"product": {
+									"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+									"product_id": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base@1.2.11.15-14.el6_4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+								"product": {
+									"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+									"product_id": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base-libs@1.2.11.15-14.el6_4?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+								"product": {
+									"name": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+									"product_id": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/389-ds-base@1.2.11.15-14.el6_4?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.src as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Desktop Optional (v. 6)",
+					"product_id": "6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Client-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.src as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux HPC Node Optional (v. 6)",
+					"product_id": "6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6ComputeNode-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.src as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server (v. 6)",
+					"product_id": "6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.src as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Server Optional (v. 6)",
+					"product_id": "6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Server-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.src as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation (v. 6)",
+					"product_id": "6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.src as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.src",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64 as a component of Red Hat Enterprise Linux Workstation Optional (v. 6)",
+					"product_id": "6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				},
+				"product_reference": "389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+				"relates_to_product_reference": "6Workstation-optional-6.4.z"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Martin Kosek"
+					],
+					"organization": "Red Hat",
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2013-1897",
+			"discovery_date": "2013-03-21T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "928105"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "The do_search function in ldap/servers/slapd/search.c in 389 Directory Server 1.2.x before 1.2.11.20 and 1.3.x before 1.3.0.5 does not properly restrict access to entries when the nsslapd-allow-anonymous-access configuration is set to rootdse and the BASE search scope is used, which allows remote attackers to obtain sensitive information outside of the rootDSE via a crafted LDAP search.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "unintended information exposure when rootdse is enabled",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+					"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+					"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+					"6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+					"6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+					"6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+					"6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+					"6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+					"6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+					"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+					"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+					"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+					"6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+					"6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+					"6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+					"6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+					"6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+					"6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+					"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+					"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+					"6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+					"6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+					"6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+					"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+					"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+					"6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+					"6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+					"6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+					"6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+					"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+					"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+					"6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+					"6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2013-1897"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#928105",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=928105"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2013-1897",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2013-1897"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2013-1897",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2013-1897"
+				}
+			],
+			"release_date": "2013-03-28T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously-released errata\nrelevant to your system have been applied.\n\nThis update is available via the Red Hat Network. Details on how to\nuse the Red Hat Network to apply this update are available at\nhttps://access.redhat.com/knowledge/articles/11258",
+					"product_ids": [
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2013:0742"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "NETWORK",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.6,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:N/AC:H/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Client-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Client-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6ComputeNode-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6ComputeNode-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Server-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Server-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Server-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Server-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Workstation-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.src",
+						"6Workstation-optional-6.4.z:389-ds-base-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-debuginfo-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-devel-0:1.2.11.15-14.el6_4.x86_64",
+						"6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.i686",
+						"6Workstation-optional-6.4.z:389-ds-base-libs-0:1.2.11.15-14.el6_4.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "unintended information exposure when rootdse is enabled"
+		}
+	]
+}

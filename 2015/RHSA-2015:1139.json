@@ -1,0 +1,1326 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "Updated kernel-rt packages that fix multiple security issues, several bugs,\nand add various enhancements are now available for Red Hat Enterprise\nLinux 7.\n\nRed Hat Product Security has rated this update as having Important security\nimpact. Common Vulnerability Scoring System (CVSS) base scores, which give\ndetailed severity ratings, are available for each vulnerability from the\nCVE links in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The kernel-rt packages contain the Linux kernel, the core of any Linux\noperating system.\n\n* It was found that the Linux kernel's implementation of vectored pipe read\nand write functionality did not take into account the I/O vectors that were\nalready processed when retrying after a failed atomic access operation,\npotentially resulting in memory corruption due to an I/O vector array\noverrun. A local, unprivileged user could use this flaw to crash the system\nor, potentially, escalate their privileges on the system. (CVE-2015-1805,\nImportant)\n\n* A race condition flaw was found in the way the Linux kernel keys\nmanagement subsystem performed key garbage collection. A local attacker\ncould attempt accessing a key while it was being garbage collected, which\nwould cause the system to crash. (CVE-2014-9529, Moderate)\n\n* A flaw was found in the way the Linux kernel's 32-bit emulation\nimplementation handled forking or closing of a task with an 'int80' entry.\nA local user could potentially use this flaw to escalate their privileges\non the system. (CVE-2015-2830, Low)\n\n* It was found that the Linux kernel's ISO file system implementation did\nnot correctly limit the traversal of Rock Ridge extension Continuation\nEntries (CE). An attacker with physical access to the system could use this\nflaw to trigger an infinite loop in the kernel, resulting in a denial of\nservice. (CVE-2014-9420, Low)\n\n* An information leak flaw was found in the way the Linux kernel's ISO9660\nfile system implementation accessed data on an ISO9660 image with RockRidge\nExtension Reference (ER) records. An attacker with physical access to the\nsystem could use this flaw to disclose up to 255 bytes of kernel memory.\n(CVE-2014-9584, Low)\n\n* A flaw was found in the way the nft_flush_table() function of the Linux\nkernel's netfilter tables implementation flushed rules that were\nreferencing deleted chains. A local user who has the CAP_NET_ADMIN\ncapability could use this flaw to crash the system. (CVE-2015-1573, Low)\n\n* An integer overflow flaw was found in the way the Linux kernel randomized\nthe stack for processes on certain 64-bit architecture systems, such as\nx86-64, causing the stack entropy to be reduced by four. (CVE-2015-1593,\nLow)\n\nRed Hat would like to thank Carl Henrik Lunde for reporting CVE-2014-9420\nand CVE-2014-9584. The security impact of CVE-2015-1805 was discovered by\nRed Hat.\n\nThe kernel-rt packages have been upgraded to version 3.10.0-229.7.2, which\nprovides a number of bug fixes and enhancements over the previous version,\nincluding:\n\n* storvsc: get rid of overly verbose warning messages\n* storvsc: force discovery of LUNs that may have been removed\n* storvsc: in responce to a scan event, scan the hos\n* storvsc: NULL pointer dereference fix\n* futex: Mention key referencing differences between shared and private\nfutexes\n* futex: Ensure get_futex_key_refs() always implies a barrier\n* kernel module: set nx before marking module MODULE_STATE_COMING\n* kernel module: Clean up ro/nx after early module load failures\n* btrfs: make xattr replace operations atomic\n* megaraid_sas: revert: Add release date and update driver version\n* radeon: fix kernel segfault in hwmonitor\n\n(BZ#1223955)\n\nBug fix:\n\n* There is an XFS optimization that depended on a spinlock to disable\npreemption using the preempt_disable() function. When CONFIG_PREEMPT_RT is\nenabled on realtime kernels, spinlocks do not disable preemption while\nheld, so the XFS critical section was not protected from preemption.\nSystems on the Realtime kernel-rt could lock up in this XFS optimization\nwhen a task that locked all the counters was then preempted by a realtime\ntask, causing all callers of that lock to block indefinitely. This update\ndisables the optimization when building a kernel with\nCONFIG_PREEMPT_RT_FULL enabled. (BZ#1223955)\n\nAll kernel-rt users are advised to upgrade to these updated packages, which\ncorrect these issues and add these enhancements. The system must be\nrebooted for this update to take effect.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2015:1139",
+				"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2015/rhsa-2015_1139.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: kernel-rt security, bug fix, and enhancement update",
+		"tracking": {
+			"current_release_date": "2015-06-23T08:24:45+00:00",
+			"generator": {
+				"date": "2023-10-17T16:08:50+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.23.0"
+				}
+			},
+			"id": "RHSA-2015:1139",
+			"initial_release_date": "2015-06-23T08:24:45+00:00",
+			"revision_history": [
+				{
+					"date": "2015-06-23T08:24:45+00:00",
+					"number": "1",
+					"summary": "Current version"
+				}
+			],
+			"status": "final",
+			"version": "1"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Realtime (v. 7)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Realtime (v. 7)",
+									"product_id": "7Server-RT-7.1.Z",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_extras_rt:7"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-debuginfo@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-debuginfo@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo-common-x86_64@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-devel@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug-devel@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debug@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-debuginfo@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+								"product": {
+									"name": "kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_id": "kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-trace-devel@3.10.0-229.7.2.rt56.141.6.el7_1?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+								"product": {
+									"name": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+									"product_id": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt@3.10.0-229.7.2.rt56.141.6.el7_1?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+								"product": {
+									"name": "kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+									"product_id": "kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/kernel-rt-doc@3.10.0-229.7.2.rt56.141.6.el7_1?arch=noarch"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "noarch"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src"
+				},
+				"product_reference": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch"
+				},
+				"product_reference": "kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64 as a component of Red Hat Enterprise Linux Realtime (v. 7)",
+					"product_id": "7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				},
+				"product_reference": "kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+				"relates_to_product_reference": "7Server-RT-7.1.Z"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Carl Henrik Lunde"
+					]
+				}
+			],
+			"cve": "CVE-2014-9420",
+			"cwe": {
+				"id": "CWE-835",
+				"name": "Loop with Unreachable Exit Condition ('Infinite Loop')"
+			},
+			"discovery_date": "2014-12-10T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1175235"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the Linux kernel's ISO file system implementation did not correctly limit the traversal of Rock Ridge extension Continuation Entries (CE). An attacker with physical access to the system could use this flaw to trigger an infinite loop in the kernel, resulting in a denial of service.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "infinite loop in CE record entries",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of the Linux kernel as shipped with Red Hat Enterprise Linux 5, 6, 7 and Red Hat Enterprise MRG 2. Future kernel updates for the respective releases may address this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-9420"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1175235",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1175235"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-9420",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-9420"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-9420",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-9420"
+				}
+			],
+			"release_date": "2014-12-15T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.7,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "infinite loop in CE record entries"
+		},
+		{
+			"cve": "CVE-2014-9529",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
+			"discovery_date": "2015-01-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1179813"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A race condition flaw was found in the way the Linux kernel keys management subsystem performed key garbage collection. A local attacker could attempt accessing a key while it was being garbage collected, which would cause the system to crash.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2014-9529 kernel: use-after-free during key garbage collection",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affect the Linux kernel packages as shipped with Red Hat Enterprise Linux 5.\n\nThis issue affects the Linux kernel packages as shipped with Red Hat Enterprise Linux 6, 7 and Red Hat Enterprise MRG 2. Future kernel updates for the respective releases may address this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-9529"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1179813",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1179813"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-9529",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-9529"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-9529",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-9529"
+				}
+			],
+			"release_date": "2014-12-29T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "LOW",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 4.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:L/Au:N/C:N/I:N/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "CVE-2014-9529 kernel: use-after-free during key garbage collection"
+		},
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Carl Henrik Lunde"
+					]
+				}
+			],
+			"cve": "CVE-2014-9584",
+			"discovery_date": "2014-12-16T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1180119"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An information leak flaw was found in the way the Linux kernel's ISO9660 file system implementation accessed data on an ISO9660 image with RockRidge Extension Reference (ER) records. An attacker with physical access to the system could use this flaw to disclose up to 255 bytes of kernel memory.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "unchecked printing of ER records",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of the Linux kernel as shipped with\nRed Hat Enterprise Linux 5, 6, 7 and Red Hat Enterprise MRG 2. Future kernel updates for the respective releases may address this issue.\n\nRed Hat Enterprise Linux 5 is now in Production 3 phase of the support and maintenance life cycle. This issue is not currently planned to be addressed in future updates. For additional information, refer to the Red Hat Enterprise Linux Life Cycle: https://access.redhat.com/support/policy/updates/errata/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2014-9584"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1180119",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1180119"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2014-9584",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2014-9584"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2014-9584",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2014-9584"
+				}
+			],
+			"release_date": "2015-01-07T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.9,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "unchecked printing of ER records"
+		},
+		{
+			"cve": "CVE-2015-1573",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
+			"discovery_date": "2015-02-10T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1190966"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the way the nft_flush_table() function of the Linux kernel's netfilter tables implementation flushed rules that were referencing deleted chains. A local user who has the CAP_NET_ADMIN capability could use this flaw to crash the system.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-1573 kernel: panic while flushing nftables rules that reference deleted chains.",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does not affect the versions of the Linux kernel as shipped with Red Hat Enterprise Linux 5 and 6 (as they did not include support for netfilter tables API).\n\nThis issue affects the versions of the Linux kernel packages as shipped with Red Hat Enterprise Linux 7 and MRG 2. Future kernel updates for the respective releases may address this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-1573"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1190966",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1190966"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-1573",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-1573"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-1573",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1573"
+				}
+			],
+			"release_date": "2015-01-16T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "HIGH",
+						"accessVector": "LOCAL",
+						"authentication": "SINGLE",
+						"availabilityImpact": "NONE",
+						"baseScore": 2.4,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:H/Au:S/C:P/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2015-1573 kernel: panic while flushing nftables rules that reference deleted chains."
+		},
+		{
+			"cve": "CVE-2015-1593",
+			"cwe": {
+				"id": "CWE-190",
+				"name": "Integer Overflow or Wraparound"
+			},
+			"discovery_date": "2015-02-13T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1192519"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "An integer overflow flaw was found in the way the Linux kernel randomized the stack for processes on certain 64-bit architecture systems, such as x86-64, causing the stack entropy to be reduced by four.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-1593 kernel: Linux stack ASLR implementation Integer overflow",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does affect the Linux kernel versions as shipped with Red Hat Enterprise Linux 6, 7 and Red Hat Enterprise MRG 2. Future kernel updates in the respective releases may address this issue.\n\nThis issue does affect the Linux kernel versions as shipped with Red Hat Enterprise Linux 5. Red Hat Enterprise Linux 5 is now in Production 3 Phase of the support and maintenance life cycle. This has been rated as having Low security impact and is not currently planned to be addressed in future updates. For additional information, refer to the Red Hat Enterprise Linux Life Cycle: https://access.redhat.com/support/policy/updates/errata/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-1593"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1192519",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1192519"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-1593",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-1593"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-1593",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1593"
+				}
+			],
+			"release_date": "2015-02-13T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.9,
+						"confidentialityImpact": "PARTIAL",
+						"integrityImpact": "NONE",
+						"vectorString": "AV:L/AC:M/Au:N/C:P/I:N/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2015-1593 kernel: Linux stack ASLR implementation Integer overflow"
+		},
+		{
+			"acknowledgments": [
+				{
+					"summary": "This issue was discovered by Red Hat."
+				}
+			],
+			"cve": "CVE-2015-1805",
+			"discovery_date": "2015-03-02T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1202855"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "It was found that the Linux kernel's implementation of vectored pipe read and write functionality did not take into account the I/O vectors that were already processed when retrying after a failed atomic access operation, potentially resulting in memory corruption due to an I/O vector array overrun. A local, unprivileged user could use this flaw to crash the system or, potentially, escalate their privileges on the system.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "iovec overrun leading to memory corruption",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue does affect the Linux kernel packages as shipped with Red Hat\nEnterprise Linux 5, 6, and 7, and Red Hat Enterprise MRG 2. Future Linux\nkernel updates for the respective releases will address this issue.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-1805"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1202855",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1202855"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-1805",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-1805"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-1805",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1805"
+				}
+			],
+			"release_date": "2015-06-02T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "COMPLETE",
+						"baseScore": 6.9,
+						"confidentialityImpact": "COMPLETE",
+						"integrityImpact": "COMPLETE",
+						"vectorString": "AV:L/AC:M/Au:N/C:C/I:C/A:C",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "iovec overrun leading to memory corruption"
+		},
+		{
+			"cve": "CVE-2015-2830",
+			"cwe": {
+				"id": "CWE-393",
+				"name": "Return of Wrong Status Code"
+			},
+			"discovery_date": "2015-04-02T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1208598"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in the way the Linux kernel's 32-bit emulation implementation handled forking or closing of a task with an 'int80' entry. A local user could potentially use this flaw to escalate their privileges on the system.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "CVE-2015-2830 kernel: int80 fork from 64-bit tasks mishandling",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue affects the versions of the Linux kernel as shipped with\nRed Hat Enterprise Linux 5, 6, 7 and Red Hat Enterprise MRG 2. Future kernel updates for the respective releases may address this issue.\n\nRed Hat Enterprise Linux 5 is now in Production 3 Phase of the support and\nmaintenance life cycle. This has been rated as having Low security\nimpact and is not currently planned to be addressed in future updates. For\nadditional information, refer to the Red Hat Enterprise Linux Life\nCycle: https://access.redhat.com/support/policy/updates/errata/.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+					"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+					"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+					"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2015-2830"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1208598",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1208598"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2015-2830",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2015-2830"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2015-2830",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2015-2830"
+				}
+			],
+			"release_date": "2015-04-01T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2015:1139"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v2": {
+						"accessComplexity": "MEDIUM",
+						"accessVector": "LOCAL",
+						"authentication": "NONE",
+						"availabilityImpact": "NONE",
+						"baseScore": 1.9,
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "PARTIAL",
+						"vectorString": "AV:L/AC:M/Au:N/C:N/I:P/A:N",
+						"version": "2.0"
+					},
+					"products": [
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.src",
+						"7Server-RT-7.1.Z:kernel-rt-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debug-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-debuginfo-common-x86_64-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-doc-0:3.10.0-229.7.2.rt56.141.6.el7_1.noarch",
+						"7Server-RT-7.1.Z:kernel-rt-trace-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-debuginfo-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64",
+						"7Server-RT-7.1.Z:kernel-rt-trace-devel-0:3.10.0-229.7.2.rt56.141.6.el7_1.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Low"
+				}
+			],
+			"title": "CVE-2015-2830 kernel: int80 fork from 64-bit tasks mishandling"
+		}
+	]
+}
