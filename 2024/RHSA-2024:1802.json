@@ -1,0 +1,1207 @@
+{
+	"document": {
+		"aggregate_severity": {
+			"namespace": "https://access.redhat.com/security/updates/classification/",
+			"text": "Important"
+		},
+		"category": "csaf_vex",
+		"csaf_version": "2.0",
+		"distribution": {
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
+			"tlp": {
+				"label": "WHITE",
+				"url": "https://www.first.org/tlp/"
+			}
+		},
+		"lang": "en",
+		"notes": [
+			{
+				"category": "summary",
+				"text": "An update for unbound is now available for Red Hat Enterprise Linux 8.8 Extended Update Support.\n\nRed Hat Product Security has rated this update as having a security impact of Important. A Common Vulnerability Scoring System (CVSS) base score, which gives a detailed severity rating, is available for each vulnerability from the CVE link(s) in the References section.",
+				"title": "Topic"
+			},
+			{
+				"category": "general",
+				"text": "The unbound packages provide a validating, recursive, and caching DNS or DNSSEC resolver. \n\nSecurity Fix(es):\n\n* A vulnerability was found in Unbound due to incorrect default permissions,\nallowing any process outside the unbound group to modify the unbound runtime\nconfiguration. The default combination of the \"control-use-cert: no\" option with\neither explicit or implicit use of an IP address in the \"control-interface\"\noption could allow improper access. If a process can connect over localhost to\nport 8953, it can alter the configuration of unbound.service. This flaw allows\nan unprivileged local process to manipulate a running instance, potentially\naltering forwarders, allowing them to track all queries forwarded by the local\nresolver, and, in some cases, disrupting resolving altogether.\n\nTo mitigate the vulnerability, a new file\n\"/etc/unbound/conf.d/remote-control.conf\" has been added and included in the\nmain unbound configuration file, \"unbound.conf\". The file contains two\ndirectives that should limit access to unbound.conf:\n\n    control-interface: \"/run/unbound/control\"\n    control-use-cert: \"yes\"\n\nFor details about these directives, run \"man unbound.conf\".\n\nUpdating to the version of unbound provided by this advisory should, in most\ncases, address the vulnerability. To verify that your configuration is not\nvulnerable, use the \"unbound-control status | grep control\" command. If the\noutput contains \"control(ssl)\" or \"control(namedpipe)\", your configuration is\nnot vulnerable. If the command output returns only \"control\", the configuration\nis vulnerable because it does not enforce access only to the unbound group\nmembers. To fix your configuration, add the line \"include:\n/etc/unbound/conf.d/remote-control.conf\" to the end of the file\n\"/etc/unbound/unbound.conf\". If you use a custom\n\"/etc/unbound/conf.d/remote-control.conf\" file, add the new directives to this\nfile. (CVE-2024-1488)\n\nFor more details about the security issue(s), including the impact, a CVSS\nscore, acknowledgments, and other related information, refer to the CVE page(s)\nlisted in the References section.",
+				"title": "Details"
+			},
+			{
+				"category": "legal_disclaimer",
+				"text": "This content is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/). If you distribute this content, or a modified version of it, you must provide attribution to Red Hat Inc. and provide a link to the original.",
+				"title": "Terms of Use"
+			}
+		],
+		"publisher": {
+			"category": "vendor",
+			"contact_details": "https://access.redhat.com/security/team/contact/",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"name": "Red Hat Product Security",
+			"namespace": "https://www.redhat.com"
+		},
+		"references": [
+			{
+				"category": "self",
+				"summary": "https://access.redhat.com/errata/RHSA-2024:1802",
+				"url": "https://access.redhat.com/errata/RHSA-2024:1802"
+			},
+			{
+				"category": "external",
+				"summary": "https://access.redhat.com/security/updates/classification/#important",
+				"url": "https://access.redhat.com/security/updates/classification/#important"
+			},
+			{
+				"category": "external",
+				"summary": "2264183",
+				"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2264183"
+			},
+			{
+				"category": "self",
+				"summary": "Canonical URL",
+				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2024/rhsa-2024_1802.json"
+			}
+		],
+		"title": "Red Hat Security Advisory: unbound security update",
+		"tracking": {
+			"current_release_date": "2024-04-15T04:20:39+00:00",
+			"generator": {
+				"date": "2024-04-15T04:20:39+00:00",
+				"engine": {
+					"name": "Red Hat SDEngine",
+					"version": "3.28.1"
+				}
+			},
+			"id": "RHSA-2024:1802",
+			"initial_release_date": "2024-04-15T01:46:27+00:00",
+			"revision_history": [
+				{
+					"date": "2024-04-15T01:46:27+00:00",
+					"number": "1",
+					"summary": "Initial version"
+				},
+				{
+					"date": "2024-04-15T01:46:27+00:00",
+					"number": "2",
+					"summary": "Last updated version"
+				},
+				{
+					"date": "2024-04-15T04:20:39+00:00",
+					"number": "3",
+					"summary": "Last generated version"
+				}
+			],
+			"status": "final",
+			"version": "3"
+		}
+	},
+	"product_tree": {
+		"branches": [
+			{
+				"branches": [
+					{
+						"branches": [
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+								"product": {
+									"name": "Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+									"product_id": "AppStream-8.8.0.Z.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_eus:8.8::appstream"
+									}
+								}
+							}
+						],
+						"category": "product_family",
+						"name": "Red Hat Enterprise Linux"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "unbound-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "unbound-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-devel@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debugsource@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound-debuginfo@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debuginfo@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+								"product": {
+									"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+									"product_id": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs-debuginfo@1.16.2-5.el8_8.4?arch=aarch64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "aarch64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "unbound-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "unbound-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-devel@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debugsource@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound-debuginfo@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debuginfo@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+								"product": {
+									"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_id": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs-debuginfo@1.16.2-5.el8_8.4?arch=ppc64le"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "ppc64le"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "unbound-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "unbound-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-devel@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debugsource@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound-debuginfo@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debuginfo@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+								"product": {
+									"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+									"product_id": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs-debuginfo@1.16.2-5.el8_8.4?arch=x86_64"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "x86_64"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "unbound-devel-0:1.16.2-5.el8_8.4.i686",
+								"product": {
+									"name": "unbound-devel-0:1.16.2-5.el8_8.4.i686",
+									"product_id": "unbound-devel-0:1.16.2-5.el8_8.4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-devel@1.16.2-5.el8_8.4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-0:1.16.2-5.el8_8.4.i686",
+								"product": {
+									"name": "unbound-libs-0:1.16.2-5.el8_8.4.i686",
+									"product_id": "unbound-libs-0:1.16.2-5.el8_8.4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs@1.16.2-5.el8_8.4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+								"product": {
+									"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+									"product_id": "unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debugsource@1.16.2-5.el8_8.4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+								"product": {
+									"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+									"product_id": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound-debuginfo@1.16.2-5.el8_8.4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+								"product": {
+									"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+									"product_id": "unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debuginfo@1.16.2-5.el8_8.4?arch=i686"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+								"product": {
+									"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+									"product_id": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs-debuginfo@1.16.2-5.el8_8.4?arch=i686"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "i686"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "unbound-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "unbound-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-devel@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debugsource@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/python3-unbound-debuginfo@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-debuginfo@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							},
+							{
+								"category": "product_version",
+								"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+								"product": {
+									"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+									"product_id": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound-libs-debuginfo@1.16.2-5.el8_8.4?arch=s390x"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "s390x"
+					},
+					{
+						"branches": [
+							{
+								"category": "product_version",
+								"name": "unbound-0:1.16.2-5.el8_8.4.src",
+								"product": {
+									"name": "unbound-0:1.16.2-5.el8_8.4.src",
+									"product_id": "unbound-0:1.16.2-5.el8_8.4.src",
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/unbound@1.16.2-5.el8_8.4?arch=src"
+									}
+								}
+							}
+						],
+						"category": "architecture",
+						"name": "src"
+					}
+				],
+				"category": "vendor",
+				"name": "Red Hat"
+			}
+		],
+		"relationships": [
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686"
+				},
+				"product_reference": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "unbound-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "unbound-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "unbound-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-0:1.16.2-5.el8_8.4.src as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.src"
+				},
+				"product_reference": "unbound-0:1.16.2-5.el8_8.4.src",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "unbound-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.i686 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.i686"
+				},
+				"product_reference": "unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.i686 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.i686"
+				},
+				"product_reference": "unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-devel-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-devel-0:1.16.2-5.el8_8.4.i686 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.i686"
+				},
+				"product_reference": "unbound-devel-0:1.16.2-5.el8_8.4.i686",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-devel-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-devel-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-devel-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-0:1.16.2-5.el8_8.4.i686 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.i686"
+				},
+				"product_reference": "unbound-libs-0:1.16.2-5.el8_8.4.i686",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64"
+				},
+				"product_reference": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686"
+				},
+				"product_reference": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le"
+				},
+				"product_reference": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x"
+				},
+				"product_reference": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			},
+			{
+				"category": "default_component_of",
+				"full_product_name": {
+					"name": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64 as a component of Red Hat Enterprise Linux AppStream EUS (v.8.8)",
+					"product_id": "AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+				},
+				"product_reference": "unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+				"relates_to_product_reference": "AppStream-8.8.0.Z.EUS"
+			}
+		]
+	},
+	"vulnerabilities": [
+		{
+			"cve": "CVE-2024-1488",
+			"cwe": {
+				"id": "CWE-15",
+				"name": "External Control of System or Configuration Setting"
+			},
+			"discovery_date": "2024-02-14T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2264183"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A vulnerability was found in Unbound due to incorrect default permissions, allowing any process outside the unbound group to modify the unbound runtime configuration. If a process can connect over localhost to port 8953, it can alter the configuration of unbound.service. This flaw allows an unprivileged attacker to manipulate a running instance, potentially altering forwarders, allowing them to track all queries forwarded by the local resolver, and, in some cases, disrupting resolving altogether.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "unbound: unrestricted reconfiguration enabled to anyone that may lead to local privilege escalation",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "While the vulnerability in Unbound's default permissions presents a significant security concern, it may not necessarily be classified as a critical severity issue but rather as an important one due to several factors. Firstly, the vulnerability requires local access to the system, limiting its exploitability compared to critical vulnerabilities that can be remotely exploited. Additionally, the impact of the vulnerability, while potentially severe in terms of allowing unauthorized modification of Unbound's configuration and potential disruption of DNS resolution, may not directly lead to immediate and widespread compromise of sensitive data or critical system functionality. However, it remains important due to the potential for privacy violations, redirection of traffic, and disruption of services, especially considering the central role of DNS in network communication.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.src",
+					"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+					"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+					"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.i686",
+					"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.i686",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+					"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2024-1488"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2264183",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2264183"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2024-1488",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2024-1488"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2024-1488",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2024-1488"
+				}
+			],
+			"release_date": "2024-02-13T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "For details on how to apply this update, which includes the changes described in this advisory, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.src",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:1802"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.src",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "LOCAL",
+						"availabilityImpact": "HIGH",
+						"baseScore": 8,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "LOW",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:python3-unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.src",
+						"AppStream-8.8.0.Z.EUS:unbound-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-debuginfo-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-debugsource-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-devel-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-0:1.16.2-5.el8_8.4.x86_64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.aarch64",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.i686",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.ppc64le",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.s390x",
+						"AppStream-8.8.0.Z.EUS:unbound-libs-debuginfo-0:1.16.2-5.el8_8.4.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "unbound: unrestricted reconfiguration enabled to anyone that may lead to local privilege escalation"
+		}
+	]
+}
