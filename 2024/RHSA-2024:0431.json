@@ -107,12 +107,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security and bug fix update",
 		"tracking": {
-			"current_release_date": "2024-01-25T15:56:47+00:00",
+			"current_release_date": "2024-04-21T14:23:11+00:00",
 			"generator": {
-				"date": "2024-01-25T15:56:47+00:00",
+				"date": "2024-04-21T14:23:11+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.26.1"
+					"version": "3.29.1"
 				}
 			},
 			"id": "RHSA-2024:0431",
@@ -129,7 +129,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-01-25T15:56:47+00:00",
+					"date": "2024-04-21T14:23:11+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -2338,13 +2338,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A use-after-free vulnerability was found in drivers/nvme/target/tcp.c` in `nvmet_tcp_free_crypto` due to a logical bug in the NVMe-oF/TCP subsystem in the Linux kernel. This issue may allow a malicious user to cause a use-after-free and double-free problem, which may permit remote code execution or lead to local privilege escalation problem.",
+					"text": "A use-after-free vulnerability was found in drivers/nvme/target/tcp.c` in `nvmet_tcp_free_crypto` due to a logical bug in the NVMe/TCP subsystem in the Linux kernel. This issue may allow a malicious user to cause a use-after-free and double-free problem, which may permit remote code execution or lead to local privilege escalation.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: use after free in nvmet_tcp_free_crypto in NVMe",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability is actual only for systems where NVME over TCP being used.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -2504,14 +2509,14 @@
 						"attackComplexity": "LOW",
 						"attackVector": "NETWORK",
 						"availabilityImpact": "HIGH",
-						"baseScore": 9.8,
-						"baseSeverity": "CRITICAL",
+						"baseScore": 8.8,
+						"baseSeverity": "HIGH",
 						"confidentialityImpact": "HIGH",
 						"integrityImpact": "HIGH",
-						"privilegesRequired": "NONE",
+						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
 						"version": "3.1"
 					},
 					"products": [
@@ -2815,7 +2820,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "An issue was discovered in the Linux kernel before 6.5.9, exploitable by local users with userspace access to MMIO registers. Incorrect access checking in the #VC handler and instruction emulation of the SEV-ES emulation of MMIO accesses could lead to arbitrary write access to kernel memory (and thus privilege escalation). This depends on a race condition through which userspace can replace an instruction before the #VC handler reads it.",
+					"text": "A buffer overflow and null pointer dereference flaw was found in the Linux kernel's Secure Encrypted Virtualization (SEV) implementation for AMD functionality. This issue occurs when a user in SEV guest VM accesses MMIO registers, which could allow a local user to crash the system or escalate their privileges on the system.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -2955,22 +2960,60 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:0431"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-9.0.0.Z.EUS:kernel-rt-0:5.14.0-70.85.1.rt21.156.el9_0.src",
+						"NFV-9.0.0.Z.EUS:kernel-rt-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-core-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-devel-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-kvm-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-modules-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"NFV-9.0.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-0:5.14.0-70.85.1.rt21.156.el9_0.src",
+						"RT-9.0.0.Z.EUS:kernel-rt-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-core-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-devel-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-kvm-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-modules-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64",
+						"RT-9.0.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-70.85.1.rt21.156.el9_0.x86_64"
+					]
 				}
 			],
 			"scores": [
 				{
 					"cvss_v3": {
-						"attackComplexity": "LOW",
+						"attackComplexity": "HIGH",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "HIGH",
-						"baseScore": 7.8,
+						"baseScore": 7,
 						"baseSeverity": "HIGH",
 						"confidentialityImpact": "HIGH",
 						"integrityImpact": "HIGH",
 						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
 						"version": "3.1"
 					},
 					"products": [

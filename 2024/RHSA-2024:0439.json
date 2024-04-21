@@ -162,12 +162,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-01-25T15:58:00+00:00",
+			"current_release_date": "2024-04-21T14:17:22+00:00",
 			"generator": {
-				"date": "2024-01-25T15:58:00+00:00",
+				"date": "2024-04-21T14:17:22+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.26.1"
+					"version": "3.29.1"
 				}
 			},
 			"id": "RHSA-2024:0439",
@@ -184,7 +184,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-01-25T15:58:00+00:00",
+					"date": "2024-04-21T14:17:22+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -201,23 +201,23 @@
 						"branches": [
 							{
 								"category": "product_name",
-								"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
-								"product": {
-									"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
-									"product_id": "NFV-9.2.0.Z.EUS",
-									"product_identification_helper": {
-										"cpe": "cpe:/a:redhat:rhel_eus:9.2::nfv"
-									}
-								}
-							},
-							{
-								"category": "product_name",
 								"name": "Red Hat Enterprise Linux Real Time EUS (v.9.2)",
 								"product": {
 									"name": "Red Hat Enterprise Linux Real Time EUS (v.9.2)",
 									"product_id": "RT-9.2.0.Z.EUS",
 									"product_identification_helper": {
 										"cpe": "cpe:/a:redhat:rhel_eus:9.2::realtime"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
+									"product_id": "NFV-9.2.0.Z.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_eus:9.2::nfv"
 									}
 								}
 							}
@@ -1379,8 +1379,8 @@
 				},
 				{
 					"category": "external",
-					"summary": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d527f51331cace562393a8038d870b3e9916686f",
-					"url": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d527f51331cace562393a8038d870b3e9916686f"
+					"summary": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d527f51331cace562393a8038d870b3e9916686fCVE-2023-52",
+					"url": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d527f51331cace562393a8038d870b3e9916686fCVE-2023-52"
 				}
 			],
 			"release_date": "2022-10-02T00:00:00+00:00",
@@ -1813,6 +1813,11 @@
 					"category": "summary",
 					"text": "kernel: bpf: Incorrect verifier pruning leads to unsafe code paths being incorrectly marked as safe",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The Red Hat Enterprise Linux 9.3 not affected, because the required patch applied before this CVE creation. For the Red Hat Enterprise Linux 9 before version 9.3 required fixes applied too.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -3804,12 +3809,12 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A heap out-of-bounds write vulnerability in the Linux kernel's Linux Kernel Performance Events (perf) component can be exploited to achieve local privilege escalation. If perf_read_group() is called while an event's sibling_list is smaller than its child's sibling_list, it can increment or write to memory locations outside of the allocated buffer. We recommend upgrading past commit 32671e3799ca2e4590773fd0e63aaa4229e50c06.",
+					"text": "A flaw was found in the Linux kernel's Performance Events system component. A condition can be triggered that allows data to be written past the end or before the beginning of the intended memory buffer. This issue may lead to a system crash, code execution, or local privilege escalation.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
-					"text": "kernel: A heap out-of-bounds write",
+					"text": "kernel: A heap out-of-bounds write when function perf_read_group is called and sibling_list is smaller than its child's sibling_list",
 					"title": "Vulnerability summary"
 				},
 				{
@@ -3883,11 +3888,6 @@
 					"category": "external",
 					"summary": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/kernel/events?id=32671e3799ca2e4590773fd0e63aaa4229e50c06",
 					"url": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/kernel/events?id=32671e3799ca2e4590773fd0e63aaa4229e50c06"
-				},
-				{
-					"category": "external",
-					"summary": "https://kernel.dance/32671e3799ca2e4590773fd0e63aaa4229e50c06",
-					"url": "https://kernel.dance/32671e3799ca2e4590773fd0e63aaa4229e50c06"
 				}
 			],
 			"release_date": "2023-10-25T00:00:00+00:00",
@@ -3937,6 +3937,48 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:0439"
+				},
+				{
+					"category": "workaround",
+					"details": "It is not possible to trigger this issue with the default kernel.perf_event_paranoid sysctl value 2. You may check it with:\ncat /proc/sys/kernel/perf_event_paranoid",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [
@@ -4001,7 +4043,7 @@
 					"details": "Moderate"
 				}
 			],
-			"title": "kernel: A heap out-of-bounds write"
+			"title": "kernel: A heap out-of-bounds write when function perf_read_group is called and sibling_list is smaller than its child's sibling_list"
 		},
 		{
 			"acknowledgments": [
@@ -4205,14 +4247,14 @@
 						"attackComplexity": "LOW",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "HIGH",
-						"baseScore": 4.4,
+						"baseScore": 5.5,
 						"baseSeverity": "MEDIUM",
 						"confidentialityImpact": "NONE",
 						"integrityImpact": "NONE",
-						"privilegesRequired": "HIGH",
+						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H",
+						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
 						"version": "3.1"
 					},
 					"products": [
@@ -4364,6 +4406,11 @@
 					"category": "external",
 					"summary": "https://access.redhat.com/solutions/7049120",
 					"url": "https://access.redhat.com/solutions/7049120"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf",
+					"url": "https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf"
 				},
 				{
 					"category": "external",
@@ -5525,7 +5572,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "An issue was discovered in the Linux kernel before 6.5.9, exploitable by local users with userspace access to MMIO registers. Incorrect access checking in the #VC handler and instruction emulation of the SEV-ES emulation of MMIO accesses could lead to arbitrary write access to kernel memory (and thus privilege escalation). This depends on a race condition through which userspace can replace an instruction before the #VC handler reads it.",
+					"text": "A buffer overflow and null pointer dereference flaw was found in the Linux kernel's Secure Encrypted Virtualization (SEV) implementation for AMD functionality. This issue occurs when a user in SEV guest VM accesses MMIO registers, which could allow a local user to crash the system or escalate their privileges on the system.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -5673,22 +5720,64 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:0439"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.48.1.rt14.333.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [
 				{
 					"cvss_v3": {
-						"attackComplexity": "LOW",
+						"attackComplexity": "HIGH",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "HIGH",
-						"baseScore": 7.8,
+						"baseScore": 7,
 						"baseSeverity": "HIGH",
 						"confidentialityImpact": "HIGH",
 						"integrityImpact": "HIGH",
 						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
 						"version": "3.1"
 					},
 					"products": [

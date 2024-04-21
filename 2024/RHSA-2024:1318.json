@@ -51,6 +51,11 @@
 			},
 			{
 				"category": "external",
+				"summary": "https://access.redhat.com/documentation/en-us/red_hat_jboss_web_server/5.7/html/red_hat_jboss_web_server_5.7_service_pack_8_release_notes",
+				"url": "https://access.redhat.com/documentation/en-us/red_hat_jboss_web_server/5.7/html/red_hat_jboss_web_server_5.7_service_pack_8_release_notes"
+			},
+			{
+				"category": "external",
 				"summary": "2248616",
 				"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2248616"
 			},
@@ -72,12 +77,12 @@
 		],
 		"title": "Red Hat Security Advisory: Red Hat JBoss Web Server 5.7.8 release and security update",
 		"tracking": {
-			"current_release_date": "2024-03-18T16:51:20+00:00",
+			"current_release_date": "2024-04-21T14:49:27+00:00",
 			"generator": {
-				"date": "2024-03-18T16:51:20+00:00",
+				"date": "2024-04-21T14:49:27+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.27.1"
+					"version": "3.29.1"
 				}
 			},
 			"id": "RHSA-2024:1318",
@@ -89,12 +94,12 @@
 					"summary": "Initial version"
 				},
 				{
-					"date": "2024-03-18T11:19:02+00:00",
+					"date": "2024-03-19T15:41:03+00:00",
 					"number": "2",
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-03-18T16:51:20+00:00",
+					"date": "2024-04-21T14:49:27+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -1646,13 +1651,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "No description is available for this CVE.",
+					"text": "A vulnerability was found in the Tomcat package due to its handling of HTTP/2 requests. Specifically, when an HTTP/2 request surpasses the predetermined limits for headers configured within the server, the associated HTTP/2 stream isn't reset immediately. Instead, the reset action occurs only after all the headers within the request have been processed. This lapse in resetting the stream exposes the system to potential risks, as it allows malicious actors to exploit the delay in stream reset to carry out various attacks, such as header manipulation or resource exhaustion.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": ": Apache Tomcat: HTTP/2 header handling DoS",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability presents an Important severity issue due to its potential to facilitate various forms of attack, particularly in the context of HTTP/2 protocol. By delaying the reset of HTTP/2 streams until after processing all headers, malicious actors can exploit this window to execute header manipulation attacks, leading to potential data exfiltration, injection of malicious content, or server resource exhaustion. Furthermore, the delayed reset prolongs the exposure time of vulnerable systems, increasing the likelihood of successful exploitation.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -1790,6 +1800,56 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:1318"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"7Server-JWS-5.7:jws5-tomcat-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-0:9.0.62-41.redhat_00020.1.el7jws.src",
+						"7Server-JWS-5.7:jws5-tomcat-admin-webapps-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-docs-webapp-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-el-3.0-api-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-java-jdk11-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-java-jdk8-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-javadoc-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-jsp-2.3-api-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-lib-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-native-0:1.2.31-17.redhat_17.el7jws.src",
+						"7Server-JWS-5.7:jws5-tomcat-native-0:1.2.31-17.redhat_17.el7jws.x86_64",
+						"7Server-JWS-5.7:jws5-tomcat-native-debuginfo-0:1.2.31-17.redhat_17.el7jws.x86_64",
+						"7Server-JWS-5.7:jws5-tomcat-selinux-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-servlet-4.0-api-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"7Server-JWS-5.7:jws5-tomcat-webapps-0:9.0.62-41.redhat_00020.1.el7jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-0:9.0.62-41.redhat_00020.1.el8jws.src",
+						"8Base-JWS-5.7:jws5-tomcat-admin-webapps-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-docs-webapp-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-el-3.0-api-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-javadoc-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-jsp-2.3-api-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-lib-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-native-0:1.2.31-17.redhat_17.el8jws.src",
+						"8Base-JWS-5.7:jws5-tomcat-native-0:1.2.31-17.redhat_17.el8jws.x86_64",
+						"8Base-JWS-5.7:jws5-tomcat-native-debuginfo-0:1.2.31-17.redhat_17.el8jws.x86_64",
+						"8Base-JWS-5.7:jws5-tomcat-selinux-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-servlet-4.0-api-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"8Base-JWS-5.7:jws5-tomcat-webapps-0:9.0.62-41.redhat_00020.1.el8jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-0:9.0.62-41.redhat_00020.1.el9jws.src",
+						"9Base-JWS-5.7:jws5-tomcat-admin-webapps-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-docs-webapp-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-el-3.0-api-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-javadoc-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-jsp-2.3-api-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-lib-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-native-0:1.2.31-17.redhat_17.el9jws.src",
+						"9Base-JWS-5.7:jws5-tomcat-native-0:1.2.31-17.redhat_17.el9jws.x86_64",
+						"9Base-JWS-5.7:jws5-tomcat-native-debuginfo-0:1.2.31-17.redhat_17.el9jws.x86_64",
+						"9Base-JWS-5.7:jws5-tomcat-selinux-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-servlet-4.0-api-0:9.0.62-41.redhat_00020.1.el9jws.noarch",
+						"9Base-JWS-5.7:jws5-tomcat-webapps-0:9.0.62-41.redhat_00020.1.el9jws.noarch"
+					]
 				}
 			],
 			"scores": [

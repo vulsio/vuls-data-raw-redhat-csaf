@@ -107,12 +107,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-02-07T21:59:59+00:00",
+			"current_release_date": "2024-04-21T14:42:23+00:00",
 			"generator": {
-				"date": "2024-02-07T21:59:59+00:00",
+				"date": "2024-04-21T14:42:23+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.26.3"
+					"version": "3.29.1"
 				}
 			},
 			"id": "RHSA-2024:0725",
@@ -129,7 +129,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-02-07T21:59:59+00:00",
+					"date": "2024-04-21T14:42:23+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -146,23 +146,23 @@
 						"branches": [
 							{
 								"category": "product_name",
-								"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
-								"product": {
-									"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
-									"product_id": "NFV-9.2.0.Z.EUS",
-									"product_identification_helper": {
-										"cpe": "cpe:/a:redhat:rhel_eus:9.2::nfv"
-									}
-								}
-							},
-							{
-								"category": "product_name",
 								"name": "Red Hat Enterprise Linux Real Time EUS (v.9.2)",
 								"product": {
 									"name": "Red Hat Enterprise Linux Real Time EUS (v.9.2)",
 									"product_id": "RT-9.2.0.Z.EUS",
 									"product_identification_helper": {
 										"cpe": "cpe:/a:redhat:rhel_eus:9.2::realtime"
+									}
+								}
+							},
+							{
+								"category": "product_name",
+								"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
+								"product": {
+									"name": "Red Hat Enterprise Linux Real Time for NFV EUS (v.9.2)",
+									"product_id": "NFV-9.2.0.Z.EUS",
+									"product_identification_helper": {
+										"cpe": "cpe:/a:redhat:rhel_eus:9.2::nfv"
 									}
 								}
 							}
@@ -2267,13 +2267,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A race condition was found in the Linux kernel's IGMP protocol. This issue may allow an attacker to trigger an application crash or achieve local privilege escalation.",
+					"text": "A race condition has been discovered in the Linux kernel's Internet Group Management Protocol (IGMP) implementation. This vulnerability may enable an attacker to provoke an application crash or potentially escalate privileges locally. By exploiting the race condition, an adversary could disrupt the normal operation of affected systems, leading to service disruption or, in the worst case, unauthorized access to sensitive resources.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: use-after-free in IPv4 IGMP",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability poses a moderate severity risk due to its potential to trigger a use-after-free issue when processing IGMPv2 query packets under specific conditions. An attacker could exploit this flaw by continuously sending crafted IGMPv2 query packets to a vulnerable system, causing a reference count underflow in the multicast group list management. Subsequently, this could lead to a use-after-free scenario, potentially resulting in a denial-of-service condition or other adverse effects. While exploitation requires specific configurations and continuous packet transmission, the impact could be significant, warranting attention and remediation to prevent potential exploitation and system instability.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -2390,22 +2395,64 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:0725"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.52.1.rt14.337.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.52.1.rt14.337.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.52.1.rt14.337.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [
 				{
 					"cvss_v3": {
-						"attackComplexity": "LOW",
+						"attackComplexity": "HIGH",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "HIGH",
-						"baseScore": 7.8,
+						"baseScore": 7,
 						"baseSeverity": "HIGH",
 						"confidentialityImpact": "HIGH",
 						"integrityImpact": "HIGH",
 						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
 						"version": "3.1"
 					},
 					"products": [
