@@ -7,7 +7,7 @@
 		"category": "csaf_vex",
 		"csaf_version": "2.0",
 		"distribution": {
-			"text": "Copyright © 2023 Red Hat, Inc. All rights reserved.",
+			"text": "Copyright © Red Hat, Inc. All rights reserved.",
 			"tlp": {
 				"label": "WHITE",
 				"url": "https://www.first.org/tlp/"
@@ -50,6 +50,26 @@
 				"url": "https://access.redhat.com/security/updates/classification/#important"
 			},
 			{
+				"category": "external",
+				"summary": "1864680",
+				"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1864680"
+			},
+			{
+				"category": "external",
+				"summary": "1874830",
+				"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1874830"
+			},
+			{
+				"category": "external",
+				"summary": "1875232",
+				"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1875232"
+			},
+			{
+				"category": "external",
+				"summary": "1875234",
+				"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1875234"
+			},
+			{
 				"category": "self",
 				"summary": "Canonical URL",
 				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2020/rhsa-2020_3841.json"
@@ -57,25 +77,35 @@
 		],
 		"title": "Red Hat Security Advisory: OpenShift Container Platform 4.5.13 jenkins security update",
 		"tracking": {
-			"current_release_date": "2020-09-30T18:56:00Z",
+			"current_release_date": "2024-04-21T08:27:07+00:00",
 			"generator": {
-				"date": "2023-07-01T04:10:00Z",
+				"date": "2024-04-21T08:27:07+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.18.0"
+					"version": "3.29.1"
 				}
 			},
 			"id": "RHSA-2020:3841",
-			"initial_release_date": "2020-09-30T18:56:00Z",
+			"initial_release_date": "2020-09-30T18:56:27+00:00",
 			"revision_history": [
 				{
-					"date": "2020-09-30T18:56:00Z",
+					"date": "2020-09-30T18:56:27+00:00",
 					"number": "1",
-					"summary": "Current version"
+					"summary": "Initial version"
+				},
+				{
+					"date": "2020-09-30T18:56:27+00:00",
+					"number": "2",
+					"summary": "Last updated version"
+				},
+				{
+					"date": "2024-04-21T08:27:07+00:00",
+					"number": "3",
+					"summary": "Last generated version"
 				}
 			],
 			"status": "final",
-			"version": "1"
+			"version": "3"
 		}
 	},
 	"product_tree": {
@@ -107,7 +137,9 @@
 								"product": {
 									"name": "jenkins-0:2.235.5.1600414805-1.el7.noarch",
 									"product_id": "jenkins-0:2.235.5.1600414805-1.el7.noarch",
-									"product_identification_helper": {}
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/jenkins@2.235.5.1600414805-1.el7?arch=noarch"
+									}
 								}
 							}
 						],
@@ -122,7 +154,9 @@
 								"product": {
 									"name": "jenkins-0:2.235.5.1600414805-1.el7.src",
 									"product_id": "jenkins-0:2.235.5.1600414805-1.el7.src",
-									"product_identification_helper": {}
+									"product_identification_helper": {
+										"purl": "pkg:rpm/redhat/jenkins@2.235.5.1600414805-1.el7?arch=src"
+									}
 								}
 							}
 						],
@@ -162,19 +196,14 @@
 				"id": "CWE-200",
 				"name": "Exposure of Sensitive Information to an Unauthorized Actor"
 			},
-			"discovery_date": "2020-07-09T00:00:00Z",
+			"discovery_date": "2020-07-09T00:00:00+00:00",
 			"ids": [
 				{
-					"system_name": "Red Hat Bugzilla",
-					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1864680"
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1864680"
 				}
 			],
 			"notes": [
-				{
-					"category": "general",
-					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
-					"title": "CVSS score applicability"
-				},
 				{
 					"category": "description",
 					"text": "In Eclipse Jetty, versions 9.4.27.v20200227 to 9.4.29.v20200521, in case of too large response headers, Jetty throws an exception to produce an HTTP 431 error. When this happens, the ByteBuffer containing the HTTP response headers is released back to the ByteBufferPool twice. Because of this double release, two threads can acquire the same ByteBuffer from the pool and while thread1 is about to use the ByteBuffer to write response1 data, thread2 fills the ByteBuffer with other data. Thread1 then proceeds to write the buffer that now contains different data. This results in client1, which issued request1 seeing data from another request or response which could contain sensitive data belonging to client2 (HTTP session ids, authentication credentials, etc.). If the Jetty version cannot be upgraded, the vulnerability can be significantly reduced by configuring a responseHeaderSize significantly larger than the requestHeaderSize (12KB responseHeaderSize and 8KB requestHeaderSize).",
@@ -184,6 +213,11 @@
 					"category": "summary",
 					"text": "jetty: double release of resource can lead to information disclosure",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
 				}
 			],
 			"product_status": {
@@ -193,6 +227,16 @@
 				]
 			},
 			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2019-17638"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1864680",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1864680"
+				},
 				{
 					"category": "external",
 					"summary": "https://www.cve.org/CVERecord?id=CVE-2019-17638",
@@ -212,19 +256,9 @@
 					"category": "external",
 					"summary": "https://www.jenkins.io/security/advisory/2020-08-17/",
 					"url": "https://www.jenkins.io/security/advisory/2020-08-17/"
-				},
-				{
-					"category": "external",
-					"summary": "CVE-2019-17638",
-					"url": "https://access.redhat.com/security/cve/CVE-2019-17638"
-				},
-				{
-					"category": "external",
-					"summary": "bz#1864680: CVE-2019-17638 jetty: double release of resource can lead to information disclosure",
-					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1864680"
 				}
 			],
-			"release_date": "2020-06-03T00:00:00Z",
+			"release_date": "2020-06-03T00:00:00+00:00",
 			"remediations": [
 				{
 					"category": "vendor_fix",
@@ -233,6 +267,9 @@
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.noarch",
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.src"
 					],
+					"restart_required": {
+						"category": "none"
+					},
 					"url": "https://access.redhat.com/errata/RHSA-2020:3841"
 				}
 			],
@@ -261,11 +298,10 @@
 			"threats": [
 				{
 					"category": "impact",
-					"date": "2020-07-09T00:00:00Z",
 					"details": "Important"
 				}
 			],
-			"title": "CVE-2019-17638 jetty: double release of resource can lead to information disclosure"
+			"title": "jetty: double release of resource can lead to information disclosure"
 		},
 		{
 			"cve": "CVE-2020-2229",
@@ -273,19 +309,14 @@
 				"id": "CWE-79",
 				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
 			},
-			"discovery_date": "2020-08-17T00:00:00Z",
+			"discovery_date": "2020-08-17T00:00:00+00:00",
 			"ids": [
 				{
-					"system_name": "Red Hat Bugzilla",
-					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1874830"
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1874830"
 				}
 			],
 			"notes": [
-				{
-					"category": "general",
-					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
-					"title": "CVSS score applicability"
-				},
 				{
 					"category": "description",
 					"text": "A flaw was found in Jenkins in versions prior to 2.251 and LTS 2.235.3. Tooltip values, which are not properly escaped, can be contributed by plugins and use user-specified values. This results in a potential stored cross-site scripting (XSS) vulnerability. This highest threat from this vulnerability is to data confidentiality and integrity.",
@@ -295,6 +326,11 @@
 					"category": "summary",
 					"text": "jenkins: user-specified tooltip values leads to stored cross-site scripting",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
 				}
 			],
 			"product_status": {
@@ -304,6 +340,16 @@
 				]
 			},
 			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2020-2229"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1874830",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1874830"
+				},
 				{
 					"category": "external",
 					"summary": "https://www.cve.org/CVERecord?id=CVE-2020-2229",
@@ -318,19 +364,9 @@
 					"category": "external",
 					"summary": "https://jenkins.io/security/advisory/2020-08-12/#SECURITY-1955",
 					"url": "https://jenkins.io/security/advisory/2020-08-12/#SECURITY-1955"
-				},
-				{
-					"category": "external",
-					"summary": "CVE-2020-2229",
-					"url": "https://access.redhat.com/security/cve/CVE-2020-2229"
-				},
-				{
-					"category": "external",
-					"summary": "bz#1874830: CVE-2020-2229 jenkins: user-specified tooltip values leads to stored cross-site scripting",
-					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1874830"
 				}
 			],
-			"release_date": "2020-08-12T00:00:00Z",
+			"release_date": "2020-08-12T00:00:00+00:00",
 			"remediations": [
 				{
 					"category": "vendor_fix",
@@ -339,6 +375,9 @@
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.noarch",
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.src"
 					],
+					"restart_required": {
+						"category": "none"
+					},
 					"url": "https://access.redhat.com/errata/RHSA-2020:3841"
 				}
 			],
@@ -367,11 +406,10 @@
 			"threats": [
 				{
 					"category": "impact",
-					"date": "2020-08-17T00:00:00Z",
 					"details": "Moderate"
 				}
 			],
-			"title": "CVE-2020-2229 jenkins: user-specified tooltip values leads to stored cross-site scripting"
+			"title": "jenkins: user-specified tooltip values leads to stored cross-site scripting"
 		},
 		{
 			"cve": "CVE-2020-2230",
@@ -379,19 +417,14 @@
 				"id": "CWE-79",
 				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
 			},
-			"discovery_date": "2020-08-17T00:00:00Z",
+			"discovery_date": "2020-08-17T00:00:00+00:00",
 			"ids": [
 				{
-					"system_name": "Red Hat Bugzilla",
-					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1875232"
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1875232"
 				}
 			],
 			"notes": [
-				{
-					"category": "general",
-					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
-					"title": "CVSS score applicability"
-				},
 				{
 					"category": "description",
 					"text": "A flaw was found in Jenkins in versions prior to 2.251 and LTS 2.235.3. The project naming strategy description, displayed on item creation, is not properly escaped. This can result in a stored cross-site scripting (XSS) vulnerability exploitable by users with Overall/Manage permissions. The highest threat from this vulnerability is to data confidentiality and integrity.",
@@ -401,6 +434,11 @@
 					"category": "summary",
 					"text": "jenkins: stored XSS vulnerability in project naming strategy",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
 				}
 			],
 			"product_status": {
@@ -410,6 +448,16 @@
 				]
 			},
 			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2020-2230"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1875232",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1875232"
+				},
 				{
 					"category": "external",
 					"summary": "https://www.cve.org/CVERecord?id=CVE-2020-2230",
@@ -424,19 +472,9 @@
 					"category": "external",
 					"summary": "https://jenkins.io/security/advisory/2020-08-12/#SECURITY-1957",
 					"url": "https://jenkins.io/security/advisory/2020-08-12/#SECURITY-1957"
-				},
-				{
-					"category": "external",
-					"summary": "CVE-2020-2230",
-					"url": "https://access.redhat.com/security/cve/CVE-2020-2230"
-				},
-				{
-					"category": "external",
-					"summary": "bz#1875232: CVE-2020-2230 jenkins: stored XSS vulnerability in project naming strategy",
-					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1875232"
 				}
 			],
-			"release_date": "2020-08-12T00:00:00Z",
+			"release_date": "2020-08-12T00:00:00+00:00",
 			"remediations": [
 				{
 					"category": "vendor_fix",
@@ -445,6 +483,9 @@
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.noarch",
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.src"
 					],
+					"restart_required": {
+						"category": "none"
+					},
 					"url": "https://access.redhat.com/errata/RHSA-2020:3841"
 				}
 			],
@@ -473,11 +514,10 @@
 			"threats": [
 				{
 					"category": "impact",
-					"date": "2020-08-17T00:00:00Z",
 					"details": "Moderate"
 				}
 			],
-			"title": "CVE-2020-2230 jenkins: stored XSS vulnerability in project naming strategy"
+			"title": "jenkins: stored XSS vulnerability in project naming strategy"
 		},
 		{
 			"cve": "CVE-2020-2231",
@@ -485,19 +525,14 @@
 				"id": "CWE-79",
 				"name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
 			},
-			"discovery_date": "2020-08-17T00:00:00Z",
+			"discovery_date": "2020-08-17T00:00:00+00:00",
 			"ids": [
 				{
-					"system_name": "Red Hat Bugzilla",
-					"text": "https://bugzilla.redhat.com/show_bug.cgi?id=1875234"
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "1875234"
 				}
 			],
 			"notes": [
-				{
-					"category": "general",
-					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
-					"title": "CVSS score applicability"
-				},
 				{
 					"category": "description",
 					"text": "A flaw was found in Jenkins versions prior to 2.251 and LTS 2.235.3. The remote address of hosts starting a build via 'Trigger builds remotely' are not properly escaped leading to a potential stored cross-site scripting (XSS) vulnerability exploitable by users with Job/Configure permission or knowledge of the authentication token. The highest threat from this vulnerability is to data confidentiality and integrity.",
@@ -507,6 +542,11 @@
 					"category": "summary",
 					"text": "jenkins: stored XSS vulnerability in 'trigger builds remotely'",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
 				}
 			],
 			"product_status": {
@@ -516,6 +556,16 @@
 				]
 			},
 			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2020-2231"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#1875234",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1875234"
+				},
 				{
 					"category": "external",
 					"summary": "https://www.cve.org/CVERecord?id=CVE-2020-2231",
@@ -530,19 +580,9 @@
 					"category": "external",
 					"summary": "https://jenkins.io/security/advisory/2020-08-12/#SECURITY-1960",
 					"url": "https://jenkins.io/security/advisory/2020-08-12/#SECURITY-1960"
-				},
-				{
-					"category": "external",
-					"summary": "CVE-2020-2231",
-					"url": "https://access.redhat.com/security/cve/CVE-2020-2231"
-				},
-				{
-					"category": "external",
-					"summary": "bz#1875234: CVE-2020-2231 jenkins: stored XSS vulnerability in 'trigger builds remotely'",
-					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=1875234"
 				}
 			],
-			"release_date": "2020-08-12T00:00:00Z",
+			"release_date": "2020-08-12T00:00:00+00:00",
 			"remediations": [
 				{
 					"category": "vendor_fix",
@@ -551,6 +591,9 @@
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.noarch",
 						"7Server-RH7-RHOSE-4.5:jenkins-0:2.235.5.1600414805-1.el7.src"
 					],
+					"restart_required": {
+						"category": "none"
+					},
 					"url": "https://access.redhat.com/errata/RHSA-2020:3841"
 				}
 			],
@@ -579,11 +622,10 @@
 			"threats": [
 				{
 					"category": "impact",
-					"date": "2020-08-17T00:00:00Z",
 					"details": "Moderate"
 				}
 			],
-			"title": "CVE-2020-2231 jenkins: stored XSS vulnerability in 'trigger builds remotely'"
+			"title": "jenkins: stored XSS vulnerability in 'trigger builds remotely'"
 		}
 	]
 }
