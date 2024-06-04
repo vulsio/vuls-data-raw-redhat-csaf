@@ -107,12 +107,12 @@
 		],
 		"title": "Red Hat Security Advisory: RHACS 4.4 enhancement and security update",
 		"tracking": {
-			"current_release_date": "2024-05-21T15:35:28+00:00",
+			"current_release_date": "2024-06-04T16:05:57+00:00",
 			"generator": {
-				"date": "2024-05-21T15:35:28+00:00",
+				"date": "2024-06-04T16:05:57+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.29.3"
+					"version": "3.30.0"
 				}
 			},
 			"id": "RHSA-2024:2941",
@@ -129,7 +129,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-05-21T15:35:28+00:00",
+					"date": "2024-06-04T16:05:57+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -1000,7 +1000,7 @@
 				},
 				{
 					"category": "other",
-					"text": "Red Hat rates the security impact of this vulnerability as Important due to the worst case scenario resulting in a denial of service. It is simple to exploit, could significantly impact availability, and there is not a suitable mitigation for all use cases. Once an attack has ended, the system should return to normal operations on its own.\n\nThis vulnerability only impacts servers which have HTTP/2 enabled. It stems from an imperfect definition of the protocol. As the Go programming language is widely utilized across nearly every major Red Hat offering, a full listing of impacted packages will not be provided. Therefore, the “Affected Packages and Issued Red Hat Security Errata” section contains a simplified list of what offerings need to remediate this vulnerability. Every impacted offering has at least one representative component listed, but potentially not all of them. Rest assured that Red Hat is committed to remediating this vulnerability across our entire portfolio.\n\nWithin the Red Hat OpenShift Container Platform, the majority of vulnerable components are not externally accessible. This means an attacker must already have access to a container within your environment to exploit this vulnerability. However, the ose-hyperkube (openshift-enterprise-hyperkube) container is externally accessible, so there are less barriers to exploitation. Fixes for this specific container are already available.",
+					"text": "Red Hat rates the security impact of this vulnerability as Important due to the worst case scenario resulting in a denial of service. It is simple to exploit, could significantly impact availability, and there is not a suitable mitigation for all use cases. Once an attack has ended, the system should return to normal operations on its own.\n\nThis vulnerability only impacts servers which have HTTP/2 enabled. It stems from an imperfect definition of the protocol. As the Go programming language is widely utilized across nearly every major Red Hat offering, a full listing of impacted packages will not be provided. Therefore, the “Affected Packages and Issued Red Hat Security Errata” section contains a simplified list of what offerings need to remediate this vulnerability. Every impacted offering has at least one representative component listed, but potentially not all of them. Rest assured that Red Hat is committed to remediating this vulnerability across our entire portfolio.\n\nWithin the Red Hat OpenShift Container Platform, the majority of vulnerable components are not externally accessible. This means an attacker must already have access to a container within your environment to exploit this vulnerability. However, the ose-hyperkube (openshift-enterprise-hyperkube) container is externally accessible, so there are less barriers to exploitation. Fixes for this specific container are already available.\n\nWithin Red Hat Ansible Automation Platform, the impacted component is Receptor. The impact has been reduced to Low as the vulnerable code is present, but not utilized. There are three potential exposures within this component:\n* Receptor utilizes QUIC a UDP based protocol which does not run over HTTP/2\n* Receptor utilizes the x/net/ipv4 and ipv6 packages, both of which are not affected",
 					"title": "Statement"
 				},
 				{
@@ -1252,6 +1252,927 @@
 				}
 			],
 			"title": "golang: net/http, x/net/http2: unlimited number of CONTINUATION frames causes DoS"
+		},
+		{
+			"cve": "CVE-2023-45289",
+			"cwe": {
+				"id": "CWE-200",
+				"name": "Exposure of Sensitive Information to an Unauthorized Actor"
+			},
+			"discovery_date": "2024-03-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2268018"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in Go's net/http/cookiejar standard library package. When following an HTTP redirect to a domain that is not a subdomain match or an exact match of the initial domain, an http.Client does not forward sensitive headers such as \"Authorization\" or \"Cookie\". For example, a redirect from foo.com to www.foo.com will forward the Authorization header, but a redirect to bar.com will not. A maliciously crafted HTTP redirect could cause sensitive headers to be unexpectedly forwarded.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang: net/http/cookiejar: incorrect forwarding of sensitive headers and cookies on HTTP redirect",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2023-45289"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2268018",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2268018"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2023-45289",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2023-45289"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2023-45289",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2023-45289"
+				}
+			],
+			"release_date": "2024-03-05T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "If you are using an earlier version of RHACS 4.4, you are advised to upgrade to patch release 4.4.2.",
+					"product_ids": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:2941"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.3,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "LOW",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "golang: net/http/cookiejar: incorrect forwarding of sensitive headers and cookies on HTTP redirect"
+		},
+		{
+			"cve": "CVE-2023-45290",
+			"cwe": {
+				"id": "CWE-20",
+				"name": "Improper Input Validation"
+			},
+			"discovery_date": "2024-03-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2268017"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was discovered in Go's net/http standard library package. When parsing a multipart form (either explicitly with Request.ParseMultipartForm or implicitly with Request.FormValue, Request.PostFormValue, or Request.FormFile), limits on the total size of the parsed form were not applied to the memory consumed while reading a single form line. This issue permitted a maliciously crafted input containing very long lines to cause allocation of arbitrarily large amounts of memory, potentially leading to a denial of service.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang: net/http: memory exhaustion in Request.ParseMultipartForm",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2023-45290"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2268017",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2268017"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2023-45290",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2023-45290"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2023-45290",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2023-45290"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.openwall.com/lists/oss-security/2024/03/08/4",
+					"url": "http://www.openwall.com/lists/oss-security/2024/03/08/4"
+				},
+				{
+					"category": "external",
+					"summary": "https://go.dev/cl/569341",
+					"url": "https://go.dev/cl/569341"
+				},
+				{
+					"category": "external",
+					"summary": "https://go.dev/issue/65383",
+					"url": "https://go.dev/issue/65383"
+				},
+				{
+					"category": "external",
+					"summary": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg",
+					"url": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg"
+				},
+				{
+					"category": "external",
+					"summary": "https://pkg.go.dev/vuln/GO-2024-2599",
+					"url": "https://pkg.go.dev/vuln/GO-2024-2599"
+				},
+				{
+					"category": "external",
+					"summary": "https://security.netapp.com/advisory/ntap-20240329-0004",
+					"url": "https://security.netapp.com/advisory/ntap-20240329-0004"
+				}
+			],
+			"release_date": "2024-03-05T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "If you are using an earlier version of RHACS 4.4, you are advised to upgrade to patch release 4.4.2.",
+					"product_ids": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:2941"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "LOW",
+						"baseScore": 5.3,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "golang: net/http: memory exhaustion in Request.ParseMultipartForm"
+		},
+		{
+			"cve": "CVE-2024-24783",
+			"cwe": {
+				"id": "CWE-400",
+				"name": "Uncontrolled Resource Consumption"
+			},
+			"discovery_date": "2024-03-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2268019"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in Go's crypto/x509 standard library package. Verifying a certificate chain that contains a certificate with an unknown public key algorithm will cause a Certificate.Verify to panic. This issue affects all crypto/tls clients and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang: crypto/x509: Verify panics on certificates with an unknown public key algorithm",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2024-24783"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2268019",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2268019"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2024-24783",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2024-24783"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2024-24783",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2024-24783"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.openwall.com/lists/oss-security/2024/03/08/4",
+					"url": "http://www.openwall.com/lists/oss-security/2024/03/08/4"
+				},
+				{
+					"category": "external",
+					"summary": "https://github.com/advisories/GHSA-3q2c-pvp5-3cqp",
+					"url": "https://github.com/advisories/GHSA-3q2c-pvp5-3cqp"
+				},
+				{
+					"category": "external",
+					"summary": "https://go.dev/cl/569339",
+					"url": "https://go.dev/cl/569339"
+				},
+				{
+					"category": "external",
+					"summary": "https://go.dev/issue/65390",
+					"url": "https://go.dev/issue/65390"
+				},
+				{
+					"category": "external",
+					"summary": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg",
+					"url": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg"
+				},
+				{
+					"category": "external",
+					"summary": "https://pkg.go.dev/vuln/GO-2024-2598",
+					"url": "https://pkg.go.dev/vuln/GO-2024-2598"
+				},
+				{
+					"category": "external",
+					"summary": "https://security.netapp.com/advisory/ntap-20240329-0005",
+					"url": "https://security.netapp.com/advisory/ntap-20240329-0005"
+				}
+			],
+			"release_date": "2024-03-05T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "If you are using an earlier version of RHACS 4.4, you are advised to upgrade to patch release 4.4.2.",
+					"product_ids": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:2941"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.9,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "golang: crypto/x509: Verify panics on certificates with an unknown public key algorithm"
+		},
+		{
+			"cve": "CVE-2024-24784",
+			"cwe": {
+				"id": "CWE-115",
+				"name": "Misinterpretation of Input"
+			},
+			"discovery_date": "2024-03-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2268021"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in Go's net/mail standard library package. The ParseAddressList function incorrectly handles comments (text within parentheses) within display names. Since this is a misalignment with conforming address parsers, it can result in different trust decisions made by programs using different parsers.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang: net/mail: comments in display names are incorrectly handled",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+					"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2024-24784"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2268021",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2268021"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2024-24784",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2024-24784"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2024-24784",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2024-24784"
+				}
+			],
+			"release_date": "2024-03-05T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "If you are using an earlier version of RHACS 4.4, you are advised to upgrade to patch release 4.4.2.",
+					"product_ids": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:2941"
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.4,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "LOW",
+						"integrityImpact": "LOW",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:0e0fc51bc1bb082a01224bf0778ef0c8eef7e3ed27334c37a28a59b914cef697_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:9e44f0ce6686996e385bc2ef062e57016f1b124dc7a8e63e2100ac28bdbf7d9c_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-central-db-rhel8@sha256:bbcf4bfd15c860a8e9345189063c129ba4d70d0e340e4a4f82a4ff5f993df368_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2008a094efbc5b5ad83cfc91bc22e58ede1a0cc575b542bb33fc76458b48c95b_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:2e0ff5e4ff6c47a9ff6b6e7f26c033341d2362a7b5798b3bae8f96521cdad286_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-rhel8@sha256:cc19c76bb9123c31e3f719a843c6a9074ba0603e67fe83349e35283bcd597c6f_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:02f81a9d3ee238a4741ea7d0000c5c87620491ed6f9e218fc101d08cc74d26c2_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:7d704bfa49659fcef56de71e15aff4542e5ac5e4644f905a25f9e25a6d535382_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-collector-slim-rhel8@sha256:eefa59e9d0e012a94623efb71c34a267bf2bc9b10070eb394e51797affe5daad_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:596ffae8ac3bba59dc3dc7bd488d0732ac513c5c3e35761927d21d4fc0fa1392_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:6a56bd52c5fe2b2203aeb4fd37e6892a5f23b7d0abae10fc5e0d154344c8f1bf_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-main-rhel8@sha256:72ce43136e850f86fe675822e43dfd7d7e660ceaf2517d3f0a83f34d0d026007_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:4cadca01bf16098d0e243ef1aa02d2b7fa6d6d04ae3562b48174298e00a00705_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:5d6bf72214aaed0ee0bd16ba8ed707a63c7312936ea361850a716e3fda7e2c8e_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-operator-bundle@sha256:b800c559f4e93d6a8d7422128e26688b8872c589c92944cb46815ec2b7c68371_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:0038e1daba8fd9874063d7d25f86b086ba5f23d51aa76530802d324d78f74006_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:9dff6deaeae98ac7812d845cf1446cd3904a8066a777dc013ea9ee22f50ba16a_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-rhel8-operator@sha256:a53eaf71ed81cf3f109b44463a0b70c389d4330aeebed676970f8aa32780a008_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:5037ebcf2fbc8bd8bdac7ffb8b9aafb5c7d6c990c0f7cc149d89028d6ebd2a47_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:56edbd1f69da14ae4279f34a8149c7b6200625e853e995a78b5b64c0681f2383_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-roxctl-rhel8@sha256:f0156b634592bb9556ce7112cba3f173469f61607da40780d07dee4032ec9a93_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:0a344d812fb72ad90e1e423d527347e2dc680fb10ea0d90aadacdb4c2a50e7f8_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:681ddb4c8dd62755a0e15ed1c4029065ddec65a06d12449f187180489daf9b5f_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-rhel8@sha256:79c8938936e9022aba223bcec2b80ea5af9e6d4dd2e6671e274f16b32be0109d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:09f1b7a8be64cb152fbd31501274fc1f97b08e076af34111ebb50afa5384d746_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:a3476b790be420bc6b60c9cf53af38496dd4a4c83e0462f52e4b57dc23786e28_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-db-slim-rhel8@sha256:cae64828e29d8ef2628f346ec786450a3dffd4f2c73f57d719a98d9e119ad745_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:124865ec25d18e31bc385d1003275581e6679b7ca8775651be8f595ab558243d_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:8c0a614d1c7f43bd597b73e7f9a226502b79680b13aab0b33406327514f9aefb_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-rhel8@sha256:f4e7d9a40b47f219dc1dbb6584b9d936aa83ea3c642b7c32a41f7393180e5cb2_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:13229a675b026bccc86b1b6681431b932f6c938a9931923b1b1f98b052f64951_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:2268441224f9dd53b42990455199528c8049615126f6521b9b1a14be5409c84c_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-slim-rhel8@sha256:79a9120a84a63ad8d54eb913fc3c6b562921165432b5b40eaa3c0392dc6fa31b_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1b2f39b0f1fd77d312384394220b974fefeb2c07ed8a56fe68bf061d6beb3bdb_s390x",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:1e28b9001bf9e962499e7780ea2ad55fa3e9f06895392a8429741148682e7479_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-db-rhel8@sha256:9c39c394312c3db47234a63f6f387b2aeda0f80c184aacee13f56e596666f224_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:47742f7ccdf7f08ce0eb58f5608dfa5fdd0f51df8d7aaef58a5369a9179644ff_amd64",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:cb0b488798275236203dfdcc51b944a756f7cf46d753557507992c08e4b59dbf_ppc64le",
+						"8Base-RHACS-4.4:advanced-cluster-security/rhacs-scanner-v4-rhel8@sha256:d0d367a05ad533fe1b0216690caf4a8d270b452fc4f6cab276e45beef2c05b61_s390x"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "golang: net/mail: comments in display names are incorrectly handled"
 		},
 		{
 			"cve": "CVE-2024-29180",
