@@ -182,12 +182,12 @@
 		],
 		"title": "Red Hat Security Advisory: Red Hat OpenShift for Windows Containers 10.15.0 security update",
 		"tracking": {
-			"current_release_date": "2024-04-28T02:27:58+00:00",
+			"current_release_date": "2024-08-13T21:55:57+00:00",
 			"generator": {
-				"date": "2024-04-28T02:27:58+00:00",
+				"date": "2024-08-13T21:55:57+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.29.1"
+					"version": "3.32.0"
 				}
 			},
 			"id": "RHSA-2024:0954",
@@ -204,7 +204,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-04-28T02:27:58+00:00",
+					"date": "2024-08-13T21:55:57+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -614,6 +614,11 @@
 				},
 				{
 					"category": "external",
+					"summary": "https://access.redhat.com/solutions/7071748",
+					"url": "https://access.redhat.com/solutions/7071748"
+				},
+				{
+					"category": "external",
 					"summary": "https://terrapin-attack.com/",
 					"url": "https://terrapin-attack.com/"
 				}
@@ -634,7 +639,7 @@
 				},
 				{
 					"category": "workaround",
-					"details": "Updated client and server provide kex pseudo-algorithms indicating usage of  the updated version of the protocol which is protected from the attack. If \"kex-strict-c-v00@openssh.com\" is provided by clients and \"kex-strict-s-v00@openssh.com\" is in the server's reply, you use the latest version and are safe, otherwise you may want to disable vulnerable ciphers via crypto policy.\n\nYou can disable the following ciphers and HMACs as a workaround  on RHEL-8 and RHEL-9:\n1. chacha20-poly1305@openssh.com\n2. hmac-sha2-512-etm@openssh.com\n3. hmac-sha2-256-etm@openssh.com\n4. hmac-sha1-etm@openssh.com\n5. hmac-md5-etm@openssh.com\n\nTo do that through crypto-policies, one can apply a subpolicy with the following content:\n```\ncipher@SSH = -CHACHA20-POLY1305\nssh_etm = 0\n```\ne.g., by putting these lines into `/etc/crypto-policies/policies/modules/CVE-2023-48795.pmod`, applying the resulting subpolicy with `update-crypto-policies --set $(update-crypto-policies --show):CVE-2023-48795` and restarting openssh server.\n\nOne can verify that the changes are in effect by ensuring the ciphers listed above are missing from both `/etc/crypto-policies/back-ends/openssh.config` and `/etc/crypto-policies/back-ends/opensshserver.config`.\n\nFor more details on using crypto-policies, please refer to https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening\n\nNote that this procedure does limit the interoperability of the host and is only suggested as a temporary mitigation until the issue is fully resolved with an update.\n\nFor RHEL-7: \nWe can recommend to use strict MACs and Ciphers on RHEL7 in both files /etc/ssh/ssh_config and /etc/ssh/sshd_config.\n\nBelow strict set of Ciphers and MACs can be used as mitigation for RHEL 7.\n\n```\nCiphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com\nMACs umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512\n```",
+					"details": "Update to the last version and check that client and server provide kex pseudo-algorithms indicating usage of the updated version of the protocol which is protected from the attack. If \"kex-strict-c-v00@openssh.com\" is provided by clients and \"kex-strict-s-v00@openssh.com\" is in the server's reply, no other steps are necessary.\n\nDisabling ciphers if necessary:\n\nIf \"kex-strict-c-v00@openssh.com\" is not provided by clients or \"kex-strict-s-v00@openssh.com\" is absent in the server's reply, you can disable the following ciphers and HMACs as a workaround on RHEL-8 and RHEL-9:\n\n1. chacha20-poly1305@openssh.com\n2. hmac-sha2-512-etm@openssh.com\n3. hmac-sha2-256-etm@openssh.com\n4. hmac-sha1-etm@openssh.com\n5. hmac-md5-etm@openssh.com\n\nTo do that through crypto-policies, one can apply a subpolicy with the following content:\n```\ncipher@SSH = -CHACHA20-POLY1305\nssh_etm = 0\n```\ne.g., by putting these lines into `/etc/crypto-policies/policies/modules/CVE-2023-48795.pmod`, applying the resulting subpolicy with `update-crypto-policies --set $(update-crypto-policies --show):CVE-2023-48795` and restarting openssh server.\n\nOne can verify that the changes are in effect by ensuring the ciphers listed above are missing from both `/etc/crypto-policies/back-ends/openssh.config` and `/etc/crypto-policies/back-ends/opensshserver.config`.\n\nFor more details on using crypto-policies, please refer to https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening\n\nNote that this procedure does limit the interoperability of the host and is only suggested as a temporary mitigation until the issue is fully resolved with an update.\n\nFor RHEL-7: \nWe can recommend to use strict MACs and Ciphers on RHEL7 in both files /etc/ssh/ssh_config and /etc/ssh/sshd_config.\n\nBelow strict set of Ciphers and MACs can be used as mitigation for RHEL 7.\n\n```\nCiphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com\nMACs umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512\n```\n\n- For Openshift Container Platform 4:\nPlease refer the KCS[1] document for verifying the fix in RHCOS.\n\n[1] https://access.redhat.com/solutions/7071748",
 					"product_ids": [
 						"9Base-RHOSE-4.15:openshift4-wincw/windows-machine-config-operator-bundle@sha256:200fb2eec697aed66f3d68f6bd6f95063fb772cd9b5310e86f49b7c213294e77_amd64",
 						"9Base-RHOSE-4.15:openshift4-wincw/windows-machine-config-rhel9-operator@sha256:f7eb46d948e0e53be77cd35543c75d46bbf7f9010b5a2b7ed422830500daf0a5_amd64"
