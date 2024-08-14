@@ -67,12 +67,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security and bug fix update",
 		"tracking": {
-			"current_release_date": "2024-05-15T03:28:35+00:00",
+			"current_release_date": "2024-08-14T06:10:05+00:00",
 			"generator": {
-				"date": "2024-05-15T03:28:35+00:00",
+				"date": "2024-08-14T06:10:05+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.29.3"
+					"version": "3.32.0"
 				}
 			},
 			"id": "RHSA-2024:2846",
@@ -89,7 +89,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-05-15T03:28:35+00:00",
+					"date": "2024-08-14T06:10:05+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -689,13 +689,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nftables: exthdr: fix 4-byte stack OOB write\n\nIf priv->len is a multiple of 4, then dst[len / 4] can write past\nthe destination array which leads to stack corruption.\n\nThis construct is necessary to clean the remainder of the register\nin case ->len is NOT a multiple of the register size, so make it\nconditional just like nft_payload.c does.\n\nThe bug was added in 4.1 cycle and then copied/inherited when\ntcp/sctp and ip option support was added.\n\nBug reported by Zero Day Initiative project (ZDI-CAN-21950,\nZDI-CAN-21951, ZDI-CAN-21961).",
+					"text": "An out-of-bounds write flaw was found in the Linux kernel’s Netfilter functionality. This flaw allows a local user to crash or potentially escalate their privileges on the system.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: netfilter: nftables: exthdr: fix 4-byte stack OOB write",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is fixed in Red Hat Enterprise Linux 9.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -817,6 +822,48 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:2846"
+				},
+				{
+					"category": "workaround",
+					"details": "In order to trigger the issue, it requires the ability to create user/net namespaces.\n\nOn non-containerized deployments of Red Hat Enterprise Linux 8, you can disable user namespaces by setting user.max_user_namespaces to 0:\n\n# echo \"user.max_user_namespaces=0\" > /etc/sysctl.d/userns.conf\n# sysctl -p /etc/sysctl.d/userns.conf\n\nOn containerized deployments, such as Red Hat OpenShift Container Platform, do not use this mitigation as the functionality is needed to be enabled.",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.66.1.rt14.351.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.66.1.rt14.351.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.66.1.rt14.351.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [

@@ -122,12 +122,12 @@
 		],
 		"title": "Red Hat Security Advisory: Red Hat AMQ Broker 7.12.0 release and security update",
 		"tracking": {
-			"current_release_date": "2024-05-21T15:35:04+00:00",
+			"current_release_date": "2024-08-14T06:14:41+00:00",
 			"generator": {
-				"date": "2024-05-21T15:35:04+00:00",
+				"date": "2024-08-14T06:14:41+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.29.3"
+					"version": "3.32.0"
 				}
 			},
 			"id": "RHSA-2024:2945",
@@ -144,7 +144,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-05-21T15:35:04+00:00",
+					"date": "2024-08-14T06:14:41+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -197,12 +197,12 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "Once an user is authenticated on Jolokia, he can potentially trigger arbitrary code execution. \n\nIn details, in ActiveMQ configurations, jetty allows\norg.jolokia.http.AgentServlet to handler request to /api/jolokia\n\norg.jolokia.http.HttpRequestHandler#handlePostRequest is able to\ncreate JmxRequest through JSONObject. And calls to\norg.jolokia.http.HttpRequestHandler#executeRequest.\n\nInto deeper calling stacks,\norg.jolokia.handler.ExecHandler#doHandleRequest is able to invoke\nthrough refection.\n\nAnd then, RCE is able to be achieved via\njdk.management.jfr.FlightRecorderMXBeanImpl which exists on Java version above 11.\n\n1 Call newRecording.\n\n2 Call setConfiguration. And a webshell data hides in it.\n\n3 Call startRecording.\n\n4 Call copyTo method. The webshell will be written to a .jsp file.\n\nThe mitigation is to restrict (by default) the actions authorized on Jolokia, or disable Jolokia.\nA more restrictive Jolokia configuration has been defined in default ActiveMQ distribution. We encourage users to upgrade to ActiveMQ distributions version including updated Jolokia configuration: 5.16.6, 5.17.4, 5.18.0, 6.0.0.\n",
+					"text": "Once an user is authenticated on Jolokia, he can potentially trigger arbitrary code execution. \n\nIn details, in ActiveMQ configurations, jetty allows\norg.jolokia.http.AgentServlet to handler request to /api/jolokia\n\norg.jolokia.http.HttpRequestHandler#handlePostRequest is able to\ncreate JmxRequest through JSONObject. And calls to\norg.jolokia.http.HttpRequestHandler#executeRequest.\n\nInto deeper calling stacks,\norg.jolokia.handler.ExecHandler#doHandleRequest can be invoked\nthrough refection. This could lead to RCE through via\nvarious mbeans. One example is unrestricted deserialization in jdk.management.jfr.FlightRecorderMXBeanImpl which exists on Java version above 11.\n\n1 Call newRecording.\n\n2 Call setConfiguration. And a webshell data hides in it.\n\n3 Call startRecording.\n\n4 Call copyTo method. The webshell will be written to a .jsp file.\n\nThe mitigation is to restrict (by default) the actions authorized on Jolokia, or disable Jolokia.\nA more restrictive Jolokia configuration has been defined in default ActiveMQ distribution. We encourage users to upgrade to ActiveMQ distributions version including updated Jolokia configuration: 5.16.6, 5.17.4, 5.18.0, 6.0.0.\n",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
-					"text": "Apache ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE",
+					"text": "ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE",
 					"title": "Vulnerability summary"
 				},
 				{
@@ -250,13 +250,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:2945"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat JBoss A-MQ 7"
-					]
 				}
 			],
 			"scores": [
@@ -286,7 +279,7 @@
 					"details": "Moderate"
 				}
 			],
-			"title": "Apache ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE"
+			"title": "ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE"
 		},
 		{
 			"cve": "CVE-2023-6378",
@@ -581,13 +574,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:2945"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat JBoss A-MQ 7"
-					]
 				}
 			],
 			"scores": [
@@ -887,6 +873,11 @@
 					"title": "Vulnerability summary"
 				},
 				{
+					"category": "other",
+					"text": "The vulnerability in Keycloak's OIDC component allowing unvalidated cross-origin messages in the \"checkLoginIframe\" function represents an important severity issue due to its potential to cause significant disruption and resource exhaustion. Exploitation of this flaw can lead to a Denial of Service (DoS) condition, where malicious actors can overwhelm the server with a high volume of requests, impacting availability for legitimate users. The absence of proper origin validation means attackers can exploit this weakness relatively easily, leveraging automated scripts to flood the server within seconds.",
+					"title": "Statement"
+				},
+				{
 					"category": "general",
 					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
 					"title": "CVSS score applicability"
@@ -934,7 +925,7 @@
 				},
 				{
 					"category": "workaround",
-					"details": "null",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
 					"product_ids": [
 						"Red Hat JBoss A-MQ 7"
 					]
@@ -1043,13 +1034,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:2945"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat JBoss A-MQ 7"
-					]
 				}
 			],
 			"scores": [
@@ -1097,13 +1081,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A flaw was found in the io.netty:netty-codec-http package. Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to the accumulation of data in the HttpPostRequestDecoder. The decoder cumulates bytes in the undecodedChunk buffer until it can decode a field, allowing for data to accumulate without limits. This flaw allows an attacker to cause a denial of service by sending a chunked post consisting of many small fields that will be accumulated in the bodyListHttpData list.",
+					"text": "A flaw was found in the io.netty:netty-codec-http package. Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling issues due to the accumulation of data in the HttpPostRequestDecoder. The decoder cumulates bytes in the undecodedChunk buffer until it can decode a field, allowing data to accumulate without limits. This flaw allows an attacker to cause a denial of service by sending a chunked post consisting of many small fields that will be accumulated in the bodyListHttpData list.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "netty-codec-http: Allocation of Resources Without Limits or Throttling",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The vulnerability in io.netty:netty-codec-http, allowing for Allocation of Resources Without Limits or Throttling issues, is assessed as moderate severity due to its potential impact on system availability and performance. By exploiting the flaw in HttpPostRequestDecoder, an attacker can craft chunked POST requests with numerous small fields, causing excessive accumulation of data in memory buffers. This unrestricted accumulation can lead to significant memory consumption on the server, potentially exhausting available resources and resulting in denial of service (DoS) conditions.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -1173,7 +1162,7 @@
 				},
 				{
 					"category": "workaround",
-					"details": "null",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
 					"product_ids": [
 						"Red Hat JBoss A-MQ 7"
 					]
@@ -1295,7 +1284,7 @@
 				},
 				{
 					"category": "workaround",
-					"details": "null",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
 					"product_ids": [
 						"Red Hat JBoss A-MQ 7"
 					]
@@ -1412,7 +1401,7 @@
 				},
 				{
 					"category": "workaround",
-					"details": "null",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
 					"product_ids": [
 						"Red Hat JBoss A-MQ 7"
 					]

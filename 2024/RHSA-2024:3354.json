@@ -132,12 +132,12 @@
 		],
 		"title": "Red Hat Security Advisory: Red Hat Fuse 7.13.0 release and security update",
 		"tracking": {
-			"current_release_date": "2024-05-24T03:28:49+00:00",
+			"current_release_date": "2024-08-14T06:11:34+00:00",
 			"generator": {
-				"date": "2024-05-24T03:28:49+00:00",
+				"date": "2024-08-14T06:11:34+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.29.3"
+					"version": "3.32.0"
 				}
 			},
 			"id": "RHSA-2024:3354",
@@ -154,7 +154,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-05-24T03:28:49+00:00",
+					"date": "2024-08-14T06:11:34+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -207,12 +207,12 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "Once an user is authenticated on Jolokia, he can potentially trigger arbitrary code execution. \n\nIn details, in ActiveMQ configurations, jetty allows\norg.jolokia.http.AgentServlet to handler request to /api/jolokia\n\norg.jolokia.http.HttpRequestHandler#handlePostRequest is able to\ncreate JmxRequest through JSONObject. And calls to\norg.jolokia.http.HttpRequestHandler#executeRequest.\n\nInto deeper calling stacks,\norg.jolokia.handler.ExecHandler#doHandleRequest is able to invoke\nthrough refection.\n\nAnd then, RCE is able to be achieved via\njdk.management.jfr.FlightRecorderMXBeanImpl which exists on Java version above 11.\n\n1 Call newRecording.\n\n2 Call setConfiguration. And a webshell data hides in it.\n\n3 Call startRecording.\n\n4 Call copyTo method. The webshell will be written to a .jsp file.\n\nThe mitigation is to restrict (by default) the actions authorized on Jolokia, or disable Jolokia.\nA more restrictive Jolokia configuration has been defined in default ActiveMQ distribution. We encourage users to upgrade to ActiveMQ distributions version including updated Jolokia configuration: 5.16.6, 5.17.4, 5.18.0, 6.0.0.\n",
+					"text": "Once an user is authenticated on Jolokia, he can potentially trigger arbitrary code execution. \n\nIn details, in ActiveMQ configurations, jetty allows\norg.jolokia.http.AgentServlet to handler request to /api/jolokia\n\norg.jolokia.http.HttpRequestHandler#handlePostRequest is able to\ncreate JmxRequest through JSONObject. And calls to\norg.jolokia.http.HttpRequestHandler#executeRequest.\n\nInto deeper calling stacks,\norg.jolokia.handler.ExecHandler#doHandleRequest can be invoked\nthrough refection. This could lead to RCE through via\nvarious mbeans. One example is unrestricted deserialization in jdk.management.jfr.FlightRecorderMXBeanImpl which exists on Java version above 11.\n\n1 Call newRecording.\n\n2 Call setConfiguration. And a webshell data hides in it.\n\n3 Call startRecording.\n\n4 Call copyTo method. The webshell will be written to a .jsp file.\n\nThe mitigation is to restrict (by default) the actions authorized on Jolokia, or disable Jolokia.\nA more restrictive Jolokia configuration has been defined in default ActiveMQ distribution. We encourage users to upgrade to ActiveMQ distributions version including updated Jolokia configuration: 5.16.6, 5.17.4, 5.18.0, 6.0.0.\n",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
-					"text": "Apache ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE",
+					"text": "ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE",
 					"title": "Vulnerability summary"
 				},
 				{
@@ -260,13 +260,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
@@ -296,7 +289,7 @@
 					"details": "Moderate"
 				}
 			],
-			"title": "Apache ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE"
+			"title": "ActiveMQ: Deserialization vulnerability on Jolokia that allows authenticated users to perform RCE"
 		},
 		{
 			"acknowledgments": [
@@ -304,7 +297,7 @@
 					"names": [
 						"Keke Lian & Haoran Zhao"
 					],
-					"organization": "SecSys Lab"
+					"organization": "System and Software Security Lab in Fudan University"
 				}
 			],
 			"cve": "CVE-2023-3223",
@@ -375,13 +368,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
@@ -780,12 +766,12 @@
 				},
 				{
 					"category": "summary",
-					"text": "spring-boot: org.springframework.boot:spring-boot-actuator class vulnerable to denial of service",
+					"text": "spring-boot: org.springframework.boot: spring-boot-actuator class vulnerable to denial of service",
 					"title": "Vulnerability summary"
 				},
 				{
 					"category": "other",
-					"text": "We don't ship any spring integration in our RHEL log4j package. Therefore the log4j package is not affected by this issue in Red Hat Enterprise Linux 8 & 9.",
+					"text": "Red Hat does not ship any spring integration in the RHEL log4j package, therefore the log4j package is not affected by this issue in Red Hat Enterprise Linux 8 & 9.\n\nRed Hat Single Sign-On provides Spring Boot adapters, but does not provide the affected code and is not affected by this flaw.",
 					"title": "Statement"
 				},
 				{
@@ -833,29 +819,22 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
 				{
 					"cvss_v3": {
-						"attackComplexity": "HIGH",
+						"attackComplexity": "LOW",
 						"attackVector": "NETWORK",
 						"availabilityImpact": "HIGH",
-						"baseScore": 5.9,
+						"baseScore": 6.5,
 						"baseSeverity": "MEDIUM",
 						"confidentialityImpact": "NONE",
 						"integrityImpact": "NONE",
-						"privilegesRequired": "NONE",
+						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
 						"version": "3.1"
 					},
 					"products": [
@@ -869,7 +848,7 @@
 					"details": "Moderate"
 				}
 			],
-			"title": "spring-boot: org.springframework.boot:spring-boot-actuator class vulnerable to denial of service"
+			"title": "spring-boot: org.springframework.boot: spring-boot-actuator class vulnerable to denial of service"
 		},
 		{
 			"cve": "CVE-2023-36478",
@@ -1077,13 +1056,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
@@ -1189,13 +1161,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
@@ -1306,13 +1271,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
@@ -1594,7 +1552,7 @@
 				},
 				{
 					"category": "summary",
-					"text": ": Apache Solr: Host environment variables are published via the Metrics API",
+					"text": "Solr: Host environment variables are published via the Metrics API",
 					"title": "Vulnerability summary"
 				},
 				{
@@ -1642,13 +1600,6 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:3354"
-				},
-				{
-					"category": "workaround",
-					"details": "null",
-					"product_ids": [
-						"Red Hat Fuse 7.13.0"
-					]
 				}
 			],
 			"scores": [
@@ -1678,7 +1629,7 @@
 					"details": "Moderate"
 				}
 			],
-			"title": ": Apache Solr: Host environment variables are published via the Metrics API"
+			"title": "Solr: Host environment variables are published via the Metrics API"
 		},
 		{
 			"cve": "CVE-2024-21733",
@@ -1835,6 +1786,11 @@
 					"title": "Vulnerability summary"
 				},
 				{
+					"category": "other",
+					"text": "The open redirect vulnerability discovered in the Spring Framework poses a moderate severity issue due to its potential to facilitate phishing attacks. While it doesn't directly lead to data compromise or system takeover, it significantly increases the likelihood of users being misled into visiting malicious websites.",
+					"title": "Statement"
+				},
+				{
 					"category": "general",
 					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
 					"title": "CVSS score applicability"
@@ -1887,7 +1843,7 @@
 				},
 				{
 					"category": "workaround",
-					"details": "null",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
 					"product_ids": [
 						"Red Hat Fuse 7.13.0"
 					]

@@ -77,12 +77,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security and bug fix update",
 		"tracking": {
-			"current_release_date": "2024-06-12T06:56:12+00:00",
+			"current_release_date": "2024-08-14T06:12:01+00:00",
 			"generator": {
-				"date": "2024-06-12T06:56:12+00:00",
+				"date": "2024-08-14T06:12:01+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.30.1"
+					"version": "3.32.0"
 				}
 			},
 			"id": "RHSA-2024:3854",
@@ -99,7 +99,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-06-12T06:56:12+00:00",
+					"date": "2024-08-14T06:12:01+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -1367,6 +1367,10 @@
 		},
 		{
 			"cve": "CVE-2024-26598",
+			"cwe": {
+				"id": "CWE-416",
+				"name": "Use After Free"
+			},
 			"discovery_date": "2024-02-24T00:00:00+00:00",
 			"ids": [
 				{
@@ -1377,13 +1381,23 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: arm64: vgic-its: Avoid potential UAF in LPI translation cache\n\nThere is a potential UAF scenario in the case of an LPI translation\ncache hit racing with an operation that invalidates the cache, such\nas a DISCARD ITS command. The root of the problem is that\nvgic_its_check_cache() does not elevate the refcount on the vgic_irq\nbefore dropping the lock that serializes refcount changes.\n\nHave vgic_its_check_cache() raise the refcount on the returned vgic_irq\nand add the corresponding decrement after queueing the interrupt.",
+					"text": "A flaw was found in the Linux kernel pertaining to a potential use-after-free (UAF) scenario in a system involving Logical Partitioning Interrupts (LPI) translation cache operations. Specifically, the issue arises when a cache hit occurs concurrently with an operation that invalidates the cache, such as a DISCARD ITS command. The root cause is traced to vgic_its_check_cache() not appropriately managing the reference count of the vgic_irq object. Upon returning from this function, the reference count of vgic_irq is not incremented. This issue can lead to the object being prematurely freed while still in use by other parts of the system, potentially resulting in undefined behavior or system instability.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: kvm: Avoid potential UAF in LPI translation cache",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The vulnerability is assessed as having a Moderate severity due to its potential to cause system instability or undefined behavior under specific conditions. Specifically, the issue arises from concurrent operations involving the LPI translation cache and commands that invalidate this cache, such as DISCARD ITS commands. The root cause lies in vgic_its_check_cache() failing to increment the reference count of the vgic_irq object before releasing the lock. This oversight can lead to a use-after-free scenario where the object may be prematurely freed while still in use elsewhere in the system. As a consequence, if the object is accessed or modified after being freed, it can result in unpredictable behavior, crashes, or even security vulnerabilities if an attacker can control the timing of cache invalidation and subsequent accesses.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
 				}
 			],
 			"product_status": {
@@ -1505,6 +1519,62 @@
 					"category": "workaround",
 					"details": "No mitigation is currently available for this vulnerability. Make sure to perform the updates as they become available.",
 					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.69.1.rt14.354.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.69.1.rt14.354.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 4.3,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "LOW",
+						"privilegesRequired": "LOW",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+						"version": "3.1"
+					},
+					"products": [
 						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.69.1.rt14.354.el9_2.src",
 						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
 						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.69.1.rt14.354.el9_2.x86_64",
