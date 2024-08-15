@@ -112,12 +112,12 @@
 		],
 		"title": "Red Hat Security Advisory: Red Hat Build of Apache Camel 4.4.1 for Spring Boot security update.",
 		"tracking": {
-			"current_release_date": "2024-07-25T20:34:11+00:00",
+			"current_release_date": "2024-08-15T00:14:05+00:00",
 			"generator": {
-				"date": "2024-07-25T20:34:11+00:00",
+				"date": "2024-08-15T00:14:05+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.30.3"
+					"version": "3.32.0"
 				}
 			},
 			"id": "RHSA-2024:4884",
@@ -134,7 +134,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-07-25T20:34:11+00:00",
+					"date": "2024-08-15T00:14:05+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -638,7 +638,7 @@
 			"threats": [
 				{
 					"category": "impact",
-					"details": "Important"
+					"details": "Low"
 				}
 			],
 			"title": "pgjdbc: PostgreSQL JDBC Driver allows attacker to inject SQL if using PreferQueryMode=SIMPLE"
@@ -771,13 +771,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A vulnerability was found in Undertow. URL-encoded request path information can be broken for concurrent requests on ajp-listener, causing the wrong path to be processed and resulting in a possible denial of service.",
+					"text": "A vulnerability was found in Undertow, where URL-encoded request paths can be mishandled during concurrent requests on the AJP listener. This issue arises because the same buffer is used to decode the paths for multiple requests simultaneously, leading to incorrect path information being processed. As a result, the server may attempt to access the wrong path, causing errors such as \"404 Not Found\" or other application failures. This flaw can potentially lead to a denial of service, as legitimate resources become inaccessible due to the path mix-up.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "undertow: url-encoded request path information can be broken on ajp-listener",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is classified as moderate severity rather than important because it specifically affects URL-encoded request paths under concurrent access conditions, primarily through the AJP listener. While it can lead to 404 errors or application failures, it does not inherently compromise data integrity, security, or lead to direct unauthorized access. The impact is limited to incorrect handling of certain URL-encoded paths, which means it primarily disrupts access to static or encoded resources rather than posing a broader risk to the system’s overall security or functionality.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -810,6 +815,11 @@
 					"category": "external",
 					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2024-6162",
 					"url": "https://nvd.nist.gov/vuln/detail/CVE-2024-6162"
+				},
+				{
+					"category": "external",
+					"summary": "https://issues.redhat.com/browse/JBEAP-26268",
+					"url": "https://issues.redhat.com/browse/JBEAP-26268"
 				}
 			],
 			"release_date": "2024-06-19T00:00:00+00:00",
@@ -824,6 +834,13 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:4884"
+				},
+				{
+					"category": "workaround",
+					"details": "To mitigate this issue, you can either switch to a different listener like the http-listener, or adjust the AJP listener configuration. By setting decode-url=\"false\" on the AJP listener and configuring a separate URL decoding filter, you can prevent the path decoding errors. This adjustment ensures that each request is processed correctly without interference from concurrent requests.",
+					"product_ids": [
+						"Red Hat build of Apache Camel 4.4.1 for Spring Boot"
+					]
 				}
 			],
 			"scores": [
