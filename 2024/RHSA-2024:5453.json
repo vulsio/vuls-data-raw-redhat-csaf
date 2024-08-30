@@ -67,12 +67,12 @@
 		],
 		"title": "Red Hat Security Advisory: Fence Agents Remediation 0.4.1 - Security update",
 		"tracking": {
-			"current_release_date": "2024-08-15T18:55:06+00:00",
+			"current_release_date": "2024-08-30T13:46:27+00:00",
 			"generator": {
-				"date": "2024-08-15T18:55:06+00:00",
+				"date": "2024-08-30T13:46:27+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.32.0"
+					"version": "3.33.1"
 				}
 			},
 			"id": "RHSA-2024:5453",
@@ -89,7 +89,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-08-15T18:55:06+00:00",
+					"date": "2024-08-30T13:46:27+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -199,13 +199,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A flaw was found in fence agents that rely on SSH/Telnet. This vulnerability can allow a Remote Code Execution (RCE) primitive by supplying an arbitrary command to execute in the --ssh-path/--telnet-path arguments. A low-privilege user, for example, a user with developer access, can create a specially crafted FenceAgentsRemediation for a fence agent supporting  --ssh-path/--telnet-path arguments to execute arbitrary commands on the operator's pod. This RCE leads to a privilege escalation, first as the service account running the operator, then to another service account with cluster-admin privileges.",
+					"text": "A flaw was found in the Fence Agents Remediation operator. This vulnerability can allow a Remote Code Execution (RCE) primitive by supplying an arbitrary command to execute in the --ssh-path/--telnet-path arguments. A low-privilege user, for example, a user with developer access, can create a specially crafted FenceAgentsRemediation for a fence agent supporting  --ssh-path/--telnet-path arguments to execute arbitrary commands on the operator's pod. This RCE leads to a privilege escalation, first as the service account running the operator, then to another service account with cluster-admin privileges.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
-					"text": "fence-agent: Fence Agent Command Line Options Leads to Remote Code Execution",
+					"text": "fence-agents-remediation: Fence Agent Command Line Options Leads to Remote Code Execution",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability is specific to the Fence Agents Remediation operator and does not affect fence-agents itself.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -254,6 +259,14 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:5453"
+				},
+				{
+					"category": "workaround",
+					"details": "Do not allow unprivileged users create FenceAgentsRemediation and FenceAgentsRemediationTemplate resources.",
+					"product_ids": [
+						"8Base-FENCE-AGENTS-REMEDIATION-0.4:workload-availability/fence-agents-remediation-operator-bundle@sha256:f5dda99364d07df3a3680a2d7031c27df071c8e80746b1ececb5487240e9bbb0_amd64",
+						"8Base-FENCE-AGENTS-REMEDIATION-0.4:workload-availability/fence-agents-remediation-rhel8-operator@sha256:b0abc89cdccc6fe6510143d8a2440fd277e69b47f83cfda3e61782f50f88a988_amd64"
+					]
 				}
 			],
 			"scores": [
@@ -284,7 +297,7 @@
 					"details": "Important"
 				}
 			],
-			"title": "fence-agent: Fence Agent Command Line Options Leads to Remote Code Execution"
+			"title": "fence-agents-remediation: Fence Agent Command Line Options Leads to Remote Code Execution"
 		}
 	]
 }
