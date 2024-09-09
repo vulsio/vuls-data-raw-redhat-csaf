@@ -77,12 +77,12 @@
 		],
 		"title": "Red Hat Security Advisory: Red Hat JBoss EAP 7.4.17 XP 4.0.2 security release",
 		"tracking": {
-			"current_release_date": "2024-08-15T12:04:10+00:00",
+			"current_release_date": "2024-09-09T17:41:12+00:00",
 			"generator": {
-				"date": "2024-08-15T12:04:10+00:00",
+				"date": "2024-09-09T17:41:12+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.32.0"
+					"version": "3.33.1"
 				}
 			},
 			"id": "RHSA-2024:4386",
@@ -99,7 +99,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-08-15T12:04:10+00:00",
+					"date": "2024-09-09T17:41:12+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -247,6 +247,123 @@
 				}
 			],
 			"title": "jose4j: denial of service via specially crafted JWE"
+		},
+		{
+			"cve": "CVE-2024-6162",
+			"cwe": {
+				"id": "CWE-400",
+				"name": "Uncontrolled Resource Consumption"
+			},
+			"discovery_date": "2024-06-19T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2293069"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A vulnerability was found in Undertow, where URL-encoded request paths can be mishandled during concurrent requests on the AJP listener. This issue arises because the same buffer is used to decode the paths for multiple requests simultaneously, leading to incorrect path information being processed. As a result, the server may attempt to access the wrong path, causing errors such as \"404 Not Found\" or other application failures. This flaw can potentially lead to a denial of service, as legitimate resources become inaccessible due to the path mix-up.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "undertow: url-encoded request path information can be broken on ajp-listener",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is classified as moderate severity rather than important because it specifically affects URL-encoded request paths under concurrent access conditions, primarily through the AJP listener. While it can lead to 404 errors or application failures, it does not inherently compromise data integrity, security, or lead to direct unauthorized access. The impact is limited to incorrect handling of certain URL-encoded paths, which means it primarily disrupts access to static or encoded resources rather than posing a broader risk to the system’s overall security or functionality.",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"Red Hat JBoss Enterprise Application Platform Expansion Pack"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2024-6162"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2293069",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2293069"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2024-6162",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2024-6162"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2024-6162",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2024-6162"
+				},
+				{
+					"category": "external",
+					"summary": "https://issues.redhat.com/browse/JBEAP-26268",
+					"url": "https://issues.redhat.com/browse/JBEAP-26268"
+				}
+			],
+			"release_date": "2024-06-19T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying the update, make sure all previously released errata relevant to your system have been applied. Also, back up your existing installation, including all applications, configuration files, databases and database settings. For details on how to apply this update, refer to: https://access.redhat.com/articles/11258",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform Expansion Pack"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:4386"
+				},
+				{
+					"category": "workaround",
+					"details": "To mitigate this issue, you can either switch to a different listener like the http-listener, or adjust the AJP listener configuration. By setting decode-url=\"false\" on the AJP listener and configuring a separate URL decoding filter, you can prevent the path decoding errors. This adjustment ensures that each request is processed correctly without interference from concurrent requests.",
+					"product_ids": [
+						"Red Hat JBoss Enterprise Application Platform Expansion Pack"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7.5,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"Red Hat JBoss Enterprise Application Platform Expansion Pack"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "undertow: url-encoded request path information can be broken on ajp-listener"
 		}
 	]
 }
