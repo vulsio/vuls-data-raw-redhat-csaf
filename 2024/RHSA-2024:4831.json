@@ -287,9 +287,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-09-19T01:52:15+00:00",
+			"current_release_date": "2024-09-19T21:49:06+00:00",
 			"generator": {
-				"date": "2024-09-19T01:52:15+00:00",
+				"date": "2024-09-19T21:49:06+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "3.33.3"
@@ -309,7 +309,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-19T01:52:15+00:00",
+					"date": "2024-09-19T21:49:06+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -5217,7 +5217,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nhv_netvsc: Fix race condition between netvsc_probe and netvsc_remove\n\nIn commit ac5047671758 (\"hv_netvsc: Disable NAPI before closing the\nVMBus channel\"), napi_disable was getting called for all channels,\nincluding all subchannels without confirming if they are enabled or not.\n\nThis caused hv_netvsc getting hung at napi_disable, when netvsc_probe()\nhas finished running but nvdev->subchan_work has not started yet.\nnetvsc_subchan_work() -> rndis_set_subchannel() has not created the\nsub-channels and because of that netvsc_sc_open() is not running.\nnetvsc_remove() calls cancel_work_sync(&nvdev->subchan_work), for which\nnetvsc_subchan_work did not run.\n\nnetif_napi_add() sets the bit NAPI_STATE_SCHED because it ensures NAPI\ncannot be scheduled. Then netvsc_sc_open() -> napi_enable will clear the\nNAPIF_STATE_SCHED bit, so it can be scheduled. napi_disable() does the\nopposite.\n\nNow during netvsc_device_remove(), when napi_disable is called for those\nsubchannels, napi_disable gets stuck on infinite msleep.\n\nThis fix addresses this problem by ensuring that napi_disable() is not\ngetting called for non-enabled NAPI struct.\nBut netif_napi_del() is still necessary for these non-enabled NAPI struct\nfor cleanup purpose.\n\nCall trace:\n[  654.559417] task:modprobe        state:D stack:    0 pid: 2321 ppid:  1091 flags:0x00004002\n[  654.568030] Call Trace:\n[  654.571221]  <TASK>\n[  654.573790]  __schedule+0x2d6/0x960\n[  654.577733]  schedule+0x69/0xf0\n[  654.581214]  schedule_timeout+0x87/0x140\n[  654.585463]  ? __bpf_trace_tick_stop+0x20/0x20\n[  654.590291]  msleep+0x2d/0x40\n[  654.593625]  napi_disable+0x2b/0x80\n[  654.597437]  netvsc_device_remove+0x8a/0x1f0 [hv_netvsc]\n[  654.603935]  rndis_filter_device_remove+0x194/0x1c0 [hv_netvsc]\n[  654.611101]  ? do_wait_intr+0xb0/0xb0\n[  654.615753]  netvsc_remove+0x7c/0x120 [hv_netvsc]\n[  654.621675]  vmbus_remove+0x27/0x40 [hv_vmbus]",
+					"text": "A vulnerability was found in the hv_netvsc driver in the Linux kernel, where a race condition is present between the netvsc_probe() and netvsc_remove() functions. This race condition could lead to system hangs during network device removal.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -5432,7 +5432,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: fix double-free of blocks due to wrong extents moved_len\n\nIn ext4_move_extents(), moved_len is only updated when all moves are\nsuccessfully executed, and only discards orig_inode and donor_inode\npreallocations when moved_len is not zero. When the loop fails to exit\nafter successfully moving some extents, moved_len is not updated and\nremains at 0, so it does not discard the preallocations.\n\nIf the moved extents overlap with the preallocated extents, the\noverlapped extents are freed twice in ext4_mb_release_inode_pa() and\next4_process_freed_data() (as described in commit 94d7c16cbbbd (\"ext4:\nFix double-free of blocks with EXT4_IOC_MOVE_EXT\")), and bb_free is\nincremented twice. Hence when trim is executed, a zero-division bug is\ntriggered in mb_update_avg_fragment_size() because bb_free is not zero\nand bb_fragments is zero.\n\nTherefore, update move_len after each extent move to avoid the issue.",
+					"text": "A vulnerability was found in the Linux kernel. This issue occurs in the ext4 function, in ext4_move_extents(), where an error in updating the moved_len variable can lead to double-free of blocks and corrupt block accounting. This could lead to crashes or undefined behavior.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -5442,7 +5442,7 @@
 				},
 				{
 					"category": "other",
-					"text": "This vulnerability is rated as a moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
+					"text": "This vulnerability is rated as moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
 					"title": "Statement"
 				},
 				{
@@ -5647,7 +5647,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/sched: act_mirred: don't override retval if we already lost the skb\n\nIf we're redirecting the skb, and haven't called tcf_mirred_forward(),\nyet, we need to tell the core to drop the skb by setting the retcode\nto SHOT. If we have called tcf_mirred_forward(), however, the skb\nis out of our hands and returning SHOT will lead to UaF.\n\nMove the retval override to the error path which actually need it.",
+					"text": "A use-after-free flaw was found in net/sched/act_mirred.c in the Linux kernel. This may result in a crash.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -5857,7 +5857,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: avoid allocating blocks from corrupted group in ext4_mb_try_best_found()\n\nDetermine if the group block bitmap is corrupted before using ac_b_ex in\next4_mb_try_best_found() to avoid allocating blocks from a group with a\ncorrupted block bitmap in the following concurrency and making the\nsituation worse.\n\next4_mb_regular_allocator\n  ext4_lock_group(sb, group)\n  ext4_mb_good_group\n   // check if the group bbitmap is corrupted\n  ext4_mb_complex_scan_group\n   // Scan group gets ac_b_ex but doesn't use it\n  ext4_unlock_group(sb, group)\n                           ext4_mark_group_bitmap_corrupted(group)\n                           // The block bitmap was corrupted during\n                           // the group unlock gap.\n  ext4_mb_try_best_found\n    ext4_lock_group(ac->ac_sb, group)\n    ext4_mb_use_best_found\n      mb_mark_used\n      // Allocating blocks in block bitmap corrupted group",
+					"text": "A vulnerability was found in the ext4_mb_try_best_found() function in the Linux kernel. This issue could lead to memory corruption or crashes due to the allocation of blocks from a group with a corrupted block bitmap.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -6067,7 +6067,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nft_chain_filter: handle NETDEV_UNREGISTER for inet/ingress basechain\n\nRemove netdevice from inet/ingress basechain in case NETDEV_UNREGISTER\nevent is reported, otherwise a stale reference to netdevice remains in\nthe hook list.",
+					"text": "A vulnerability was found in the Linux kernel's netfilter subsystem, related to the nft_chain_filter feature. This issue occurs when a NETDEV_UNREGISTER event is reported, which can leave a stale reference to a network device in the ingress basechain. If this issue is not addressed, this stale reference could result in lingering issues with network device handling.",
 					"title": "Vulnerability description"
 				},
 				{

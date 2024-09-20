@@ -107,9 +107,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security update",
 		"tracking": {
-			"current_release_date": "2024-09-18T19:44:55+00:00",
+			"current_release_date": "2024-09-19T21:49:15+00:00",
 			"generator": {
-				"date": "2024-09-18T19:44:55+00:00",
+				"date": "2024-09-19T21:49:15+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "3.33.3"
@@ -129,7 +129,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-18T19:44:55+00:00",
+					"date": "2024-09-19T21:49:15+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -4701,7 +4701,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: fix double-free of blocks due to wrong extents moved_len\n\nIn ext4_move_extents(), moved_len is only updated when all moves are\nsuccessfully executed, and only discards orig_inode and donor_inode\npreallocations when moved_len is not zero. When the loop fails to exit\nafter successfully moving some extents, moved_len is not updated and\nremains at 0, so it does not discard the preallocations.\n\nIf the moved extents overlap with the preallocated extents, the\noverlapped extents are freed twice in ext4_mb_release_inode_pa() and\next4_process_freed_data() (as described in commit 94d7c16cbbbd (\"ext4:\nFix double-free of blocks with EXT4_IOC_MOVE_EXT\")), and bb_free is\nincremented twice. Hence when trim is executed, a zero-division bug is\ntriggered in mb_update_avg_fragment_size() because bb_free is not zero\nand bb_fragments is zero.\n\nTherefore, update move_len after each extent move to avoid the issue.",
+					"text": "A vulnerability was found in the Linux kernel. This issue occurs in the ext4 function, in ext4_move_extents(), where an error in updating the moved_len variable can lead to double-free of blocks and corrupt block accounting. This could lead to crashes or undefined behavior.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -4711,7 +4711,7 @@
 				},
 				{
 					"category": "other",
-					"text": "This vulnerability is rated as a moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
+					"text": "This vulnerability is rated as moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
 					"title": "Statement"
 				},
 				{
@@ -5282,7 +5282,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: avoid allocating blocks from corrupted group in ext4_mb_find_by_goal()\n\nPlaces the logic for checking if the group's block bitmap is corrupt under\nthe protection of the group lock to avoid allocating blocks from the group\nwith a corrupted block bitmap.",
+					"text": "A vulnerability was found in the ext4_mb_find_by_goal() function in the Linux kernel. This issue could lead to memory corruption or crashes due to the allocation of blocks from a group with a corrupted block bitmap.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -5858,7 +5858,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: avoid allocating blocks from corrupted group in ext4_mb_try_best_found()\n\nDetermine if the group block bitmap is corrupted before using ac_b_ex in\next4_mb_try_best_found() to avoid allocating blocks from a group with a\ncorrupted block bitmap in the following concurrency and making the\nsituation worse.\n\next4_mb_regular_allocator\n  ext4_lock_group(sb, group)\n  ext4_mb_good_group\n   // check if the group bbitmap is corrupted\n  ext4_mb_complex_scan_group\n   // Scan group gets ac_b_ex but doesn't use it\n  ext4_unlock_group(sb, group)\n                           ext4_mark_group_bitmap_corrupted(group)\n                           // The block bitmap was corrupted during\n                           // the group unlock gap.\n  ext4_mb_try_best_found\n    ext4_lock_group(ac->ac_sb, group)\n    ext4_mb_use_best_found\n      mb_mark_used\n      // Allocating blocks in block bitmap corrupted group",
+					"text": "A vulnerability was found in the ext4_mb_try_best_found() function in the Linux kernel. This issue could lead to memory corruption or crashes due to the allocation of blocks from a group with a corrupted block bitmap.",
 					"title": "Vulnerability description"
 				},
 				{

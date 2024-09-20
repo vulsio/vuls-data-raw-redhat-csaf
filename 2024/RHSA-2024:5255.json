@@ -167,9 +167,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security update",
 		"tracking": {
-			"current_release_date": "2024-09-18T18:59:12+00:00",
+			"current_release_date": "2024-09-19T22:21:02+00:00",
 			"generator": {
-				"date": "2024-09-18T18:59:12+00:00",
+				"date": "2024-09-19T22:21:02+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "3.33.3"
@@ -189,7 +189,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-18T18:59:12+00:00",
+					"date": "2024-09-19T22:21:02+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -11156,7 +11156,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nfs/proc: do_task_stat: use sig->stats_lock to gather the threads/children stats\n\nlock_task_sighand() can trigger a hard lockup.  If NR_CPUS threads call\ndo_task_stat() at the same time and the process has NR_THREADS, it will\nspin with irqs disabled O(NR_CPUS * NR_THREADS) time.\n\nChange do_task_stat() to use sig->stats_lock to gather the statistics\noutside of ->siglock protected section, in the likely case this code will\nrun lockless.",
+					"text": "A vulnerability was found in the do_task_stat() function in the Linux kernel, where due to excessive lock contention, a potential hard lockup could be created. This can create a performance bottleneck and lead to kernel unresponsiveness.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -11901,7 +11901,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: fix double-free of blocks due to wrong extents moved_len\n\nIn ext4_move_extents(), moved_len is only updated when all moves are\nsuccessfully executed, and only discards orig_inode and donor_inode\npreallocations when moved_len is not zero. When the loop fails to exit\nafter successfully moving some extents, moved_len is not updated and\nremains at 0, so it does not discard the preallocations.\n\nIf the moved extents overlap with the preallocated extents, the\noverlapped extents are freed twice in ext4_mb_release_inode_pa() and\next4_process_freed_data() (as described in commit 94d7c16cbbbd (\"ext4:\nFix double-free of blocks with EXT4_IOC_MOVE_EXT\")), and bb_free is\nincremented twice. Hence when trim is executed, a zero-division bug is\ntriggered in mb_update_avg_fragment_size() because bb_free is not zero\nand bb_fragments is zero.\n\nTherefore, update move_len after each extent move to avoid the issue.",
+					"text": "A vulnerability was found in the Linux kernel. This issue occurs in the ext4 function, in ext4_move_extents(), where an error in updating the moved_len variable can lead to double-free of blocks and corrupt block accounting. This could lead to crashes or undefined behavior.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -11911,7 +11911,7 @@
 				},
 				{
 					"category": "other",
-					"text": "This vulnerability is rated as a moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
+					"text": "This vulnerability is rated as moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
 					"title": "Statement"
 				},
 				{
@@ -12651,7 +12651,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\narp: Prevent overflow in arp_req_get().\n\nsyzkaller reported an overflown write in arp_req_get(). [0]\n\nWhen ioctl(SIOCGARP) is issued, arp_req_get() looks up an neighbour\nentry and copies neigh->ha to struct arpreq.arp_ha.sa_data.\n\nThe arp_ha here is struct sockaddr, not struct sockaddr_storage, so\nthe sa_data buffer is just 14 bytes.\n\nIn the splat below, 2 bytes are overflown to the next int field,\narp_flags.  We initialise the field just after the memcpy(), so it's\nnot a problem.\n\nHowever, when dev->addr_len is greater than 22 (e.g. MAX_ADDR_LEN),\narp_netmask is overwritten, which could be set as htonl(0xFFFFFFFFUL)\nin arp_ioctl() before calling arp_req_get().\n\nTo avoid the overflow, let's limit the max length of memcpy().\n\nNote that commit b5f0de6df6dc (\"net: dev: Convert sa_data to flexible\narray in struct sockaddr\") just silenced syzkaller.\n\n[0]:\nmemcpy: detected field-spanning write (size 16) of single field \"r->arp_ha.sa_data\" at net/ipv4/arp.c:1128 (size 14)\nWARNING: CPU: 0 PID: 144638 at net/ipv4/arp.c:1128 arp_req_get+0x411/0x4a0 net/ipv4/arp.c:1128\nModules linked in:\nCPU: 0 PID: 144638 Comm: syz-executor.4 Not tainted 6.1.74 #31\nHardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.0-debian-1.16.0-5 04/01/2014\nRIP: 0010:arp_req_get+0x411/0x4a0 net/ipv4/arp.c:1128\nCode: fd ff ff e8 41 42 de fb b9 0e 00 00 00 4c 89 fe 48 c7 c2 20 6d ab 87 48 c7 c7 80 6d ab 87 c6 05 25 af 72 04 01 e8 5f 8d ad fb <0f> 0b e9 6c fd ff ff e8 13 42 de fb be 03 00 00 00 4c 89 e7 e8 a6\nRSP: 0018:ffffc900050b7998 EFLAGS: 00010286\nRAX: 0000000000000000 RBX: ffff88803a815000 RCX: 0000000000000000\nRDX: 0000000000000000 RSI: ffffffff8641a44a RDI: 0000000000000001\nRBP: ffffc900050b7a98 R08: 0000000000000001 R09: 0000000000000000\nR10: 0000000000000000 R11: 203a7970636d656d R12: ffff888039c54000\nR13: 1ffff92000a16f37 R14: ffff88803a815084 R15: 0000000000000010\nFS:  00007f172bf306c0(0000) GS:ffff88805aa00000(0000) knlGS:0000000000000000\nCS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033\nCR2: 00007f172b3569f0 CR3: 0000000057f12005 CR4: 0000000000770ef0\nDR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000\nDR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400\nPKRU: 55555554\nCall Trace:\n <TASK>\n arp_ioctl+0x33f/0x4b0 net/ipv4/arp.c:1261\n inet_ioctl+0x314/0x3a0 net/ipv4/af_inet.c:981\n sock_do_ioctl+0xdf/0x260 net/socket.c:1204\n sock_ioctl+0x3ef/0x650 net/socket.c:1321\n vfs_ioctl fs/ioctl.c:51 [inline]\n __do_sys_ioctl fs/ioctl.c:870 [inline]\n __se_sys_ioctl fs/ioctl.c:856 [inline]\n __x64_sys_ioctl+0x18e/0x220 fs/ioctl.c:856\n do_syscall_x64 arch/x86/entry/common.c:51 [inline]\n do_syscall_64+0x37/0x90 arch/x86/entry/common.c:81\n entry_SYSCALL_64_after_hwframe+0x64/0xce\nRIP: 0033:0x7f172b262b8d\nCode: 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48\nRSP: 002b:00007f172bf300b8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010\nRAX: ffffffffffffffda RBX: 00007f172b3abf80 RCX: 00007f172b262b8d\nRDX: 0000000020000000 RSI: 0000000000008954 RDI: 0000000000000003\nRBP: 00007f172b2d3493 R08: 0000000000000000 R09: 0000000000000000\nR10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000\nR13: 000000000000000b R14: 00007f172b3abf80 R15: 00007f172bf10000\n </TASK>",
+					"text": "A vulnerability was found in the arp_req_get() function in the Linux kernel when handling the SIOCGARP ioctl (input/output control) request. This function copies data over into a fixed-length buffer which could result in a buffer overflow and cause memory corruption, undefined behavior, or crashes.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -13396,7 +13396,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: avoid allocating blocks from corrupted group in ext4_mb_try_best_found()\n\nDetermine if the group block bitmap is corrupted before using ac_b_ex in\next4_mb_try_best_found() to avoid allocating blocks from a group with a\ncorrupted block bitmap in the following concurrency and making the\nsituation worse.\n\next4_mb_regular_allocator\n  ext4_lock_group(sb, group)\n  ext4_mb_good_group\n   // check if the group bbitmap is corrupted\n  ext4_mb_complex_scan_group\n   // Scan group gets ac_b_ex but doesn't use it\n  ext4_unlock_group(sb, group)\n                           ext4_mark_group_bitmap_corrupted(group)\n                           // The block bitmap was corrupted during\n                           // the group unlock gap.\n  ext4_mb_try_best_found\n    ext4_lock_group(ac->ac_sb, group)\n    ext4_mb_use_best_found\n      mb_mark_used\n      // Allocating blocks in block bitmap corrupted group",
+					"text": "A vulnerability was found in the ext4_mb_try_best_found() function in the Linux kernel. This issue could lead to memory corruption or crashes due to the allocation of blocks from a group with a corrupted block bitmap.",
 					"title": "Vulnerability description"
 				},
 				{

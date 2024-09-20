@@ -802,9 +802,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-09-19T11:52:10+00:00",
+			"current_release_date": "2024-09-19T22:20:49+00:00",
 			"generator": {
-				"date": "2024-09-19T11:52:10+00:00",
+				"date": "2024-09-19T22:20:49+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "3.33.3"
@@ -824,7 +824,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-19T11:52:10+00:00",
+					"date": "2024-09-19T22:20:49+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -12153,7 +12153,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nfs/proc: do_task_stat: use sig->stats_lock to gather the threads/children stats\n\nlock_task_sighand() can trigger a hard lockup.  If NR_CPUS threads call\ndo_task_stat() at the same time and the process has NR_THREADS, it will\nspin with irqs disabled O(NR_CPUS * NR_THREADS) time.\n\nChange do_task_stat() to use sig->stats_lock to gather the statistics\noutside of ->siglock protected section, in the likely case this code will\nrun lockless.",
+					"text": "A vulnerability was found in the do_task_stat() function in the Linux kernel, where due to excessive lock contention, a potential hard lockup could be created. This can create a performance bottleneck and lead to kernel unresponsiveness.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -12351,7 +12351,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: fix double-free of blocks due to wrong extents moved_len\n\nIn ext4_move_extents(), moved_len is only updated when all moves are\nsuccessfully executed, and only discards orig_inode and donor_inode\npreallocations when moved_len is not zero. When the loop fails to exit\nafter successfully moving some extents, moved_len is not updated and\nremains at 0, so it does not discard the preallocations.\n\nIf the moved extents overlap with the preallocated extents, the\noverlapped extents are freed twice in ext4_mb_release_inode_pa() and\next4_process_freed_data() (as described in commit 94d7c16cbbbd (\"ext4:\nFix double-free of blocks with EXT4_IOC_MOVE_EXT\")), and bb_free is\nincremented twice. Hence when trim is executed, a zero-division bug is\ntriggered in mb_update_avg_fragment_size() because bb_free is not zero\nand bb_fragments is zero.\n\nTherefore, update move_len after each extent move to avoid the issue.",
+					"text": "A vulnerability was found in the Linux kernel. This issue occurs in the ext4 function, in ext4_move_extents(), where an error in updating the moved_len variable can lead to double-free of blocks and corrupt block accounting. This could lead to crashes or undefined behavior.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -12361,7 +12361,7 @@
 				},
 				{
 					"category": "other",
-					"text": "This vulnerability is rated as a moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
+					"text": "This vulnerability is rated as moderate because this issue could lead to ext4 file system crashes or undefined behavior on the system.",
 					"title": "Statement"
 				},
 				{
@@ -12554,7 +12554,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\narp: Prevent overflow in arp_req_get().\n\nsyzkaller reported an overflown write in arp_req_get(). [0]\n\nWhen ioctl(SIOCGARP) is issued, arp_req_get() looks up an neighbour\nentry and copies neigh->ha to struct arpreq.arp_ha.sa_data.\n\nThe arp_ha here is struct sockaddr, not struct sockaddr_storage, so\nthe sa_data buffer is just 14 bytes.\n\nIn the splat below, 2 bytes are overflown to the next int field,\narp_flags.  We initialise the field just after the memcpy(), so it's\nnot a problem.\n\nHowever, when dev->addr_len is greater than 22 (e.g. MAX_ADDR_LEN),\narp_netmask is overwritten, which could be set as htonl(0xFFFFFFFFUL)\nin arp_ioctl() before calling arp_req_get().\n\nTo avoid the overflow, let's limit the max length of memcpy().\n\nNote that commit b5f0de6df6dc (\"net: dev: Convert sa_data to flexible\narray in struct sockaddr\") just silenced syzkaller.\n\n[0]:\nmemcpy: detected field-spanning write (size 16) of single field \"r->arp_ha.sa_data\" at net/ipv4/arp.c:1128 (size 14)\nWARNING: CPU: 0 PID: 144638 at net/ipv4/arp.c:1128 arp_req_get+0x411/0x4a0 net/ipv4/arp.c:1128\nModules linked in:\nCPU: 0 PID: 144638 Comm: syz-executor.4 Not tainted 6.1.74 #31\nHardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.0-debian-1.16.0-5 04/01/2014\nRIP: 0010:arp_req_get+0x411/0x4a0 net/ipv4/arp.c:1128\nCode: fd ff ff e8 41 42 de fb b9 0e 00 00 00 4c 89 fe 48 c7 c2 20 6d ab 87 48 c7 c7 80 6d ab 87 c6 05 25 af 72 04 01 e8 5f 8d ad fb <0f> 0b e9 6c fd ff ff e8 13 42 de fb be 03 00 00 00 4c 89 e7 e8 a6\nRSP: 0018:ffffc900050b7998 EFLAGS: 00010286\nRAX: 0000000000000000 RBX: ffff88803a815000 RCX: 0000000000000000\nRDX: 0000000000000000 RSI: ffffffff8641a44a RDI: 0000000000000001\nRBP: ffffc900050b7a98 R08: 0000000000000001 R09: 0000000000000000\nR10: 0000000000000000 R11: 203a7970636d656d R12: ffff888039c54000\nR13: 1ffff92000a16f37 R14: ffff88803a815084 R15: 0000000000000010\nFS:  00007f172bf306c0(0000) GS:ffff88805aa00000(0000) knlGS:0000000000000000\nCS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033\nCR2: 00007f172b3569f0 CR3: 0000000057f12005 CR4: 0000000000770ef0\nDR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000\nDR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400\nPKRU: 55555554\nCall Trace:\n <TASK>\n arp_ioctl+0x33f/0x4b0 net/ipv4/arp.c:1261\n inet_ioctl+0x314/0x3a0 net/ipv4/af_inet.c:981\n sock_do_ioctl+0xdf/0x260 net/socket.c:1204\n sock_ioctl+0x3ef/0x650 net/socket.c:1321\n vfs_ioctl fs/ioctl.c:51 [inline]\n __do_sys_ioctl fs/ioctl.c:870 [inline]\n __se_sys_ioctl fs/ioctl.c:856 [inline]\n __x64_sys_ioctl+0x18e/0x220 fs/ioctl.c:856\n do_syscall_x64 arch/x86/entry/common.c:51 [inline]\n do_syscall_64+0x37/0x90 arch/x86/entry/common.c:81\n entry_SYSCALL_64_after_hwframe+0x64/0xce\nRIP: 0033:0x7f172b262b8d\nCode: 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48\nRSP: 002b:00007f172bf300b8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010\nRAX: ffffffffffffffda RBX: 00007f172b3abf80 RCX: 00007f172b262b8d\nRDX: 0000000020000000 RSI: 0000000000008954 RDI: 0000000000000003\nRBP: 00007f172b2d3493 R08: 0000000000000000 R09: 0000000000000000\nR10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000\nR13: 000000000000000b R14: 00007f172b3abf80 R15: 00007f172bf10000\n </TASK>",
+					"text": "A vulnerability was found in the arp_req_get() function in the Linux kernel when handling the SIOCGARP ioctl (input/output control) request. This function copies data over into a fixed-length buffer which could result in a buffer overflow and cause memory corruption, undefined behavior, or crashes.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -12752,7 +12752,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/sched: act_mirred: use the backlog for mirred ingress\n\nThe test Davide added in commit ca22da2fbd69 (\"act_mirred: use the backlog\nfor nested calls to mirred ingress\") hangs our testing VMs every 10 or so\nruns, with the familiar tcp_v4_rcv -> tcp_v4_rcv deadlock reported by\nlockdep.\n\nThe problem as previously described by Davide (see Link) is that\nif we reverse flow of traffic with the redirect (egress -> ingress)\nwe may reach the same socket which generated the packet. And we may\nstill be holding its socket lock. The common solution to such deadlocks\nis to put the packet in the Rx backlog, rather than run the Rx path\ninline. Do that for all egress -> ingress reversals, not just once\nwe started to nest mirred calls.\n\nIn the past there was a concern that the backlog indirection will\nlead to loss of error reporting / less accurate stats. But the current\nworkaround does not seem to address the issue.",
+					"text": "A potential deadlock flaw was found in net/sched/act_mirred.c in the Linux kernel. This may lead to compromised Availability.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -12950,7 +12950,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: avoid allocating blocks from corrupted group in ext4_mb_find_by_goal()\n\nPlaces the logic for checking if the group's block bitmap is corrupt under\nthe protection of the group lock to avoid allocating blocks from the group\nwith a corrupted block bitmap.",
+					"text": "A vulnerability was found in the ext4_mb_find_by_goal() function in the Linux kernel. This issue could lead to memory corruption or crashes due to the allocation of blocks from a group with a corrupted block bitmap.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -13148,7 +13148,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: avoid allocating blocks from corrupted group in ext4_mb_try_best_found()\n\nDetermine if the group block bitmap is corrupted before using ac_b_ex in\next4_mb_try_best_found() to avoid allocating blocks from a group with a\ncorrupted block bitmap in the following concurrency and making the\nsituation worse.\n\next4_mb_regular_allocator\n  ext4_lock_group(sb, group)\n  ext4_mb_good_group\n   // check if the group bbitmap is corrupted\n  ext4_mb_complex_scan_group\n   // Scan group gets ac_b_ex but doesn't use it\n  ext4_unlock_group(sb, group)\n                           ext4_mark_group_bitmap_corrupted(group)\n                           // The block bitmap was corrupted during\n                           // the group unlock gap.\n  ext4_mb_try_best_found\n    ext4_lock_group(ac->ac_sb, group)\n    ext4_mb_use_best_found\n      mb_mark_used\n      // Allocating blocks in block bitmap corrupted group",
+					"text": "A vulnerability was found in the ext4_mb_try_best_found() function in the Linux kernel. This issue could lead to memory corruption or crashes due to the allocation of blocks from a group with a corrupted block bitmap.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -14379,7 +14379,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/ipv6: avoid possible UAF in ip6_route_mpath_notify()\n\nsyzbot found another use-after-free in ip6_route_mpath_notify() [1]\n\nCommit f7225172f25a (\"net/ipv6: prevent use after free in\nip6_route_mpath_notify\") was not able to fix the root cause.\n\nWe need to defer the fib6_info_release() calls after\nip6_route_mpath_notify(), in the cleanup phase.\n\n[1]\nBUG: KASAN: slab-use-after-free in rt6_fill_node+0x1460/0x1ac0\nRead of size 4 at addr ffff88809a07fc64 by task syz-executor.2/23037\n\nCPU: 0 PID: 23037 Comm: syz-executor.2 Not tainted 6.8.0-rc4-syzkaller-01035-gea7f3cfaa588 #0\nHardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/25/2024\nCall Trace:\n <TASK>\n  __dump_stack lib/dump_stack.c:88 [inline]\n  dump_stack_lvl+0x1e7/0x2e0 lib/dump_stack.c:106\n  print_address_description mm/kasan/report.c:377 [inline]\n  print_report+0x167/0x540 mm/kasan/report.c:488\n  kasan_report+0x142/0x180 mm/kasan/report.c:601\n rt6_fill_node+0x1460/0x1ac0\n  inet6_rt_notify+0x13b/0x290 net/ipv6/route.c:6184\n  ip6_route_mpath_notify net/ipv6/route.c:5198 [inline]\n  ip6_route_multipath_add net/ipv6/route.c:5404 [inline]\n  inet6_rtm_newroute+0x1d0f/0x2300 net/ipv6/route.c:5517\n  rtnetlink_rcv_msg+0x885/0x1040 net/core/rtnetlink.c:6597\n  netlink_rcv_skb+0x1e3/0x430 net/netlink/af_netlink.c:2543\n  netlink_unicast_kernel net/netlink/af_netlink.c:1341 [inline]\n  netlink_unicast+0x7ea/0x980 net/netlink/af_netlink.c:1367\n  netlink_sendmsg+0xa3b/0xd70 net/netlink/af_netlink.c:1908\n  sock_sendmsg_nosec net/socket.c:730 [inline]\n  __sock_sendmsg+0x221/0x270 net/socket.c:745\n  ____sys_sendmsg+0x525/0x7d0 net/socket.c:2584\n  ___sys_sendmsg net/socket.c:2638 [inline]\n  __sys_sendmsg+0x2b0/0x3a0 net/socket.c:2667\n do_syscall_64+0xf9/0x240\n entry_SYSCALL_64_after_hwframe+0x6f/0x77\nRIP: 0033:0x7f73dd87dda9\nCode: 28 00 00 00 75 05 48 83 c4 28 c3 e8 e1 20 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48\nRSP: 002b:00007f73de6550c8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e\nRAX: ffffffffffffffda RBX: 00007f73dd9ac050 RCX: 00007f73dd87dda9\nRDX: 0000000000000000 RSI: 0000000020000140 RDI: 0000000000000005\nRBP: 00007f73dd8ca47a R08: 0000000000000000 R09: 0000000000000000\nR10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000\nR13: 000000000000006e R14: 00007f73dd9ac050 R15: 00007ffdbdeb7858\n </TASK>\n\nAllocated by task 23037:\n  kasan_save_stack mm/kasan/common.c:47 [inline]\n  kasan_save_track+0x3f/0x80 mm/kasan/common.c:68\n  poison_kmalloc_redzone mm/kasan/common.c:372 [inline]\n  __kasan_kmalloc+0x98/0xb0 mm/kasan/common.c:389\n  kasan_kmalloc include/linux/kasan.h:211 [inline]\n  __do_kmalloc_node mm/slub.c:3981 [inline]\n  __kmalloc+0x22e/0x490 mm/slub.c:3994\n  kmalloc include/linux/slab.h:594 [inline]\n  kzalloc include/linux/slab.h:711 [inline]\n  fib6_info_alloc+0x2e/0xf0 net/ipv6/ip6_fib.c:155\n  ip6_route_info_create+0x445/0x12b0 net/ipv6/route.c:3758\n  ip6_route_multipath_add net/ipv6/route.c:5298 [inline]\n  inet6_rtm_newroute+0x744/0x2300 net/ipv6/route.c:5517\n  rtnetlink_rcv_msg+0x885/0x1040 net/core/rtnetlink.c:6597\n  netlink_rcv_skb+0x1e3/0x430 net/netlink/af_netlink.c:2543\n  netlink_unicast_kernel net/netlink/af_netlink.c:1341 [inline]\n  netlink_unicast+0x7ea/0x980 net/netlink/af_netlink.c:1367\n  netlink_sendmsg+0xa3b/0xd70 net/netlink/af_netlink.c:1908\n  sock_sendmsg_nosec net/socket.c:730 [inline]\n  __sock_sendmsg+0x221/0x270 net/socket.c:745\n  ____sys_sendmsg+0x525/0x7d0 net/socket.c:2584\n  ___sys_sendmsg net/socket.c:2638 [inline]\n  __sys_sendmsg+0x2b0/0x3a0 net/socket.c:2667\n do_syscall_64+0xf9/0x240\n entry_SYSCALL_64_after_hwframe+0x6f/0x77\n\nFreed by task 16:\n  kasan_save_stack mm/kasan/common.c:47 [inline]\n  kasan_save_track+0x3f/0x80 mm/kasan/common.c:68\n  kasan_save_free_info+0x4e/0x60 mm/kasan/generic.c:640\n  poison_slab_object+0xa6/0xe0 m\n---truncated---",
+					"text": "A use-after-free flaw was found in ip6_route_mpath_notify() in the Linux kernel. This may lead to a crash.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -15757,7 +15757,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnfs: fix UAF in direct writes\n\nIn production we have been hitting the following warning consistently\n\n------------[ cut here ]------------\nrefcount_t: underflow; use-after-free.\nWARNING: CPU: 17 PID: 1800359 at lib/refcount.c:28 refcount_warn_saturate+0x9c/0xe0\nWorkqueue: nfsiod nfs_direct_write_schedule_work [nfs]\nRIP: 0010:refcount_warn_saturate+0x9c/0xe0\nPKRU: 55555554\nCall Trace:\n <TASK>\n ? __warn+0x9f/0x130\n ? refcount_warn_saturate+0x9c/0xe0\n ? report_bug+0xcc/0x150\n ? handle_bug+0x3d/0x70\n ? exc_invalid_op+0x16/0x40\n ? asm_exc_invalid_op+0x16/0x20\n ? refcount_warn_saturate+0x9c/0xe0\n nfs_direct_write_schedule_work+0x237/0x250 [nfs]\n process_one_work+0x12f/0x4a0\n worker_thread+0x14e/0x3b0\n ? ZSTD_getCParams_internal+0x220/0x220\n kthread+0xdc/0x120\n ? __btf_name_valid+0xa0/0xa0\n ret_from_fork+0x1f/0x30\n\nThis is because we're completing the nfs_direct_request twice in a row.\n\nThe source of this is when we have our commit requests to submit, we\nprocess them and send them off, and then in the completion path for the\ncommit requests we have\n\nif (nfs_commit_end(cinfo.mds))\n\tnfs_direct_write_complete(dreq);\n\nHowever since we're submitting asynchronous requests we sometimes have\none that completes before we submit the next one, so we end up calling\ncomplete on the nfs_direct_request twice.\n\nThe only other place we use nfs_generic_commit_list() is in\n__nfs_commit_inode, which wraps this call in a\n\nnfs_commit_begin();\nnfs_commit_end();\n\nWhich is a common pattern for this style of completion handling, one\nthat is also repeated in the direct code with get_dreq()/put_dreq()\ncalls around where we process events as well as in the completion paths.\n\nFix this by using the same pattern for the commit requests.\n\nBefore with my 200 node rocksdb stress running this warning would pop\nevery 10ish minutes.  With my patch the stress test has been running for\nseveral hours without popping.",
+					"text": "A use-after-free flaw was found in fs/nfs/direct.c in the Linux kernel. This may lead to a crash.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -18865,7 +18865,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\next4: fix corruption during on-line resize\n\nWe observed a corruption during on-line resize of a file system that is\nlarger than 16 TiB with 4k block size. With having more then 2^32 blocks\nresize_inode is turned off by default by mke2fs. The issue can be\nreproduced on a smaller file system for convenience by explicitly\nturning off resize_inode. An on-line resize across an 8 GiB boundary (the\nsize of a meta block group in this setup) then leads to a corruption:\n\n  dev=/dev/<some_dev> # should be >= 16 GiB\n  mkdir -p /corruption\n  /sbin/mke2fs -t ext4 -b 4096 -O ^resize_inode $dev $((2 * 2**21 - 2**15))\n  mount -t ext4 $dev /corruption\n\n  dd if=/dev/zero bs=4096 of=/corruption/test count=$((2*2**21 - 4*2**15))\n  sha1sum /corruption/test\n  # 79d2658b39dcfd77274e435b0934028adafaab11  /corruption/test\n\n  /sbin/resize2fs $dev $((2*2**21))\n  # drop page cache to force reload the block from disk\n  echo 1 > /proc/sys/vm/drop_caches\n\n  sha1sum /corruption/test\n  # 3c2abc63cbf1a94c9e6977e0fbd72cd832c4d5c3  /corruption/test\n\n2^21 = 2^15*2^6 equals 8 GiB whereof 2^15 is the number of blocks per\nblock group and 2^6 are the number of block groups that make a meta\nblock group.\n\nThe last checksum might be different depending on how the file is laid\nout across the physical blocks. The actual corruption occurs at physical\nblock 63*2^15 = 2064384 which would be the location of the backup of the\nmeta block group's block descriptor. During the on-line resize the file\nsystem will be converted to meta_bg starting at s_first_meta_bg which is\n2 in the example - meaning all block groups after 16 GiB. However, in\next4_flex_group_add we might add block groups that are not part of the\nfirst meta block group yet. In the reproducer we achieved this by\nsubstracting the size of a whole block group from the point where the\nmeta block group would start. This must be considered when updating the\nbackup block group descriptors to follow the non-meta_bg layout. The fix\nis to add a test whether the group to add is already part of the meta\nblock group or not.",
+					"text": "A vulnerability was found in the ext4 filesystem in the Linux kernel during on-line resizing operations. When an ext4 filesystem is resized while mounted, it could lead to data corruption.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -19097,7 +19097,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/vmwgfx: Fix the lifetime of the bo cursor memory\n\nThe cleanup can be dispatched while the atomic update is still active,\nwhich means that the memory acquired in the atomic update needs to\nnot be invalidated by the cleanup. The buffer objects in vmw_plane_state\ninstead of using the builtin map_and_cache were trying to handle\nthe lifetime of the mapped memory themselves, leading to crashes.\n\nUse the map_and_cache instead of trying to manage the lifetime of the\nbuffer objects held by the vmw_plane_state.\n\nFixes kernel oops'es in IGT's kms_cursor_legacy forked-bo.",
+					"text": "A vulnerability was found in the drm/vmwgfx driver in the Linux kernel, concerning the lifetime management of the buffer object (BO) cursor memory. This issue occurs due to improper handling of the cursor memory's lifecycle, which could lead to use-after-free errors or crashes.",
 					"title": "Vulnerability description"
 				},
 				{
