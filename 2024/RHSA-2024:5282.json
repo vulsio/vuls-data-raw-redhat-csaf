@@ -87,9 +87,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-09-16T20:45:36+00:00",
+			"current_release_date": "2024-09-23T16:08:39+00:00",
 			"generator": {
-				"date": "2024-09-16T20:45:36+00:00",
+				"date": "2024-09-23T16:08:39+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "3.33.3"
@@ -109,7 +109,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-16T20:45:36+00:00",
+					"date": "2024-09-23T16:08:39+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -651,7 +651,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nNFSD: Fix the behavior of READ near OFFSET_MAX\n\nDan Aloni reports:\n> Due to commit 8cfb9015280d (\"NFS: Always provide aligned buffers to\n> the RPC read layers\") on the client, a read of 0xfff is aligned up\n> to server rsize of 0x1000.\n>\n> As a result, in a test where the server has a file of size\n> 0x7fffffffffffffff, and the client tries to read from the offset\n> 0x7ffffffffffff000, the read causes loff_t overflow in the server\n> and it returns an NFS code of EINVAL to the client. The client as\n> a result indefinitely retries the request.\n\nThe Linux NFS client does not handle NFS?ERR_INVAL, even though all\nNFS specifications permit servers to return that status code for a\nREAD.\n\nInstead of NFS?ERR_INVAL, have out-of-range READ requests succeed\nand return a short result. Set the EOF flag in the result to prevent\nthe client from retrying the READ request. This behavior appears to\nbe consistent with Solaris NFS servers.\n\nNote that NFSv3 and NFSv4 use u64 offset values on the wire. These\nmust be converted to loff_t internally before use -- an implicit\ntype cast is not adequate for this purpose. Otherwise VFS checks\nagainst sb->s_maxbytes do not work properly.",
+					"text": "A vulnerability was found in the Linux kernel's NFSD, where improper handling of read requests near the maximum offset can lead to an integer overflow. When a client attempts to read from a near-maximum offset, it causes the server to return an invalid NFS error, resulting in indefinite retries by the client. This behavior can disrupt file access and stability in networked environments.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -771,6 +771,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:5282"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64"
+					]
 				}
 			],
 			"scores": [
@@ -965,6 +1003,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:5282"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64"
+					]
 				}
 			],
 			"scores": [
@@ -1163,6 +1239,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:5282"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64"
+					]
 				}
 			],
 			"scores": [
@@ -1802,6 +1916,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:5282"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"NFV-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"NFV-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.src",
+						"RT-8.4.0.Z.TUS:kernel-rt-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-core-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debug-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-devel-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-kvm-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64",
+						"RT-8.4.0.Z.TUS:kernel-rt-modules-extra-0:4.18.0-305.138.1.rt7.214.el8_4.x86_64"
+					]
 				}
 			],
 			"scores": [
