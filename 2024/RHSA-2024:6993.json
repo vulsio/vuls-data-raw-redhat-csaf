@@ -247,12 +247,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security update",
 		"tracking": {
-			"current_release_date": "2024-09-24T09:21:54+00:00",
+			"current_release_date": "2024-09-24T18:11:09+00:00",
 			"generator": {
-				"date": "2024-09-24T09:21:54+00:00",
+				"date": "2024-09-24T18:11:09+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.33.3"
+					"version": "4.0.0"
 				}
 			},
 			"id": "RHSA-2024:6993",
@@ -269,7 +269,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-24T09:21:54+00:00",
+					"date": "2024-09-24T18:11:09+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -15981,7 +15981,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nmptcp: fix data re-injection from stale subflow\n\nWhen the MPTCP PM detects that a subflow is stale, all the packet\nscheduler must re-inject all the mptcp-level unacked data. To avoid\nacquiring unneeded locks, it first try to check if any unacked data\nis present at all in the RTX queue, but such check is currently\nbroken, as it uses TCP-specific helper on an MPTCP socket.\n\nFunnily enough fuzzers and static checkers are happy, as the accessed\nmemory still belongs to the mptcp_sock struct, and even from a\nfunctional perspective the recovery completed successfully, as\nthe short-cut test always failed.\n\nA recent unrelated TCP change - commit d5fed5addb2b (\"tcp: reorganize\ntcp_sock fast path variables\") - exposed the issue, as the tcp field\nreorganization makes the mptcp code always skip the re-inection.\n\nFix the issue dropping the bogus call: we are on a slow path, the early\noptimization proved once again to be evil.",
+					"text": "A flaw was found in the Linux kernel. A logical error in the Multipath TCP packet manager causes some packets intended for retransmission to be lost, resulting in a potential denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -32978,13 +32978,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "A vulnerability was found in the Linux kernel's tcp_metrics subsystem, where insufficient validation of the length of the source address for TCP metrics could lead to buffer overflows, memory corruption, or crashes.",
+					"text": "A vulnerability was found in the Linux kernel's tcp_metrics.c, where insufficient validation of the length of the source address for TCP metrics could lead to incorrect memory read (out of boundary read).",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: tcp_metrics: validate source addr length",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "The impact level is limited, because:\n1. Missed check existed before and worked correctly (because by default it worked for int32 value, even if it was not specified exactly).\n2. Even if for some specific case fail could happen, still it can lead only to incorrect memory read.\n3. Even if memory corruption happens, it should not lead to anything apart from incorrect tcp-ip statistics output to the local user.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",

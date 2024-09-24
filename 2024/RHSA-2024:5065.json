@@ -117,9 +117,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security update",
 		"tracking": {
-			"current_release_date": "2024-09-24T08:37:26+00:00",
+			"current_release_date": "2024-09-24T14:26:17+00:00",
 			"generator": {
-				"date": "2024-09-24T08:37:26+00:00",
+				"date": "2024-09-24T14:26:17+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "3.33.3"
@@ -139,7 +139,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-24T08:37:26+00:00",
+					"date": "2024-09-24T14:26:17+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -5455,7 +5455,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nmptcp: fix data re-injection from stale subflow\n\nWhen the MPTCP PM detects that a subflow is stale, all the packet\nscheduler must re-inject all the mptcp-level unacked data. To avoid\nacquiring unneeded locks, it first try to check if any unacked data\nis present at all in the RTX queue, but such check is currently\nbroken, as it uses TCP-specific helper on an MPTCP socket.\n\nFunnily enough fuzzers and static checkers are happy, as the accessed\nmemory still belongs to the mptcp_sock struct, and even from a\nfunctional perspective the recovery completed successfully, as\nthe short-cut test always failed.\n\nA recent unrelated TCP change - commit d5fed5addb2b (\"tcp: reorganize\ntcp_sock fast path variables\") - exposed the issue, as the tcp field\nreorganization makes the mptcp code always skip the re-inection.\n\nFix the issue dropping the bogus call: we are on a slow path, the early\noptimization proved once again to be evil.",
+					"text": "A flaw was found in the Linux kernel. A logical error in the Multipath TCP packet manager causes some packets intended for retransmission to be lost, resulting in a potential denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
