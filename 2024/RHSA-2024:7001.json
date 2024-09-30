@@ -672,9 +672,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-09-28T00:25:31+00:00",
+			"current_release_date": "2024-09-30T16:04:16+00:00",
 			"generator": {
-				"date": "2024-09-28T00:25:31+00:00",
+				"date": "2024-09-30T16:04:16+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "4.0.0"
@@ -694,7 +694,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-28T00:25:31+00:00",
+					"date": "2024-09-30T16:04:16+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -25266,13 +25266,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nftruncate: pass a signed offset\n\nThe old ftruncate() syscall, using the 32-bit off_t misses a sign\nextension when called in compat mode on 64-bit architectures.  As a\nresult, passing a negative length accidentally succeeds in truncating\nto file size between 2GiB and 4GiB.\n\nChanging the type of the compat syscall to the signed compat_off_t\nchanges the behavior so it instead returns -EINVAL.\n\nThe native entry point, the truncate() syscall and the corresponding\nloff_t based variants are all correct already and do not suffer\nfrom this mistake.",
+					"text": "An unexpected file truncate flaw was found when opening files with specific parameters in the Linux kernel's file-system. This vulnerability allows a local user to corrupt specific files when having access to these files.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: ftruncate: pass a signed offset",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue only occurs in compact mode on 64-bit architectures.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -25386,6 +25391,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:7001"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.src",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.src",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64"
+					]
 				}
 			],
 			"scores": [
@@ -25394,14 +25437,14 @@
 						"attackComplexity": "HIGH",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "NONE",
-						"baseScore": 6.3,
+						"baseScore": 5.7,
 						"baseSeverity": "MEDIUM",
 						"confidentialityImpact": "HIGH",
 						"integrityImpact": "HIGH",
-						"privilegesRequired": "LOW",
+						"privilegesRequired": "HIGH",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:N",
 						"version": "3.1"
 					},
 					"products": [
@@ -25464,13 +25507,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\npinctrl: fix deadlock in create_pinctrl() when handling -EPROBE_DEFER\n\nIn create_pinctrl(), pinctrl_maps_mutex is acquired before calling\nadd_setting(). If add_setting() returns -EPROBE_DEFER, create_pinctrl()\ncalls pinctrl_free(). However, pinctrl_free() attempts to acquire\npinctrl_maps_mutex, which is already held by create_pinctrl(), leading to\na potential deadlock.\n\nThis patch resolves the issue by releasing pinctrl_maps_mutex before\ncalling pinctrl_free(), preventing the deadlock.\n\nThis bug was discovered and resolved using Coverity Static Analysis\nSecurity Testing (SAST) by Synopsys, Inc.",
+					"text": "A deadlock flaw was found in the Linux kernel’s pinctrl subsystem. This flaw allows a local user to crash the system.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: pinctrl: fix deadlock in create_pinctrl() when handling -EPROBE_DEFER",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "No known reproducer for this issue. It can happen due to some complex preconditions and in-error path handling.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -25584,6 +25632,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:7001"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.src",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.src",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-core-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-devel-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-kvm-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-modules-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-modules-extra-0:4.18.0-553.22.1.rt7.363.el8_10.x86_64"
+					]
 				}
 			],
 			"scores": [
