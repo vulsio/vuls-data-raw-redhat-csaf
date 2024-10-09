@@ -4,7 +4,7 @@
 			"namespace": "https://access.redhat.com/security/updates/classification/",
 			"text": "Important"
 		},
-		"category": "csaf_informational_advisory",
+		"category": "csaf_vex",
 		"csaf_version": "2.0",
 		"distribution": {
 			"text": "Copyright © Red Hat, Inc. All rights reserved.",
@@ -67,17 +67,17 @@
 			{
 				"category": "self",
 				"summary": "Canonical URL",
-				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2024/rhsa-2024_4125.json"
+				"url": "https://security.access.redhat.com/data/csaf/v2/advisories/2024/rhsa-2024_4125.json"
 			}
 		],
 		"title": "Red Hat Security Advisory: Red Hat Service Interconnect 1.4.5 Release security update",
 		"tracking": {
-			"current_release_date": "2024-08-19T17:03:15+00:00",
+			"current_release_date": "2024-10-09T08:11:06+00:00",
 			"generator": {
-				"date": "2024-08-19T17:03:15+00:00",
+				"date": "2024-10-09T08:11:06+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.32.0"
+					"version": "4.0.1"
 				}
 			},
 			"id": "RHSA-2024:4125",
@@ -94,7 +94,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-08-19T17:03:15+00:00",
+					"date": "2024-10-09T08:11:06+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -111,9 +111,9 @@
 						"branches": [
 							{
 								"category": "product_name",
-								"name": "8Base-Service-Interconnect-1.4",
+								"name": "Red Hat Service Interconnect 1.4",
 								"product": {
-									"name": "8Base-Service-Interconnect-1.4",
+									"name": "Red Hat Service Interconnect 1.4",
 									"product_id": "8Base-Service-Interconnect-1.4",
 									"product_identification_helper": {
 										"cpe": "cpe:/a:redhat:service_interconnect:1.4::el8"
@@ -200,7 +200,7 @@
 			{
 				"category": "default_component_of",
 				"full_product_name": {
-					"name": "skupper-cli-0:1.4.5-1.el8.src as a component of 8Base-Service-Interconnect-1.4",
+					"name": "skupper-cli-0:1.4.5-1.el8.src as a component of Red Hat Service Interconnect 1.4",
 					"product_id": "8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src"
 				},
 				"product_reference": "skupper-cli-0:1.4.5-1.el8.src",
@@ -209,7 +209,7 @@
 			{
 				"category": "default_component_of",
 				"full_product_name": {
-					"name": "skupper-cli-0:1.4.5-1.el8.x86_64 as a component of 8Base-Service-Interconnect-1.4",
+					"name": "skupper-cli-0:1.4.5-1.el8.x86_64 as a component of Red Hat Service Interconnect 1.4",
 					"product_id": "8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64"
 				},
 				"product_reference": "skupper-cli-0:1.4.5-1.el8.x86_64",
@@ -234,5 +234,308 @@
 				"relates_to_product_reference": "9Base-Service-Interconnect-1.4"
 			}
 		]
-	}
+	},
+	"vulnerabilities": [
+		{
+			"acknowledgments": [
+				{
+					"names": [
+						"Bartek Nowotarski"
+					],
+					"organization": "nowotarski.info"
+				}
+			],
+			"cve": "CVE-2023-45288",
+			"cwe": {
+				"id": "CWE-400",
+				"name": "Uncontrolled Resource Consumption"
+			},
+			"discovery_date": "2024-03-06T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2268273"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A vulnerability was discovered with the implementation of the HTTP/2 protocol in the Go programming language. There were insufficient limitations on the amount of CONTINUATION frames sent within a single stream. An attacker could potentially exploit this to cause a Denial of Service (DoS) attack.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang: net/http, x/net/http2: unlimited number of CONTINUATION frames causes DoS",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "Red Hat rates the security impact of this vulnerability as Important due to the worst case scenario resulting in a denial of service. It is simple to exploit, could significantly impact availability, and there is not a suitable mitigation for all use cases. Once an attack has ended, the system should return to normal operations on its own.\n\nThis vulnerability only impacts servers which have HTTP/2 enabled. It stems from an imperfect definition of the protocol. As the Go programming language is widely utilized across nearly every major Red Hat offering, a full listing of impacted packages will not be provided. Therefore, the “Affected Packages and Issued Red Hat Security Errata” section contains a simplified list of what offerings need to remediate this vulnerability. Every impacted offering has at least one representative component listed, but potentially not all of them. Rest assured that Red Hat is committed to remediating this vulnerability across our entire portfolio.\n\nMany components are rated as Low impact due to configurations which reduce the attack surface or  significantly increase the difficulty of exploitation. A summary of these scenarios are:\n* The container includes a package that provides a vulnerable webserver, but it is not used or running during operation\n* HTTP/2 is disabled by default and is not supported\n* Only a client implementation is provided, which is not vulnerable\n* A vulnerable module (either golang.org/net/http or golang.org/x/net/http2) is included, but disabled\n* Access to a vulnerable server is restricted within the container (loopback only connections)\n* Golang is available in the container but is not used\n\n\nWithin the Red Hat OpenShift Container Platform, the majority of vulnerable components are not externally accessible. This means an attacker must already have access to a container within your environment to exploit this vulnerability. However, the ose-hyperkube (openshift-enterprise-hyperkube) container is externally accessible, so there are less barriers to exploitation. Fixes for this specific container are already available.\n\nWithin Red Hat Ansible Automation Platform, the impacted component is Receptor. The impact has been reduced to Low as the vulnerable code is present, but not utilized. There are three potential exposures within this component:\n* Receptor utilizes QUIC a UDP based protocol which does not run over HTTP/2\n* Receptor utilizes the x/net/ipv4 and ipv6 packages, both of which are not affected",
+					"title": "Statement"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+					"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+					"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+					"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2023-45288"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2268273",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2268273"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2023-45288",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2023-45288"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2023-45288",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2023-45288"
+				},
+				{
+					"category": "external",
+					"summary": "https://nowotarski.info/http2-continuation-flood/",
+					"url": "https://nowotarski.info/http2-continuation-flood/"
+				},
+				{
+					"category": "external",
+					"summary": "https://pkg.go.dev/vuln/GO-2024-2687",
+					"url": "https://pkg.go.dev/vuln/GO-2024-2687"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.kb.cert.org/vuls/id/421644",
+					"url": "https://www.kb.cert.org/vuls/id/421644"
+				}
+			],
+			"release_date": "2024-04-03T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:4125"
+				},
+				{
+					"category": "workaround",
+					"details": "In some environments where http/2 support is not required, it may be possible to disable this feature to reduce risk.",
+					"product_ids": [
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "LOW",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "HIGH",
+						"baseScore": 7.5,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "NONE",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Important"
+				}
+			],
+			"title": "golang: net/http, x/net/http2: unlimited number of CONTINUATION frames causes DoS"
+		},
+		{
+			"cve": "CVE-2024-24783",
+			"cwe": {
+				"id": "CWE-400",
+				"name": "Uncontrolled Resource Consumption"
+			},
+			"discovery_date": "2024-03-05T00:00:00+00:00",
+			"ids": [
+				{
+					"system_name": "Red Hat Bugzilla ID",
+					"text": "2268019"
+				}
+			],
+			"notes": [
+				{
+					"category": "description",
+					"text": "A flaw was found in Go's crypto/x509 standard library package. Verifying a certificate chain that contains a certificate with an unknown public key algorithm will cause a Certificate.Verify to panic. This issue affects all crypto/tls clients and servers that set Config.ClientAuth to VerifyClientCertIfGiven or RequireAndVerifyClientCert.",
+					"title": "Vulnerability description"
+				},
+				{
+					"category": "summary",
+					"text": "golang: crypto/x509: Verify panics on certificates with an unknown public key algorithm",
+					"title": "Vulnerability summary"
+				},
+				{
+					"category": "general",
+					"text": "The CVSS score(s) listed for this vulnerability do not reflect the associated product's status, and are included for informational purposes to better understand the severity of this vulnerability.",
+					"title": "CVSS score applicability"
+				}
+			],
+			"product_status": {
+				"fixed": [
+					"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+					"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+					"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+					"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+				]
+			},
+			"references": [
+				{
+					"category": "self",
+					"summary": "Canonical URL",
+					"url": "https://access.redhat.com/security/cve/CVE-2024-24783"
+				},
+				{
+					"category": "external",
+					"summary": "RHBZ#2268019",
+					"url": "https://bugzilla.redhat.com/show_bug.cgi?id=2268019"
+				},
+				{
+					"category": "external",
+					"summary": "https://www.cve.org/CVERecord?id=CVE-2024-24783",
+					"url": "https://www.cve.org/CVERecord?id=CVE-2024-24783"
+				},
+				{
+					"category": "external",
+					"summary": "https://nvd.nist.gov/vuln/detail/CVE-2024-24783",
+					"url": "https://nvd.nist.gov/vuln/detail/CVE-2024-24783"
+				},
+				{
+					"category": "external",
+					"summary": "http://www.openwall.com/lists/oss-security/2024/03/08/4",
+					"url": "http://www.openwall.com/lists/oss-security/2024/03/08/4"
+				},
+				{
+					"category": "external",
+					"summary": "https://github.com/advisories/GHSA-3q2c-pvp5-3cqp",
+					"url": "https://github.com/advisories/GHSA-3q2c-pvp5-3cqp"
+				},
+				{
+					"category": "external",
+					"summary": "https://go.dev/cl/569339",
+					"url": "https://go.dev/cl/569339"
+				},
+				{
+					"category": "external",
+					"summary": "https://go.dev/issue/65390",
+					"url": "https://go.dev/issue/65390"
+				},
+				{
+					"category": "external",
+					"summary": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg",
+					"url": "https://groups.google.com/g/golang-announce/c/5pwGVUPoMbg"
+				},
+				{
+					"category": "external",
+					"summary": "https://pkg.go.dev/vuln/GO-2024-2598",
+					"url": "https://pkg.go.dev/vuln/GO-2024-2598"
+				},
+				{
+					"category": "external",
+					"summary": "https://security.netapp.com/advisory/ntap-20240329-0005",
+					"url": "https://security.netapp.com/advisory/ntap-20240329-0005"
+				}
+			],
+			"release_date": "2024-03-05T00:00:00+00:00",
+			"remediations": [
+				{
+					"category": "vendor_fix",
+					"details": "Before applying this update, make sure all previously released errata\nrelevant to your system have been applied.\n\nFor details on how to apply this update, refer to:\n\nhttps://access.redhat.com/articles/11258",
+					"product_ids": [
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+					],
+					"restart_required": {
+						"category": "none"
+					},
+					"url": "https://access.redhat.com/errata/RHSA-2024:4125"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options don't meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+					]
+				}
+			],
+			"scores": [
+				{
+					"cvss_v3": {
+						"attackComplexity": "HIGH",
+						"attackVector": "NETWORK",
+						"availabilityImpact": "NONE",
+						"baseScore": 5.9,
+						"baseSeverity": "MEDIUM",
+						"confidentialityImpact": "NONE",
+						"integrityImpact": "HIGH",
+						"privilegesRequired": "NONE",
+						"scope": "UNCHANGED",
+						"userInteraction": "NONE",
+						"vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+						"version": "3.1"
+					},
+					"products": [
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.src",
+						"8Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el8.x86_64",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.src",
+						"9Base-Service-Interconnect-1.4:skupper-cli-0:1.4.5-1.el9.x86_64"
+					]
+				}
+			],
+			"threats": [
+				{
+					"category": "impact",
+					"details": "Moderate"
+				}
+			],
+			"title": "golang: crypto/x509: Verify panics on certificates with an unknown public key algorithm"
+		}
+	]
 }
