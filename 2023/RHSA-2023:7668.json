@@ -34,7 +34,7 @@
 		"publisher": {
 			"category": "vendor",
 			"contact_details": "https://access.redhat.com/security/team/contact/",
-			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat offerings.",
+			"issuing_authority": "Red Hat Product Security is responsible for vulnerability handling across all Red Hat products and services.",
 			"name": "Red Hat Product Security",
 			"namespace": "https://www.redhat.com"
 		},
@@ -62,17 +62,17 @@
 			{
 				"category": "self",
 				"summary": "Canonical URL",
-				"url": "https://access.redhat.com/security/data/csaf/v2/advisories/2023/rhsa-2023_7668.json"
+				"url": "https://security.access.redhat.com/data/csaf/v2/advisories/2023/rhsa-2023_7668.json"
 			}
 		],
 		"title": "Red Hat Security Advisory: squid:4 security update",
 		"tracking": {
-			"current_release_date": "2024-09-16T15:58:53+00:00",
+			"current_release_date": "2024-10-24T17:57:05+00:00",
 			"generator": {
-				"date": "2024-09-16T15:58:53+00:00",
+				"date": "2024-10-24T17:57:05+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "3.33.3"
+					"version": "4.1.0"
 				}
 			},
 			"id": "RHSA-2023:7668",
@@ -89,7 +89,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-09-16T15:58:53+00:00",
+					"date": "2024-10-24T17:57:05+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -800,13 +800,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "Squid is vulnerable to Denial of Service attack against HTTP and HTTPS clients due to an Improper Handling of Structural Elements bug.",
+					"text": "A flaw was found in Squid. The limits applied for validation of HTTP response headers are applied before caching. However, Squid may grow a cached HTTP response header beyond the configured maximum size, causing a stall or crash of the worker process when a large header is retrieved from the disk cache, resulting in a denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "squid: DoS against HTTP and HTTPS",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability only affects configurations with the `cache_dir` directive enabled. If this directive is not enabled, the Squid server is not vulnerable and no further mitigation is needed. For more information about the mitigation, see the mitigation section below.\n\nThe `cache_dir` directive is disabled by default in Squid shipped in Red Hat Enterprise Linux 6, 7, 8 and 9. Therefore, these Red Hat Enterprise Linux versions are not vulnerable with the default configuration.\n\nRed Hat is not planning to address this issue in Red Hat Enterprise Linux 6 and 7 due to the changes required and the magnitude of the differences between Squid 3 and 4 code bases, backporting the changes to the Squid 3 code base has not been feasible.\n\nWe recommend that customers using Squid as a caching proxy on Red Hat Enterprise Linux 6 and 7 to upgrade to Red Hat Enterprise Linux 8 and 9 to use Squid version 4 or version 5, respectively. Alternatively, see the mitigation section below for a way to workaround this vulnerability.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -918,6 +923,43 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2023:7668"
+				},
+				{
+					"category": "workaround",
+					"details": "Disabling the disk caching mechanism will mitigate this vulnerability. To achieve this, remove all the 'cache_dir' directives from the Squid configuration, typically in the /etc/squid/squid.conf file.",
+					"product_ids": [
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-0:1.0.1-2.module+el8.9.0+19703+a1da7223.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-0:1.0.1-2.module+el8.9.0+19703+a1da7223.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-0:1.0.1-2.module+el8.9.0+19703+a1da7223.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-0:1.0.1-2.module+el8.9.0+19703+a1da7223.src",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-0:1.0.1-2.module+el8.9.0+19703+a1da7223.x86_64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debuginfo-0:1.0.1-2.module+el8.9.0+19703+a1da7223.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debuginfo-0:1.0.1-2.module+el8.9.0+19703+a1da7223.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debuginfo-0:1.0.1-2.module+el8.9.0+19703+a1da7223.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debuginfo-0:1.0.1-2.module+el8.9.0+19703+a1da7223.x86_64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debugsource-0:1.0.1-2.module+el8.9.0+19703+a1da7223.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debugsource-0:1.0.1-2.module+el8.9.0+19703+a1da7223.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debugsource-0:1.0.1-2.module+el8.9.0+19703+a1da7223.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-debugsource-0:1.0.1-2.module+el8.9.0+19703+a1da7223.x86_64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-devel-0:1.0.1-2.module+el8.9.0+19703+a1da7223.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-devel-0:1.0.1-2.module+el8.9.0+19703+a1da7223.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-devel-0:1.0.1-2.module+el8.9.0+19703+a1da7223.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:libecap-devel-0:1.0.1-2.module+el8.9.0+19703+a1da7223.x86_64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-7:4.15-7.module+el8.9.0+20806+014d88aa.3.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-7:4.15-7.module+el8.9.0+20806+014d88aa.3.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-7:4.15-7.module+el8.9.0+20806+014d88aa.3.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-7:4.15-7.module+el8.9.0+20806+014d88aa.3.src",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-7:4.15-7.module+el8.9.0+20806+014d88aa.3.x86_64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debuginfo-7:4.15-7.module+el8.9.0+20806+014d88aa.3.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debuginfo-7:4.15-7.module+el8.9.0+20806+014d88aa.3.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debuginfo-7:4.15-7.module+el8.9.0+20806+014d88aa.3.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debuginfo-7:4.15-7.module+el8.9.0+20806+014d88aa.3.x86_64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debugsource-7:4.15-7.module+el8.9.0+20806+014d88aa.3.aarch64",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debugsource-7:4.15-7.module+el8.9.0+20806+014d88aa.3.ppc64le",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debugsource-7:4.15-7.module+el8.9.0+20806+014d88aa.3.s390x",
+						"AppStream-8.9.0.Z.MAIN:squid:4:8090020231130092412:a75119d5:squid-debugsource-7:4.15-7.module+el8.9.0+20806+014d88aa.3.x86_64"
+					]
 				}
 			],
 			"scores": [
