@@ -127,12 +127,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-11-14T09:25:45+00:00",
+			"current_release_date": "2024-11-15T18:41:30+00:00",
 			"generator": {
-				"date": "2024-11-14T09:25:45+00:00",
+				"date": "2024-11-15T18:41:30+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "4.2.0"
+					"version": "4.2.1"
 				}
 			},
 			"id": "RHSA-2024:6268",
@@ -149,7 +149,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-11-14T09:25:45+00:00",
+					"date": "2024-11-15T18:41:30+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -1368,7 +1368,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nbpf, sockmap: Prevent lock inversion deadlock in map delete elem\n\nsyzkaller started using corpuses where a BPF tracing program deletes\nelements from a sockmap/sockhash map. Because BPF tracing programs can be\ninvoked from any interrupt context, locks taken during a map_delete_elem\noperation must be hardirq-safe. Otherwise a deadlock due to lock inversion\nis possible, as reported by lockdep:\n\n       CPU0                    CPU1\n       ----                    ----\n  lock(&htab->buckets[i].lock);\n                               local_irq_disable();\n                               lock(&host->lock);\n                               lock(&htab->buckets[i].lock);\n  <Interrupt>\n    lock(&host->lock);\n\nLocks in sockmap are hardirq-unsafe by design. We expects elements to be\ndeleted from sockmap/sockhash only in task (normal) context with interrupts\nenabled, or in softirq context.\n\nDetect when map_delete_elem operation is invoked from a context which is\n_not_ hardirq-unsafe, that is interrupts are disabled, and bail out with an\nerror.\n\nNote that map updates are not affected by this issue. BPF verifier does not\nallow updating sockmap/sockhash from a BPF tracing program today.",
+					"text": "The following vulnerability has been resolved in the Linux kernel: bpf, sockmap: Fix - Prevent lock inversion deadlock in map delete elem.",
 					"title": "Vulnerability description"
 				},
 				{
