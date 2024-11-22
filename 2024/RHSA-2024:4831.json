@@ -287,9 +287,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-11-15T20:38:12+00:00",
+			"current_release_date": "2024-11-21T21:00:05+00:00",
 			"generator": {
-				"date": "2024-11-15T20:38:12+00:00",
+				"date": "2024-11-21T21:00:05+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "4.2.1"
@@ -309,7 +309,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-11-15T20:38:12+00:00",
+					"date": "2024-11-21T21:00:05+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -7155,6 +7155,10 @@
 		},
 		{
 			"cve": "CVE-2024-26929",
+			"cwe": {
+				"id": "CWE-415",
+				"name": "Double Free"
+			},
 			"discovery_date": "2024-05-01T00:00:00+00:00",
 			"ids": [
 				{
@@ -7165,13 +7169,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nscsi: qla2xxx: Fix double free of fcport\n\nThe server was crashing after LOGO because fcport was getting freed twice.\n\n -----------[ cut here ]-----------\n kernel BUG at mm/slub.c:371!\n invalid opcode: 0000 1 SMP PTI\n CPU: 35 PID: 4610 Comm: bash Kdump: loaded Tainted: G OE --------- - - 4.18.0-425.3.1.el8.x86_64 #1\n Hardware name: HPE ProLiant DL360 Gen10/ProLiant DL360 Gen10, BIOS U32 09/03/2021\n RIP: 0010:set_freepointer.part.57+0x0/0x10\n RSP: 0018:ffffb07107027d90 EFLAGS: 00010246\n RAX: ffff9cb7e3150000 RBX: ffff9cb7e332b9c0 RCX: ffff9cb7e3150400\n RDX: 0000000000001f37 RSI: 0000000000000000 RDI: ffff9cb7c0005500\n RBP: fffff693448c5400 R08: 0000000080000000 R09: 0000000000000009\n R10: 0000000000000000 R11: 0000000000132af0 R12: ffff9cb7c0005500\n R13: ffff9cb7e3150000 R14: ffffffffc06990e0 R15: ffff9cb7ea85ea58\n FS: 00007ff6b79c2740(0000) GS:ffff9cb8f7ec0000(0000) knlGS:0000000000000000\n CS: 0010 DS: 0000 ES: 0000 CR0: 0000000080050033\n CR2: 000055b426b7d700 CR3: 0000000169c18002 CR4: 00000000007706e0\n DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000\n DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400\n PKRU: 55555554\n Call Trace:\n kfree+0x238/0x250\n qla2x00_els_dcmd_sp_free+0x20/0x230 [qla2xxx]\n ? qla24xx_els_dcmd_iocb+0x607/0x690 [qla2xxx]\n qla2x00_issue_logo+0x28c/0x2a0 [qla2xxx]\n ? qla2x00_issue_logo+0x28c/0x2a0 [qla2xxx]\n ? kernfs_fop_write+0x11e/0x1a0\n\nRemove one of the free calls and add check for valid fcport. Also use\nfunction qla2x00_free_fcport() instead of kfree().",
+					"text": "A flaw was found in the qla2xxx module in the Linux kernel. Under some conditions, the fcport can be freed twice due to a missing check of whether fcport is allocated, causing a double free and a system crash, resulting in a denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: scsi: qla2xxx: Fix double free of fcport",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability allows a local user to cause a denial of service, impacting only the availability of the system. For this reason, it was rated with a moderate severity.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -7293,6 +7302,48 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:4831"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [
@@ -7361,6 +7412,10 @@
 		},
 		{
 			"cve": "CVE-2024-26931",
+			"cwe": {
+				"id": "CWE-476",
+				"name": "NULL Pointer Dereference"
+			},
 			"discovery_date": "2024-05-01T00:00:00+00:00",
 			"ids": [
 				{
@@ -7371,13 +7426,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nscsi: qla2xxx: Fix command flush on cable pull\n\nSystem crash due to command failed to flush back to SCSI layer.\n\n BUG: unable to handle kernel NULL pointer dereference at 0000000000000000\n PGD 0 P4D 0\n Oops: 0000 [#1] SMP NOPTI\n CPU: 27 PID: 793455 Comm: kworker/u130:6 Kdump: loaded Tainted: G           OE    --------- -  - 4.18.0-372.9.1.el8.x86_64 #1\n Hardware name: HPE ProLiant DL360 Gen10/ProLiant DL360 Gen10, BIOS U32 09/03/2021\n Workqueue: nvme-wq nvme_fc_connect_ctrl_work [nvme_fc]\n RIP: 0010:__wake_up_common+0x4c/0x190\n Code: 24 10 4d 85 c9 74 0a 41 f6 01 04 0f 85 9d 00 00 00 48 8b 43 08 48 83 c3 08 4c 8d 48 e8 49 8d 41 18 48 39 c3 0f 84 f0 00 00 00 <49> 8b 41 18 89 54 24 08 31 ed 4c 8d 70 e8 45 8b 29 41 f6 c5 04 75\n RSP: 0018:ffff95f3e0cb7cd0 EFLAGS: 00010086\n RAX: 0000000000000000 RBX: ffff8b08d3b26328 RCX: 0000000000000000\n RDX: 0000000000000001 RSI: 0000000000000003 RDI: ffff8b08d3b26320\n RBP: 0000000000000001 R08: 0000000000000000 R09: ffffffffffffffe8\n R10: 0000000000000000 R11: ffff95f3e0cb7a60 R12: ffff95f3e0cb7d20\n R13: 0000000000000003 R14: 0000000000000000 R15: 0000000000000000\n FS:  0000000000000000(0000) GS:ffff8b2fdf6c0000(0000) knlGS:0000000000000000\n CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033\n CR2: 0000000000000000 CR3: 0000002f1e410002 CR4: 00000000007706e0\n DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000\n DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400\n PKRU: 55555554\n Call Trace:\n  __wake_up_common_lock+0x7c/0xc0\n  qla_nvme_ls_req+0x355/0x4c0 [qla2xxx]\n qla2xxx [0000:12:00.1]-f084:3: qlt_free_session_done: se_sess 0000000000000000 / sess ffff8ae1407ca000 from port 21:32:00:02:ac:07:ee:b8 loop_id 0x02 s_id 01:02:00 logout 1 keep 0 els_logo 0\n ? __nvme_fc_send_ls_req+0x260/0x380 [nvme_fc]\n qla2xxx [0000:12:00.1]-207d:3: FCPort 21:32:00:02:ac:07:ee:b8 state transitioned from ONLINE to LOST - portid=010200.\n  ? nvme_fc_send_ls_req.constprop.42+0x1a/0x45 [nvme_fc]\n qla2xxx [0000:12:00.1]-2109:3: qla2x00_schedule_rport_del 21320002ac07eeb8. rport ffff8ae598122000 roles 1\n ? nvme_fc_connect_ctrl_work.cold.63+0x1e3/0xa7d [nvme_fc]\n qla2xxx [0000:12:00.1]-f084:3: qlt_free_session_done: se_sess 0000000000000000 / sess ffff8ae14801e000 from port 21:32:01:02:ad:f7:ee:b8 loop_id 0x04 s_id 01:02:01 logout 1 keep 0 els_logo 0\n  ? __switch_to+0x10c/0x450\n ? process_one_work+0x1a7/0x360\n qla2xxx [0000:12:00.1]-207d:3: FCPort 21:32:01:02:ad:f7:ee:b8 state transitioned from ONLINE to LOST - portid=010201.\n  ? worker_thread+0x1ce/0x390\n  ? create_worker+0x1a0/0x1a0\n qla2xxx [0000:12:00.1]-2109:3: qla2x00_schedule_rport_del 21320102adf7eeb8. rport ffff8ae3b2312800 roles 70\n  ? kthread+0x10a/0x120\n qla2xxx [0000:12:00.1]-2112:3: qla_nvme_unregister_remote_port: unregister remoteport on ffff8ae14801e000 21320102adf7eeb8\n  ? set_kthread_struct+0x40/0x40\n qla2xxx [0000:12:00.1]-2110:3: remoteport_delete of ffff8ae14801e000 21320102adf7eeb8 completed.\n  ? ret_from_fork+0x1f/0x40\n qla2xxx [0000:12:00.1]-f086:3: qlt_free_session_done: waiting for sess ffff8ae14801e000 logout\n\nThe system was under memory stress where driver was not able to allocate an\nSRB to carry out error recovery of cable pull.  The failure to flush causes\nupper layer to start modifying scsi_cmnd.  When the system frees up some\nmemory, the subsequent cable pull trigger another command flush. At this\npoint the driver access a null pointer when attempting to DMA unmap the\nSGL.\n\nAdd a check to make sure commands are flush back on session tear down to\nprevent the null pointer access.",
+					"text": "A flaw was found in the qla2xxx module in the Linux kernel. A NULL pointer dereference can be triggered when the system is under memory stress and the driver cannot allocate memory to handle the error recovery of cable pull, causing a system crash and a denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: scsi: qla2xxx: Fix command flush on cable pull",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability can only be triggered in out-of-memory conditions. For this reason, it was rated with a Moderate severity.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -7499,22 +7559,64 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:4831"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [
 				{
 					"cvss_v3": {
-						"attackComplexity": "LOW",
+						"attackComplexity": "HIGH",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "HIGH",
-						"baseScore": 5.5,
+						"baseScore": 5.1,
 						"baseSeverity": "MEDIUM",
 						"confidentialityImpact": "NONE",
 						"integrityImpact": "NONE",
-						"privilegesRequired": "LOW",
+						"privilegesRequired": "NONE",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
 						"version": "3.1"
 					},
 					"products": [
