@@ -347,9 +347,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security and bug fix update",
 		"tracking": {
-			"current_release_date": "2024-11-21T20:59:19+00:00",
+			"current_release_date": "2024-11-25T11:15:22+00:00",
 			"generator": {
-				"date": "2024-11-21T20:59:19+00:00",
+				"date": "2024-11-25T11:15:22+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "4.2.1"
@@ -369,7 +369,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-11-21T20:59:19+00:00",
+					"date": "2024-11-25T11:15:22+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -9427,6 +9427,10 @@
 		},
 		{
 			"cve": "CVE-2024-26982",
+			"cwe": {
+				"id": "CWE-125",
+				"name": "Out-of-bounds Read"
+			},
 			"discovery_date": "2024-05-01T00:00:00+00:00",
 			"ids": [
 				{
@@ -9437,13 +9441,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nSquashfs: check the inode number is not the invalid value of zero\n\nSyskiller has produced an out of bounds access in fill_meta_index().\n\nThat out of bounds access is ultimately caused because the inode\nhas an inode number with the invalid value of zero, which was not checked.\n\nThe reason this causes the out of bounds access is due to following\nsequence of events:\n\n1. Fill_meta_index() is called to allocate (via empty_meta_index())\n   and fill a metadata index.  It however suffers a data read error\n   and aborts, invalidating the newly returned empty metadata index.\n   It does this by setting the inode number of the index to zero,\n   which means unused (zero is not a valid inode number).\n\n2. When fill_meta_index() is subsequently called again on another\n   read operation, locate_meta_index() returns the previous index\n   because it matches the inode number of 0.  Because this index\n   has been returned it is expected to have been filled, and because\n   it hasn't been, an out of bounds access is performed.\n\nThis patch adds a sanity check which checks that the inode number\nis not zero when the inode is created and returns -EINVAL if it is.\n\n[phillip@squashfs.org.uk: whitespace fix]\n  Link: https://lkml.kernel.org/r/20240409204723.446925-1-phillip@squashfs.org.uk",
+					"text": "A flaw was found in the squashfs module in the Linux kernel. A missing check of an inode number with an invalid value of zero can cause an out-of-bounds read and result in a denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: Squashfs: check the inode number is not the invalid value of zero",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This vulnerability allows a local attacker to trigger an out-of-bounds read and cause a denial of service, impacting only the availability of the system. For this reason, it was rated with a Moderate severity.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -9557,6 +9566,44 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:4352"
+				},
+				{
+					"category": "workaround",
+					"details": "Mitigation for this issue is either not available or the currently available options do not meet the Red Hat Product Security criteria comprising ease of use and deployment, applicability to widespread installation base or stability.",
+					"product_ids": [
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.8.1.rt7.349.el8_10.src",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-core-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-core-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-debuginfo-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-devel-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-kvm-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-extra-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-devel-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-kvm-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-modules-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"NFV-8.10.0.Z.MAIN.EUS:kernel-rt-modules-extra-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.8.1.rt7.349.el8_10.src",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-core-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-core-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-debuginfo-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-devel-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-kvm-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debug-modules-extra-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-debuginfo-common-x86_64-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-devel-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-kvm-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-modules-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64",
+						"RT-8.10.0.Z.MAIN.EUS:kernel-rt-modules-extra-0:4.18.0-553.8.1.rt7.349.el8_10.x86_64"
+					]
 				}
 			],
 			"scores": [
