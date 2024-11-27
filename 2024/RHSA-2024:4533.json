@@ -137,9 +137,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security update",
 		"tracking": {
-			"current_release_date": "2024-11-24T17:14:21+00:00",
+			"current_release_date": "2024-11-27T13:56:38+00:00",
 			"generator": {
-				"date": "2024-11-24T17:14:21+00:00",
+				"date": "2024-11-27T13:56:38+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "4.2.1"
@@ -159,7 +159,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-11-24T17:14:21+00:00",
+					"date": "2024-11-27T13:56:38+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -22651,7 +22651,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nicmp: prevent possible NULL dereferences from icmp_build_probe()\n\nFirst problem is a double call to __in_dev_get_rcu(), because\nthe second one could return NULL.\n\nif (__in_dev_get_rcu(dev) && __in_dev_get_rcu(dev)->ifa_list)\n\nSecond problem is a read from dev->ip6_ptr with no NULL check:\n\nif (!list_empty(&rcu_dereference(dev->ip6_ptr)->addr_list))\n\nUse the correct RCU API to fix these.\n\nv2: add missing include <net/addrconf.h>",
+					"text": "A flaw was found in the Linux kernel's ICMP protocol. Under some conditions, a NULL pointer dereference can be triggered due to a missing check, causing a system crash and resulting in a denial of service.",
 					"title": "Vulnerability description"
 				},
 				{
