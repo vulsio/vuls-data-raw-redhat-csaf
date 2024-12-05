@@ -132,12 +132,12 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security update",
 		"tracking": {
-			"current_release_date": "2024-12-04T21:05:22+00:00",
+			"current_release_date": "2024-12-05T01:58:46+00:00",
 			"generator": {
-				"date": "2024-12-04T21:05:22+00:00",
+				"date": "2024-12-05T01:58:46+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
-					"version": "4.2.1"
+					"version": "4.2.2"
 				}
 			},
 			"id": "RHSA-2024:4447",
@@ -154,7 +154,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-12-04T21:05:22+00:00",
+					"date": "2024-12-05T01:58:46+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -9780,7 +9780,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: ena: Fix incorrect descriptor free behavior\n\nENA has two types of TX queues:\n- queues which only process TX packets arriving from the network stack\n- queues which only process TX packets forwarded to it by XDP_REDIRECT\n  or XDP_TX instructions\n\nThe ena_free_tx_bufs() cycles through all descriptors in a TX queue\nand unmaps + frees every descriptor that hasn't been acknowledged yet\nby the device (uncompleted TX transactions).\nThe function assumes that the processed TX queue is necessarily from\nthe first category listed above and ends up using napi_consume_skb()\nfor descriptors belonging to an XDP specific queue.\n\nThis patch solves a bug in which, in case of a VF reset, the\ndescriptors aren't freed correctly, leading to crashes.",
+					"text": "This is a vulnerability in the Linux kernel's Elastic Network Adapter (ENA) driver, which manages network interfaces on certain platforms. The driver utilizes two types of transmit (TX) queues: one for packets from the network stack and another for packets directed by XDP (eXpress Data Path) operations. The function ena_free_tx_bufs() is responsible for unmapping and freeing descriptors of uncompleted TX transactions. However, it incorrectly assumes that all TX queues handle packets from the network stack, leading to improper handling of descriptors in XDP-specific queues. This mismanagement can result in descriptors not being freed correctly, potentially causing system crashes, especially during a Virtual Function (VF) reset. The issue has been resolved by updating the driver to correctly differentiate between the two types of TX queues, ensuring proper descriptor management. Users are advised to update their Linux kernel to a version that includes this fix to maintain system stability.",
 					"title": "Vulnerability description"
 				},
 				{

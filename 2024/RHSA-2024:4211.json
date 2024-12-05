@@ -362,9 +362,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel security and bug fix update",
 		"tracking": {
-			"current_release_date": "2024-12-04T23:15:02+00:00",
+			"current_release_date": "2024-12-05T02:55:34+00:00",
 			"generator": {
-				"date": "2024-12-04T23:15:02+00:00",
+				"date": "2024-12-05T02:55:34+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "4.2.2"
@@ -384,7 +384,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-12-04T23:15:02+00:00",
+					"date": "2024-12-05T02:55:34+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -40657,7 +40657,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "The following vulnerability has been resolved in the Linux kernel: wifi: nl80211: Fix - Reject the iftype change with the mesh ID change.",
+					"text": "CVE-2024-27410 is a vulnerability in the Linux kernel’s Wi-Fi subsystem, affecting the nl80211 interface. The issue occurs when a mesh ID is set while simultaneously switching the interface to mesh mode, which can overwrite critical data in the wireless device's configuration. This can lead to unexpected behavior or instability. The issue has been resolved by preventing interface type changes during mesh ID updates. Users should update their kernel to a patched version to address this issue and ensure proper system functionality.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -41397,7 +41397,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nwifi: mac80211: check/clear fast rx for non-4addr sta VLAN changes\n\nWhen moving a station out of a VLAN and deleting the VLAN afterwards, the\nfast_rx entry still holds a pointer to the VLAN's netdev, which can cause\nuse-after-free bugs. Fix this by immediately calling ieee80211_check_fast_rx\nafter the VLAN change.",
+					"text": "CVE-2024-35789 is a vulnerability in the Linux kernel’s Wi-Fi subsystem (mac80211). It occurs when a station is moved out of a VLAN, and the VLAN is subsequently deleted. A reference to the deleted VLAN’s network device may remain, leading to a use-after-free condition. This can result in system instability or crashes. The issue has been resolved by ensuring that outdated references are cleared when a station changes VLANs.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -49246,7 +49246,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: ena: Fix incorrect descriptor free behavior\n\nENA has two types of TX queues:\n- queues which only process TX packets arriving from the network stack\n- queues which only process TX packets forwarded to it by XDP_REDIRECT\n  or XDP_TX instructions\n\nThe ena_free_tx_bufs() cycles through all descriptors in a TX queue\nand unmaps + frees every descriptor that hasn't been acknowledged yet\nby the device (uncompleted TX transactions).\nThe function assumes that the processed TX queue is necessarily from\nthe first category listed above and ends up using napi_consume_skb()\nfor descriptors belonging to an XDP specific queue.\n\nThis patch solves a bug in which, in case of a VF reset, the\ndescriptors aren't freed correctly, leading to crashes.",
+					"text": "This is a vulnerability in the Linux kernel's Elastic Network Adapter (ENA) driver, which manages network interfaces on certain platforms. The driver utilizes two types of transmit (TX) queues: one for packets from the network stack and another for packets directed by XDP (eXpress Data Path) operations. The function ena_free_tx_bufs() is responsible for unmapping and freeing descriptors of uncompleted TX transactions. However, it incorrectly assumes that all TX queues handle packets from the network stack, leading to improper handling of descriptors in XDP-specific queues. This mismanagement can result in descriptors not being freed correctly, potentially causing system crashes, especially during a Virtual Function (VF) reset. The issue has been resolved by updating the driver to correctly differentiate between the two types of TX queues, ensuring proper descriptor management. Users are advised to update their Linux kernel to a version that includes this fix to maintain system stability.",
 					"title": "Vulnerability description"
 				},
 				{
@@ -50721,7 +50721,7 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "The following vulnerability has been resolved in the Linux kernel: net/mlx5: Properly link new fs rules into the tree.",
+					"text": "CVE-2024-35960 is a vulnerability in the Linux kernel's Mellanox MLX5 driver that affects flow steering rule handling. When identical rules are created and referenced multiple times, they can fail to properly link into the rule tree, leaving them uninitialized. This can cause system crashes during rule deletion due to invalid references. The issue has been fixed by ensuring all newly created rules are properly initialized and linked. Updating to a patched kernel version resolves the problem and ensures system stability.",
 					"title": "Vulnerability description"
 				},
 				{
