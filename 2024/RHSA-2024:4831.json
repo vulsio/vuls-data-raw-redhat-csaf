@@ -287,9 +287,9 @@
 		],
 		"title": "Red Hat Security Advisory: kernel-rt security update",
 		"tracking": {
-			"current_release_date": "2024-12-12T09:57:04+00:00",
+			"current_release_date": "2024-12-18T03:18:40+00:00",
 			"generator": {
-				"date": "2024-12-12T09:57:04+00:00",
+				"date": "2024-12-18T03:18:40+00:00",
 				"engine": {
 					"name": "Red Hat SDEngine",
 					"version": "4.2.3"
@@ -309,7 +309,7 @@
 					"summary": "Last updated version"
 				},
 				{
-					"date": "2024-12-12T09:57:04+00:00",
+					"date": "2024-12-18T03:18:40+00:00",
 					"number": "3",
 					"summary": "Last generated version"
 				}
@@ -10914,6 +10914,10 @@
 		},
 		{
 			"cve": "CVE-2024-36978",
+			"cwe": {
+				"id": "CWE-787",
+				"name": "Out-of-bounds Write"
+			},
 			"discovery_date": "2024-06-19T00:00:00+00:00",
 			"ids": [
 				{
@@ -10924,13 +10928,18 @@
 			"notes": [
 				{
 					"category": "description",
-					"text": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: sched: sch_multiq: fix possible OOB write in multiq_tune()\n\nq->bands will be assigned to qopt->bands to execute subsequent code logic\nafter kmalloc. So the old q->bands should not be used in kmalloc.\nOtherwise, an out-of-bounds write will occur.",
+					"text": "An out-of-bounds write flaw was found in the Linux kernel's multiq qdisc functionality. This vulnerability allows a local user to crash or potentially escalate their privileges on the system.",
 					"title": "Vulnerability description"
 				},
 				{
 					"category": "summary",
 					"text": "kernel: net: sched: sch_multiq: fix possible OOB write in multiq_tune()",
 					"title": "Vulnerability summary"
+				},
+				{
+					"category": "other",
+					"text": "This issue is for a specific configuration when the multiq of qdisc is being used. It is not easy to trigger unless the user is privileged because, apart from enabling this specific configuration, some complex conditions have to happen.",
+					"title": "Statement"
 				},
 				{
 					"category": "general",
@@ -11052,22 +11061,64 @@
 						"category": "none"
 					},
 					"url": "https://access.redhat.com/errata/RHSA-2024:4831"
+				},
+				{
+					"category": "workaround",
+					"details": "To mitigate this issue, prevent module sch_multiq from being loaded. Please see https://access.redhat.com/solutions/41278 for how to blacklist a kernel module to prevent it from loading automatically.",
+					"product_ids": [
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.src",
+						"NFV-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"NFV-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.src",
+						"RT-9.2.0.Z.EUS:kernel-rt-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debug-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-debuginfo-common-x86_64-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-devel-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-kvm-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-core-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64",
+						"RT-9.2.0.Z.EUS:kernel-rt-modules-extra-0:5.14.0-284.75.1.rt14.360.el9_2.x86_64"
+					]
 				}
 			],
 			"scores": [
 				{
 					"cvss_v3": {
-						"attackComplexity": "LOW",
+						"attackComplexity": "HIGH",
 						"attackVector": "LOCAL",
 						"availabilityImpact": "HIGH",
-						"baseScore": 5.5,
-						"baseSeverity": "MEDIUM",
-						"confidentialityImpact": "NONE",
-						"integrityImpact": "NONE",
+						"baseScore": 7,
+						"baseSeverity": "HIGH",
+						"confidentialityImpact": "HIGH",
+						"integrityImpact": "HIGH",
 						"privilegesRequired": "LOW",
 						"scope": "UNCHANGED",
 						"userInteraction": "NONE",
-						"vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+						"vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
 						"version": "3.1"
 					},
 					"products": [
